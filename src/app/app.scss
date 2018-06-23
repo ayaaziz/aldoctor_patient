@@ -14,3 +14,27 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.tabs-md .tab-button[aria-selected=true] .tab-button-icon {
+    color: #016a38 !important;
+    -webkit-transform: translate3d(0, -2px, 0);
+    transform: translate3d(0, -2px, 0);
+}
+.image {
+    height: 5vw; 
+    width: 5vw; 
+   border: 2px solid #fff;
+   border-radius: 50%;
+   display: inline-block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.circle-pic{
+    width: 102px;
+    height: 108px;
+   -webkit-border-radius: 50%;
+   border-radius: 50%;
+   text-align: center;
+   margin-top: 20px;
+}

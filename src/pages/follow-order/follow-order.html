@@ -1,0 +1,70 @@
+<ion-header>
+
+  <ion-navbar>
+    
+    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"followOrder" | translate}} </ion-title>
+    <ion-title *ngIf="langDirection != 'rtl'">{{"followOrder" | translate}} </ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div #map id="map"></div>
+
+  <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;">{{"accepted"|translate}} {{doctorName}} </h5>
+  <h5 style="color:grey;" *ngIf="langDirection != 'rtl'" >{{"accepted"|translate}} {{doctorName}} </h5>
+
+  <ion-row *ngIf="langDirection == 'rtl'" style="margin:0px;">
+    <ion-col style="text-align:right" col-4 col-sm-3 col-md-2>
+        <img src="assets/icon/specialist.png" style="width:20px;height:20px;">
+        <h6 style="color:rgb(192, 189, 189);display: inline;">{{doctorSpecialization}}</h6>
+
+    </ion-col>
+    <ion-col style="text-align:right" col-8 col-sm-9 col-md-10>
+        <rating 
+        [(ngModel)]="doctorRate" 
+        readOnly="true" 
+        max="5" 
+        emptyStarIconName="star-outline"
+        halfStarIconName="star-half" 
+        starIconName="star" 
+        nullable="false" 
+        ></rating>
+    </ion-col>
+  </ion-row>
+  <ion-row *ngIf="langDirection != 'rtl'">
+      <ion-col style="padding-left: 15px;" col-4 col-sm-3 col-md-2>
+          <img src="assets/icon/specialist.png" style="width:20px;height:20px;">
+          <h6 style="color:rgb(192, 189, 189);display: inline;">{{doctorSpecialization}}</h6>
+  
+      </ion-col>
+      <ion-col col-8 col-sm-9 col-md-10>
+          <rating 
+          [(ngModel)]="doctorRate" 
+          readOnly="true" 
+          max="5" 
+          emptyStarIconName="star-outline"
+          halfStarIconName="star-half" 
+          starIconName="star" 
+          nullable="false" 
+          ></rating>
+      </ion-col>
+    </ion-row>
+  
+ 
+  <h5 *ngIf="langDirection == 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;text-align: right;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
+  <h5 *ngIf="langDirection != 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
+
+  <h5 *ngIf="langDirection == 'rtl'" style="color:grey;text-align: right;">{{"arrivaltime" | translate}}</h5>
+  <h5 *ngIf="langDirection != 'rtl'" style="color:grey;">{{"arrivaltime" | translate}}</h5>
+
+  <ion-item style="text-align:center;" no-lines>
+  <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="cancelOrder()"> {{"cancelOrder" | translate}}</button>  
+</ion-item>
+  
+  
+
+</ion-content>
+

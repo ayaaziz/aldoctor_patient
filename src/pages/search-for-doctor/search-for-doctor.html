@@ -1,0 +1,42 @@
+<ion-header>
+
+  <ion-navbar>
+
+      <!-- <button ion-button menuToggle  >
+          <ion-icon name="more" ></ion-icon>
+        </button> -->
+ 
+
+    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"searchForDoctor" | translate}}</ion-title>
+    <ion-title *ngIf="langDirection != 'rtl'">{{"searchForDoctor" | translate}}</ion-title>
+         <!-- <ion-buttons right>
+            <button ion-button icon-only (click)="viewCtrl.dismiss()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </button>
+        </ion-buttons> -->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div id="map-wrapper">
+
+  <div #map id="map"></div>
+  <div id="button-wrapper">
+
+  <ion-item style="text-align:center;" no-lines >
+      <!-- style="font-family: 'Cairo Black'" -->
+    <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="searchBySpecializations()"> {{"searchBySpecializations" | translate}}</button>  
+  </ion-item>
+
+  <ion-item  style="text-align:center;" no-lines>
+    <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="searchBySpecificDoctor()"> {{"searchBySpecificDoctor" | translate}}</button>  
+  </ion-item>
+  </div>
+  </div>
+  
+ <!-- <button (click)="geoLoc()">getloc</button> -->
+
+</ion-content>

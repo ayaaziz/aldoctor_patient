@@ -1,0 +1,34 @@
+page-orderhistory {
+    ul {
+        padding: 0px;
+      
+        &.rating li {
+          padding: 0px 1px !important;
+          background: none;
+          color: rgb(8, 129, 8);
+          
+          ion-icon {
+            font-size: 20px;
+          }
+        }
+      }
+
+      .col{
+        padding:1px;
+      }
+      .customItem3{
+        -webkit-flex: 0 0 60px;
+        -ms-flex: 0 0 60px;
+        flex: 0 0 60px !important;
+        width: 60px !important;
+        min-width: 60px !important;
+        max-width: 60px !important;
+
+      }
+      img,h3{
+   
+        *width:50px;
+        display: inline;
+      }
+
+}

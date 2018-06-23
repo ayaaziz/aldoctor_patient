@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar>
+    <!-- <ion-title>{{name}}</ion-title> -->
+    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{name}}</ion-title>
+    <ion-title *ngIf="langDirection != 'rtl'">{{name}}</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div class="center">
+        <img [src]="image" id="profileImg" >  
+    </div>
+    <p class="center" style="color:gray;font-size: 16px;padding-top:0px;margin-bottom:0px;">{{name}}</p>
+    <p class="center" style="color:gray;font-size: 16px;padding-top:0px;margin-bottom:0px;">{{specialization}}</p>
+    <div class="center" style="border-bottom: 2px solid #e8f1ed;">
+    <rating 
+    [(ngModel)]="rate" 
+    readOnly="true" 
+    max="5" 
+    emptyStarIconName="star-outline"
+    halfStarIconName="star-half" 
+    starIconName="star" 
+    nullable="false" 
+    ></rating>
+  </div>
+  <ion-item no-lines >
+      <ion-label  *ngIf="langDirection == 'rtl'" class="right" > 
+          <img src="assets/icon/servicegreen.png" class="customIcon"> 
+        <p style="color:gray;font-size: 16px;display: inline;">{{"ProvidedServices" | translate}}</p>
+        
+      </ion-label>
+
+      <ion-label  *ngIf="langDirection != 'rtl'" >
+        
+        <p style="color:gray;font-size: 16px;display: inline;">{{"ProvidedServices" | translate}}</p> 
+        <img src="assets/icon/servicegreen.png" class="customIcon" > 
+      </ion-label>
+  </ion-item>
+
+
+  <ion-label  *ngFor="let item of services" class="services" style="color:gray;font-size: 16px;" >
+      <p *ngIf="langDirection != 'rtl'">{{item}}</p>
+  </ion-label>
+
+  <ion-label *ngFor="let item of services" class="services right" style="color:gray;font-size: 16px;" >
+      <p  *ngIf="langDirection == 'rtl'">{{item}}</p>
+  </ion-label>
+  
+  
+</ion-content>

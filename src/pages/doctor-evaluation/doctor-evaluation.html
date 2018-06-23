@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="more"></ion-icon>
+    </button>
+    <ion-title>{{"Doctor Evaluation" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+
+
+<ion-content padding>
+    <p class="center">
+      <img src="assets/imgs/avatar-ts-jessie.png">
+    <ion-label>{{doctorName}}</ion-label> 
+    <rating [(ngModel)]="rate" 
+      readOnly="false" 
+      max="5" 
+      emptyStarIconName="star-outline"
+      halfStarIconName="star-half" 
+      starIconName="star" 
+      nullable="false" 
+      (ngModelChange)="onModelChange($event)" 
+      ></rating>
+    </p>
+
+    <div class="form-group">
+        <textarea class="form-control" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>
+      </div>
+      
+    <ion-item style="text-align:center;" no-lines>
+
+        <button type="button"   class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black'" (click)="sendEvaluation()"> {{"ok" | translate}}</button>  
+      </ion-item>
+
+  
+
+</ion-content>

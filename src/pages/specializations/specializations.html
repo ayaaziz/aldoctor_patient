@@ -1,0 +1,33 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="more"></ion-icon>
+    </button>
+    <ion-title>{{"Specializations" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+  <ion-grid >
+    <ion-row *ngFor="let item of specializations1">
+
+      <ion-col>
+        <img [src]="item.image">
+      </ion-col>
+
+      <ion-col>
+        <img [src]="item.image">
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
+
+</ion-content>

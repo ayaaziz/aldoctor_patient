@@ -86,3 +86,11 @@ $colors: (
 
 @import "roboto";
 @import "noto-sans";
+@import "bootstrap";
+
+$checkbox-md-icon-background-color-on: #fff;
+$checkbox-md-icon-border-color-on: #ccc9c9;
+$checkbox-md-icon-border-color-off: #ccc9c9;
+$checkbox-md-icon-checkmark-color: green;
+$checkbox-md-icon-size: 20px;
+$checkbox-md-icon-checkmark-width: 2px;

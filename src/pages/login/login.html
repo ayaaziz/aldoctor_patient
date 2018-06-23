@@ -1,0 +1,56 @@
+<ion-content padding style="font-family: 'Cairo-Regular'; background-color: #ffffff"  class="{{langDirection}}" >
+   
+  <img src="assets/imgs/login.png" (click)="changelang()" style="margin-bottom: 100px;"/>
+    
+  <div class="text-center">
+    <img src="assets/imgs/dlogo.png" class="rounded mx-auto d-block" >
+</div>
+<br>
+<br>
+<form [formGroup]="loginForm">
+
+
+  <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.email.valid && submitAttempt">
+    <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="30"></ion-label>
+    <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="اسم المستخدم"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+    type="text"></ion-input>
+    <ion-input *ngIf="langDirection != 'rtl'" placeholder="Username"    style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+type="text"></ion-input>
+</ion-item>
+<ion-item *ngIf="!loginForm.controls.email.valid && submitAttempt" no-lines>
+<p> {{"enterLoginName" | translate}} </p>
+</ion-item>
+<br>
+ <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.password.valid && submitAttempt">
+      <ion-label><img src="assets/icon/pass.png" style="margin: 0 2px;" height="25" width="30"></ion-label>
+      <ion-input *ngIf="langDirection != 'rtl'" placeholder="Password"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
+      type="password"></ion-input>
+      <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="كلمة المرور"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
+      type="password"></ion-input>
+   
+ </ion-item>
+
+  <ion-item *ngIf="!loginForm.controls.password.valid && submitAttempt" no-lines>
+    <p>{{"enterPassword" | translate}}</p>
+  </ion-item>
+  <br>
+  <small class="passwordHelpBlock " class="form-text text-muted" style="font-family: 'Cairo Black';font-size:16px">
+   {{"forgetPassword" | translate}}
+    </small>
+
+    
+  <ion-item id="btnSignIn" style="text-align:center;" no-lines>
+
+    <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black'" (click)="loginToApp()"> {{"Login" | translate}}</button>  
+  </ion-item>
+ 
+  <div class="text-center">
+    <small class="text-muted " (click)="register()" style="font-family: 'Cairo Black';font-size:16px">
+    {{"SignUp" | translate}}
+     </small>
+    </div>
+    
+</form>
+</ion-content>
+
+

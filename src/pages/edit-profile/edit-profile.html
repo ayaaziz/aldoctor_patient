@@ -1,0 +1,127 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{"editProfile" | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <form [formGroup]="patientRegisterForm" [hidden]="first">
+        <!-- style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;margin-bottom: 15px;" -->
+        <ion-item  [class.invalid]="!patientRegisterForm.controls.firstname.valid && submitAttempt">
+            <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+            <ion-input *ngIf="langDirection != 'rtl'" placeholder="First Name"   style="border-radius: 2px;padding: 0px;" formControlName="firstname" [(ngModel)]="firstname"
+            type="text"></ion-input>
+            <ion-input *ngIf="langDirection == 'rtl'"  class="right"  placeholder="الاسم الاول"    style="border-radius: 2px;padding: 0px;" formControlName="firstname" [(ngModel)]="firstname"
+            type="text"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="!patientRegisterForm.controls.firstname.valid && submitAttempt" no-lines>
+            <p> {{"enterFirstName" | translate}} </p>
+        </ion-item>
+    
+     <ion-item [class.invalid]="!patientRegisterForm.controls.secondname.valid && submitAttempt">
+        <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+        <ion-input *ngIf="langDirection != 'rtl'" placeholder="Second Name"   style="border-radius: 2px;padding: 0px;" formControlName="secondname" [(ngModel)]="secondname"
+        type="text"></ion-input>
+        <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="الاسم الثاني"    style="border-radius: 2px;padding: 0px;" formControlName="secondname" [(ngModel)]="secondname"
+    type="text"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!patientRegisterForm.controls.secondname.valid && submitAttempt" no-lines>
+    <p> {{"enterSecondName" | translate}} </p>
+    </ion-item>
+    
+    <ion-item [class.invalid]="!patientRegisterForm.controls.surname.valid && submitAttempt">
+    <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+    <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="الجد أو اللقب"   style="border-radius: 2px;padding: 0px;" formControlName="surname" [(ngModel)]="surname"
+    type="text"></ion-input>
+    <ion-input *ngIf="langDirection != 'rtl'" placeholder="Grandpa or Surname"    style="border-radius: 2px;padding: 0px;" formControlName="surname" [(ngModel)]="surname"
+    type="text"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!patientRegisterForm.controls.surname.valid && submitAttempt" no-lines>
+    <p> {{"enterSurnameName" | translate}} </p>
+    </ion-item>
+    
+    <ion-item [class.invalid]="!patientRegisterForm.controls.phone.valid && submitAttempt">
+    <ion-label><img src="assets/icon/mob.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+    <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="رقم الهاتف"   style="border-radius: 2px;padding: 0px;" formControlName="phone" [(ngModel)]="phone"
+    type="tel"></ion-input>
+    <ion-input *ngIf="langDirection != 'rtl'" placeholder="phone"    style="border-radius: 2px;padding: 0px;" formControlName="phone" [(ngModel)]="phone"
+    type="tel"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!patientRegisterForm.controls.phone.valid && submitAttempt" no-lines>
+    <!-- <p> {{"enterPhone" | translate}} </p> -->
+    <p>{{phoneErrMsg}}</p>
+    </ion-item>
+
+<ion-item [class.invalid]="!patientRegisterForm.controls.email.valid && submitAttempt">
+    <ion-label><img src="assets/icon/mail.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+    <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="البريد الالكتروني"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+    type="text"></ion-input>
+    <ion-input *ngIf="langDirection != 'rtl'" placeholder="Email"    style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+type="text"></ion-input>
+</ion-item>
+<ion-item *ngIf="!patientRegisterForm.controls.email.valid && submitAttempt" no-lines>
+<p> {{"enterEmail" | translate}} </p>
+</ion-item>
+
+
+    <ion-item>
+        <ion-label floating><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Country" | translate}}</ion-label>
+        <ion-select [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
+        [(ngModel)]="country" >
+        <ion-option value="{{item.name}}" *ngFor="let item of countries" (ionSelect)='countryChecked()' >{{item.name}}</ion-option>
+        <!-- <ion-option value="alex">{{"Alex" | translate}}</ion-option>  -->
+        </ion-select>
+        </ion-item>
+        <ion-item *ngIf="!patientRegisterForm.controls.country.valid && submitAttempt" no-lines>
+        <p> {{"selectCountry" | translate}} </p>
+        </ion-item>
+    
+    
+    
+        <ion-item >
+        <ion-label floating><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
+        <ion-select [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" formControlName="city" interface="popover"
+        [(ngModel)]="city">
+        <ion-option value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
+        <!-- <ion-option value="city2">{{"any city" | translate}}</ion-option>  -->
+        </ion-select>
+        </ion-item>
+        <ion-item *ngIf="!patientRegisterForm.controls.city.valid && submitAttempt" no-lines>
+        <p> {{"selectCity" | translate}} </p>
+        </ion-item>
+        
+            <br>
+            <ion-item [class.invalid]="!patientRegisterForm.controls.address.valid && submitAttempt">
+                <ion-label><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+                <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="العنوان"   style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
+                type="tel"></ion-input>
+                <ion-input *ngIf="langDirection != 'rtl'" placeholder="address"    style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
+                type="tel"></ion-input>
+                </ion-item>
+                <ion-item *ngIf="!patientRegisterForm.controls.address.valid && submitAttempt" no-lines>
+                <p> {{"enterAddress" | translate}} </p>
+                </ion-item>
+    
+
+                <ion-item>
+                    <ion-label floating><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
+                    
+                    <ion-datetime [class.invalid]="!patientRegisterForm.controls.birthdate.valid && submitAttempt" formControlName="birthdate" displayFormat="MM/DD/YYYY"
+                            [(ngModel)]="birthdate" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}"></ion-datetime>
+                    </ion-item>
+                    <ion-item *ngIf="!patientRegisterForm.controls.birthdate.valid && submitAttempt" no-lines>
+                    <p> {{"enterDOB" | translate}} </p>
+                    </ion-item>
+                    
+                    
+                    <ion-item id="btnSignIn" style="text-align:center;" no-lines>
+
+                        <button type="button"   class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black'" (click)="editUser()"> {{"Edit" | translate}}</button>  
+                      </ion-item>
+                    </form>
+
+</ion-content>

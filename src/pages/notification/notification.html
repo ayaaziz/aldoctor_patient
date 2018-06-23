@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="more"></ion-icon>
+    </button>
+    
+    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"notification" | translate }}</ion-title>
+    <ion-title *ngIf="langDirection != 'rtl'">{{"notification" | translate }} </ion-title>
+
+  </ion-navbar>
+</ion-header>
+ 
+<ion-content padding>
+    <!-- <ion-card *ngFor="let item of data">
+
+        <ion-card-content>
+          
+            <h2>{{item.title}}</h2>
+            <p>{{item.time}}</p>
+        </ion-card-content>
+      
+      </ion-card> -->
+
+      <ion-item *ngFor="let item of data">
+     
+          <h2>{{item.title}}</h2>
+          <p>{{item.time}}</p>
+        </ion-item>
+
+</ion-content>

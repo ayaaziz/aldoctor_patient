@@ -1,17 +1,68 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <button ion-button menuToggle  >
+      <ion-icon name="more" ></ion-icon>
+    </button>
+    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"Home" | translate}} </ion-title>
+    <ion-title *ngIf="langDirection != 'rtl'">{{"Home" | translate}} </ion-title>
   </ion-navbar>
 </ion-header>
+ 
+<ion-content style="text-align: center;">
+  <!-- <br>
+<div align="center" style="width:100%;text-align: center">
+    <div class="homediv" (click)="orderDoctor()">
+    <ion-icon ios="md-person" md="md-person" style="color:#016a38;text-align: center;font-size:60px"></ion-icon>
+    <h3 style="color:gray;margin-top: 0px;font-size: 2.1rem"> {{"doctor" | translate}}</h3>
+  </div>
+</div>
+<br>
+<div style="width:100%;text-align: center">
+    <div class="homediv" (click)="follow()">
+    <ion-icon ios="md-person" md="md-person" style="color:#016a38;text-align: center;font-size:60px"></ion-icon>
+    <h3 style="color:gray;margin-top: 0px;font-size: 2rem"> {{"pharmacy" | translate}}</h3>
+  </div>
+</div>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<br>
+<div style="width:100%;text-align: center">
+    <div class="homediv">
+    <ion-icon ios="md-person" md="md-person" style="color:#016a38;text-align: center;font-size:60px"></ion-icon>
+    <h3 style="color:gray;margin-top: 0px;font-size: 2rem">  {{"lap" | translate}}</h3>
+  </div>
+</div>
+
+<br>
+<div style="width:100%;text-align: center">
+    <div class="homediv">
+    <ion-icon ios="md-person" md="md-person" style="color:#016a38;text-align: center;font-size:60px"></ion-icon>
+    <h3 style="color:gray;margin-top: 0px;font-size: 2rem">  {{"center" |translate}}</h3>
+  </div>
+
+</div> -->
+
+<div>
+  
+  <div class="center x" (click)="orderDoctor()" >
+      <img src="assets/icon/specialist.png">
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 18px" class="center">{{"askfordoctor" | translate}}</p>
+
+  </div>
+
+  <div class="center x" >
+      <img src="assets/icon/specialist.png">
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 18px" class="center">{{"pharmacy" | translate}}</p>
+
+  </div>
+  <div class="center x" >
+      <img src="assets/icon/specialist.png">
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 18px" class="center">{{"lap" | translate}}</p>
+
+  </div>
+  <div class="center x" >
+      <img src="assets/icon/specialist.png">
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 18px" class="center">{{"center" |translate}}</p>
+
+  </div>
+</div>
 </ion-content>

@@ -1,0 +1,183 @@
+page-specific-doctor {
+    //   input:focus {
+    //     background-color: yellow;
+    // }
+    ion-searchbar.right {
+      text-align: right;
+    
+      ::placeholder {
+       
+        text-align: right;
+      }
+    }
+      .item-md{
+        padding-left: 5px;
+      }
+      .label-md{
+        margin: 0px;
+      }
+      img,h3{
+       
+        *width:50px;
+        display: inline;
+      }
+      .customItem {
+            -webkit-flex: 0 0 150px;
+            -ms-flex: 0 0 150px;
+            flex: 0 0 150px !important;
+            width: 150px !important;
+            min-width: 150px !important;
+            max-width: 150px !important;
+            
+          }
+          .customItem2{
+            -webkit-flex: 0 0 140px;
+            -ms-flex: 0 0 140px;
+            flex: 0 0 140px !important;
+            width: 140px !important;
+            min-width: 140px !important;
+            max-width: 140px !important;
+    
+          }
+          .customItem3{
+            -webkit-flex: 0 0 60px;
+            -ms-flex: 0 0 60px;
+            flex: 0 0 60px !important;
+            width: 60px !important;
+            min-width: 60px !important;
+            max-width: 60px !important;
+    
+          }
+          .customItem4{
+            -webkit-flex: 0 0 40px;
+            -ms-flex: 0 0 40px;
+            flex: 0 0 40px !important;
+            width: 40px !important;
+            min-width: 40px !important;
+            max-width: 40px !important;
+    
+          }
+          .customItem5{
+            -webkit-flex: 0 0 25px;
+            -ms-flex: 0 0 25px;
+            flex: 0 0 25px !important;
+            width: 25px !important;
+            min-width: 25px !important;
+            max-width: 25px !important;
+    
+          }
+          .customItem6{
+            -webkit-flex: 0 0 110px;
+            -ms-flex: 0 0 110px;
+            flex: 0 0 110px !important;
+            width: 110px !important;
+            min-width: 110px !important;
+            max-width: 110px !important;
+    
+          }
+    
+    
+        ul {
+            padding: 0px;
+          
+            &.rating li {
+              padding: 0px 1px !important;
+              background: none;
+              color: rgb(8, 129, 8);
+              
+              ion-icon {
+                font-size: 20px;
+              }
+            }
+          }
+    
+        input{
+            border:2px solid  #ccc9c9;
+            
+            *box-shadow:         3px 3px 5px 6px #ccc;
+        }
+        .btn-primary {
+            color: #fff;
+            background-color: #016a38;
+            border-color: #016a38;
+            width:70%;
+        }
+        
+       #exampleFormControlSelect1
+       {
+            select option[selected]{
+                color: rgba(1, 106, 56, 0.27);
+            }
+    
+       }
+      
+          .btn-primary:focus {
+            -webkit-box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+            box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+        }
+          .btn-primary:hover {
+            color: #fff;
+            background-color: #016a38;
+            border-color: #016a38;
+        }
+          .btn-primary:not(:disabled):not(.disabled):active{
+            color: #fff;
+            background-color: #016a38 !important;
+            border-color: #016a38 !important;
+        }
+    
+        .searchbar-search-icon {
+            *background-image: url("../assets/icon/search.png") !important;
+            background-image: url("") !important;
+            *margin-left: 100px;
+    
+            
+        }
+    
+        .select-icon {
+          visibility: hidden;
+        }
+        .searchbar-clear-icon{
+          background-image: url("") !important;
+        }
+    
+        .searchbar-md .searchbar-input {
+            background: #e8f1ed;
+            display: inline;
+            color:green;
+            padding: 0px;
+            padding-left:20px; 
+            margin: 0px;
+            box-shadow: none;
+          
+        }
+    
+        .selector {
+          *font-family: SFNSDisplay;
+          *font-size: 12px;
+          *line-height: 1.2;
+          *letter-spacing: 0.1px;
+          *color: #29235e;
+          width: 100% !important;
+          max-width: 100% !important;
+          *justify-content: center;
+          *border: solid 2px #e8ebf0;
+          *background-color: #ffffff;
+          *text-align: center;
+        }
+        // .option {
+        //   font-family: SFNSDisplay;
+        //   font-size: 8px;
+        //   line-height: 1.2;
+        //   letter-spacing: 0.1px;
+        //   color: #29235e;
+        //   width: 100% !important;
+        //   max-width: 100% !important;
+        //   justify-content: center;
+        //   height: 20px;
+        // }
+        
+    
+    
+    }
+    
