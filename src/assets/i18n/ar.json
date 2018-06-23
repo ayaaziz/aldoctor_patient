@@ -179,6 +179,10 @@
       "Avatar":"الصورة الشخصية",
       "Profile":"الصفحة الشخصية",
       "ordersent":"تم ارسال طلبك",
-      "orderCancled":"تم الغاء طلبك"
+      "orderCancled":"تم الغاء طلبك",
+      "accessLocation":"تحديد موقعك",
+      "msgAccessLocation":"هل تسمح لهذا التطبيق بتحديد إلى موقعك؟",
+      "agree":"موافق",
+      "disagree":"الغاء"
 
 }

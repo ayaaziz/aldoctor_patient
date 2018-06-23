@@ -46,17 +46,30 @@ export class SearchForDoctorPage {
     this.test();
     //this.geoLoc();
     this.initMap();
-    this.getUserLocation();
+    //this.getUserLocation();
     //  this.getDoctorsLocation();
 
 }
 test(){
   this.diagnostic.isGpsLocationEnabled().then(
     a=>{
-      this.presentToast("location on");
+      //this.presentToast("location on");
+      console.log("from gps opened resp",a);
+      if(a)
+      {
+       this.presentToast("location on");
+      this.getUserLocation();
+      }
+      else
+      {
+        this.presentToast("location off");
+        this.presentConfirm();        
+        
+      }
     }
   ).catch(
     a=>{
+      console.log("from gps opened err",a);
       this.presentToast("can't get location ");
       this.diagnostic.switchToLocationSettings();
     }
@@ -67,6 +80,31 @@ test(){
 
   //this.diagnostic.isGpsLocationAvailable().then(this.gpslocationsuccessCallback).catch(this.gpslocationerrorCallback);
 }
+presentConfirm() {
+  let alert = this.alertCtrl.create({
+    title: this.translate.instant("accessLocation"),
+    message: this.translate.instant("msgAccessLocation"),
+    buttons: [
+      {
+        text: this.translate.instant("disagree"),
+        role: 'cancel',
+        handler: () => {
+          console.log('disagree clicked');
+        }
+      },
+      {
+        text: this.translate.instant("agree"),
+        handler: () => {
+          console.log('agree clicked');
+          this.diagnostic.switchToLocationSettings();
+          this.getUserLocation();
+        }
+      }
+    ]
+  });
+  alert.present();
+}
+
 gpslocationsuccessCallback(){
   this.presentToast("from get loc su");
 
@@ -86,9 +124,10 @@ getUserLocation(){
       
     }).catch((error) => {
       console.log('Error getting location', error);
-      this.presentToast(this.translate.instant("openGPS"));
-      this.getUserLocation();
+      
+      //this.getUserLocation();
       this.initMap();
+      //this.test();
       
     });
 }

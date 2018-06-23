@@ -36,6 +36,7 @@ export class DoctorProfilePage {
     this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
     this.services = this.doctorProfile.extraInfo.SpecialityServices;
+    this.services = ["any thing","any thing","any thing"];
   }
 
   ionViewDidLoad() {

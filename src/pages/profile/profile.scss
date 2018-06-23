@@ -41,11 +41,17 @@ page-profile {
     .center{
         text-align: center;
     }
-    .customposition{
+    .custompositionright{
         width:40px;
         position: relative;
         top:-20px;
         right:calc(50% - 50px);
+    }
+    .custompositionleft{
+        width:40px;
+        position: relative;
+        top:-20px;
+        left:calc(50% + 10px);
     }
     .position{
         position: absolute;

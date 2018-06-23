@@ -178,7 +178,11 @@
       "Avatar":"Avatar",
       "Profile":"Profile",
       "ordersent":"Your order already sent",
-      "orderCancled":"Your order is canceled"
+      "orderCancled":"Your order is canceled",
+      "accessLocation":"Access Your Location",
+      "msgAccessLocation":"Do you allow this App to access your location?",
+      "agree":"Agree",
+      "disagree":"Disagree"
 
       
 
