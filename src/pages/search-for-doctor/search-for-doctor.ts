@@ -15,6 +15,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { TranslateService } from '@ngx-translate/core';
 import { TabsPage } from '../tabs/tabs';
 
+
 @IonicPage({
   name:'search-for-doctor'
 })
@@ -212,8 +213,8 @@ getDoctorsLocation(){
 
   dismiss(){
     console.log("dismiss");
-    this.navCtrl.pop();
-    
+    //this.navCtrl.pop();
+    this.navCtrl.setRoot(TabsPage);
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({

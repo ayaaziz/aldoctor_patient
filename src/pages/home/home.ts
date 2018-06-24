@@ -3,6 +3,7 @@ import { NavController , ToastController, Platform} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
+import { SpecializationsPage } from '../specializations/specializations';
 //import { CancelorderPage } from '../cancelorder/cancelorder';
 //import { FolloworderPage } from '../followorder/followorder';
 
@@ -55,6 +56,9 @@ export class HomePage {
   orderDoctor(){
   
     this.navCtrl.push('search-for-doctor');
+  }
+  sp(){
+    this.navCtrl.push(SpecializationsPage);
   }
   // follow()
   // {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HelperProvider } from '../../providers/helper/helper';
 
 
 @IonicPage(
@@ -14,7 +15,11 @@ export class SpecializationsPage {
   specializations1;
   specializations2;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  langDirection;
+
+  constructor(public helper:HelperProvider,public navCtrl: NavController,
+     public navParams: NavParams) {
+      this.langDirection = this.helper.lang_direction;
   }
 
   ionViewDidLoad() {
@@ -51,6 +56,10 @@ export class SpecializationsPage {
         return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
+  }
+
+  dismiss(){
+    this.navCtrl.pop();
   }
 
 }
