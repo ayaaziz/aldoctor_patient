@@ -1,7 +1,20 @@
 <ion-header>
 
-  <ion-navbar>
-    
+  <ion-navbar hideBackButton>
+      <ion-buttons *ngIf="langDirection == 'rtl'"  right>
+          <button ion-button  (click)="dismiss()">
+              <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+              <!-- <ion-icon name="arrow-back"></ion-icon> 
+              -->
+          </button>
+      </ion-buttons>
+
+      <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+        </button>
+    </ion-buttons>
+
     <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"followOrder" | translate}} </ion-title>
     <ion-title *ngIf="langDirection != 'rtl'">{{"followOrder" | translate}} </ion-title>
 

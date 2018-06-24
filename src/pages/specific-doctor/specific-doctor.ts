@@ -201,5 +201,9 @@ export class SpecificDoctorPage {
     });
     toast.present();
   }
+
+  dismiss(){
+    this.navCtrl.pop();
+  }
   
 }

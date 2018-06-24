@@ -96,4 +96,8 @@ export class CancelOrderPage {
       toast.present();
     }
 
+    dismiss(){
+      this.navCtrl.pop();
+    }
+
 }

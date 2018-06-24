@@ -23,8 +23,11 @@ export class OrderDoctorPage {
   langDirection;
 
   
-  first=5;
- 
+  first;
+  second;
+  third;
+  fourth
+  last;
   // DoctorsArray=[{"name":"ali","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
   // {"name":"mohamed","cost":"300","rate":"2.5","specialization":"specialization2","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
   // {"name":"ahmed","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/avatar-ts-jessie.png"}];
@@ -125,6 +128,7 @@ export class OrderDoctorPage {
   }
   sendOrder(){
     console.log("first: ",this.first);
+    console.log("second: ",this.second);
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
     if(this.choosenDoctors.length > 3 )
@@ -163,6 +167,21 @@ export class OrderDoctorPage {
     });
   }
 
+  validate(){
+    console.log("validation") ;
+    var code = this.first+this.second+this.third+this.fourth+this.last;
+    this.service.validateDiscountCode(this.accessToken,code).subscribe(
+      resp =>{
+        console.log("resp from validateDiscountCode: ",resp);
+      },
+      err=>{
+        console.log("err from validateDiscountCode: ",err);
+      }
+    );
+  }
+  dismiss(){
+    this.navCtrl.pop();
+  }
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,

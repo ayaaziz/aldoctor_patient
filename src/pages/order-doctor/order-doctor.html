@@ -1,7 +1,21 @@
 
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar hideBackButton>
+
+      <ion-buttons *ngIf="langDirection == 'rtl'"  right>
+          <button ion-button  (click)="dismiss()">
+              <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+              <!-- <ion-icon name="arrow-back"></ion-icon> 
+              -->
+          </button>
+      </ion-buttons>
+
+      <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+        </button>
+    </ion-buttons>
 
     <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"order Doctor" | translate}}</ion-title>
     <ion-title *ngIf="langDirection != 'rtl'" >{{"order Doctor" | translate}}</ion-title>
@@ -92,19 +106,19 @@
   </ion-col>
   
   <ion-col col-6 col-sm-9 col-md-10 *ngIf="langDirection == 'rtl'"  style="text-align:right;padding-top:15px;" >
-      <input type="text" maxlength="1" style="width:20px;">
-      <input type="text" maxlength="1" style="width:20px;">
-      <input type="text" maxlength="1" style="width:20px;">
-      <input type="text" maxlength="1" style="width:20px;">
-      <input type="text" maxlength="1" style="width:20px;">
+      <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first" >
+      <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
+      <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third">
+      <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="fourth">
+      <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="last" (change)="validate()" >
 
   </ion-col>
   <ion-col col-6 col-sm-9 col-md-10 *ngIf="langDirection != 'rtl'" style="text-align:left;padding-top:15px;" >
-    <input type="text" maxlength="1" style="width:20px;">
-    <input type="text" maxlength="1" style="width:20px;">
-    <input type="text" maxlength="1" style="width:20px;">
-    <input type="text" maxlength="1" style="width:20px;">
-    <input type="text" maxlength="1" style="width:20px;">
+    <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first">
+    <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
+    <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third" >
+    <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="fourth" >
+    <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="last" (change)="validate()">
 
 </ion-col>
 

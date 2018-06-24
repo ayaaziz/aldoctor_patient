@@ -41,6 +41,15 @@ export class MyApp {
   image="assets/imgs/default-avatar.png";  
   name="";
   constructor(private alertCtrl: AlertController, private push: Push,public storage:Storage,public socialSharing:SocialSharing,public helper:HelperProvider,public menu:MenuController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
+    console.log("current lang: ",this.helper.currentLang);
+    if(this.helper.currentLang == 'ar'){
+      this.dir="right";
+    }else{
+      this.dir="left";
+    }
+    
+    //this.menu.toggle('left');
+    
     // if (this.helper.currentLang == 'ar')
     // {
     //   this.dir="right"
@@ -106,6 +115,13 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
+    console.log("openpage:");
+    if(this.helper.currentLang == 'ar'){
+      this.dir="right";
+    }else{
+      this.dir="left";
+    }
+    
     this.nav.setRoot(page.component);
   }
 
@@ -209,10 +225,12 @@ export class MyApp {
     }
     logout()
     {
-      this.storage.remove("access_token")
-      this.storage.remove("refresh_token")
-      this.navctrl.push(LoginPage)
-      this.menu.close()
+      this.storage.remove("access_token");
+      this.storage.remove("refresh_token");
+      this.storage.remove("user_info");
+      this.storage.remove("language");
+      this.navctrl.push(LoginPage);
+      this.menu.close();
     }
     contact()
     {
@@ -321,7 +339,7 @@ export class MyApp {
       });
       pushObject.on('registration').subscribe((registration: any) => {
         console.log("registrationId " + registration.registrationId)
-       // this.helper.registration = registration.registrationId;
+        this.helper.registration = registration.registrationId;
 
       });
   

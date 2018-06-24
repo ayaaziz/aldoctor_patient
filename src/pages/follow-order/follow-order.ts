@@ -195,5 +195,8 @@ private presentToast(text) {
     this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
 
   }
-
+  dismiss(){
+    this.navCtrl.pop();
+  }
+  
 }

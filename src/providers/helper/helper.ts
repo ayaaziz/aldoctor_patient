@@ -8,7 +8,7 @@ export class HelperProvider {
   public lang_direction = "ltr";
   public currentLang = 'en';
   public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
-
+  public registration;
 
   constructor(public http: HttpClient) {
     console.log('Hello HelperProvider Provider');

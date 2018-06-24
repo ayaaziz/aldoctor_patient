@@ -1,19 +1,35 @@
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar hideBackButton>
+      <!-- <button ion-button menuToggle  >
+          <ion-icon name="more" ></ion-icon>
+        </button> -->
 
       <!-- <button ion-button menuToggle  >
           <ion-icon name="more" ></ion-icon>
         </button> -->
- 
+        <!-- <ion-buttons left>
+          <button (click)="close()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-buttons> -->
+        <ion-buttons *ngIf="langDirection == 'rtl'"  right (click)="dismiss()">
+          <button ion-button  (click)="dismiss()">
+              <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+              <!-- <ion-icon name="arrow-back"></ion-icon> 
+              -->
+          </button>
+      </ion-buttons>
 
+      <ion-buttons *ngIf="langDirection != 'rtl'"  left (click)="dismiss()">
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+        </button>
+    </ion-buttons>
+      
     <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"searchForDoctor" | translate}}</ion-title>
     <ion-title *ngIf="langDirection != 'rtl'">{{"searchForDoctor" | translate}}</ion-title>
-         <!-- <ion-buttons right>
-            <button ion-button icon-only (click)="viewCtrl.dismiss()">
-                <ion-icon name="arrow-back"></ion-icon>
-            </button>
-        </ion-buttons> -->
+
   </ion-navbar>
 
 </ion-header>

@@ -42,5 +42,8 @@ export class DoctorProfilePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DoctorProfilePage');
   }
+  dismiss(){
+    this.navCtrl.pop();
+  }
 
 }

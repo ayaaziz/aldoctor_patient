@@ -248,6 +248,16 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.get(serviceUrl,{headers: headers });
 
   }
+  validateDiscountCode(code,access_token){
+    let headers = new HttpHeaders();
+    
+    let parameter = new HttpParams().set('code',code);
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/check-code';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+
+  }
   AboutApplication(access_token){
     
     let headers = new HttpHeaders();

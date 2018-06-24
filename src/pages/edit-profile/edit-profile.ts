@@ -235,5 +235,8 @@ addArr;
       
     }
   }
+  dismiss(){
+    this.navCtrl.pop();
+  }
 
 }

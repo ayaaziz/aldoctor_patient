@@ -13,6 +13,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 //import {GoogleMap} from '@ionic-native/google-maps';
 import { TranslateService } from '@ngx-translate/core';
+import { TabsPage } from '../tabs/tabs';
 
 @IonicPage({
   name:'search-for-doctor'
@@ -40,7 +41,7 @@ export class SearchForDoctorPage {
       this.langDirection = this.helper.lang_direction;
   }
   
-
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForDoctorPage');
     this.test();
@@ -209,6 +210,11 @@ getDoctorsLocation(){
     this.navCtrl.push('order-doctor');
   }
 
+  dismiss(){
+    console.log("dismiss");
+    this.navCtrl.pop();
+    
+  }
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
