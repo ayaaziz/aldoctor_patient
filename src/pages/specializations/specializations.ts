@@ -4,7 +4,9 @@ import { HelperProvider } from '../../providers/helper/helper';
 
 
 @IonicPage(
-  
+  {
+    name:'specializations-page'
+  }
 )
 @Component({
   selector: 'page-specializations',

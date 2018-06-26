@@ -35,6 +35,7 @@ export class CancelOrderPage {
    this.orderId =  this.navParams.get('orderId');
    this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);
+    console.log("orderId from cancel order: ",this.orderId);
   }
 
   ionViewDidLoad() {

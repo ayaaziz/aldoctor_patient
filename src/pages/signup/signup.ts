@@ -21,7 +21,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
 
-@IonicPage()
+@IonicPage({
+  "name":"register"
+})
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
@@ -219,7 +221,7 @@ y;
         this.presentToast(this.translate.instant('checkAgreement'))
       }
       if(this.termsStatus){
-        this.presentToast("Register...");
+        this.presentToast(this.translate.instant("register"));
      console.log(this.getFormData());
      //this.navCtrl.setRoot(LoginPage);
 

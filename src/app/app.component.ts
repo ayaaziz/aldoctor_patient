@@ -106,6 +106,8 @@ export class MyApp {
       // translate.use('en');
       statusBar.styleDefault();
       splashScreen.hide();
+      this.initializeApp();
+      //splashScreen.show();
     });
    
  
@@ -309,6 +311,14 @@ export class MyApp {
                       // this.storage.get('access_token').then((val) => {
                       //   if (!(val == null)) {
                       //     this.helper.appAccess = val
+
+  //                     var orderobject={"orderId":"","order_status":"",
+  // "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
+  // orderobject.orderId =  notification["OrderID"];
+  // this.nav.push('follow-order',{
+  //   data:orderobject
+  // });
+
                           this.nav.setRoot(TabsPage).then(() => {
                           this.nav.push('OfferModelPage', { TypeName: notification.additionalData["gcm.notification.type"], NameItem: notification.additionalData["gcm.notification.ID"], pageName: "notification",Sub_category_name_ar: notification["title"] })
                           })
@@ -338,6 +348,7 @@ export class MyApp {
   
       });
       pushObject.on('registration').subscribe((registration: any) => {
+        console.log("registraion : ",registration);
         console.log("registrationId " + registration.registrationId)
         this.helper.registration = registration.registrationId;
 
@@ -347,5 +358,58 @@ export class MyApp {
     }
 
     
+    initializeApp() {
+      //get app language from offline data.
+      this.storage.get("LanguageApp").then((val) => {
+  
+        if (val == null) {
+          // if offline lang value not saved get mobile language.
+          var userLang = navigator.language.split('-')[0];
+          // check if mobile lang is arabic.
+          if (userLang == 'ar') {
+            this.translate.use('ar');
+            this.helper.currentLang = 'ar';
+            this.translate.setDefaultLang('ar');
+            this.helper.lang_direction = 'rtl';
+            this.langDirection = "rtl";
+            this.platform.setDir('rtl', true)
+            //  this.menuDirection = "right";
+          }
+          else {
+            // if mobile language isn't arabic then make application language is English.
+  
+            this.translate.setDefaultLang('en');
+            this.translate.use('en');
+            this.helper.currentLang = 'en';
+            this.helper.lang_direction = 'ltr';
+            this.langDirection = "ltr";
+            this.platform.setDir('ltr', true)
+            //   this.menuDirection = "left";
+          }
+        }
+        //If application language is saved offline and it is arabic.
+        else if (val == 'ar') {
+          this.translate.use('ar');
+          this.helper.currentLang = 'ar';
+          this.translate.setDefaultLang('ar');
+          this.helper.lang_direction = 'rtl';
+          this.langDirection = "rtl";
+          this.platform.setDir('rtl', true)
+          // this.menuDirection = "right";
+  
+        }
+        //If application language is saved offline and it is English.
+        else if (val == 'en') {
+          this.translate.setDefaultLang('en');
+          this.translate.use('en');
+          this.helper.currentLang = 'en';
+          this.langDirection = "ltr";
+          this.helper.lang_direction = 'ltr';
+          this.platform.setDir('ltr', true)
+          // this.menuDirection = "left";
+        }
+      });
+  
+    }
   
 }

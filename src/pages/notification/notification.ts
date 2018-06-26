@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-notification',
   templateUrl: 'notification.html',

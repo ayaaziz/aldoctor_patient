@@ -64,7 +64,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { NotificationPage } from '../pages/notification/notification';
 import { LoginPage } from '../pages/login/login';
 import { ProfilePage } from '../pages/profile/profile';
-import { SignupPage } from '../pages/signup/signup';
+//import { SignupPage } from '../pages/signup/signup';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
@@ -78,17 +78,17 @@ import { LoginserviceProvider } from '../providers/loginservice/loginservice';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
 //import { OrderDoctorPage } from '../pages/order-doctor/order-doctor';
-import { DoctorEvaluationPage } from '../pages/doctor-evaluation/doctor-evaluation';
-import {SpecializationsPage} from '../pages/specializations/specializations';
+//import { DoctorEvaluationPage } from '../pages/doctor-evaluation/doctor-evaluation';
+//import {SpecializationsPage} from '../pages/specializations/specializations';
 //import { SpecificDoctorPage } from '../pages/specific-doctor/specific-doctor';
-import { AboutAppPage } from '../pages/about-app/about-app';
+//import { AboutAppPage } from '../pages/about-app/about-app';
 //import { IonicImageLoader } from 'ionic-image-loader';
 //import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
 //import { ImagePicker } from '@ionic-native/image-picker';
 //import { Base64 } from '@ionic-native/base64';
 import { Geolocation } from '@ionic-native/geolocation';
-import { ConditionsPage } from '../pages/conditions/conditions';
-import { ContactusPage } from '../pages/contactus/contactus';
+//import { ConditionsPage } from '../pages/conditions/conditions';
+//import { ContactusPage } from '../pages/contactus/contactus';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -99,21 +99,21 @@ export function createTranslateLoader(http: HttpClient) {
     MyApp,
     AboutPage,
     ContactPage,
-    ContactusPage,
+    //ContactusPage,
     HomePage,
     TabsPage,
     NotificationPage,
-    AboutAppPage,
+    //AboutAppPage,
     LoginPage,
     //CancelorderPage,
     ProfilePage,
-    SignupPage,
+   // SignupPage,
     OrderhistoryPage,
     //VerifycodePage,
-    ConditionsPage,
+    //ConditionsPage,
   //  OrderDoctorPage,
-    DoctorEvaluationPage,
-    SpecializationsPage,
+    //DoctorEvaluationPage,
+    //SpecializationsPage,
     //FolloworderPage,
     //SpecificDoctorPage
   ],
@@ -136,9 +136,9 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    ContactusPage,
-    AboutAppPage,
-    ConditionsPage,
+    //ContactusPage,
+    //AboutAppPage,
+    //ConditionsPage,
     MyApp,
     AboutPage,
     //FolloworderPage,
@@ -150,11 +150,11 @@ export function createTranslateLoader(http: HttpClient) {
     NotificationPage,
     LoginPage,
     ProfilePage,
-    SignupPage,
+    //SignupPage,
     OrderhistoryPage,
     //OrderDoctorPage,
-    DoctorEvaluationPage,
-    SpecializationsPage,
+    //DoctorEvaluationPage,
+    //SpecializationsPage,
     //SpecificDoctorPage
   ],
   providers: [
@@ -166,7 +166,7 @@ export function createTranslateLoader(http: HttpClient) {
     HelperProvider,
     HttpClient,
     LoginserviceProvider,
-    Storage,
+    //Storage,
     Camera,
     //BackgroundGeolocation,
     //ImagePicker,

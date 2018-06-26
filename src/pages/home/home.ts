@@ -58,7 +58,7 @@ export class HomePage {
     this.navCtrl.push('search-for-doctor');
   }
   sp(){
-    this.navCtrl.push(SpecializationsPage);
+    //this.navCtrl.push('specializations-page');
   }
   // follow()
   // {

@@ -52,9 +52,9 @@ export class ConditionsPage {
       .subscribe(
         resp=>{
           this.conditiondata = JSON.parse(JSON.stringify(resp));
-          alert(JSON.stringify(this.conditiondata))
+          //alert(JSON.stringify(this.conditiondata))
         },err=>{
-          alert(JSON.stringify(err))
+          //alert(JSON.stringify(err))
         }
       );
     });

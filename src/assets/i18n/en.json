@@ -136,7 +136,7 @@
       "Doctor Evaluation":"Doctor Evaluation",
       "ok":"OK",
       "Specializations":"Specializations",
-      "searchForDoctor":"search For Doctor",
+      "searchForDoctor":"Search For Doctor",
       "orderSpecificDoctor":"Order Specific Doctor",
       "searchBySpecializations":"Search By Specializations",
       "searchBySpecificDoctor":"Search By Specific Doctor",
@@ -150,7 +150,7 @@
       "setting" : "Applicaion Setting",
       "askfordoctor":"Ask for a doctor ",
       "pharmacy":"Ask for a pharmacy ",
-      "lap":" Ask for Laboratory ",
+      "lap":" Ask for a Laboratory ",
       "center":"Ask for Radiology center",
       "cancel":"Cancel Order",
       "title":"You have canceled the request for one of the following reasons",
@@ -183,7 +183,8 @@
       "msgAccessLocation":"Do you allow this App to access your location?",
       "agree":"Agree",
       "disagree":"Disagree",
-      "children":"Children"
+      "children":"Children",
+      "activationCode":"Activation Code"
 
       
 

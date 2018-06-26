@@ -126,9 +126,9 @@ type="password"></ion-input>
         <ion-item [class.invalid]="!patientRegisterForm.controls.address.valid && submitAttempt">
             <ion-label><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
             <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="العنوان"   style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
-            type="tel"></ion-input>
+            type="text"></ion-input>
             <ion-input *ngIf="langDirection != 'rtl'" placeholder="address"    style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
-            type="tel"></ion-input>
+            type="text"></ion-input>
             </ion-item>
             <ion-item *ngIf="!patientRegisterForm.controls.address.valid && submitAttempt" no-lines>
             <p> {{"enterAddress" | translate}} </p>

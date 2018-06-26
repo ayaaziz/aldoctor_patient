@@ -8,7 +8,7 @@ import { SignupPage } from '../signup/signup';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -109,6 +109,7 @@ export class LoginPage {
     // this.storage.set("lang-dir",this.helper.lang_direction);
     this.storage.set("access_token",data.access_token);
     this.storage.set("refresh_token",data.refresh_token);
+    this.loginservice.registerFirebase(this.helper.registration,data.access_token);
     this.navCtrl.setRoot(TabsPage);
     
   }
@@ -126,6 +127,7 @@ export class LoginPage {
   }
 
   register(){
-    this.navCtrl.setRoot(SignupPage);
+    //this.navCtrl.setRoot(SignupPage);
+    this.navCtrl.setRoot('register');
   }
 }

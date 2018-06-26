@@ -184,6 +184,7 @@
       "msgAccessLocation":"هل تسمح لهذا التطبيق بتحديد إلى موقعك؟",
       "agree":"موافق",
       "disagree":"الغاء",
-      "children":"اطفال"
+      "children":"اطفال",
+      "activationCode":"كود التفعيل"
 
 }

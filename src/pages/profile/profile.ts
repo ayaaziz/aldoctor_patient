@@ -14,7 +14,7 @@ import { Jsonp } from '@angular/http/src/http';
 
 
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',

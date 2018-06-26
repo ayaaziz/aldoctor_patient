@@ -59,12 +59,12 @@ test(){
       console.log("from gps opened resp",a);
       if(a)
       {
-       this.presentToast("location on");
+       //this.presentToast("location on");
       this.getUserLocation();
       }
       else
       {
-        this.presentToast("location off");
+        //this.presentToast("location off");
         this.presentConfirm();        
         
       }

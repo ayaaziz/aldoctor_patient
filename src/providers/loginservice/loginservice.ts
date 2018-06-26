@@ -258,6 +258,29 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.post(serviceUrl,parameter,{headers: headers });
 
   }
+
+
+  registerFirebase(firebase_registeration_id, access_token) {
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('firebase_registeration_id',firebase_registeration_id).set('device_type',this.helper.device_type).set('firebase_lang',this.helper.currentLang == "en" ? "0" : "1")
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/update-firebase';
+    this.http.post(serviceUrl,parameter,{headers: headers })
+     .subscribe(
+      data => {
+        console.log("from registerFirebase resp: ",data);
+              console.log(JSON.stringify(data));
+             
+      },
+      err => {
+        console.log("from registerFirebase err: ",err);
+        
+      }
+    )
+   
+  }
+
+
   AboutApplication(access_token){
     
     let headers = new HttpHeaders();
