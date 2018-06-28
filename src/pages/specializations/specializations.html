@@ -57,18 +57,30 @@
         <img [src]="item.image">
       </ion-col>
     </ion-row>
-  </ion-grid> -->
+  </ion-grid> *ngIf="" [style.background-color]="color"  [style.color]="labelColor"-->
 
 <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
-  <ion-col col-6 class="changeColor" style="border:2px solid lightgrey;text-align:center">
-    <img src="assets/icon/baby.png"   style="width:80px;height:80px;" class="customPosition" >
-    <img src="assets/icon/baby2.png"  style="width:80px;height:80px;" class="customPosition" >
-    <!-- <img src="assets/icon/babyWhite.png" id="child" style="width:80px;height:80px;" > -->
+  <ion-col col-6  *ngFor="let item of specializations1; let i= index" >
+    <div   class="divStyle x" (click)="chooseSp($event,i,item)">
+      <img  [src]="item.image"  *ngIf="item.status =='0'" style="width:60px;height:60px;" class="customPosition" >
+      <img  [src]="item.image2" *ngIf="item.status =='1'"  style="width:60px;height:60px;" class="customPosition" >
+      <!-- <img  src="assets/icon/baby2.png" [style.display]="hideElement?'none':'inline'" style="width:60px;height:60px;" class="customPosition" > -->
+    
+    <!-- <img src="assets/icon/babyWhite.png" id="child" style="width:80px;height:80px;" > inherit-->
 
-    <ion-label style="text-align:center;color:grey;font-size:16px">{{"children"| translate}}</ion-label>
-
+      <ion-label  class="labelStyle">{{item.name}}</ion-label>
+    </div>
   </ion-col>
-  <ion-col col-6>
+  <ion-col col-6  *ngFor="let item2 of specializations2; let j= index">
+      <div  class= "divStyle x" (click)="chooseSp($event,j,item2)">
+          <img  [src]="item2.image"  *ngIf="item2.status =='0'" style="width:60px;height:60px;" class="customPosition" >
+          <img  [src]="item2.image2" *ngIf="item2.status =='1'"  style="width:60px;height:60px;" class="customPosition" >
+          <!-- <img  src="assets/icon/heart2.png" [style.display]="hideElement?'none':'inline'" style="width:60px;height:60px;" class="customPosition" > -->
+        
+        <!-- <img src="assets/icon/babyWhite.png" id="child" style="width:80px;height:80px;" > inherit-->
+    
+          <ion-label  class="labelStyle">{{item2.name}}</ion-label>
+        </div>
 
   </ion-col>
 </ion-row>

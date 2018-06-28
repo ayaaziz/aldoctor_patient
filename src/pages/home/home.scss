@@ -1,4 +1,28 @@
 page-home {
+    .divStyle{
+        border:2px solid rgb(236, 236, 236);text-align:center;padding-top:10px;padding-bottom:10px;
+      }
+      .labelStyle{
+        text-align:center;color:grey;font-size:18px;
+        
+      }
+      .x{
+        box-shadow: 0 0 15px lightgray;        
+    }
+  
+    .x:hover{
+        
+        box-shadow: 0 0 15px lightgray inset;
+        
+    }
+    .customIcon{
+        width: 20px;
+        height: 20px;
+    }
+    .toolbar-title-md{
+        padding: 0px;
+    }
+
     // img{
     //    width:100px;
     //    height: 100px;    
@@ -31,7 +55,12 @@ page-home {
     //     margin:5px;
     //     box-shadow: 0 0 10px rgb(211, 208, 208);
            
+
     // }
+
+
+
+    /*
     .x{
         width:160px;
         height: 160px;
@@ -50,7 +79,9 @@ page-home {
     .center{
         text-align: center;
     }
+    */
    
+
 // @media screen and (min-width:320px) and (max-width:360px){
 //     .homediv
 //     {

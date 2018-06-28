@@ -29,7 +29,8 @@ export class OrderhistoryPage {
   orderobject={"orderId":"","order_status":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
 
-  constructor(public helper:HelperProvider, public service:LoginserviceProvider,public storage: Storage, 
+  constructor(public helper:HelperProvider, public service:LoginserviceProvider,
+    public storage: Storage, 
     public translate: TranslateService, public navCtrl: NavController,
      public navParams: NavParams) {
       this.langDirection = this.helper.lang_direction;
@@ -335,12 +336,16 @@ export class OrderhistoryPage {
     //     break;
     //   }
     // }
+
+    /*
     console.log("order: ",item);
     if(item.order_status == "7"){
        this.navCtrl.push('follow-order',{
         data:item
       });
     }
+    */
+    
     // else{
     //   this.navCtrl.push('follow-order',{
     //     data:item

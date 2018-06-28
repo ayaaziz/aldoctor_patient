@@ -2,6 +2,9 @@ page-specific-doctor {
     //   input:focus {
     //     background-color: yellow;
     // }
+    .item-md h4,.item-md h3, .item-md h2{
+      line-height: 1;
+    }
     ion-searchbar.right {
       text-align: right;
     

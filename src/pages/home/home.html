@@ -2,10 +2,19 @@
   <ion-navbar>
     <button ion-button menuToggle  >
       <ion-icon name="more" ></ion-icon>
+      
     </button>
-    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"Home" | translate}} </ion-title>
-    <ion-title *ngIf="langDirection != 'rtl'">{{"Home" | translate}} </ion-title>
+    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;padding:0px;">
+      <img src="assets/imgs/dlogo.png"   class="customIcon" > {{"Home" | translate}}
+    </ion-title>
+    <ion-title *ngIf="langDirection != 'rtl'"> {{"Home" | translate}} 
+        <img src="assets/imgs/dlogo.png"  style="border:2px solid red" class="customIcon" >
+    </ion-title>
+    
   </ion-navbar>
+  
+    
+
 </ion-header>
  
 <ion-content style="text-align: center;">
@@ -41,28 +50,66 @@
 
 </div> -->
 
+<ion-row style="width:100%;margin-top:50px;margin-right:0px;margin-left:0px;">
+  <ion-col col-6   >
+    <div   class="divStyle x" (click)="orderDoctor()">
+      <img  src="assets/icon/otlob_doc.png"   style="width:60px;height:60px;" class="customPosition" >
+    
+      <ion-label  class="labelStyle">{{"askfordoctor" | translate}}</ion-label>
+    </div>
+  </ion-col>
+  <ion-col col-6   >
+    <div   class="divStyle x" (click)="rate()">
+      <img  src="assets/icon/pills.png"  style="width:60px;height:60px;" class="customPosition" >
+    
+      <ion-label  class="labelStyle">{{"pharmacy" | translate}}</ion-label>
+    </div>
+  </ion-col>
+  </ion-row>
+
+  <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
+    <ion-col col-6   >
+      <div   class="divStyle x" >
+        <img  src="assets/icon/microscope.png"  style="width:60px;height:60px;" class="customPosition" >
+      
+        <ion-label  class="labelStyle">{{"lap" | translate}}</ion-label>
+      </div>
+    </ion-col>
+    <ion-col col-6   >
+      <div   class="divStyle x" >
+        <img  src="assets/icon/medical-history.png"   style="width:60px;height:60px;" class="customPosition" >
+      
+        <ion-label  class="labelStyle">{{"center" |translate}}</ion-label>
+      </div>
+    </ion-col>
+    </ion-row>
+
+
+<!-- 
 <div>
   
   <div class="center x" (click)="orderDoctor()" >
       <img src="assets/icon/otlob_doc.png" style="width:60px;height:60px;margin-top:15px;">
-      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 17px" class="center">{{"askfordoctor" | translate}}</p>
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo';font-size: 17px" class="center">{{"askfordoctor" | translate}}</p>
 
   </div>
 
   <div class="center x" (click)="sp()" >
       <img src="assets/icon/pills.png" style="width:60px;height:60px;margin-top:15px;">
-      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 17px" class="center">{{"pharmacy" | translate}}</p>
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo';font-size: 17px" class="center">{{"pharmacy" | translate}}</p>
 
   </div>
-  <div class="center x" >
+  <div class="center x" (click)="remainigtime()" >
       <img src="assets/icon/microscope.png" style="width:60px;height:60px;margin-top:15px;;">
-      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 17px" class="center">{{"lap" | translate}}</p>
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo';font-size: 17px" class="center">{{"lap" | translate}}</p>
 
   </div>
   <div class="center x" >
       <img src="assets/icon/medical-history.png" style="width:60px;height:60px;margin-top:15px;">
-      <p style="color:gray;margin-top: 0px;font-family: 'Cairo Black';font-size: 17px" class="center">{{"center" |translate}}</p>
+      <p style="color:gray;margin-top: 0px;font-family: 'Cairo';font-size: 17px" class="center">{{"center" |translate}}</p>
 
   </div>
-</div>
+</div> -->
+
+
 </ion-content>

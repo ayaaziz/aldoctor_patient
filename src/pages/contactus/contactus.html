@@ -1,18 +1,49 @@
-<!--
-  Generated template for the ContactusPage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{"contact" | translate}}</ion-title>
+  <ion-navbar hideBackButton>
+    <ion-buttons *ngIf="langDirection == 'rtl'"  right>
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+            <!-- <ion-icon name="arrow-back"></ion-icon> 
+            -->
+        </button>
+    </ion-buttons>
+
+    <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+      <button ion-button  (click)="dismiss()">
+          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+      </button>
+  </ion-buttons>
+
+  <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"contact" | translate}}</ion-title>
+  <ion-title *ngIf="langDirection != 'rtl'" >{{"contact" | translate}}</ion-title>
+
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+    <div class="text-center">
+        <img src="assets/imgs/dlogo.png" class="rounded mx-auto d-block" style="max-width:40%;margin-top: 35px;">
+      </div>
+    
+      <p style="color:grey;font-size:18px;margin:20px;text-align:center"></p>
+   
+      <ion-item no-lines>
+        <!-- <ion-label  *ngIf="langDirection != 'rtl'" class="right" > {{address}}  <img src="assets/icon/location.png" class="customIcon"> </ion-label>
+        <ion-label  *ngIf="langDirection == 'rtl'" ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label> -->
+        <ion-label style="color:grey" ><img src="assets/icon/mailgreen.png" class="customIcon"> {{email}} </ion-label>
+      </ion-item>
+      <ion-item no-lines>
+        <!-- <ion-label  *ngIf="langDirection != 'rtl'" class="right" > {{address}}  <img src="assets/icon/location.png" class="customIcon"> </ion-label>
+        <ion-label  *ngIf="langDirection == 'rtl'" ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label> -->
+        <ion-label style="color:grey" ><img src="assets/icon/phonegreen.png" class="customIcon"> {{mobile}} </ion-label>
+      </ion-item>
+      <ion-item no-lines>
+        <!-- <ion-label  *ngIf="langDirection != 'rtl'" class="right" > {{address}}  <img src="assets/icon/location.png" class="customIcon"> </ion-label>
+        <ion-label  *ngIf="langDirection == 'rtl'" ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label> -->
+        <ion-label style="color:grey"><img src="assets/icon/phonegreen.png" class="customIcon"> {{phone}} </ion-label>
+      </ion-item>
 </ion-content>

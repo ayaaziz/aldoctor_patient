@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import {ToastController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
@@ -28,6 +28,8 @@ export class OrderDoctorPage {
   third;
   fourth
   last;
+  @ViewChild('fireSElect') sElement;
+ 
   // DoctorsArray=[{"name":"ali","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
   // {"name":"mohamed","cost":"300","rate":"2.5","specialization":"specialization2","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
   // {"name":"ahmed","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/avatar-ts-jessie.png"}];
@@ -47,6 +49,10 @@ export class OrderDoctorPage {
         this.translate.use(this.helper.currentLang);
     
 
+  }
+  colclicked(){
+    console.log("s element: ",this.sElement);
+  //this.sElement.ionChange();
   }
 
   ionViewDidLoad() {
@@ -95,7 +101,7 @@ export class OrderDoctorPage {
       resp =>{
         console.log("getDoctorInSpecificSpecialization resp: ",resp);
         let doctorData =JSON.parse(JSON.stringify(resp));
-        console.log(doctorData["results"].length);
+        console.log("doctors data",doctorData["results"]);
         this.DoctorsArray=[];  
         for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
@@ -110,6 +116,7 @@ export class OrderDoctorPage {
   }
 
   doctorChecked(item , event){
+    console.log("doctor checked",item);
     if(item.checked == true)
       {
   //      this.cost += parseInt(item.cost);
@@ -147,7 +154,8 @@ export class OrderDoctorPage {
         resp => {
           console.log("saveOrder resp: ",resp);
           this.presentToast(this.translate.instant("ordersent"));
-          this.navCtrl.pop();
+          // this.navCtrl.pop();
+          this.navCtrl.push('remaining-time-to-accept');
         },
         err=>{
           console.log("saveOrder error: ",err);

@@ -8,6 +8,8 @@ import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { Storage } from '@ionic/storage';
+import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 
 
 
@@ -22,30 +24,60 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
 export class FollowOrderPage {
   @ViewChild('map') mapElement;
   doctorData;
+  doctorId;
   doctorName;
   doctorSpecialization;
+  doctorLocation;
   doctorRate;
   OrderCost;
   map: any;
   langDirection;
+  accessToken;
+  notification;
+  orderStatus;
 
   lat=31.037933; 
   lng=31.381523;
 
-  constructor( public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
+  constructor(public storage: Storage,public service: LoginserviceProvider,
+     public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
     private geolocation: Geolocation,public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public translate: TranslateService,
      public toastCtrl: ToastController, public alertCtrl: AlertController) {
        console.log("follow order");
     this.langDirection = this.helper.lang_direction;
+    
+
     console.log("langdir: ",this.langDirection);
     this.translate.use(this.helper.currentLang);
     this.doctorData = this.navParams.get('data');
     console.log("data from follow order:",this.doctorData);
-    this.doctorName = this.doctorData.name;
-    this.doctorRate = this.doctorData.rate;
-    this.doctorSpecialization = this.doctorData.specialization;
-    }
+    
+     this.doctorId = this.doctorData.doctorId;
+      console.log("doctorid: ",this.doctorId," orderid: ",this.doctorData.orderId);
+      
+      this.storage.get("access_token").then(data=>{
+        this.accessToken = data;
+        this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
+          resp =>{
+            console.log("resp from getserviceprofile in followorder: ",resp);
+            var tempData = JSON.parse(JSON.stringify(resp)).user;
+            this.doctorName = tempData.name;
+            this.doctorRate = tempData.rate;
+            this.doctorSpecialization = tempData.speciality; 
+            this.doctorLocation = tempData.location;
+
+          },err=>{
+            console.log("error from getserviceprofile in followorder:",err);
+          }
+  
+        );
+      });
+    // this.doctorName = this.doctorData.name;
+    // this.doctorRate = this.doctorData.rate;
+    // this.doctorSpecialization = this.doctorData.specialization;
+    
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FollowOrderPage');
@@ -70,12 +102,12 @@ export class FollowOrderPage {
         console.log("from gps opened resp",a);
         if(a)
         {
-         this.presentToast("location on");
+    //     this.presentToast("location on");
         this.getUserLocation();
         }
         else
         {
-          this.presentToast("location off");
+      //    this.presentToast("location off");
           this.presentConfirm();        
           
         }
@@ -163,8 +195,35 @@ initMapwithUserLocation(){
   });
 
 
-  // var markers, i;
+  var markers, i;
+  markers = new google.maps.Marker({
+    position: new google.maps.LatLng(this.doctorLocation.lat, this.doctorLocation.lng),
+    map: this.map,
+    animation: google.maps.Animation.DROP,
+    icon: { 
+      url : 'assets/icon/location.png',
+      size: new google.maps.Size(71, 71),
+      scaledSize: new google.maps.Size(25, 25) 
+      
+     },
+     label:{
+       text:this.doctorName,
+       color:"#016a38",
+       
+     }
+  });
 
+  var timer = setInterval(()=>{
+    this.notification = this.helper.notification;
+    this.orderStatus = this.notification.additionalData.order_status;
+    if(this.orderStatus == "8"){
+      console.log("order status 8");
+      this.folllowdoctor();
+    }else if(this.orderStatus == "7"){
+      this.navCtrl.pop();
+      clearTimeout(timer);
+    }
+  },1000);
   // for (i = 0; i < this.doctorsLoc.length; i++) {  
   //   markers = new google.maps.Marker({
   //     position: new google.maps.LatLng(this.doctorsLoc[i].lat, this.doctorsLoc[i].long),
@@ -181,6 +240,25 @@ initMapwithUserLocation(){
   
   
   
+}
+folllowdoctor(){
+console.log("follow doctor");
+  this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
+    resp =>{
+      console.log("resp from getserviceprofile in followorder: ",resp);
+      var tempData = JSON.parse(JSON.stringify(resp)).user;
+      this.doctorName = tempData.name;
+      this.doctorRate = tempData.rate;
+      this.doctorSpecialization = tempData.speciality; 
+      this.doctorLocation = tempData.location;
+      this.initMapwithUserLocation();
+
+    },err=>{
+      console.log("error from getserviceprofile in followorder:",err);
+    }
+
+  );
+
 }
 private presentToast(text) {
   let toast = this.toastCtrl.create({

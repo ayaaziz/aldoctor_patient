@@ -48,3 +48,37 @@
 button:focus{
     outline: 0px !important;
 }
+
+
+@font-face {
+    font-family: "Cairo Black";
+    src:url("../assets/cairofont/Cairo-Black.ttf");
+}
+@font-face {
+    font-family: "Cairo-Bold";
+    src:url("../assets/cairofont/cairo-bold.ttf");
+}
+@font-face {
+    font-family: "Cairo-Regular";
+    src:url("../assets/cairofont/cairo.ttf");
+}
+@font-face {
+    font-family: "Cairo";
+    src:url("../assets/cairofont/Cairo-Bold_0.ttf");
+}
+@font-face {
+    font-family: "Cairo-ExtraLight";
+    src:url("../assets/cairofont/cairo-extra-light.ttf");
+}
+@font-face {
+    font-family: "Cairo Light";
+    src:url("../assets/cairofont/cairo-light.ttf");
+}
+@font-face {
+    font-family: "Cairo SemiBold";
+    src:url("../assets/cairofont/Cairo-SemiBold.ttf");
+}
+ion-app{
+    font-family: "Cairo-Regular" !important;
+
+}

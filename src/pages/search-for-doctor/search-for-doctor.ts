@@ -14,6 +14,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 //import {GoogleMap} from '@ionic-native/google-maps';
 import { TranslateService } from '@ngx-translate/core';
 import { TabsPage } from '../tabs/tabs';
+import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
+import { Storage } from '@ionic/storage';
 
 
 @IonicPage({
@@ -32,7 +34,8 @@ export class SearchForDoctorPage {
   doctorsLoc=[{lat:31.205753,long:29.924526},{lat:29.952654,long:30.921919}];
   langDirection;
 
-  constructor(public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
+  constructor(public service:LoginserviceProvider,public storage: Storage,
+    public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
     public alertCtrl: AlertController,public platform: Platform,
     public diagnostic: Diagnostic, public translate: TranslateService,
      private geolocation: Geolocation, public toastCtrl: ToastController, 
@@ -115,6 +118,7 @@ gpslocationerrorCallback(){
   this.presentToast("from get loc err");
 
 }
+accessToken;
 getUserLocation(){
   
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -123,6 +127,17 @@ getUserLocation(){
       this.lng = resp.coords.longitude;
       console.log("resp: ", resp);
       this.initMapwithUserLocation();
+      this.storage.get("access_token").then(data=>{
+        this.accessToken = data;
+        this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
+          resp =>{
+            console.log("resp from nearby doctors: ",resp);
+          },err=>{
+            console.log("err from nearby doctors: ",err);
+          }
+        );
+     
+      });
       
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -196,9 +211,51 @@ initMapwithUserLocation(){
   
   
 }
-getDoctorsLocation(){
+initMapWithDoctorsLocation(){
 
-  // this.initMap();
+  let latlng = new google.maps.LatLng(this.lat,this.lng);
+  var mapOptions={
+   center:latlng,
+    zoom:15,
+    mapTypeId:google.maps.MapTypeId.ROADMAP,
+    // controls: {
+    //   myLocationButton: true         
+    // }, 
+    // MyLocationEnabled: true,
+    // setMyLocationButtonEnabled: true,
+  };
+  this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+  let marker = new google.maps.Marker({
+    map: this.map,
+    animation: google.maps.Animation.DROP,
+    position: latlng,
+    icon: { 
+      url : 'assets/icon/location.png',
+      size: new google.maps.Size(71, 71),
+      scaledSize: new google.maps.Size(25, 25) 
+    }
+
+   
+  });
+
+
+  var markers, i;
+
+  for (i = 0; i < this.doctorsLoc.length; i++) {  
+    markers = new google.maps.Marker({
+      position: new google.maps.LatLng(this.doctorsLoc[i].lat, this.doctorsLoc[i].long),
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      icon: { 
+        url : 'assets/icon/location.png',
+        size: new google.maps.Size(71, 71),
+        scaledSize: new google.maps.Size(25, 25) 
+       }
+    });
+  
+  }
+  
+  
 
 }
 
@@ -208,7 +265,8 @@ getDoctorsLocation(){
 
   }
   searchBySpecializations(){
-    this.navCtrl.push('order-doctor');
+    this.navCtrl.push('specializations-page');
+    //this.navCtrl.push('order-doctor');
   }
 
   dismiss(){

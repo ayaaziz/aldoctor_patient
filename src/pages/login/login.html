@@ -10,7 +10,7 @@
 <form [formGroup]="loginForm">
 
 
-  <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.email.valid && submitAttempt">
+  <!-- <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.email.valid && submitAttempt">
     <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="30"></ion-label>
     <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="اسم المستخدم"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
     type="text"></ion-input>
@@ -19,6 +19,17 @@ type="text"></ion-input>
 </ion-item>
 <ion-item *ngIf="!loginForm.controls.email.valid && submitAttempt" no-lines>
 <p> {{"enterLoginName" | translate}} </p>
+</ion-item> -->
+
+<ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.email.valid && submitAttempt">
+    <ion-label><img src="assets/icon/mob.png" style="margin: 0 2px;" height="25" width="30"></ion-label>
+    <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="رقم الهاتف"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+    type="tel"></ion-input>
+    <ion-input *ngIf="langDirection != 'rtl'" placeholder="phone"    style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+ type="tel"></ion-input>
+</ion-item>
+<ion-item *ngIf="!loginForm.controls.email.valid && submitAttempt" no-lines>
+<p> {{"enterPhone" | translate}} </p>
 </ion-item>
 <br>
  <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.password.valid && submitAttempt">
@@ -34,7 +45,7 @@ type="text"></ion-input>
     <p>{{"enterPassword" | translate}}</p>
   </ion-item>
   <br>
-  <small class="passwordHelpBlock " class="form-text text-muted" style="font-family: 'Cairo Black';font-size:16px">
+  <small class="passwordHelpBlock " class="form-text text-muted" style="font-family: 'Cairo';font-size:16px">
    {{"forgetPassword" | translate}}
     </small>
 
@@ -45,7 +56,7 @@ type="text"></ion-input>
   </ion-item>
  
   <div class="text-center">
-    <small class="text-muted " (click)="register()" style="font-family: 'Cairo Black';font-size:16px">
+    <small class="text-muted " (click)="register()" style="font-family: 'Cairo';font-size:16px">
     {{"SignUp" | translate}}
      </small>
     </div>

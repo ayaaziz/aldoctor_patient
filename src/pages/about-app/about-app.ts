@@ -8,16 +8,18 @@ import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular/platform/platform';
 
 
-@IonicPage()
+@IonicPage({
+  name:'about-app'
+})
 @Component({
   selector: 'page-about-app',
   templateUrl: 'about-app.html',
 })
 export class AboutAppPage {
 
-  accessToken:any
-  langDirection:any
-  aboutdata:any
+  accessToken:any;
+  langDirection:any;
+  aboutdata:any;
   constructor(public platform:Platform,public helper:HelperProvider,public translate:TranslateService,public service: LoginserviceProvider,public storage:Storage,public navCtrl: NavController, public navParams: NavParams) {
     if (this.helper.currentLang == 'ar')
     {
@@ -41,13 +43,15 @@ export class AboutAppPage {
   
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
-      alert(this.accessToken)
+      //alert(this.accessToken)
       this.service.AboutApplication(this.accessToken)
       .subscribe(
         resp=>{
-          this.aboutdata = JSON.parse(JSON.stringify(resp));
+          console.log("resp from about-app : ",resp);
+          this.aboutdata = JSON.parse(JSON.stringify(resp))[0].value;
+          console.log("val from about app",this.aboutdata);
         },err=>{
-          alert(JSON.stringify(err))
+          console.log("error from about-app : ",err);
         }
       );
     });
@@ -57,13 +61,17 @@ export class AboutAppPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AboutappPage');
   }
+  dismiss(){
+    this.navCtrl.pop();
+  }
   AboutSuccess(data)
   {
-alert(JSON.stringify(data))
+    
+    //alert(JSON.stringify(data))
   }
   FailSuccess(data)
   {
-
+    
   }
 
 }

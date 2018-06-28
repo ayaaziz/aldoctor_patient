@@ -33,6 +33,7 @@
 
     </ion-select>
   </ion-item> -->
+ 
   <ion-grid>
   <ion-row style="width:100%;">
       <!-- fixed class="customItem"   -->
@@ -41,20 +42,23 @@
         
       </ion-col>
       <!-- col-3 col-sm-9  -->
-      <ion-col  *ngIf="langDirection != 'rtl'" style="background-color: #e8f1ed;" col-5 col-sm-8 col-md-9>
+      <ion-col  *ngIf="langDirection != 'rtl'" style="background-color: #e8f1ed;height:50px;" col-6 col-sm-9 col-md-10>
         <ion-select  [(ngModel)]="Specialization" interface="popover"  class="selector" >
           <ion-option  value="{{item.value}}" *ngFor="let item of SpecializationArray" class="option"  (ionSelect)='SpecializationChecked()'>{{item.value}}</ion-option>
         </ion-select>   
+        <img src="assets/icon/arrow.png" style="margin-top:-70px;width:20px;height:20px;">  
       </ion-col>
-      <ion-col *ngIf="langDirection == 'rtl'"  style="background-color: #e8f1ed;" col-5 col-sm-8 col-md-9 >
-        <ion-select  [(ngModel)]="Specialization" style="text-align:right" interface="popover"  class="selector" >
+      <ion-col *ngIf="langDirection == 'rtl'"  style="background-color: #e8f1ed;height:50px;" col-6 col-sm-9 col-md-10 >
+        <ion-select  [(ngModel)]="Specialization" style="text-align:right;" interface="popover"  class="selector" > 
           <ion-option  value="{{item.value}}" *ngFor="let item of SpecializationArray" class="option" (ionSelect)='SpecializationChecked()'>{{item.value}}</ion-option>
-        </ion-select>   
+        </ion-select> 
+        <img src="assets/icon/arrow.png" style="margin-top:-70px;width:20px;height:20px;">  
       </ion-col>
       <!-- fixed class="customItem5" -->
-      <ion-col style="background-color: #e8f1ed;" col-1 >
+      <!-- <ion-col style="background-color: #e8f1ed;" col-1 (click)="colclicked()" >
           <img src="assets/icon/arrow.png" style="margin-top:15px;width:20px;height:20px;">
-        </ion-col>
+    
+        </ion-col> -->
   </ion-row>
 </ion-grid>
   
@@ -65,7 +69,7 @@
     <ion-checkbox  [(ngModel)]="item.checked" (click)="doctorChecked(item ,$event)"  class="x">{{item.name}}</ion-checkbox>
   </ion-item>
  -->
- <ion-scroll scrollY="true"  style="height: 260px" >
+ <ion-scroll scrollY="true"  style="height: 385px" >
  <ion-card *ngFor="let item of DoctorsArray" style="height:110px;" (click)="showDoctorProfile(item)" >          
     <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;" >
         <!-- fixed class="customItem3" -->
@@ -76,10 +80,10 @@
       <ion-col  col-7 col-sm-9>
         <ion-item >
             <!-- overflow-x: hidden; -->
-          <h2 style="width:60px;">{{item.name}}</h2>
+          <h2 style="width:60px;margin-top:0px;">{{item.name}}</h2>
           <img src="assets/icon/doctor.png" style="width:15px;height:15px;">
-          <h3>{{Specialization}}</h3>
-          <h4 style="margin-top:5px;">{{"cost"|translate}} : {{item.price}} {{"pound"|translate}}</h4>
+          <h3 >{{Specialization}}</h3>
+          <h4 >{{"cost"|translate}} : {{item.price}} {{"pound"|translate}}</h4>
           <rating 
                 [(ngModel)]="item.rate" 
                 readOnly="true" 

@@ -55,10 +55,17 @@ export class HomePage {
  
   orderDoctor(){
   
-    this.navCtrl.push('search-for-doctor');
+     this.navCtrl.push('search-for-doctor');
+  }
+  rate(){
+    this.navCtrl.push('rate-doctor');
   }
   sp(){
-    //this.navCtrl.push('specializations-page');
+    // this.navCtrl.push('specializations-page');
+    // this.navCtrl.push('order-not-accepted');
+  }
+  remainigtime(){
+    // this.navCtrl.push('remaining-time-to-accept');
   }
   // follow()
   // {

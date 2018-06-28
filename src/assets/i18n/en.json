@@ -19,7 +19,7 @@
       "enterPassword":"Please enter password",
       "passErr":"Password at least 8 characters and  numbers",
       "passContainChars":"Password must contains characters and numbers",
-      "enterPhone":"Please enter phone",
+      "enterPhone":"Please enter phone number",
       "phoneErr":"Phone must be 11 numbers",
       "enterAddress":"Please enter address",
       "enterConfirmPassword":"Please enter confirm password",
@@ -140,14 +140,14 @@
       "orderSpecificDoctor":"Order Specific Doctor",
       "searchBySpecializations":"Search By Specializations",
       "searchBySpecificDoctor":"Search By Specific Doctor",
-      "aboutApp":"About Application",
+      "aboutApp":"About application",
       "discount":"Discount Code",
       "rate":"Application Rate",
-      "share":"Share Application",
+      "share":"Share application",
       "conditions":"Terms and Conditions",
       "contact":"Contact Us",
       "suggestions":"Suggestions",
-      "setting" : "Applicaion Setting",
+      "setting" : "Application Setting",
       "askfordoctor":"Ask for a doctor ",
       "pharmacy":"Ask for a pharmacy ",
       "lap":" Ask for a Laboratory ",
@@ -184,7 +184,13 @@
       "agree":"Agree",
       "disagree":"Disagree",
       "children":"Children",
-      "activationCode":"Activation Code"
+      "activationCode":"Activation Code",
+      "invalidEmail":"Please enter valid email",
+      "orderNotAccepted":"Sorry, there is no response for your request at this time .. Please try to request later",
+      "remainingTime":"The time remaining to accept your order",
+      "language":"Language",
+      "arabic":"Arabic",
+      "english":"English"
 
       
 

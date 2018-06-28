@@ -60,17 +60,18 @@ type="tel"></ion-input>
 <!-- <p> {{"enterPhone" | translate}} </p> -->
 <p>{{phoneErrMsg}}</p>
 </ion-item>
-
-<ion-item [class.invalid]="!patientRegisterForm.controls.email.valid && submitAttempt">
+<!-- [class.invalid]="!patientRegisterForm.controls.email.valid && submitAttempt" -->
+<ion-item >
     <ion-label><img src="assets/icon/mail.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
     <ion-input  class="right" *ngIf="langDirection == 'rtl'" placeholder="البريد الالكتروني"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
     type="email"></ion-input>
     <ion-input *ngIf="langDirection != 'rtl'" placeholder="Email"    style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
-type="text"></ion-input>
+    type="text"></ion-input>
 </ion-item>
-<ion-item *ngIf="!patientRegisterForm.controls.email.valid && submitAttempt" no-lines>
-<p> {{"enterEmail" | translate}} </p>
-</ion-item>
+<!-- <ion-item *ngIf="!patientRegisterForm.controls.email.valid && submitAttempt" no-lines> -->
+<!-- <p> {{"enterEmail" | translate}} </p> -->
+<!-- <p> {{"invalidEmail" | translate}} </p>
+</ion-item> -->
 
 
 <ion-item [class.invalid]="!patientRegisterForm.controls.password.valid && submitAttempt">

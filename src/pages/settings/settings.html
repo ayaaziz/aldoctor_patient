@@ -17,8 +17,8 @@
       </button>
   </ion-buttons>
 
-  <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"conditions" | translate}}</ion-title>
-  <ion-title *ngIf="langDirection != 'rtl'" >{{"conditions" | translate}}</ion-title>
+  <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{ "setting" | translate}}</ion-title>
+  <ion-title *ngIf="langDirection != 'rtl'" >{{ "setting" | translate}}</ion-title>
 
   </ion-navbar>
 
@@ -26,11 +26,12 @@
 
 
 <ion-content padding>
-    <div class="text-center">
-        <img src="assets/imgs/dlogo.png" class="rounded mx-auto d-block" style="max-width:40%;margin-top: 35px;">
-      </div>
-    
-      <p style="color:grey;font-size:18px;margin:20px;text-align:center">{{conditiondata}}</p>
-    
+    <ion-item (click)="changeLanguage()">
+        <ion-icon name='globe' item-start></ion-icon>
+        {{"language" | translate}}
+        <ion-note item-end>
+        {{language}}
+        </ion-note>
+      </ion-item>
 
 </ion-content>

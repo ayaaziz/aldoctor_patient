@@ -3,9 +3,6 @@
 
 <ion-menu [content]="content" *ngIf="this.platform.dir() =='rtl'" 
  side="right" >
- 
-   
-  
   
     <ion-content>
           <div style="width:100%;text-align: center;" >
@@ -21,45 +18,45 @@
                         <h2 style="margin-right:10px ; color:gray; font-size:18px"> {{"aboutApp" | translate }}</h2>
                       </ion-row>
                   </button>
-                  <button ion-item  >
+                  <!-- <button ion-item  >
                         <ion-row style="direction: rtl;margin-right: 0px;">
                             <ion-icon ios="ios-pricetag-outline" md="ios-pricetag-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
                             <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"discount" | translate}}</h2>
                           </ion-row>
-                      </button>
-                      <button ion-item  >
+                      </button> -->
+                      <button ion-item (click)="setting()" >
                             <ion-row style="direction: rtl;margin-right: 0px;">
-                                <ion-icon ios="ios-settings-outline" md="ios-settings-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                <ion-icon ios="ios-settings-outline" md="ios-settings-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                 <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{ "setting" | translate}}</h2>
                               </ion-row>
                           </button>
-                          <button ion-item >
+                          <!-- <button ion-item >
                                 <ion-row style="direction: rtl;margin-right: 0px;" >
                                     <ion-icon ios="ios-clipboard-outline" md="ios-clipboard-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
                                     <h2 style="margin-right:10px ; color:gray; font-size:18px"> {{"suggestions" | translate}}</h2>
                                   </ion-row>
-                              </button>
+                              </button> -->
                           <button ion-item  (click)="contact()">
                                 <ion-row style="direction: rtl;margin-right: 0px;">
-                                    <ion-icon ios="ios-call-outline" md="ios-call-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                    <ion-icon ios="ios-call-outline" md="ios-call-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                     <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"contact" | translate}}</h2>
                                   </ion-row>
                               </button>
                               <button ion-item (click)="opensuggest()">
                                     <ion-row style="direction: rtl;margin-right: 0px;">
-                                        <ion-icon ios="ios-warning-outline" md="ios-warning-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                        <ion-icon ios="ios-warning-outline" md="ios-warning-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                         <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"conditions" | translate}}</h2>
                                       </ion-row>
                                   </button>
                                   <button ion-item  (click)="share()">
                                         <ion-row style="direction: rtl;margin-right: 0px;">
-                                            <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                            <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:#016a38"></ion-icon>
                                             <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"share" |translate}}</h2>
                                           </ion-row>
                                         </button>
                                           <button ion-item  (click)="apprate()">
                                                 <ion-row style="direction: rtl;margin-right: 0px;">
-                                                    <ion-icon ios="ios-star-outline" md="ios-star-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                                    <ion-icon ios="ios-star-outline" md="ios-star-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                                     <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"rate" | translate}}</h2>
                                                   </ion-row>
                                               </button>
@@ -95,45 +92,45 @@
                          <h2 style="margin-right:10px ; color:gray; font-size:18px"> {{"aboutApp" | translate }}</h2>
                        </ion-row>
                    </button>
-                   <button ion-item  >
+                   <!-- <button ion-item  >
                          <ion-row style="direction: rtl;margin-right: 0px;">
                              <ion-icon ios="ios-pricetag-outline" md="ios-pricetag-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
                              <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"discount" | translate}}</h2>
                            </ion-row>
-                       </button>
-                       <button ion-item  >
+                       </button> -->
+                       <button ion-item (click)="setting()" >
                              <ion-row style="direction: rtl;margin-right: 0px;">
-                                 <ion-icon ios="ios-settings-outline" md="ios-settings-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                 <ion-icon ios="ios-settings-outline" md="ios-settings-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                  <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{ "setting" | translate}}</h2>
                                </ion-row>
                            </button>
-                           <button ion-item >
+                           <!-- <button ion-item >
                                  <ion-row style="direction: rtl;margin-right: 0px;" >
                                      <ion-icon ios="ios-clipboard-outline" md="ios-clipboard-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
                                      <h2 style="margin-right:10px ; color:gray; font-size:18px"> {{"suggestions" | translate}}</h2>
                                    </ion-row>
-                               </button>
+                               </button> -->
                            <button ion-item  (click)="contact()">
                                  <ion-row style="direction: rtl;margin-right: 0px;">
-                                     <ion-icon ios="ios-call-outline" md="ios-call-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                     <ion-icon ios="ios-call-outline" md="ios-call-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                      <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"contact" | translate}}</h2>
                                    </ion-row>
                                </button>
                                <button ion-item (click)="opensuggest()">
                                      <ion-row style="direction: rtl;margin-right: 0px;">
-                                         <ion-icon ios="ios-warning-outline" md="ios-warning-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                         <ion-icon ios="ios-warning-outline" md="ios-warning-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                          <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"conditions" | translate}}</h2>
                                        </ion-row>
                                    </button>
                                    <button ion-item  (click)="share()">
                                          <ion-row style="direction: rtl;margin-right: 0px;">
-                                             <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                             <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:#016a38;"></ion-icon>
                                              <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"share" |translate}}</h2>
                                            </ion-row>
                                          </button>
                                            <button ion-item  (click)="apprate()">
                                                  <ion-row style="direction: rtl;margin-right: 0px;">
-                                                     <ion-icon ios="ios-star-outline" md="ios-star-outline" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon>
+                                                     <ion-icon ios="ios-star-outline" md="ios-star-outline" style="font-size:26px;color:#016a38;"></ion-icon>
                                                      <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"rate" | translate}}</h2>
                                                    </ion-row>
                                                </button>

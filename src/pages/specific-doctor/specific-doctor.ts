@@ -171,7 +171,8 @@ export class SpecificDoctorPage {
         resp => {
           console.log("saveOrder resp: ",resp);
           this.presentToast(this.translate.instant("ordersent"));
-          this.navCtrl.pop();
+          // this.navCtrl.pop();
+          this.navCtrl.push('remaining-time-to-accept');
         },
         err=>{
           console.log("saveOrder error: ",err);

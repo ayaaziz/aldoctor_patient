@@ -7,7 +7,9 @@ import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 
 
-@IonicPage()
+@IonicPage({
+  name:'contact-us'
+})
 @Component({
   selector: 'page-contactus',
   templateUrl: 'contactus.html',
@@ -21,9 +23,13 @@ export class ContactusPage {
   //   console.log('ionViewDidLoad ContactusPage');
   // }
 
-  langDirection:any
-  contactusdata:any
-  accessToken:any
+  langDirection:any;
+  contactusdata:any;
+  accessToken:any;
+  email;
+  phone;
+  mobile;
+
   constructor(public service:LoginserviceProvider,public helper:HelperProvider,public translate:TranslateService,public platform:Platform,public storage:Storage,public navCtrl: NavController, public navParams: NavParams) {
     if (this.helper.currentLang == 'ar')
     {
@@ -47,13 +53,16 @@ export class ContactusPage {
   
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
-      this.service.Conditions(this.accessToken)
+      this.service.ContactUs(this.accessToken)
       .subscribe(
         resp=>{
           this.contactusdata = JSON.parse(JSON.stringify(resp));
-          alert(JSON.stringify(this.contactusdata))
+          this.email = this.contactusdata[0].value;
+          this.mobile = this.contactusdata[1].value;
+          this.phone = this.contactusdata[2].value;
+          console.log("resp from contact us",resp);
         },err=>{
-          alert(JSON.stringify(err))
+          console.log("err from contact us: ",err);
         }
       );
     });
@@ -61,6 +70,10 @@ export class ContactusPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ContactusPage');
+  }
+
+  dismiss(){
+    this.navCtrl.pop();
   }
 
 }

@@ -291,20 +291,20 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       
   }
   Conditions(access_token){
-    
+    var lang = this.helper.currentLang;
     let headers = new HttpHeaders();
 
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-conditions';
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-use-conditions?lang='+lang;
       return this.http.get(serviceUrl,{headers: headers })
       
   }
   ContactUs(access_token){
-    
+    var lang = this.helper.currentLang;
     let headers = new HttpHeaders();
 
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-contact';
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/contact-users?lang='+lang;
       return this.http.get(serviceUrl,{headers: headers })
       
   }
@@ -326,6 +326,15 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/orders/cancel';
       return this.http.post(serviceUrl,parameter,{headers: headers });
+
+  }
+  nearbyDooctors(lat,lon,access_token){
+
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl+ 'api/nearby?service_id=2&lat='+lat+'&lng='+lon;
+    return this.http.get(serviceUrl,{headers: headers });
 
   }
 

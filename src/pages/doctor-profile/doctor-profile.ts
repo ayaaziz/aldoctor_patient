@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
+import { Storage } from '@ionic/storage';
+import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 
 
 @IonicPage(
@@ -22,8 +24,12 @@ export class DoctorProfilePage {
   specialization;
   rate;
   services=["any thing","any thing","any thing"];
+  accessToken;
 
-  constructor( public helper: HelperProvider, public navCtrl: NavController,
+  constructor( public toastCtrl: ToastController, 
+    public storage: Storage, 
+    public service:LoginserviceProvider,
+    public helper: HelperProvider, public navCtrl: NavController,
      public navParams: NavParams,public translate: TranslateService) {
 
     this.langDirection = this.helper.lang_direction;
@@ -35,7 +41,7 @@ export class DoctorProfilePage {
     this.name = this.doctorProfile.name;
     this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
-    this.services = this.doctorProfile.extraInfo.SpecialityServices;
+    // this.services = this.doctorProfile.SpecialityServices;
     this.services = ["any thing","any thing","any thing"];
   }
 
@@ -44,6 +50,37 @@ export class DoctorProfilePage {
   }
   dismiss(){
     this.navCtrl.pop();
+  }
+  
+  sendOrder(){
+
+    console.log("orderId from doctorProfile: ",this.doctorProfile.id);
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+
+    this.service.saveOrder(this.doctorProfile.id,this.accessToken).subscribe(
+      resp => {
+        console.log("saveOrder resp: ",resp);
+        this.presentToast(this.translate.instant("ordersent"));
+        // this.navCtrl.pop();
+        this.navCtrl.push('remaining-time-to-accept');
+      },
+      err=>{
+        console.log("saveOrder error: ",err);
+        this.presentToast(this.translate.instant("serverError"));
+      }
+    ); 
+
+  });
+
+  }
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 }

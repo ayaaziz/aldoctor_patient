@@ -7,7 +7,9 @@ import { Platform } from 'ionic-angular/platform/platform';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 
 
-@IonicPage()
+@IonicPage({
+  name:"conditions"
+})
 @Component({
   selector: 'page-conditions',
   templateUrl: 'conditions.html',
@@ -21,9 +23,9 @@ export class ConditionsPage {
   //   console.log('ionViewDidLoad ConditionsPage');
   // }
 
-  langDirection:any
-  accessToken:any
-  conditiondata:any
+  langDirection:any;
+  accessToken:any;
+  conditiondata:any;
   constructor(public service:LoginserviceProvider,public platform:Platform,public storage:Storage,public helper:HelperProvider,public translate:TranslateService,public navCtrl: NavController, public navParams: NavParams) {
    
     if (this.helper.currentLang == 'ar')
@@ -53,8 +55,12 @@ export class ConditionsPage {
         resp=>{
           this.conditiondata = JSON.parse(JSON.stringify(resp));
           //alert(JSON.stringify(this.conditiondata))
+          console.log("resp from conditions: ",resp);
+          this.conditiondata =  JSON.parse(JSON.stringify(resp))[0].value;
+
         },err=>{
           //alert(JSON.stringify(err))
+          console.log("err from conditions: ",err);
         }
       );
     });
@@ -63,6 +69,9 @@ export class ConditionsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConditionsPage');
+  }
+  dismiss(){
+    this.navCtrl.pop();
   }
 
 }

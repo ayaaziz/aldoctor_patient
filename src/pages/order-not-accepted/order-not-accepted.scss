@@ -1,12 +1,4 @@
-page-doctor-evaluation {
-    img{
-        border:1px rgb(240, 234, 234) solid;
-        border-radius: 50%;
-        
-    }
-    .center{
-        text-align: center;
-    }
+page-order-not-accepted {
     .btn-primary {
         color: #fff;
         background-color: #016a38;
@@ -19,7 +11,7 @@ page-doctor-evaluation {
     }
       .btn-primary:hover {
         color: #fff;
-        background-color:#016a38;
+        background-color: #016a38;
         border-color: #016a38;
     }
       .btn-primary:not(:disabled):not(.disabled):active{
@@ -27,17 +19,5 @@ page-doctor-evaluation {
         background-color: #016a38 !important;
         border-color: #016a38 !important;
     }
-    ul {
-        padding: 0px;
-      
-        &.rating li {
-          padding: 0px 1px !important;
-          background: none;
-          color: rgb(8, 129, 8);
-          
-          ion-icon {
-            font-size: 20px;
-          }
-        }
-      }
+
 }

@@ -37,6 +37,26 @@ page-doctor-profile {
     .services{
         margin-left: 42px;
     }
+    .btn-primary {
+        color: #fff;
+        background-color: #016a38;
+        border-color: #016a38;
+        width:70%;
+    }
+    .btn-primary:focus {
+        -webkit-box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+        box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+    }
+      .btn-primary:hover {
+        color: #fff;
+        background-color: #016a38;
+        border-color: #016a38;
+    }
+      .btn-primary:not(:disabled):not(.disabled):active{
+        color: #fff;
+        background-color: #016a38 !important;
+        border-color: #016a38 !important;
+    }
     
 
 }

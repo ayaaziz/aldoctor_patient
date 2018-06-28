@@ -1,0 +1,26 @@
+import { NgModule } from '@angular/core';
+import { IonicPageModule } from 'ionic-angular';
+import { OrderNotAcceptedPage } from './order-not-accepted';
+
+
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {createTranslateLoader} from "../../app/app.module";
+import { HttpClient } from '@angular/common/http';
+
+
+@NgModule({
+  declarations: [
+    OrderNotAcceptedPage,
+  ],
+  imports: [
+    IonicPageModule.forChild(OrderNotAcceptedPage),
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
+  ],
+})
+export class OrderNotAcceptedPageModule {}

@@ -77,7 +77,8 @@ export class SignupPage {
       firstname: ['', Validators.required],
       secondname: ['', Validators.required],
       surname: ['', Validators.required],
-      email: ['', Validators.compose([Validators.required,Validators.email])],
+      //email: ['', Validators.compose([Validators.required,Validators.email])],
+      email:[],
       //phone: ['', Validators.required],
       phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
       address: ['', Validators.required],
@@ -247,7 +248,8 @@ y;
       this.patient.country=this.patientRegisterForm.controls.country.value;
       this.patient.gender=this.patientRegisterForm.controls.gender.value;
       this.patient.terms=this.termsStatus;   
-      this.patient.email=this.patientRegisterForm.controls.email.value;
+     // this.patient.email=this.patientRegisterForm.controls.email.value;
+     this.patient.email = this.email;
       this.patient.img=this.profileImg;
       console.log(this.patient);
       //this.presentToast("patient data from get data: "+JSON.stringify(this.patient));

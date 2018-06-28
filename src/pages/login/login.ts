@@ -27,6 +27,7 @@ export class LoginPage {
   constructor( public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
     public formBuilder: FormBuilder,public navCtrl: NavController, 
     public navParams: NavParams, public platform: Platform) {
+      this.langDirection = this.helper.lang_direction;
     this.loginForm = formBuilder.group({
       //username: ['', Validators.required],
       password: ['', Validators.required],
@@ -110,6 +111,29 @@ export class LoginPage {
     this.storage.set("access_token",data.access_token);
     this.storage.set("refresh_token",data.refresh_token);
     this.loginservice.registerFirebase(this.helper.registration,data.access_token);
+    // this.loginservice.getuserProfile(data.accessToken).subscribe(
+    //   resp=>{
+    //     this.navCtrl.setRoot(TabsPage);
+    //     var newuserData = JSON.parse(JSON.stringify(resp));
+    //     this.storage.set("user_info",{
+    //       "id":newuserData.id,
+    //       "name":newuserData.name,
+    //       "email":newuserData.email,
+    //       "phone":newuserData.phone,
+    //       "dob":newuserData.user_info.birth_date,
+    //       "add":newuserData.extraInfo.address,
+    //       "profile_pic":newuserData.profile_pic
+    //     }).then((data)=>{
+    //       //this.presentToast("set then data from signup: "+data)
+    //     },(error)=>{
+    //     //  this.presentToast("set then error from signup: "+error)
+    //     });
+        
+
+    //   },err=>{
+
+    //   }
+    // );
     this.navCtrl.setRoot(TabsPage);
     
   }

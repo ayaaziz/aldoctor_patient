@@ -19,12 +19,13 @@ import { HelperProvider } from '../providers/helper/helper';
 //import { VerifycodePage } from '../pages/verifycode/verifycode';
 import { SocialSharing } from '@ionic-native/social-sharing';
 // import { AppRate } from '@ionic-native/app-rate';
-import { AboutAppPage } from '../pages/about-app/about-app';
-import { ConditionsPage } from '../pages/conditions/conditions';
-import { ContactusPage } from '../pages/contactus/contactus';
+//import { AboutAppPage } from '../pages/about-app/about-app';
+//import { ConditionsPage } from '../pages/conditions/conditions';
+//import { ContactusPage } from '../pages/contactus/contactus';
 
 
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
+//import { AboutAppPage } from '../pages/about-app/about-app';
 
 
 
@@ -87,6 +88,13 @@ export class MyApp {
     //     this.translate.use(this.helper.currentLang);
     // });
 
+    // storage.get("access_token").then((val)=>{
+    //   if (val)
+    //     this.rootPage = TabsPage;
+    //   else  
+    //     this.rootPage = LoginPage;
+    // });
+    
     storage.get("user_info").then((val) => {
       if (val){
         this.image=val.profile_pic;
@@ -106,14 +114,24 @@ export class MyApp {
       // translate.use('en');
       statusBar.styleDefault();
       splashScreen.hide();
-      this.initializeApp();
+      this.defaultLang();
+      //this.initializeApp();
       //splashScreen.show();
     });
    
  
  
   }
+  defaultLang(){
+    this.translate.use('ar');
+    this.helper.currentLang = 'ar';
+    this.translate.setDefaultLang('ar');
+    this.helper.lang_direction = 'rtl';
+    this.langDirection = "rtl";
+    this.platform.setDir('rtl',true);
 
+
+  }
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
@@ -129,12 +147,15 @@ export class MyApp {
 
   share()
   {
-    this.socialSharing.share(" الدكتور" , null , null ,"http://itrootsdemos.com/aldahyan").then(() => {
+    console.log("share app");
+    this.socialSharing.share(" الدكتور" , null , null ,"http://itrootsdemos.com/aldoctor").then(() => {
       console.log("success")
+      this.menu.close();
     }).catch(() => {
       console.log("not available")
     });
   }
+  
   // cancel()
   // {
   //   this.navctrl.push(CancelorderPage)
@@ -221,10 +242,15 @@ export class MyApp {
     }
     openAboutapppage()
     {
-      this.navctrl.push(AboutAppPage)
-      this.menu.close()
+      this.navctrl.push('about-app');
+      this.menu.close();
 
     }
+    setting(){
+      this.navctrl.push('settings');
+      this.menu.close();
+    }
+
     logout()
     {
       this.storage.remove("access_token");
@@ -236,13 +262,13 @@ export class MyApp {
     }
     contact()
     {
-      this.navctrl.push(ContactusPage)
+      this.navctrl.push('contact-us')
       this.menu.close()
     }
     opensuggest()
     {
-      alert("here")
-      this.navctrl.push(ConditionsPage)
+     // alert("here")
+      this.navctrl.push('conditions')
       this.menu.close()
 
     }
@@ -327,9 +353,12 @@ export class MyApp {
                       // })
                     }
         }
-  
+  //android
         else {
-  
+          console.log("notification from android",notification);
+          console.log("android");
+          this.helper.notification=notification;
+
           if (notification.additionalData.type == "0" || notification.additionalData.type == "1" || notification.additionalData.type == "3") {
             // this.storage.get('access_token').then((val) => {
   
