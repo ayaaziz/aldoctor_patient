@@ -190,7 +190,14 @@
       "remainingTime":"The time remaining to accept your order",
       "language":"Language",
       "arabic":"Arabic",
-      "english":"English"
+      "english":"English",
+      "notes":"Notes",
+      "thanks":"Thanks",
+      "excellent":"Excellent",
+      "fine":"Fine",
+      "good":"Good",
+      "bad":"Bad",
+      "vbad":"Very Bad"
 
       
 

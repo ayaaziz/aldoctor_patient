@@ -26,10 +26,10 @@
 
 
 <ion-content padding>
-    <ion-item (click)="changeLanguage()">
+    <ion-item >
         <ion-icon name='globe' item-start></ion-icon>
         {{"language" | translate}}
-        <ion-note item-end>
+        <ion-note item-end (click)="changeLanguage()">
         {{language}}
         </ion-note>
       </ion-item>

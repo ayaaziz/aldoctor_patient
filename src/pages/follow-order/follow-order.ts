@@ -83,6 +83,20 @@ export class FollowOrderPage {
     console.log('ionViewDidLoad FollowOrderPage');
     this.test();
     this.initMap();
+
+    var timer = setInterval(()=>{
+      this.notification = this.helper.notification;
+      this.orderStatus = this.notification.additionalData.order_status;
+      if(this.orderStatus == "8"){
+        console.log("order status 8");
+        this.folllowdoctor();
+      }else if(this.orderStatus == "7"){
+        clearTimeout(timer);
+        this.navCtrl.pop();
+        
+      }
+    },1000);
+
   }
   initMap(){
     let latlng = new google.maps.LatLng(this.lat,this.lng);
@@ -208,37 +222,27 @@ initMapwithUserLocation(){
      },
      label:{
        text:this.doctorName,
-       color:"#016a38",
+       color:"black",
        
      }
   });
 
-  var timer = setInterval(()=>{
-    this.notification = this.helper.notification;
-    this.orderStatus = this.notification.additionalData.order_status;
-    if(this.orderStatus == "8"){
-      console.log("order status 8");
-      this.folllowdoctor();
-    }else if(this.orderStatus == "7"){
-      this.navCtrl.pop();
-      clearTimeout(timer);
+  var directionsService = new google.maps.DirectionsService();
+  var request = {
+    origin      : 'Melbourne VIC', // a city, full address, landmark etc
+    destination : 'Sydney NSW',
+    //travelMode  : google.maps.DirectionsTravelMode.DRIVING
+  };
+  directionsService.route(request, function(response, status) {
+    if ( status == google.maps.DirectionsStatus.OK ) {
+      console.log("distance", response.routes[0].legs[0].distance.value ); // the distance in metres
     }
-  },1000);
-  // for (i = 0; i < this.doctorsLoc.length; i++) {  
-  //   markers = new google.maps.Marker({
-  //     position: new google.maps.LatLng(this.doctorsLoc[i].lat, this.doctorsLoc[i].long),
-  //     map: this.map,
-  //     animation: google.maps.Animation.DROP,
-  //     icon: { 
-  //       url : 'assets/icon/location.png',
-  //       size: new google.maps.Size(71, 71),
-  //       scaledSize: new google.maps.Size(25, 25) 
-  //      }
-  //   });
-  
-  // }
-  
-  
+    else {
+      // oops, there's no route between these two locations
+      // every time this happens, a kitten dies
+      // so please, ensure your address is formatted properly
+    }
+  });
   
 }
 folllowdoctor(){

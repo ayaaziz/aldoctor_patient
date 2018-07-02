@@ -30,8 +30,11 @@
 
 
 <ion-content padding>
-    <p class="center" style=" border-bottom:2px solid rgb(205, 219, 205);">
-      <img src="assets/imgs/avatar-ts-jessie.png">
+    <!-- <p class="center" style=" border-bottom:2px solid rgb(205, 219, 205);"> -->
+      <!-- <img [src]="image"> -->
+      <div class="center">
+        <img [src]="image" id="profileImg" >  
+    
     <ion-label>{{doctorName}}</ion-label> 
     <ion-label>{{rateWord}}</ion-label>
     <rating [(ngModel)]="rate" 
@@ -43,11 +46,26 @@
       nullable="false" 
       (ngModelChange)="onModelChange($event)" 
       ></rating>
-    </p>
+    </div>
+    <!-- </p> -->
 
-    <ion-label style="text-align:right">{{note}}</ion-label>
+    
+     <ion-row  style="text-align:center" >
+       <ion-col  col-1></ion-col>
+       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey" >text</p></ion-col>
+       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey" >text</p></ion-col>
+       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col>
+       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col>
+       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col>
+     </ion-row>
+      
+    
+     <br>
+     <ion-label style="text-align:right">{{note}}</ion-label>
+    
+
     <div class="form-group">
-        <textarea class="form-control" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>
+        <textarea class="form-control" [(ngModel)]="review" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>
       </div>
       
       <ion-item style="text-align:center;" no-lines>

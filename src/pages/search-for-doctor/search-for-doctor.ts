@@ -48,6 +48,31 @@ export class SearchForDoctorPage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForDoctorPage');
+
+    //31.0657632,31.6421222-->
+    //31.037933,31.381523-->mans
+  var directionsService = new google.maps.DirectionsService();
+  var request = {
+    origin      : new google.maps.LatLng(31.0657632,31.6421222), // a city, full address, landmark etc
+    destination : new google.maps.LatLng(31.037933,31.381523),
+    //travelMode  : google.maps.DirectionsTravelMode.DRIVING
+    travelMode: google.maps.TravelMode.DRIVING
+
+  };
+  directionsService.route(request, function(response, status) {
+    if ( status == google.maps.DirectionsStatus.OK ) {
+      console.log("route obj",response);
+      console.log("distance", response.routes[0].legs[0].distance.text ); // the distance in metres
+      console.log("duration",response.routes[0].legs[0].duration.text);
+    }
+    else {
+      // oops, there's no route between these two locations
+      // every time this happens, a kitten dies
+      // so please, ensure your address is formatted properly
+    }
+  });
+
+
     this.test();
     //this.geoLoc();
     this.initMap();
@@ -138,6 +163,7 @@ getUserLocation(){
         );
      
       });
+
       
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -147,6 +173,8 @@ getUserLocation(){
       //this.test();
       
     });
+
+   
 }
 
 initMap(){
