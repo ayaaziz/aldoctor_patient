@@ -27,4 +27,13 @@
           <p>{{item.time}}</p>
         </ion-item>
 
+        <ion-list [virtualScroll]="data">
+
+          <ion-item *virtualItem="let item">
+            <h2>{{item.title}}</h2>
+            <p>{{item.time}}</p>
+          </ion-item>
+        
+        </ion-list>
+
 </ion-content>

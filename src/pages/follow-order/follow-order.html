@@ -1,11 +1,10 @@
 <ion-header>
 
   <ion-navbar hideBackButton>
-      <ion-buttons *ngIf="langDirection == 'rtl'"  right>
+      <!-- <ion-buttons *ngIf="langDirection == 'rtl'"  right>
           <button ion-button  (click)="dismiss()">
               <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-              <!-- <ion-icon name="arrow-back"></ion-icon> 
-              -->
+             
           </button>
       </ion-buttons>
 
@@ -13,7 +12,7 @@
         <button ion-button  (click)="dismiss()">
             <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
         </button>
-    </ion-buttons>
+    </ion-buttons> -->
 
     <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"followOrder" | translate}} </ion-title>
     <ion-title *ngIf="langDirection != 'rtl'">{{"followOrder" | translate}} </ion-title>
@@ -70,8 +69,9 @@
   <h5 *ngIf="langDirection == 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;text-align: right;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
   <h5 *ngIf="langDirection != 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
 
-  <h5 *ngIf="langDirection == 'rtl'" style="color:grey;text-align: right;">{{"arrivaltime" | translate}}</h5>
-  <h5 *ngIf="langDirection != 'rtl'" style="color:grey;">{{"arrivaltime" | translate}}</h5>
+  <h5 *ngIf="langDirection == 'rtl'" style="color:grey;text-align: right;">{{"arrivaltime" | translate}} {{duration}} </h5>
+  <h5 *ngIf="langDirection != 'rtl'" style="color:grey;">{{"arrivaltime" | translate}} {{duration}} </h5>
+  
 
   <ion-item style="text-align:center;" no-lines>
   <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="cancelOrder()"> {{"cancelOrder" | translate}}</button>  

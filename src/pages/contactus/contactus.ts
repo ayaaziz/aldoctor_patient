@@ -75,5 +75,5 @@ export class ContactusPage {
   dismiss(){
     this.navCtrl.pop();
   }
-
+  
 }

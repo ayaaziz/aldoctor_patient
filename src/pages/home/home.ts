@@ -58,7 +58,7 @@ export class HomePage {
      this.navCtrl.push('search-for-doctor');
   }
   rate(){
-    this.navCtrl.push('rate-doctor',{id:28});
+   // this.navCtrl.push('rate-doctor',{id:28});
   }
   sp(){
     // this.navCtrl.push('specializations-page');

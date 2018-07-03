@@ -31,7 +31,7 @@ export class SearchForDoctorPage {
   map: any;
   lat=31.037933; 
   lng=31.381523;
-  doctorsLoc=[{lat:31.205753,long:29.924526},{lat:29.952654,long:30.921919}];
+  doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
   langDirection;
 
   constructor(public service:LoginserviceProvider,public storage: Storage,
@@ -51,26 +51,26 @@ export class SearchForDoctorPage {
 
     //31.0657632,31.6421222-->
     //31.037933,31.381523-->mans
-  var directionsService = new google.maps.DirectionsService();
-  var request = {
-    origin      : new google.maps.LatLng(31.0657632,31.6421222), // a city, full address, landmark etc
-    destination : new google.maps.LatLng(31.037933,31.381523),
-    //travelMode  : google.maps.DirectionsTravelMode.DRIVING
-    travelMode: google.maps.TravelMode.DRIVING
+  // var directionsService = new google.maps.DirectionsService();
+  // var request = {
+  //   origin      : new google.maps.LatLng(31.0657632,31.6421222), // a city, full address, landmark etc
+  //   destination : new google.maps.LatLng(31.037933,31.381523),
+  //   //travelMode  : google.maps.DirectionsTravelMode.DRIVING
+  //   travelMode: google.maps.TravelMode.DRIVING
 
-  };
-  directionsService.route(request, function(response, status) {
-    if ( status == google.maps.DirectionsStatus.OK ) {
-      console.log("route obj",response);
-      console.log("distance", response.routes[0].legs[0].distance.text ); // the distance in metres
-      console.log("duration",response.routes[0].legs[0].duration.text);
-    }
-    else {
-      // oops, there's no route between these two locations
-      // every time this happens, a kitten dies
-      // so please, ensure your address is formatted properly
-    }
-  });
+  // };
+  // directionsService.route(request, function(response, status) {
+  //   if ( status == google.maps.DirectionsStatus.OK ) {
+  //     console.log("route obj",response);
+  //     console.log("distance", response.routes[0].legs[0].distance.text ); // the distance in metres
+  //     console.log("duration",response.routes[0].legs[0].duration.text);
+  //   }
+  //   else {
+  //     // oops, there's no route between these two locations
+  //     // every time this happens, a kitten dies
+  //     // so please, ensure your address is formatted properly
+  //   }
+  // });
 
 
     this.test();
@@ -157,6 +157,30 @@ getUserLocation(){
         this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
           resp =>{
             console.log("resp from nearby doctors: ",resp);
+            var docsData = JSON.parse(JSON.stringify(resp)).result;
+            console.log("res ",docsData,"lenght: ",docsData.lenght);
+            this.doctorsLoc = [];
+            for (let element in docsData) {
+              console.log("element ",docsData[element]);
+              if(docsData[element].location != null)
+                this.doctorsLoc.push( docsData[element].location);
+
+             }
+             console.log("doctorsLoc",this.doctorsLoc);
+             this.initMapWithDoctorsLocation();
+            // docsData.forEach(element => {
+              
+            //   console.log("element from foreach ",element);
+            //   if(element.location != null)
+            //     this.doctorsLoc.push( element.location);
+
+            // });
+            // for(var i=0;i<docsData.length;i++){
+            //   console.log("doctors i= ",i,"  data,  ",docsData[i]);
+            //   if(docsData[i].location != null)
+            //     this.doctorsLoc.push( docsData[i].location);
+            // }
+
           },err=>{
             console.log("err from nearby doctors: ",err);
           }
@@ -270,8 +294,10 @@ initMapWithDoctorsLocation(){
   var markers, i;
 
   for (i = 0; i < this.doctorsLoc.length; i++) {  
+    console.log("pin doctors om map",this.doctorsLoc);
+
     markers = new google.maps.Marker({
-      position: new google.maps.LatLng(this.doctorsLoc[i].lat, this.doctorsLoc[i].long),
+      position: new google.maps.LatLng(this.doctorsLoc[i].lat, this.doctorsLoc[i].lng),
       map: this.map,
       animation: google.maps.Animation.DROP,
       icon: { 

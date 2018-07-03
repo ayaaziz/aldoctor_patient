@@ -337,5 +337,34 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.get(serviceUrl,{headers: headers });
 
   }
+  getDurationAndDistance(sLat,sLon,dLat,dLon){
+    //https://maps.googleapis.com/maps/api/directions/json?origin=31.0657632,31.6421222&destination=31.037933,31.381523
+    return this.http.get('https://maps.googleapis.com/maps/api/directions/json?origin='+sLat+','+sLon+'&destination='+dLat+','+dLon);
+  }
+  rateDoctor(docId,rate,notes,access_token){
+    let headers = new HttpHeaders();
+      let parameter = new HttpParams().set('user_id',docId)
+      .set('rate',rate).set('remark',notes);
+      console.log("parameters from service: ",parameter);
+      headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+      let serviceUrl = this.helper.serviceUrl +'api/users/rate';
+      return this.http.post(serviceUrl,parameter,{headers: headers });
+  }
+  getNotifications(access_token){
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl+ 'api/notifications?page=2';
+    return this.http.get(serviceUrl,{headers: headers });
+  }
+  getCountOfNotifications(access_token){
+   
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl+ 'api/notifications-count';
+    return this.http.get(serviceUrl,{headers: headers });
+
+  }
 
 }

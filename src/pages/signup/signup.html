@@ -98,10 +98,11 @@ type="password"></ion-input>
 </ion-item>
 
     <ion-item>
-    <ion-label floating><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Governorate" | translate}}</ion-label>
-    <ion-select [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
+    <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;" ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Governorate" | translate}}</ion-label>
+    <ion-label floating *ngIf="langDirection != 'rtl'"  ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Governorate" | translate}}</ion-label>
+    <ion-select  [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
     [(ngModel)]="country" >
-    <ion-option value="{{item.name}}" *ngFor="let item of countries" (ionSelect)='countryChecked()' >{{item.name}}</ion-option>
+    <ion-option  value="{{item.name}}" *ngFor="let item of countries" (ionSelect)='countryChecked()' >{{item.name}}</ion-option>
     <!-- <ion-option value="alex">{{"Alex" | translate}}</ion-option>  -->
     </ion-select>
     </ion-item>
@@ -112,10 +113,11 @@ type="password"></ion-input>
 
 
     <ion-item >
-    <ion-label floating><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
-    <ion-select [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" formControlName="city" interface="popover"
+    <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
+    <ion-label floating *ngIf="langDirection != 'rtl'" ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
+    <ion-select  [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" formControlName="city" interface="popover"
     [(ngModel)]="city">
-    <ion-option value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
+    <ion-option  value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
     <!-- <ion-option value="city2">{{"any city" | translate}}</ion-option>  -->
     </ion-select>
     </ion-item>

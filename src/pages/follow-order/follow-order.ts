@@ -10,6 +10,7 @@ import { Diagnostic } from '@ionic-native/diagnostic';
 import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
+import { TabsPage } from '../tabs/tabs';
 
 
 
@@ -35,6 +36,7 @@ export class FollowOrderPage {
   accessToken;
   notification;
   orderStatus;
+  duration=0;
 
   lat=31.037933; 
   lng=31.381523;
@@ -90,9 +92,11 @@ export class FollowOrderPage {
       if(this.orderStatus == "8"){
         console.log("order status 8");
         this.folllowdoctor();
-      }else if(this.orderStatus == "7"){
+      }else if(this.orderStatus == "7"){ //7
+        console.log("order status 7");
         clearTimeout(timer);
-        this.navCtrl.pop();
+        // this.navCtrl.pop();
+        this.navCtrl.push(TabsPage);
         
       }
     },1000);
@@ -209,42 +213,56 @@ initMapwithUserLocation(){
   });
 
 
-  var markers, i;
-  markers = new google.maps.Marker({
-    position: new google.maps.LatLng(this.doctorLocation.lat, this.doctorLocation.lng),
-    map: this.map,
-    animation: google.maps.Animation.DROP,
-    icon: { 
-      url : 'assets/icon/location.png',
-      size: new google.maps.Size(71, 71),
-      scaledSize: new google.maps.Size(25, 25) 
+  // var markers, i;
+  // markers = new google.maps.Marker({
+  //   position: new google.maps.LatLng(this.doctorLocation.lat, this.doctorLocation.lng),
+  //   map: this.map,
+  //   animation: google.maps.Animation.DROP,
+  //   icon: { 
+  //     url : 'assets/icon/location.png',
+  //     size: new google.maps.Size(71, 71),
+  //     scaledSize: new google.maps.Size(25, 25) 
       
-     },
-     label:{
-       text:this.doctorName,
-       color:"black",
+  //    },
+  //    label:{
+  //      text:this.doctorName,
+  //      color:"black",
        
-     }
-  });
+  //    }
+  // });
 
-  var directionsService = new google.maps.DirectionsService();
-  var request = {
-    origin      : 'Melbourne VIC', // a city, full address, landmark etc
-    destination : 'Sydney NSW',
-    //travelMode  : google.maps.DirectionsTravelMode.DRIVING
-  };
-  directionsService.route(request, function(response, status) {
-    if ( status == google.maps.DirectionsStatus.OK ) {
-      console.log("distance", response.routes[0].legs[0].distance.value ); // the distance in metres
-    }
-    else {
-      // oops, there's no route between these two locations
-      // every time this happens, a kitten dies
-      // so please, ensure your address is formatted properly
-    }
-  });
+  // this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.lat,this.doctorLocation.lng).subscribe(
+  //   resp=>{
+  //     console.log("resp from getDurationAndDistance: ", resp);
+  //     var respObj = JSON.parse(JSON.stringify(resp));
+  //     console.log("duration",respObj.routes[0].legs[0].duration.text);
+  //     this.duration = respObj.routes[0].legs[0].duration.text;
+  //     console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+  //   },
+  //   err=>{
+  //     console.log("err from getDurationAndDistance: ",err);
+  //   }
+  // );
+
+  // var directionsService = new google.maps.DirectionsService();
+  // var request = {
+  //   origin      : 'Melbourne VIC', // a city, full address, landmark etc
+  //   destination : 'Sydney NSW',
+  //   //travelMode  : google.maps.DirectionsTravelMode.DRIVING
+  // };
+  // directionsService.route(request, function(response, status) {
+  //   if ( status == google.maps.DirectionsStatus.OK ) {
+  //     console.log("distance", response.routes[0].legs[0].distance.value ); // the distance in metres
+  //   }
+  //   else {
+  //     // oops, there's no route between these two locations
+  //     // every time this happens, a kitten dies
+  //     // so please, ensure your address is formatted properly
+  //   }
+  // });
   
 }
+
 folllowdoctor(){
 console.log("follow doctor");
   this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
@@ -255,7 +273,40 @@ console.log("follow doctor");
       this.doctorRate = tempData.rate;
       this.doctorSpecialization = tempData.speciality; 
       this.doctorLocation = tempData.location;
-      this.initMapwithUserLocation();
+
+
+      var markers, i;
+      markers = new google.maps.Marker({
+        position: new google.maps.LatLng(this.doctorLocation.lat, this.doctorLocation.lng),
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        icon: { 
+          url : 'assets/icon/location.png',
+          size: new google.maps.Size(71, 71),
+          scaledSize: new google.maps.Size(25, 25) 
+          
+         },
+         label:{
+           text:this.doctorName,
+           color:"black",
+           
+         }
+      });
+    
+      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.lat,this.doctorLocation.lng).subscribe(
+        resp=>{
+          console.log("resp from getDurationAndDistance: ", resp);
+          var respObj = JSON.parse(JSON.stringify(resp));
+          console.log("duration",respObj.routes[0].legs[0].duration.text);
+          this.duration = respObj.routes[0].legs[0].duration.text;
+          console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+        },
+        err=>{
+          console.log("err from getDurationAndDistance: ",err);
+        }
+      );
+
+ //     this.initMapwithUserLocation();
 
     },err=>{
       console.log("error from getserviceprofile in followorder:",err);

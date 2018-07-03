@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -27,7 +27,7 @@ export class DoctorEvaluationPage {
   doctorId;
   accessToken;
 
-  constructor(public service: LoginserviceProvider,public storage: Storage,
+  constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider,public translate: TranslateService,
     public navCtrl: NavController, public navParams: NavParams) {
       this.langDirection = this.helper.lang_direction;
@@ -87,12 +87,30 @@ export class DoctorEvaluationPage {
     this.review += event.target.innerText;
   }
   rateDoctor(){
+    this.service.rateDoctor(this.doctorId,this.rate,this.review,this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from rate :",resp); 
+        this.presentToast(this.translate.instant("done"));
+        this.navCtrl.push(TabsPage);
+        
+      },err=>{
+        console.log("err from rate: ",err);
+        this.presentToast(this.translate.instant("serverError"))
+      }
+    );
     
-    this.navCtrl.push(TabsPage);
     
   }
   dismiss(){
     this.navCtrl.pop();
+  }
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 }

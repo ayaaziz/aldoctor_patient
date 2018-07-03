@@ -43,17 +43,19 @@ export class RemainingTimeToAcceptPage {
       this.orderStatus = this.notification.additionalData.order_status;
       if(this.orderStatus == "2")
       {
+        clearTimeout(this.timer);
         this.navCtrl.setRoot('follow-order',
         {data:
           {"orderId":this.notification.additionalData.orderId          , 
             "doctorId":this.notification.additionalData.doctorId
           }
         });
-        clearTimeout(this.timer);
+        
       }else if(this.orderStatus == "0")
       {
-        this.navCtrl.setRoot('order-not-accepted');
         clearTimeout(this.timer);
+        this.navCtrl.setRoot('order-not-accepted');
+        
       }else{
         console.log("another status");
       }

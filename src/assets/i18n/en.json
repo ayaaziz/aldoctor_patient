@@ -163,7 +163,7 @@
       "accepted":"Your order accepted by Dr ",
       "cost":"Cost",
       "pound":"L.E",
-      "arrivaltime":"The expected time of arrival of the doctor around the hour",
+      "arrivaltime":"The expected time of arrival of the doctor during",
       "Discount code":"Discount code",
       "Governorate":"Governorate",
       "check3doctors":"Please, choose only 3 doctors",
@@ -197,7 +197,8 @@
       "fine":"Fine",
       "good":"Good",
       "bad":"Bad",
-      "vbad":"Very Bad"
+      "vbad":"Very Bad",
+      "done":"Done"
 
       
 
