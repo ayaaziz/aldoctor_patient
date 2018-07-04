@@ -13,6 +13,7 @@ export class HelperProvider {
   //if(platfrom==ios )
   //0 -> ios , 1-> android
   public notification;
+  public accessToken;
 
   constructor(public http: HttpClient) {
     console.log('Hello HelperProvider Provider');

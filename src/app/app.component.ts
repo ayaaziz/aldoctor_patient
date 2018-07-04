@@ -18,6 +18,7 @@ import { OrderDoctorPage } from '../pages/order-doctor/order-doctor';
 import { HelperProvider } from '../providers/helper/helper';
 //import { VerifycodePage } from '../pages/verifycode/verifycode';
 import { SocialSharing } from '@ionic-native/social-sharing';
+
 // import { AppRate } from '@ionic-native/app-rate';
 //import { AboutAppPage } from '../pages/about-app/about-app';
 //import { ConditionsPage } from '../pages/conditions/conditions';
@@ -27,7 +28,7 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 //import { AboutAppPage } from '../pages/about-app/about-app';
 
-
+import { LoginserviceProvider } from '../providers/loginservice/loginservice';
 
 @Component({
   templateUrl: 'app.html',
@@ -41,7 +42,7 @@ export class MyApp {
   langDirection:string;
   image="assets/imgs/default-avatar.png";  
   name="";
-  constructor(private alertCtrl: AlertController, private push: Push,public storage:Storage,public socialSharing:SocialSharing,public helper:HelperProvider,public menu:MenuController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
+  constructor(public service:LoginserviceProvider, private alertCtrl: AlertController, private push: Push,public storage:Storage,public socialSharing:SocialSharing,public helper:HelperProvider,public menu:MenuController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
     console.log("current lang: ",this.helper.currentLang);
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
@@ -253,12 +254,26 @@ export class MyApp {
 
     logout()
     {
-      this.storage.remove("access_token");
-      this.storage.remove("refresh_token");
-      this.storage.remove("user_info");
-      this.storage.remove("language");
-      this.navctrl.push(LoginPage);
-      this.menu.close();
+      this.storage.get("access_token").then(data=>{
+        //this.accessToken = data;
+        this.service.updateNotification(0,data).subscribe(
+          resp=>{;
+            console.log("resp from updateNotification ",resp);
+            this.storage.remove("access_token");
+            this.storage.remove("refresh_token");
+            this.storage.remove("user_info");
+            this.storage.remove("language");
+            
+            this.navctrl.push(LoginPage);
+            this.menu.close();
+            
+          },err=>{
+            console.log("err from updateNotification ",err);
+          }
+        );
+      });
+
+     
     }
     contact()
     {

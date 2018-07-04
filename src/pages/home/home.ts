@@ -57,6 +57,9 @@ export class HomePage {
   
      this.navCtrl.push('search-for-doctor');
   }
+  orderPharmacy(){
+    this.navCtrl.push('search-for-pharmacy');
+  }
   rate(){
    // this.navCtrl.push('rate-doctor',{id:28});
   }

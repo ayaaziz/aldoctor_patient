@@ -198,8 +198,10 @@
       "good":"Good",
       "bad":"Bad",
       "vbad":"Very Bad",
-      "done":"Done"
-
+      "done":"Done",
+      "searchForPharmacy":"Search For Pharmacy",
+      "SearchByNearestPharmacies":"Search by nearest pharmacies",
+      "SearchBySpecificPharmacy":"Search for specific pharmacy"
       
 
 }

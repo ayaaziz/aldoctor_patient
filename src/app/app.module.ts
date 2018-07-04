@@ -87,6 +87,7 @@ import { Camera } from '@ionic-native/camera';
 //import { ImagePicker } from '@ionic-native/image-picker';
 //import { Base64 } from '@ionic-native/base64';
 import { Geolocation } from '@ionic-native/geolocation';
+import { ProvidedServicesProvider } from '../providers/provided-services/provided-services';
 //import { ConditionsPage } from '../pages/conditions/conditions';
 //import { ContactusPage } from '../pages/contactus/contactus';
 
@@ -172,6 +173,7 @@ export function createTranslateLoader(http: HttpClient) {
     //ImagePicker,
     //Base64,
     Geolocation,
+    ProvidedServicesProvider,
     
   ]
 })

@@ -1,0 +1,46 @@
+
+<ion-header>
+
+  <ion-navbar hideBackButton>
+  
+    <ion-buttons *ngIf="langDirection == 'rtl'"  right (click)="dismiss()">
+      <button ion-button  (click)="dismiss()">
+          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+          <!-- <ion-icon name="arrow-back"></ion-icon> 
+          -->
+      </button>
+  </ion-buttons>
+
+  <ion-buttons *ngIf="langDirection != 'rtl'"  left (click)="dismiss()">
+    <button ion-button  (click)="dismiss()">
+        <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+    </button>
+</ion-buttons>
+  
+<ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"searchForPharmacy" | translate}}</ion-title>
+<ion-title *ngIf="langDirection != 'rtl'">{{"searchForPharmacy" | translate}}</ion-title>
+
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div id="map-wrapper">
+
+    <div #map id="map"></div>
+    <div id="button-wrapper">
+  
+    <ion-item style="text-align:center;" no-lines >
+        <!-- style="font-family: 'Cairo Black'" -->
+      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="SearchByNearestPharmacies()"> {{"SearchByNearestPharmacies" | translate}}</button>  
+    </ion-item>
+  
+    <ion-item  style="text-align:center;" no-lines>
+      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="SearchBySpecificPharmacy()"> {{"SearchBySpecificPharmacy" | translate}}</button>  
+    </ion-item>
+    </div>
+    </div>
+    
+</ion-content>

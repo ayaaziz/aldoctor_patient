@@ -350,11 +350,13 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       let serviceUrl = this.helper.serviceUrl +'api/users/rate';
       return this.http.post(serviceUrl,parameter,{headers: headers });
   }
-  getNotifications(access_token){
+
+  getNotifications(page,access_token){
+    
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl+ 'api/notifications?page=2';
+    let serviceUrl = this.helper.serviceUrl+ 'api/notifications?page='+page;
     return this.http.get(serviceUrl,{headers: headers });
   }
   getCountOfNotifications(access_token){
@@ -364,6 +366,27 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl+ 'api/notifications-count';
     return this.http.get(serviceUrl,{headers: headers });
+
+  }
+  updateNotification(status,access_token){
+    
+    let headers = new HttpHeaders();
+    //notifications -> 1, 0
+    let parameter = new HttpParams().set('notifications',status);
+    console.log("parameters from service: ",parameter);
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/notifications-update';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+  }
+  readNotification(access_token){
+//api/notifications/read/{id} (post)
+    let headers = new HttpHeaders();
+    
+    // let parameter = new HttpParams().set('notifications',status);
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/notifications/read/1';
+    return this.http.post(serviceUrl,{headers: headers });
 
   }
 

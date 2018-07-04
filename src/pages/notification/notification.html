@@ -14,13 +14,16 @@
     <!-- <ion-card *ngFor="let item of data">
 
         <ion-card-content>
-          
+          <h2>{{item.text}}</h2>
+          <p>{{item.txt}}</p>
             <h2>{{item.title}}</h2>
             <p>{{item.time}}</p>
         </ion-card-content>
       
       </ion-card> -->
+    
 
+<!-- 
       <ion-item *ngFor="let item of data">
      
           <h2>{{item.title}}</h2>
@@ -34,6 +37,17 @@
             <p>{{item.time}}</p>
           </ion-item>
         
-        </ion-list>
+        </ion-list> -->
+    
+        <ion-item *ngFor="let item of data">
+     
+          <h2>{{item.txt}}</h2> <!-- item.data.txt -->
+          <p>{{item.txt}}</p>
+        </ion-item>
+
+        <ion-infinite-scroll (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
 
 </ion-content>
