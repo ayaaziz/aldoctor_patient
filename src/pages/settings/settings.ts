@@ -4,6 +4,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular/platform/platform';
+import { Storage } from '@ionic/storage';
 
 
 @IonicPage({
@@ -18,12 +19,12 @@ export class SettingsPage {
   langDirection:any;
   language;
 
-  constructor(public helper:HelperProvider,public translate:TranslateService,
+  constructor(public storage: Storage,
+    public helper:HelperProvider,public translate:TranslateService,
      public navCtrl: NavController, public navParams: NavParams,
      public platform:Platform) {
     if (this.helper.currentLang == 'ar')
     {
-     
       this.translate.use('ar');
       this.helper.currentLang = 'ar';
       this.translate.setDefaultLang('ar');
@@ -56,6 +57,7 @@ export class SettingsPage {
     
    
     if (this.helper.currentLang == 'ar') {
+
       this.translate.setDefaultLang('en');
       this.translate.use('en');
       this.helper.currentLang = 'en';
@@ -63,6 +65,8 @@ export class SettingsPage {
       this.langDirection = "ltr";
       this.platform.setDir('ltr',true);
       this.language = this.translate.instant("arabic");
+      this.storage.set('language',{lang:'en',langdir:'ltr'});
+      
 
     }
     else {
@@ -73,6 +77,7 @@ export class SettingsPage {
       this.langDirection = "rtl";
       this.platform.setDir('rtl',true);
       this.language = this.translate.instant("english");
+      this.storage.set('language',{lang:'ar',langdir:'rtl'});
     }
   }
 }

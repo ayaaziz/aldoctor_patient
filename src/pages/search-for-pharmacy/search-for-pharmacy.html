@@ -17,8 +17,8 @@
     </button>
 </ion-buttons>
   
-<ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"searchForPharmacy" | translate}}</ion-title>
-<ion-title *ngIf="langDirection != 'rtl'">{{"searchForPharmacy" | translate}}</ion-title>
+<ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{title}}</ion-title>
+<ion-title *ngIf="langDirection != 'rtl'">{{title}}</ion-title>
 
 
   </ion-navbar>
@@ -34,11 +34,11 @@
   
     <ion-item style="text-align:center;" no-lines >
         <!-- style="font-family: 'Cairo Black'" -->
-      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="SearchByNearestPharmacies()"> {{"SearchByNearestPharmacies" | translate}}</button>  
+      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="SearchByNearestService($event)"> {{btn1}}</button>  
     </ion-item>
   
     <ion-item  style="text-align:center;" no-lines>
-      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="SearchBySpecificPharmacy()"> {{"SearchBySpecificPharmacy" | translate}}</button>  
+      <button type="button" class="btn btn-primary btn-lg btn-block" style="font-size: 15px;" (click)="SearchBySpecificService($event)"> {{btn2}}</button>  
     </ion-item>
     </div>
     </div>

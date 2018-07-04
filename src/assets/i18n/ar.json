@@ -202,6 +202,8 @@
       "done":"تم",
       "searchForPharmacy":"ابحث عن صيدلية",
       "SearchByNearestPharmacies":"ابحث فى الصيدليات الاقرب",
-      "SearchBySpecificPharmacy":"ابحث عن صيدليه معينه"
+      "SearchBySpecificPharmacy":"ابحث عن صيدليه معينه",
+      "nearbyPharmacy":"الصيدليات الاقرب اليك",
+      "medicalprescription":"صوره الروشته"
 
 }

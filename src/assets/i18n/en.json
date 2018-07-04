@@ -201,7 +201,9 @@
       "done":"Done",
       "searchForPharmacy":"Search For Pharmacy",
       "SearchByNearestPharmacies":"Search by nearest pharmacies",
-      "SearchBySpecificPharmacy":"Search for specific pharmacy"
+      "SearchBySpecificPharmacy":"Search for specific pharmacy",
+      "nearbyPharmacy":"Nearby Pharmacies",
+      "medicalprescription":"Medical prescription"
       
 
 }

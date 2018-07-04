@@ -29,8 +29,12 @@ export class SearchForPharmacyPage {
   lng=31.381523;
   doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
   langDirection;
-  type_id = 1;
+  type_id;
 
+  btn;
+  title;
+  btn1;
+  btn2;
 
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -40,13 +44,25 @@ export class SearchForPharmacyPage {
      public navCtrl: NavController, public navParams: NavParams) {
 
       this.langDirection = this.helper.lang_direction;
+      this.btn = this.navParams.get('data');
+      console.log("btn txt ",this.btn);
+      // this.title = this.translate.instant(this.btn.title);
+      // this.btn1 = this.translate.instant(this.btn.btn1);
+      // this.btn2 = this.translate.instant(this.btn.btn2);
+      this.type_id = this.btn.type_id;
+      console.log("btn txt ",this.btn);
+      console.log("type_id = ",this.type_id);
+      if(this.type_id == "1"){
+        this.title = this.translate.instant("searchForPharmacy");
+        this.btn1 = this.translate.instant("SearchByNearestPharmacies");
+        this.btn2 = this.translate.instant("SearchBySpecificPharmacy");
+      }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForPharmacyPage');
     this.test();
     this.initMap();
-
   }
   dismiss(){
     console.log("dismiss");
@@ -230,12 +246,45 @@ export class SearchForPharmacyPage {
   }
   
    
-  SearchBySpecificPharmacy(){
-      this.navCtrl.push('order-specific-service');
+  SearchBySpecificService(event){
+    console.log("event from SearchBySpecificPharmacy",event);
+    console.log("event from SearchBySpecificPharmacy",event.target.innerText);
+    switch(event.target.innerText){
+      case  this.translate.instant("SearchBySpecificPharmacy"):{
+        this.navCtrl.push('order-specific-service',{
+          data:{type_id:1}
+        });
+        break;
+      }
+      case  this.translate.instant("SearchBySpecific..."):{
+        
+        break;
+      }
+
+    }
+    
+      
   
   }
-  SearchByNearestPharmacies(){
-      this.navCtrl.push('order-service');
+  SearchByNearestService(event){
+    console.log("event from SearchByNearestPharmacies",event);
+    console.log("event from SearchByNearestPharmacies",event.target.innerText);
+    switch(event.target.innerText){
+      case  this.translate.instant("SearchByNearestPharmacies"):{
+        this.navCtrl.push('order-service',{data:{
+          type_id:1,
+          lat:this.lat,
+          lng:this.lng
+        }});
+        break;
+      }
+      case  this.translate.instant("SearchByNearest..."):{
+        
+        break;
+      }
+
+    }  
+    
   
   }
 
