@@ -5,6 +5,7 @@ import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular/platform/platform';
 import { Storage } from '@ionic/storage';
+import { TabsPage } from '../tabs/tabs';
 
 
 @IonicPage({
@@ -32,6 +33,7 @@ export class SettingsPage {
       this.langDirection = "rtl";
       this.platform.setDir('rtl',true);
       this.language = this.translate.instant("english");
+      
     }
     else{
     
@@ -42,6 +44,7 @@ export class SettingsPage {
       this.langDirection = "ltr";
       this.platform.setDir('ltr',true);
       this.language = this.translate.instant("arabic");
+      
     }
   }
 
@@ -66,7 +69,7 @@ export class SettingsPage {
       this.platform.setDir('ltr',true);
       this.language = this.translate.instant("arabic");
       this.storage.set('language',{lang:'en',langdir:'ltr'});
-      
+      this.navCtrl.setRoot(TabsPage);
 
     }
     else {
@@ -78,6 +81,7 @@ export class SettingsPage {
       this.platform.setDir('rtl',true);
       this.language = this.translate.instant("english");
       this.storage.set('language',{lang:'ar',langdir:'rtl'});
+      this.navCtrl.setRoot(TabsPage);
     }
   }
 }

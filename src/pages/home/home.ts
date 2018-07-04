@@ -106,26 +106,26 @@ export class HomePage {
 
   // });
   }
-  ionViewDidEnter(){
-    console.log("did enter");
-  this.storage.get('language').then((val) => {
-    console.log("language val ",val);
-    this.helper.currentLang=val.lang;
-    this.helper.lang_direction=val.langdir;
-    console.log("language val ",val);
-    if(this.helper.currentLang == 'ar'){
+//   ionViewDidEnter(){
+//     console.log("did enter");
+//   this.storage.get('language').then((val) => {
+//     console.log("language val ",val);
+//     this.helper.currentLang=val.lang;
+//     this.helper.lang_direction=val.langdir;
+//     console.log("language val ",val);
+//     if(this.helper.currentLang == 'ar'){
       
-      this.platform.setDir('rtl',true);
-    }else{
+//       this.platform.setDir('rtl',true);
+//     }else{
       
-      this.platform.setDir('ltr',true);
-    }
-    this.langDirection = this.helper.lang_direction;
-    this.translate.use(this.helper.currentLang);
+//       this.platform.setDir('ltr',true);
+//     }
+//     this.langDirection = this.helper.lang_direction;
+//     this.translate.use(this.helper.currentLang);
 
-    console.log("lang: ",this.helper.currentLang,"dir: ",this.langDirection);
+//     console.log("lang: ",this.helper.currentLang,"dir: ",this.langDirection);
 
-}).catch(err=>{console.log("can't read languagestorage ")});
+// }).catch(err=>{console.log("can't read languagestorage ")});
 
-}
+// }
 }
