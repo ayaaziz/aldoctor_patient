@@ -46,7 +46,9 @@
         <ion-select  [(ngModel)]="Specialization" interface="popover"  class="selector" >
           <ion-option  value="{{item.value}}" *ngFor="let item of SpecializationArray" class="option"  (ionSelect)='SpecializationChecked()'>{{item.value}}</ion-option>
         </ion-select>   
+        <div style="text-align:right">
         <img src="assets/icon/arrow.png" style="margin-top:-70px;width:20px;height:20px;">  
+      </div>
       </ion-col>
       <ion-col *ngIf="langDirection == 'rtl'"  style="background-color: #e8f1ed;height:50px;" col-6 col-sm-9 col-md-10 >
         <ion-select  [(ngModel)]="Specialization" style="text-align:right;" interface="popover"  class="selector" > 

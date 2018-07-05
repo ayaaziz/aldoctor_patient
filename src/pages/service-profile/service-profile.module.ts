@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { OrderSpecificServicePage } from './order-specific-service';
+import { ServiceProfilePage } from './service-profile';
 
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {createTranslateLoader} from "../../app/app.module";
@@ -10,10 +10,10 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 
 @NgModule({
   declarations: [
-    OrderSpecificServicePage,
+    ServiceProfilePage,
   ],
   imports: [
-    IonicPageModule.forChild(OrderSpecificServicePage),
+    IonicPageModule.forChild(ServiceProfilePage),
     Ionic2RatingModule ,
     TranslateModule.forChild({
       loader: {
@@ -24,4 +24,4 @@ import { Ionic2RatingModule } from 'ionic2-rating';
     })
   ],
 })
-export class OrderSpecificServicePageModule {}
+export class ServiceProfilePageModule {}

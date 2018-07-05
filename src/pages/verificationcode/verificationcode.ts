@@ -24,10 +24,14 @@ export class VerificationcodePage {
   langDirection;
 
   constructor(public storage: Storage,public translate: TranslateService, public loginservice:LoginserviceProvider,public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
+    
+    this.langDirection = this.helper.lang_direction;
     this.activationForm = formBuilder.group({
       code: ['', Validators.required]
     });
-    this.langDirection = this.helper.lang_direction;
+    
+    console.log("activation code lang dir :",this.langDirection);
+    
   }
 
   ionViewDidLoad() {

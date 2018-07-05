@@ -1,0 +1,66 @@
+page-service-profile {
+    
+    .center{
+        text-align: center;
+    }
+    #profileImg{
+        border:1px rgb(240, 234, 234) solid;
+        border-radius: 50%;
+        height:100px;
+        width: 100px; 
+       
+    }
+
+    ul {
+        padding: 0px;
+      
+        &.rating li {
+          padding: 0px 1px !important;
+          background: none;
+          color: rgb(8, 129, 8);
+          
+          ion-icon {
+            font-size: 20px;
+          }
+        }
+      }
+    .right{
+        text-align: right;
+    }
+    .customIcon{
+        height:20px; 
+        width:20px;
+        
+    }
+    .label-md{
+        margin: 0px;
+    }
+    .services{
+        margin-left: 42px;
+    }
+    .btn-primary {
+        color: #fff;
+        background-color: #016a38;
+        border-color: #016a38;
+        width:70%;
+    }
+    .btn-primary:focus {
+        -webkit-box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+        box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+    }
+      .btn-primary:hover {
+        color: #fff;
+        background-color: #016a38;
+        border-color: #016a38;
+    }
+      .btn-primary:not(:disabled):not(.disabled):active{
+        color: #fff;
+        background-color: #016a38 !important;
+        border-color: #016a38 !important;
+    }
+    
+    .item-block{
+        min-height:4rem;
+    }
+
+}

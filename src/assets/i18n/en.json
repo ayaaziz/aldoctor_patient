@@ -203,7 +203,28 @@
       "SearchByNearestPharmacies":"Search by nearest pharmacies",
       "SearchBySpecificPharmacy":"Search for specific pharmacy",
       "nearbyPharmacy":"Nearby Pharmacies",
-      "medicalprescription":"Prescription image"
+      "medicalprescription":"Prescription image",
+      "validDiscountCode":"Valid discount code",
+      "notValidDiscountCode":"Invalid discount code",
+      "specificpharmacy":"Order specific pharmacy",
+      "pharmacyName":"Pharmacy",
+      "noSearchResult":"No results found",
+      "noOrders":"No orders found",
+      "searchForLab":"Search For Laboratory",
+      "SearchByNearestLab":"Search by nearest laboratories",
+      "SearchBySpecificLab":"Search for specific laboratory",
+      "searchForCenter":"Search For  Radiology center",
+      "SearchByNearestCenter":"Search by nearest  Radiology centers",
+      "SearchBySpecificCenter":"Search for specific  Radiology center",
+      "nearbyLab":"Nearby laboratories",
+      "nearbyCenter":"Nearby Radiology centers",
+      "requiredTests":"requiredTests",
+      "requiredRadiologies":"requiredRadiologies",
+      "specificlab":"Order specific laboratory",
+      "specificcenter":"Order specific Radiology center",
+      "labName":"Laboratory",
+      "centerName":" Radiology center"
+      
       
 
 }

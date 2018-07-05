@@ -1,4 +1,13 @@
 page-verificationcode {
+
+    ion-input.right {
+        text-align: right;
+ 
+        ::placeholder {
+         
+          text-align: right;
+        }
+      }
     
     .input-cover {
         left: 0;
@@ -92,6 +101,8 @@ select option[selected]{
         background-color: #016a38 !important;
         border-color: #016a38 !important;
     }
-
+    #xxx > div{
+        text-align:left;
+    }
 
 }

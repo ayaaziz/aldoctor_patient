@@ -22,8 +22,13 @@
   <ion-col col-2 style="background-color: #e8f1ed;height:35px;">
     <ion-datetime displayFormat="MM/DD/YYYY" style="height:35px;background-color: #e8f1ed;"
       [(ngModel)]="from" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateFromChanged($event)"></ion-datetime> 
+      <div *ngIf="langDirection != 'rtl'" style="text-align:right">
       <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
-  </ion-col>
+    </div>
+    <div *ngIf="langDirection == 'rtl'" >
+      <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
+    </div>
+    </ion-col>
   <!-- <ion-col style="background-color: #e8f1ed;height:36px;"  col-1>
     <img src="assets/icon/arrow.png" style="margin-top:12px;width:20px;height:20px;">
   </ion-col> -->
@@ -36,7 +41,14 @@
   <ion-col col-2 style="background-color: #e8f1ed;height:35px;">    
     <ion-datetime style="background-color: #e8f1ed;height:35px;" displayFormat="MM/DD/YYYY"
         [(ngModel)]="to" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateToChanged($event)" ></ion-datetime>
-        <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">
+        
+        <div *ngIf="langDirection != 'rtl'" style="text-align:right">
+          <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
+        </div>
+        <div *ngIf="langDirection == 'rtl'" >
+          <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
+        </div>
+        <!-- <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;"> -->
   </ion-col>
 <!-- 
   <ion-col style="background-color: #e8f1ed;height:36px;"  col-1>

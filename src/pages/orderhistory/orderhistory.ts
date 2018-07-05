@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , ToastController} from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -32,7 +32,7 @@ export class OrderhistoryPage {
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage, 
     public translate: TranslateService, public navCtrl: NavController,
-     public navParams: NavParams) {
+     public navParams: NavParams,public toastCtrl: ToastController) {
       this.langDirection = this.helper.lang_direction;
       console.log("langdir:",this.langDirection);
       this.translate.use(this.helper.currentLang);
@@ -42,6 +42,15 @@ export class OrderhistoryPage {
     console.log('ionViewDidLoad OrderhistoryPage');
     this.getOrders();
   }
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom'
+    });
+    toast.present();
+  }
+
   getOrders(){
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
@@ -95,6 +104,7 @@ export class OrderhistoryPage {
                   
 
                   this.data.push(this.orderobject);
+
                   this.orderobject={"orderId":"","order_status":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
                     }
@@ -131,6 +141,10 @@ export class OrderhistoryPage {
             //     console.log("get service id err",err);
             //   }
             // );
+          }
+          if(this.data.length == 0)
+          {
+            this.presentToast(this.translate.instant("noOrders"));
           }
          
         },
@@ -226,6 +240,10 @@ export class OrderhistoryPage {
           //    }
           //  );
          }
+         if(this.data.length == 0)
+         {
+           this.presentToast(this.translate.instant("noOrders"));
+         }
       },err=>{
         console.log("resp from filter err",err);
       }
@@ -312,6 +330,10 @@ export class OrderhistoryPage {
           //      console.log("get service id err",err);
           //    }
           //  );
+         }
+         if(this.data.length == 0)
+         {
+           this.presentToast(this.translate.instant("noOrders"));
          }
 
       },err=>{

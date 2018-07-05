@@ -56,8 +56,17 @@ export class SearchForPharmacyPage {
         this.title = this.translate.instant("searchForPharmacy");
         this.btn1 = this.translate.instant("SearchByNearestPharmacies");
         this.btn2 = this.translate.instant("SearchBySpecificPharmacy");
+      }else if(this.type_id == "2"){
+        this.title = this.translate.instant("searchForLab");
+        this.btn1 = this.translate.instant("SearchByNearestLab");
+        this.btn2 = this.translate.instant("SearchBySpecificLab");
+      }else if(this.type_id == "3"){
+        this.title = this.translate.instant("searchForCenter");
+        this.btn1 = this.translate.instant("SearchByNearestCenter");
+        this.btn2 = this.translate.instant("SearchBySpecificCenter");
       }
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForPharmacyPage');
@@ -252,7 +261,32 @@ export class SearchForPharmacyPage {
     switch(event.target.innerText){
       case  this.translate.instant("SearchBySpecificPharmacy"):{
         this.navCtrl.push('order-specific-service',{
-          data:{type_id:1}
+          data:{
+            type_id:1,
+            lat:this.lat,
+            lng:this.lng
+          }
+        });
+        break;
+      }
+      case  this.translate.instant("SearchBySpecificLab"):{
+        this.navCtrl.push('order-specific-service',{
+          data:{
+            type_id:2,
+            lat:this.lat,
+            lng:this.lng
+          }
+        });
+        break;
+      }
+      case  this.translate.instant("SearchBySpecificCenter"):{
+        console.log("in case specific center")
+        this.navCtrl.push('order-specific-service',{
+          data:{
+            type_id:3,
+            lat:this.lat,
+            lng:this.lng
+          }
         });
         break;
       }
@@ -269,10 +303,28 @@ export class SearchForPharmacyPage {
   SearchByNearestService(event){
     console.log("event from SearchByNearestPharmacies",event);
     console.log("event from SearchByNearestPharmacies",event.target.innerText);
+    console.log("center translate",this.translate.instant("SearchByNearestCenter"))
     switch(event.target.innerText){
       case  this.translate.instant("SearchByNearestPharmacies"):{
         this.navCtrl.push('order-service',{data:{
           type_id:1,
+          lat:this.lat,
+          lng:this.lng
+        }});
+        break;
+      }
+      case  this.translate.instant("SearchByNearestLab"):{
+        this.navCtrl.push('order-service',{data:{
+          type_id:2,
+          lat:this.lat,
+          lng:this.lng
+        }});
+        break;
+      }
+      case  this.translate.instant("SearchByNearestCenter"):{
+        console.log("in case nearest center")
+        this.navCtrl.push('order-service',{data:{
+          type_id:3,
           lat:this.lat,
           lng:this.lng
         }});

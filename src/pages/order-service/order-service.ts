@@ -21,7 +21,7 @@ export class OrderServicePage {
   title;
   serviceTitle;
   medicalprescriptionImage;
-  image="assets/imgs/avatar-ts-jessie.png";
+  image="assets/imgs/empty-image.png";
   lat;
   lng;
 
@@ -41,9 +41,9 @@ export class OrderServicePage {
  
   //DoctorsArray = [];
 
-  DoctorsArray=[{"name":"pharmacy 1","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
-  {"name":"pharmacy 1","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
-  {"name":"pharmacy 1","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
+  DoctorsArray=[{"name":"pharmacy 1","place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
+  {"name":"pharmacy 2","place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
+  {"name":"pharmacy 3","place":"mansoura","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
 
 
 
@@ -75,6 +75,16 @@ export class OrderServicePage {
         this.title = this.translate.instant("pharmacy");
         this.serviceTitle = this.translate.instant("nearbyPharmacy");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
+      }else if(this.type_id == "2")
+      {
+        this.title = this.translate.instant("lap");
+        this.serviceTitle = this.translate.instant("nearbyLab");
+        this.medicalprescriptionImage = this.translate.instant("requiredTests");
+      }else if(this.type_id == "3")
+      {
+        this.title = this.translate.instant("center");
+        this.serviceTitle = this.translate.instant("nearbyCenter");
+        this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
       }
 
   }
@@ -95,7 +105,10 @@ export class OrderServicePage {
           console.log("nearbyservice resp: ",resp);
           
          
-
+          // if(this.DoctorsArray.length == 0)
+          // {
+          //   this.presentToast(this.translate.instant("noSearchResult"));
+          // }
         },
         err=>{
           console.log("nearbyservice error: ",err);
@@ -112,12 +125,10 @@ export class OrderServicePage {
     console.log("doctor checked",item);
     if(item.checked == true)
       {
-  //      this.cost += parseInt(item.cost);
         this.choosenDoctors.push(item);
       }
     else
       {
-    //    this.cost -= parseInt(item.cost);
         for(var i=0;i<this.choosenDoctors.length;i++){
           if(item.name == this.choosenDoctors[i].name )
             this.choosenDoctors.splice(i,1);
@@ -131,51 +142,70 @@ export class OrderServicePage {
     console.log("second: ",this.second);
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
-    if(this.choosenDoctors.length > 3 )
-    {
-      this.presentToast(this.translate.instant("check3doctors"));
-    }else if (this.choosenDoctors.length<1){
-      this.presentToast(this.translate.instant("checkAtleastone"));
-    }else{
-      var doctorsId="";
-      for(var j=0;j<this.choosenDoctors.length;j++)
-      {
-        doctorsId += this.choosenDoctors[j].id+",";
-      }
-      console.log("doctors id: ",doctorsId);
-      this.service.saveOrder(doctorsId,this.accessToken).subscribe(
-        resp => {
-          console.log("saveOrder resp: ",resp);
-          this.presentToast(this.translate.instant("ordersent"));
-          // this.navCtrl.pop();
-          this.navCtrl.push('remaining-time-to-accept');
-        },
-        err=>{
-          console.log("saveOrder error: ",err);
-          this.presentToast(this.translate.instant("serverError"));
-        }
-      );    
-    }
+    // if(this.choosenDoctors.length > 3 )
+    // {
+    //   this.presentToast(this.translate.instant("check3doctors"));
+    // }else if (this.choosenDoctors.length<1){
+    //   this.presentToast(this.translate.instant("checkAtleastone"));
+    // }else{
+    //   var doctorsId="";
+    //   for(var j=0;j<this.choosenDoctors.length;j++)
+    //   {
+    //     doctorsId += this.choosenDoctors[j].id+",";
+    //   }
+    //   console.log("doctors id: ",doctorsId);
+    //   this.service.saveOrder(doctorsId,this.accessToken).subscribe(
+    //     resp => {
+    //       console.log("saveOrder resp: ",resp);
+    //       this.presentToast(this.translate.instant("ordersent"));
+    //       // this.navCtrl.pop();
+    //       this.navCtrl.push('remaining-time-to-accept');
+    //     },
+    //     err=>{
+    //       console.log("saveOrder error: ",err);
+    //       this.presentToast(this.translate.instant("serverError"));
+    //     }
+    //   );    
+    // }
     
   }
 
-  showDoctorProfile(item){
+  showseviceProfile(item){
     console.log("card item ",item);
-    item.specialization = this.Specialization;
-    console.log("item after add specialization: ",item);
-    this.navCtrl.push('doctor-profile',{
+    // item.specialization = this.Specialization;
+    // console.log("item after add specialization: ",item);
+    this.navCtrl.push('service-profile',{
       data:item
     });
   }
 
+  // validate(){
+  //   console.log("validation") ;
+  //   var code = this.first+this.second+this.third+this.fourth+this.last;
+  //   this.service.validateDiscountCode(this.accessToken,code).subscribe(
+  //     resp =>{
+  //       console.log("resp from validateDiscountCode: ",resp);
+  //     },
+  //     err=>{
+  //       console.log("err from validateDiscountCode: ",err);
+  //     }
+  //   );
+  // }
   validate(){
     console.log("validation") ;
     var code = this.first+this.second+this.third+this.fourth+this.last;
     this.service.validateDiscountCode(this.accessToken,code).subscribe(
       resp =>{
         console.log("resp from validateDiscountCode: ",resp);
+        if( JSON.parse(JSON.stringify(resp)).valid)
+        {
+          this.presentToast(this.translate.instant("validDiscountCode"));
+        }else{
+          this.presentToast(this.translate.instant("notValidDiscountCode"));
+        }
       },
       err=>{
+        this.presentToast(this.translate.instant("serverError"));
         console.log("err from validateDiscountCode: ",err);
       }
     );
@@ -201,7 +231,7 @@ export class OrderServicePage {
           text: this.translate.instant("LoadfromLibrary"),
           handler: () => {
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-   //         this.getPhoto();
+  
           }
         },
         {
@@ -210,10 +240,7 @@ export class OrderServicePage {
             this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
-        // {
-        //   text: this.translate.instant("cancelTxt"),
-        //   role: 'cancel'
-        // }
+       
       ]
     });
     actionSheet.present();

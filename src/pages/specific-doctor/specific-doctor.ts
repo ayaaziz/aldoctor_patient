@@ -24,6 +24,12 @@ export class SpecificDoctorPage {
   doctors=[];
   langDirection;
 
+  first;
+  second;
+  third;
+  fourth
+  last;
+  
   cost:number=0;
   choosenDoctors=[];
   rate;
@@ -86,6 +92,10 @@ export class SpecificDoctorPage {
             console.log("doctor: ",doctorData["results"][i]);  
             this.doctors.push(doctorData["results"][i]);
           }
+          if(this.doctors.length == 0)
+          {
+            this.presentToast(this.translate.instant("noSearchResult"));
+          }
       },
       err=>{
         console.log("getDoctorInSpecificSpecialization error: ",err);
@@ -125,6 +135,10 @@ export class SpecificDoctorPage {
           for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
             this.doctors.push(doctorData["results"][i]);
+          }
+          if(this.doctors.length == 0)
+          {
+            this.presentToast(this.translate.instant("noSearchResult"));
           }
 
         },
@@ -191,9 +205,31 @@ export class SpecificDoctorPage {
       data:item
     });
   }
+  
+  validate(){
+    console.log("validation") ;
+    var code = this.first+this.second+this.third+this.fourth+this.last;
+    this.service.validateDiscountCode(this.accessToken,code).subscribe(
+      resp =>{
+        console.log("resp from validateDiscountCode: ",resp);
+        if( JSON.parse(JSON.stringify(resp)).valid)
+        {
+          this.presentToast(this.translate.instant("validDiscountCode"));
+        }else{
+          this.presentToast(this.translate.instant("notValidDiscountCode"));
+        }
+      },
+      err=>{
+        this.presentToast(this.translate.instant("serverError"));
+        console.log("err from validateDiscountCode: ",err);
+      }
+    );
+  }
   validateDiscountCode(){
     
+
   }
+
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,

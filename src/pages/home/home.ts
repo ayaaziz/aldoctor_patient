@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { SpecializationsPage } from '../specializations/specializations';
+import { LoginPage } from '../login/login';
 //import { CancelorderPage } from '../cancelorder/cancelorder';
 //import { FolloworderPage } from '../followorder/followorder';
 
@@ -74,20 +75,26 @@ export class HomePage {
       },
     });
   }
-  rate(){
-   // this.navCtrl.push('rate-doctor',{id:28});
+  orderLab(){
+    this.navCtrl.push('search-for-pharmacy',{data:
+      {
+      //  title:"searchForPharmacy",
+      //  btn1:"SearchByNearestPharmacies",
+      //  btn2:"SearchBySpecificPharmacy",
+       type_id:"2"  
+      },
+    });
   }
-  sp(){
-    // this.navCtrl.push('specializations-page');
-    // this.navCtrl.push('order-not-accepted');
+  orderCenter(){
+    this.navCtrl.push('search-for-pharmacy',{data:
+      {
+      //  title:"searchForPharmacy",
+      //  btn1:"SearchByNearestPharmacies",
+      //  btn2:"SearchBySpecificPharmacy",
+       type_id:"3"  
+      },
+    });
   }
-  remainigtime(){
-    // this.navCtrl.push('remaining-time-to-accept');
-  }
-  // follow()
-  // {
-  //   this.navCtrl.push(FolloworderPage)
-  // }
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,

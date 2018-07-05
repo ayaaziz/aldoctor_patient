@@ -107,6 +107,10 @@ export class OrderDoctorPage {
             console.log("doctor: ",doctorData["results"][i]);  
             this.DoctorsArray.push(doctorData["results"][i]);
           }
+          if(this.DoctorsArray.length == 0)
+          {
+            this.presentToast(this.translate.instant("noSearchResult"));
+          }
       },
       err=>{
         console.log("getDoctorInSpecificSpecialization error: ",err);
@@ -181,8 +185,15 @@ export class OrderDoctorPage {
     this.service.validateDiscountCode(this.accessToken,code).subscribe(
       resp =>{
         console.log("resp from validateDiscountCode: ",resp);
+        if( JSON.parse(JSON.stringify(resp)).valid)
+        {
+          this.presentToast(this.translate.instant("validDiscountCode"));
+        }else{
+          this.presentToast(this.translate.instant("notValidDiscountCode"));
+        }
       },
       err=>{
+        this.presentToast(this.translate.instant("serverError"));
         console.log("err from validateDiscountCode: ",err);
       }
     );

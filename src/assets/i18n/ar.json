@@ -204,6 +204,26 @@
       "SearchByNearestPharmacies":"ابحث فى الصيدليات الاقرب",
       "SearchBySpecificPharmacy":"ابحث عن صيدليه معينه",
       "nearbyPharmacy":"الصيدليات الاقرب اليك",
-      "medicalprescription":"صوره الروشته"
+      "medicalprescription":"صوره الروشته",
+      "validDiscountCode":"كود الخصم صحيح",
+      "notValidDiscountCode":"كود الخصم غير صحيح",
+      "specificpharmacy":"طلب صيدليه معينه",
+      "pharmacyName":"صيدليه",
+      "noSearchResult":"لا يوجد نتائج بحث",
+      "noOrders":"لا يوجد طلبات",
+      "searchForLab":"ابحث عن معمل تحاليل",
+      "SearchByNearestLab":"ابحث فى المعامل الاقرب",
+      "SearchBySpecificLab":"ابحث عن معمل معين",
+      "searchForCenter":"ابحث عن مركز اشعه",
+      "SearchByNearestCenter":"ابحث فى المراكز الاقرب",
+      "SearchBySpecificCenter":"ابحث عن مركز معين",
+      "nearbyLab":"المعامل الاقرب اليك",
+      "nearbyCenter":"مراكز الاشعه الاقرب اليك",
+      "requiredTests":"التحاليل المطلوبه",
+      "requiredRadiologies":"الاشعه المطلوبه",
+      "specificlab":"اطلب معمل معين",
+      "specificcenter":"اطلب مركز معين",
+      "labName":"معمل ",
+      "centerName":" مركز اشعه"
 
 }
