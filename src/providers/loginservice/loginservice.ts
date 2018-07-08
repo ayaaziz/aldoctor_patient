@@ -357,7 +357,9 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl+ 'api/notifications?page='+page;
+    console.log("access token ",access_token,"headers from getNotifications",headers , "request ",serviceUrl);
     return this.http.get(serviceUrl,{headers: headers });
+    
   }
   getCountOfNotifications(access_token){
    
@@ -365,6 +367,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl+ 'api/notifications-count';
+    console.log("access token ",access_token,"headers from getCountOfNotifications",headers , "request ",serviceUrl);
     return this.http.get(serviceUrl,{headers: headers });
 
   }

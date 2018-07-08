@@ -20,10 +20,12 @@ export class NotificationPage {
   page=1;
   maximumPages;
 
-  data=[{"txt":"doctor will arrive soon","time":"9:30 am"},
-        {"txt":"doctor will arrive soon","time":"9:30 am"},
-        {"txt":"doctor will arrive soon","time":"9:30 am"},
-        {"txt":"doctor will arrive soon","time":"9:30 am"}];
+  // data=[{"txt":"doctor will arrive soon","time":"9:30 am"},
+  //       {"txt":"doctor will arrive soon","time":"9:30 am"},
+  //       {"txt":"doctor will arrive soon","time":"9:30 am"},
+  //       {"txt":"doctor will arrive soon","time":"9:30 am"}];
+        
+  data = [];
 
   constructor(public service:LoginserviceProvider,public storage: Storage,
     public translate:TranslateService,public helper:HelperProvider
@@ -38,6 +40,14 @@ export class NotificationPage {
     console.log('ionViewDidLoad NotificationPage');
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+      this.loadNotification();
+      this.service.getCountOfNotifications(this.accessToken).subscribe(
+        resp=>{;
+          console.log("resp from getcountofnotifications ",resp);
+        },err=>{
+          console.log("err from getcountofnotifications ",err);
+        }
+      );
       // this.service.getNotifications(this.accessToken).subscribe(
       //   resp=>{
       //     console.log("resp from getNotifications : ",resp);
@@ -46,16 +56,18 @@ export class NotificationPage {
       //     console.log("err from getNotifications: ",err);
       //   }
       // );
+
+
     });
 
-    this.service.getCountOfNotifications(this.accessToken).subscribe(
-      resp=>{;
-        console.log("resp from getcountofnotifications ",resp);
-      },err=>{
-        console.log("err from getcountofnotifications ",err);
-      }
-    );
-    this.loadNotification();
+    // this.service.getCountOfNotifications(this.accessToken).subscribe(
+    //   resp=>{;
+    //     console.log("resp from getcountofnotifications ",resp);
+    //   },err=>{
+    //     console.log("err from getcountofnotifications ",err);
+    //   }
+    // );
+    
    
    
   }
@@ -67,8 +79,9 @@ export class NotificationPage {
         var notificatoionResp = JSON.parse(JSON.stringify(resp)).notifications;
         this.maximumPages = notificatoionResp.last_page;
         var notificationsData = notificatoionResp.data;
-        console.log("notificationsData lenght",notificationsData.lenght);
-        for(var i=0;i<notificationsData.lenght;i++){
+        console.log("notificationsData" , notificationsData);
+        console.log("notificationsData lenght",notificationsData.length);
+        for(var i=0;i<notificationsData.length;i++){
           console.log("text ",notificationsData[i].data.text);
           
         }

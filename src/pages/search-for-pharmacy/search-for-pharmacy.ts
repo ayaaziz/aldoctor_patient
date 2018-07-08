@@ -290,10 +290,8 @@ export class SearchForPharmacyPage {
         });
         break;
       }
-      case  this.translate.instant("SearchBySpecific..."):{
-        
-        break;
-      }
+      
+      
 
     }
     
@@ -330,10 +328,7 @@ export class SearchForPharmacyPage {
         }});
         break;
       }
-      case  this.translate.instant("SearchByNearest..."):{
-        
-        break;
-      }
+      
 
     }  
     
