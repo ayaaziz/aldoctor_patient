@@ -257,7 +257,7 @@ export class MyApp {
       this.storage.get("access_token").then(data=>{
         //this.accessToken = data;
         this.service.updateNotification(0,data).subscribe(
-          resp=>{;
+          resp=>{
             console.log("resp from updateNotification ",resp);
             this.storage.remove("access_token");
             this.storage.remove("refresh_token");
