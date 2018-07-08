@@ -375,7 +375,11 @@ export class MyApp {
           this.helper.notification=notification;
           var orderStatus = notification.additionalData.order_status;
           if(orderStatus == "5")
-            this.nav.push('rate-doctor',{id:notification.additionalData.doctorId});
+            this.nav.push('rate-doctor',{
+              data:{
+                doctorId:notification.additionalData.doctorId,
+                orderId:notification.additionalData.orderId}
+            });
 
           if (notification.additionalData.type == "0" || notification.additionalData.type == "1" || notification.additionalData.type == "3") {
             // this.storage.get('access_token').then((val) => {

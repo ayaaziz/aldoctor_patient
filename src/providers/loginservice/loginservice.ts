@@ -341,10 +341,13 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     //https://maps.googleapis.com/maps/api/directions/json?origin=31.0657632,31.6421222&destination=31.037933,31.381523
     return this.http.get('https://maps.googleapis.com/maps/api/directions/json?origin='+sLat+','+sLon+'&destination='+dLat+','+dLon);
   }
-  rateDoctor(docId,rate,notes,access_token){
+  rateDoctor(docId,rate,notes,userId,orderId,access_token){
     let headers = new HttpHeaders();
-      let parameter = new HttpParams().set('user_id',docId)
-      .set('rate',rate).set('remark',notes);
+      // let parameter = new HttpParams().set('user_id',docId)
+      // .set('rate',rate).set('remark',notes);
+      let parameter = new HttpParams().set('service_profile_id',docId)
+      .set('rate',rate).set('remark',notes).set('order_id',orderId)
+      .set('is_reorder','0').set('user_id',userId);
       console.log("parameters from service: ",parameter);
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/users/rate';

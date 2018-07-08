@@ -80,7 +80,7 @@
       "clientFailedUpdate": "Failed to Update Client",
       "options":"options",
       "changelanguage":"Change Language",
-      "notification":"Notification",
+      "notification":"Notifications",
       "alertmsg":"Are you sure you want to delete this order?",
       "confirmtxt":"Yes",
       "canceltxt":"Cancel",

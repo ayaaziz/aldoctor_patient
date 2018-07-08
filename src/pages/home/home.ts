@@ -20,6 +20,7 @@ export class HomePage {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
 
+    
     storage.get('language').then((val) => {
         console.log("language val ",val);
         this.helper.currentLang=val.lang;

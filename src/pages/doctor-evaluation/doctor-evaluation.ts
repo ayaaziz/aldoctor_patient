@@ -25,6 +25,8 @@ export class DoctorEvaluationPage {
   rateWord=this.translate.instant("vbad");
   langDirection;
   doctorId;
+  orderId;
+  userId;
   accessToken;
 
   constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
@@ -32,7 +34,10 @@ export class DoctorEvaluationPage {
     public navCtrl: NavController, public navParams: NavParams) {
       this.langDirection = this.helper.lang_direction;
 
-      this.doctorId = this.navParams.get('id');
+      var notificationdata = this.navParams.get('data');
+      this.doctorId = notificationdata.doctorId;
+      this.orderId = notificationdata.orderId;
+
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
@@ -50,6 +55,9 @@ export class DoctorEvaluationPage {
           }
   
         );
+      });
+      this.storage.get("user_info").then(data=>{
+        this.userId = data.id;
       });
   }
 
@@ -87,7 +95,7 @@ export class DoctorEvaluationPage {
     this.review += event.target.innerText;
   }
   rateDoctor(){
-    this.service.rateDoctor(this.doctorId,this.rate,this.review,this.accessToken).subscribe(
+    this.service.rateDoctor(this.doctorId,this.rate,this.review,this.userId,this.orderId,this.accessToken).subscribe(
       resp=>{
         console.log("resp from rate :",resp); 
         this.presentToast(this.translate.instant("done"));
