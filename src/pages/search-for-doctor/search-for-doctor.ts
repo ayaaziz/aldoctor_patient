@@ -242,7 +242,7 @@ initMapwithUserLocation(){
 
    
   });
-
+// this.map.removeMarkers();
 
   // var markers, i;
 

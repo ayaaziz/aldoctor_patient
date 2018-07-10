@@ -274,8 +274,9 @@ console.log("follow doctor");
       this.doctorSpecialization = tempData.speciality; 
       this.doctorLocation = tempData.location;
 
-
+      // this.map.removeMarkers();
       var markers, i;
+     
       markers = new google.maps.Marker({
         position: new google.maps.LatLng(this.doctorLocation.lat, this.doctorLocation.lng),
         map: this.map,
@@ -292,7 +293,7 @@ console.log("follow doctor");
            
          }
       });
-    
+    console.log("markers ",markers);
       this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.lat,this.doctorLocation.lng).subscribe(
         resp=>{
           console.log("resp from getDurationAndDistance: ", resp);
