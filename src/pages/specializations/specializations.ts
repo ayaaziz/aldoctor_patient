@@ -88,10 +88,19 @@ export class SpecializationsPage {
     console.log("i = ",i);
     console.log("item",item);
     if(item.status == '0')
+    {
+      console.log("ev from status 0 ",ev);
+    
       item.status = '1';
+ 
+    }
     else if(item.status == '1')
+    {
+      console.log("ev from status 1 ",ev);
       item.status = '0';
-
+      
+      
+    }
     console.log("item",item);
     console.log("event: ",ev);
     this.navCtrl.push('order-doctor');

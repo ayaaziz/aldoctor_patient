@@ -87,10 +87,11 @@ export class NotificationPage {
         console.log("notificationsData lenght",notificationsData.length);
         for(var i=0;i<notificationsData.length;i++){
           console.log("text ",notificationsData[i].data.text);
+          this.data.push(notificationsData[i].data.text);
           
         }
         
-        this.data = notificationsData;
+        // this.data = notificationsData;
 
         if (infiniteScroll) {
           infiniteScroll.complete();
