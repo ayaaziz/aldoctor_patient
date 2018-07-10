@@ -396,4 +396,14 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
   }
 
+ 
+  rateCriteriea(rate,access_token){
+    // http://itrootsdemos.com/aldoctor/public/api/get/lkps/rate-criteriea?rate=1&type=rate-criteriea
+    let headers = new HttpHeaders();
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/rate-criteriea?rate='+rate;
+    return this.http.get(serviceUrl,{headers: headers });
+
+  }
 }

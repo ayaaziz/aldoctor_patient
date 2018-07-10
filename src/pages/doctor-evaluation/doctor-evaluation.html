@@ -50,22 +50,23 @@
     <!-- </p> -->
 
     
-     <ion-row  style="text-align:center" >
-       <ion-col  col-1></ion-col>
-       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey" >text</p></ion-col>
-       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey" >text</p></ion-col>
+     <ion-row  style="text-align:center;padding-right:50px;padding-left:50px;" >
+       
+       <ion-col  col-4 *ngFor="let item of rateArray"  ><ion-label class="unselected"  (click)="rateClicked($event,item)">{{item.value}}</ion-label></ion-col>
+       <!-- <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey" >text</p></ion-col>
        <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col>
        <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col>
-       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col>
+       <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col> -->
      </ion-row>
       
     
      <br>
-     <ion-label style="text-align:right">{{note}}</ion-label>
+     <ion-label *ngIf="langDirection == 'rtl'" style="text-align:right">{{note}}</ion-label>
+     <ion-label *ngIf="langDirection != 'rtl'" >{{note}}</ion-label>
     
 
     <div class="form-group">
-        <textarea class="form-control" [(ngModel)]="review" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>
+        <textarea class="form-control" [(ngModel)]="moreReview" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>
       </div>
       
       <ion-item style="text-align:center;" no-lines>

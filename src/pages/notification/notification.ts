@@ -37,12 +37,14 @@ export class NotificationPage {
 
   ionViewDidLoad() {
     
+    // this.navCtrl.push('rate-doctor',{data:{doctorId:28,orderId:177}});
+    
     console.log('ionViewDidLoad NotificationPage');
     this.storage.get("access_token").then(data=>{
 
       this.accessToken = data;
       
-      // this.navCtrl.push('rate-doctor',{data:{doctorId:28,orderId:177}});
+      
 
       this.loadNotification();
       this.service.getCountOfNotifications(this.accessToken).subscribe(

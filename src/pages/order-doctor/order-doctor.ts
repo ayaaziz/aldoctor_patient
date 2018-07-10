@@ -182,7 +182,7 @@ export class OrderDoctorPage {
   validate(){
     console.log("validation") ;
     var code = this.first+this.second+this.third+this.fourth+this.last;
-    this.service.validateDiscountCode(this.accessToken,code).subscribe(
+    this.service.validateDiscountCode(code ,this.accessToken).subscribe(
       resp =>{
         console.log("resp from validateDiscountCode: ",resp);
         if( JSON.parse(JSON.stringify(resp)).valid)
