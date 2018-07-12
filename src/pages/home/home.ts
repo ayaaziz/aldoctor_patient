@@ -96,6 +96,20 @@ export class HomePage {
       },
     });
   }
+
+  // follow(){
+  // this.navCtrl.setRoot('follow-order',
+  // {data:
+  //   {"orderId":201, 
+  //     "doctorId":28
+  //   }
+  // });
+
+  // }
+  // cancel(){
+  //   this.navCtrl.push('cancel-order',{orderId:201});
+  // }
+  
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,

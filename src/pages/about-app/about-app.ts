@@ -7,6 +7,8 @@ import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular/platform/platform';
 
+import 'rxjs/add/operator/timeout';
+
 
 @IonicPage({
   name:'about-app'
@@ -20,7 +22,12 @@ export class AboutAppPage {
   accessToken:any;
   langDirection:any;
   aboutdata:any;
+  
+
   constructor(public platform:Platform,public helper:HelperProvider,public translate:TranslateService,public service: LoginserviceProvider,public storage:Storage,public navCtrl: NavController, public navParams: NavParams) {
+    
+    
+
     if (this.helper.currentLang == 'ar')
     {
      
@@ -44,7 +51,9 @@ export class AboutAppPage {
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
       //alert(this.accessToken)
+      if (navigator.onLine) {
       this.service.AboutApplication(this.accessToken)
+      .timeout(10000)
       .subscribe(
         resp=>{
           console.log("resp from about-app : ",resp);
@@ -54,7 +63,11 @@ export class AboutAppPage {
           console.log("error from about-app : ",err);
         }
       );
+    }else{
+      this.helper.presentToast(this.translate.instant("serverError"));
+    }
     });
+  
 
   }
 

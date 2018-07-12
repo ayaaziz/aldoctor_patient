@@ -19,6 +19,7 @@ export class SpecificDoctorPage {
   
 
   Specialization="";
+  spText;
   SpecializationArray=[];
   accessToken;
   doctors=[];
@@ -33,15 +34,27 @@ export class SpecificDoctorPage {
   cost:number=0;
   choosenDoctors=[];
   rate;
-  constructor(public helper:HelperProvider, public toastCtrl: ToastController, public storage: Storage, 
+
+  tostClass ;
+  constructor(public helper:HelperProvider, public toastCtrl: ToastController,
+    public storage: Storage, 
     public service:LoginserviceProvider, public navCtrl: NavController,
      public navParams: NavParams, public translate: TranslateService) {
+
+      this.langDirection = this.helper.lang_direction;
+      
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
+
+      this.spText=this.translate.instant("chooseSpecialization");
   }
 
   ionViewDidLoad() {
     
 
-    this.langDirection = this.helper.lang_direction;
+    
     console.log('ionViewDidLoad SpecificDoctorPage');
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
@@ -51,10 +64,11 @@ export class SpecificDoctorPage {
           console.log("getSpecializations resp: ",resp);
           for(var i=0;i<JSON.parse(JSON.stringify(resp)).length;i++){
             console.log("sp: ",resp[i].value);
-            this.Specialization=resp[0].value;
+            //this.Specialization=resp[0].value;
+            this.Specialization=this.translate.instant("chooseSpecialization");
            // this.SpecializationArray.push(resp[i].value);
             this.SpecializationArray.push(resp[i]);
-            this.SpecializationChecked();
+            // this.SpecializationChecked();
             
 
           }
@@ -234,7 +248,8 @@ export class SpecificDoctorPage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

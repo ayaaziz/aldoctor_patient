@@ -31,10 +31,18 @@ export class DoctorEvaluationPage {
   userId;
   accessToken;
   rateArray=[];
+  tostClass ;
+  
   constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider,public translate: TranslateService,
     public navCtrl: NavController, public navParams: NavParams) {
       this.langDirection = this.helper.lang_direction;
+
+      
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
 
       var notificationdata = this.navParams.get('data');
       this.doctorId = notificationdata.doctorId;
@@ -205,7 +213,8 @@ export class DoctorEvaluationPage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

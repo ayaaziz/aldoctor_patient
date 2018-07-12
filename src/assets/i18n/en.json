@@ -223,7 +223,8 @@
       "specificlab":"Order specific laboratory",
       "specificcenter":"Order specific radiology center",
       "labName":"Laboratory",
-      "centerName":" Radiology center"
+      "centerName":" Radiology center",
+      "chooseSpecialization":"choose Specialization"
       
       
 

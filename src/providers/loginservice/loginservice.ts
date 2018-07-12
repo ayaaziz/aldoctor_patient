@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HelperProvider } from '../helper/helper';
+import 'rxjs/add/operator/timeout';
 
 
 @Injectable()
@@ -38,6 +39,7 @@ export class LoginserviceProvider {
     let params = new HttpParams().set('client_id', '2').set('client_secret', 'SWMX2z5hAtB7DD5l29bwZ7s3gCxmLGgp8JKX8w7p').set('grant_type', 'client_credentials');
     let serviceUrl = this.helper.serviceUrl + 'oauth/token';
     this.http.post(serviceUrl, params, { headers: headers })
+    .timeout(10000)    
     .subscribe(
       data => {
         
@@ -74,7 +76,7 @@ userRegister(userData,access_token,SuccessCallback,FailureCallback) {
   headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
   let serviceUrl = this.helper.serviceUrl +'api/user/register';
   this.http.post(serviceUrl,parameter,{headers: headers })
-  
+  .timeout(10000)
    .subscribe(
     data => {
       
@@ -101,7 +103,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/login';
       this.http.post(serviceUrl,parameter,{headers: headers })
-   
+      .timeout(10000)
        .subscribe(
         data => {
               //this.presentToast("su data: "+JSON.stringify(data));
@@ -265,18 +267,18 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let parameter = new HttpParams().set('firebase_registeration_id',firebase_registeration_id).set('device_type',this.helper.device_type).set('firebase_lang',this.helper.currentLang == "en" ? "0" : "1")
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/update-firebase';
-    this.http.post(serviceUrl,parameter,{headers: headers })
-     .subscribe(
-      data => {
-        console.log("from registerFirebase resp: ",data);
-              console.log(JSON.stringify(data));
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+    //  .subscribe(
+    //   data => {
+    //     console.log("from registerFirebase resp: ",data);
+    //           console.log(JSON.stringify(data));
              
-      },
-      err => {
-        console.log("from registerFirebase err: ",err);
+    //   },
+    //   err => {
+    //     console.log("from registerFirebase err: ",err);
         
-      }
-    )
+    //   }
+    // )
    
   }
 
@@ -310,11 +312,12 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
  
   cancelreasons(access_token){
-    
+    var lang = this.helper.currentLang;
     let headers = new HttpHeaders();
 
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/cancel-reasons';
+      //let serviceUrl = this.helper.serviceUrl +'api/get/lkps/cancel-reasons';
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-cancel-reasons?lang='+lang;
       return this.http.get(serviceUrl,{headers: headers })
       
   }

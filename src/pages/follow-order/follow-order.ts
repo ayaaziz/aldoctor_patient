@@ -87,8 +87,13 @@ export class FollowOrderPage {
     this.initMap();
 
     var timer = setInterval(()=>{
+
+      //this.folllowdoctor();
+
       this.notification = this.helper.notification;
       this.orderStatus = this.notification.additionalData.order_status;
+     
+
       if(this.orderStatus == "8"){
         console.log("order status 8");
         this.folllowdoctor();
@@ -99,7 +104,7 @@ export class FollowOrderPage {
         this.navCtrl.push(TabsPage);
         
       }
-    },1000);
+    },5000);
 
   }
   initMap(){
@@ -133,7 +138,7 @@ export class FollowOrderPage {
     ).catch(
       a=>{
         console.log("from gps opened err",a);
-        this.presentToast("can't get location ");
+        //this.presentToast("can't get location ");
         this.diagnostic.switchToLocationSettings();
       }
     );
@@ -262,21 +267,44 @@ initMapwithUserLocation(){
   // });
   
 }
-
+allMarkers = [] ;
 folllowdoctor(){
 console.log("follow doctor");
   this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
     resp =>{
       console.log("resp from getserviceprofile in followorder: ",resp);
       var tempData = JSON.parse(JSON.stringify(resp)).user;
-      this.doctorName = tempData.name;
-      this.doctorRate = tempData.rate;
-      this.doctorSpecialization = tempData.speciality; 
+      // this.doctorName = tempData.name;
+      // this.doctorRate = tempData.rate;
+      // this.doctorSpecialization = tempData.speciality; 
       this.doctorLocation = tempData.location;
 
       // this.map.removeMarkers();
+      
+      console.log("remove");
+      
+      
       var markers, i;
      
+/**/
+// markers = new google.maps.Marker({
+//   position: new google.maps.LatLng(this.lat, this.lng),
+//   map: this.map,
+//   // animation: google.maps.Animation.DROP,
+//   icon: { 
+//     url : 'assets/icon/location.png',
+//     size: new google.maps.Size(71, 71),
+//     scaledSize: new google.maps.Size(25, 25) 
+    
+//    }
+// });
+
+
+/**/
+for(var j=0;j<this.allMarkers.length;j++)
+{
+  this.allMarkers[j].setMap(null);
+}
       markers = new google.maps.Marker({
         position: new google.maps.LatLng(this.doctorLocation.lat, this.doctorLocation.lng),
         map: this.map,
@@ -293,7 +321,10 @@ console.log("follow doctor");
            
          }
       });
-    console.log("markers ",markers);
+      console.log("draw");
+      this.allMarkers.push(markers);
+
+      console.log("markers ",markers);
       this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.lat,this.doctorLocation.lng).subscribe(
         resp=>{
           console.log("resp from getDurationAndDistance: ", resp);

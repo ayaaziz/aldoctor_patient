@@ -49,6 +49,7 @@ export class OrderServicePage {
 
   cost:number=0;
   choosenDoctors=[];
+  tostClass ;
 
   constructor(public translate: TranslateService, 
     public navCtrl: NavController, public navParams: NavParams,
@@ -60,6 +61,12 @@ export class OrderServicePage {
   public actionSheetCtrl: ActionSheetController) {
 
       this.langDirection = this.helper.lang_direction;
+       
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
+
       this.translate.use(this.helper.currentLang);
       this.accessToken = this.helper.accessToken;
 
@@ -217,7 +224,8 @@ export class OrderServicePage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

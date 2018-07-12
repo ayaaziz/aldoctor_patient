@@ -18,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'change-password.html',
 })
 export class ChangePasswordPage {
+  tostClass ;
   resetForm;
 resetLoader;
 submitAttempt = false;
@@ -35,6 +36,11 @@ passErrMsg="";
      public navCtrl: NavController, public navParams: NavParams) {
     this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);
+
+    if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
 
     this.resetForm = formBuilder.group({
       //usermail: ['', Validators.compose([Validators.required,Validators.email])],
@@ -88,7 +94,8 @@ passErrMsg="";
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

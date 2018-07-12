@@ -42,6 +42,7 @@ export class OrderhistoryPage {
     console.log('ionViewDidLoad OrderhistoryPage');
     this.getOrders();
   }
+ 
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
@@ -342,11 +343,16 @@ export class OrderhistoryPage {
     );
   }
   ionViewWillEnter() {
+    console.log("will enter get orders")
     this.cancelTxt = this.translate.instant("canceltxt");
     this.doneTxt = this.translate.instant("doneTxt");
+
+    this.getOrders();
+
     // this.getSpecializationsData()
   }
   followOrder(item){
+    console.log("follow item ",item);
     console.log("data length: ", this.data.length);
     console.log("ordersArray: ",this.ordersArray);
     // for(var k=0;k<this.ordersArray[k].length;k++)
@@ -373,6 +379,22 @@ export class OrderhistoryPage {
     //     data:item
     //   });
     // }
+if(item.order_status == "2" || item.order_status=="8")
+{
+  // this.navCtrl.setRoot('follow-order',{
+  //   data:item
+  // });
 
+  this.navCtrl.setRoot('follow-order',
+        {data:
+          {"orderId":item.orderId          , 
+            "doctorId":item.doctor_id
+          }
+        });
+}
+}
+  doRefresh(ev){
+    console.log("refresh",ev);
+    this.getOrders();
   }
 }

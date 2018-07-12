@@ -5,10 +5,11 @@
       
     </button>
     <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;padding:0px;">
-      <img src="assets/imgs/dlogo.png"   class="customIcon" > {{"Home" | translate}}
+      <!-- <img src="assets/imgs/dlogo.png"   class="customIcon" > -->
+       {{"Home" | translate}}
     </ion-title>
     <ion-title *ngIf="langDirection != 'rtl'"> 
-        <img src="assets/imgs/dlogo.png"   class="customIcon" >
+        <!-- <img src="assets/imgs/dlogo.png"   class="customIcon" > -->
         {{"Home" | translate}} 
     </ion-title>
     
@@ -50,8 +51,16 @@
   </div>
 
 </div> -->
+
+  
+    
+<!-- <div style=" height: 100%;vertical-align: middle;" > -->
+<ion-grid style="height: 100%">
+  <ion-row justify-content-center align-items-center style="height: 100%">
+
+<img src="assets/imgs/dlogo.png" class="customIconForLogo" > 
 <ion-grid >
-<ion-row style="width:100%;margin-top:50px;margin-right:0px;margin-left:0px;">
+<ion-row style="width:100%;margin-right:0px;margin-left:0px;">
   <ion-col col-6   >
     <div   class="divStyle x"  (click)="orderDoctor()">
       <img  src="assets/icon/otlob_doc.png"   style="width:60px;height:60px;" class="customPosition" >
@@ -86,6 +95,12 @@
     </ion-col>
     </ion-row>
   </ion-grid>
+  </ion-row>
+  </ion-grid>
+<!-- </div> -->
+  <!-- <button (click)="follow()">follow Order</button>
+  <button (click)="cancel()">cancel order</button> -->
+
 
 <!-- 
 <div>

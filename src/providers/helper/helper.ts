@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ToastController } from 'ionic-angular';
 
 
 @Injectable()
@@ -15,8 +16,17 @@ export class HelperProvider {
   public notification;
   public accessToken;
 
-  constructor(public http: HttpClient) {
+  constructor(public toastCtrl: ToastController, public http: HttpClient) {
     console.log('Hello HelperProvider Provider');
+  }
+  
+  public presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 4000,
+      position: 'bottom'
+    });
+    toast.present();
   }
 
 }

@@ -23,11 +23,18 @@ export class LoginPage {
   submitAttempt=false;
   email;
   password;
-
+  tostClass ;
+  
   constructor( public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
     public formBuilder: FormBuilder,public navCtrl: NavController, 
     public navParams: NavParams, public platform: Platform) {
       this.langDirection = this.helper.lang_direction;
+      
+      
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
     this.loginForm = formBuilder.group({
       //username: ['', Validators.required],
       password: ['', Validators.required],
@@ -110,10 +117,37 @@ export class LoginPage {
     // this.storage.set("lang-dir",this.helper.lang_direction);
     this.storage.set("access_token",data.access_token);
     this.storage.set("refresh_token",data.refresh_token);
-    this.loginservice.registerFirebase(this.helper.registration,data.access_token);
+    this.loginservice.registerFirebase(this.helper.registration,data.access_token).subscribe(
+      resp=>{
+        console.log("from registerFirebase resp: ",resp);
+        var jsonUserData  = JSON.parse(JSON.stringify(resp)).user;
+        this.storage.set("user_info",{
+                "id":jsonUserData.id,
+                "name":jsonUserData.name,
+                "email":jsonUserData.email,
+                "phone":jsonUserData.phone,
+                "dob":jsonUserData.user_info.birth_date,
+                "add":jsonUserData.extraInfo.address,
+                "profile_pic":jsonUserData.profile_pic
+              }).then(data=>{
+                console.log("set data to storage from login ",data);
+                this.navCtrl.setRoot(TabsPage);
+              }).catch(data=>{
+                console.log("catch data from login",data);
+              });
+                 
+
+      },
+      err=>{
+        
+          console.log("from registerFirebase err: ",err);
+            
+       
+      }
+    );
     // this.loginservice.getuserProfile(data.accessToken).subscribe(
     //   resp=>{
-    //     this.navCtrl.setRoot(TabsPage);
+    //     // this.navCtrl.setRoot(TabsPage);
     //     var newuserData = JSON.parse(JSON.stringify(resp));
     //     this.storage.set("user_info",{
     //       "id":newuserData.id,
@@ -128,12 +162,13 @@ export class LoginPage {
     //     },(error)=>{
     //     //  this.presentToast("set then error from signup: "+error)
     //     });
-        
+    //     this.navCtrl.setRoot(TabsPage);
 
     //   },err=>{
 
     //   }
     // );
+
     this.navCtrl.setRoot(TabsPage);
     
   }
@@ -145,7 +180,8 @@ export class LoginPage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

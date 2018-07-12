@@ -87,9 +87,13 @@
           <div style="width:20px;height:20px;border-radius: 50%;" [style.background-color]="color">  </div>
         </ion-col>
       </ion-row>
+      
   </ion-card>
+
   
    
-
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
 </ion-content>

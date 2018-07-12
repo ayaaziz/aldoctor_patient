@@ -224,6 +224,7 @@
       "specificlab":"اطلب معمل معين",
       "specificcenter":"اطلب مركز معين",
       "labName":"معمل ",
-      "centerName":" مركز اشعه"
+      "centerName":" مركز اشعه",
+      "chooseSpecialization":"اختر تخصص"
 
 }

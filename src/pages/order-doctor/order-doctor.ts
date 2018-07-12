@@ -21,6 +21,8 @@ export class OrderDoctorPage {
   SpecializationArray=[];
   DoctorsArray = [];
   langDirection;
+  spId;
+  spValue;
 
   
   first;
@@ -28,6 +30,7 @@ export class OrderDoctorPage {
   third;
   fourth
   last;
+  tostClass ;
   @ViewChild('fireSElect') sElement;
  
   // DoctorsArray=[{"name":"ali","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
@@ -46,7 +49,17 @@ export class OrderDoctorPage {
 
      
         this.langDirection = this.helper.lang_direction;
+        if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+        else
+        this.tostClass="toastLeft"; 
+
         this.translate.use(this.helper.currentLang);
+        var datafromsp =  this.navParams.get('data');
+        this.spId = datafromsp.id;
+        this.spValue = datafromsp.sp;
+        this.Specialization = this.spValue;
+        console.log("construct id ",this.spId," value ",this.spValue);
     
 
   }
@@ -66,12 +79,13 @@ export class OrderDoctorPage {
           console.log("getSpecializations resp: ",resp);
           for(var i=0;i<JSON.parse(JSON.stringify(resp)).length;i++){
             console.log("sp: ",resp[i].value);
-            this.Specialization=resp[0].value;
+            //this.Specialization=resp[0].value;
             // this.SpecializationArray.push(resp[i].value);
             this.SpecializationArray.push(resp[i]);
-            this.SpecializationChecked();
+            // this.SpecializationChecked();
 
           }
+          this.SpecializationChecked();
          
 
         },
@@ -96,7 +110,7 @@ export class OrderDoctorPage {
         break;
       }
     }
-    console.log("id: ",id);
+    console.log("get doctor sp id: ",id);
     this.service.getDoctorInSpecificSpecialization(id,this.accessToken).subscribe(
       resp =>{
         console.log("getDoctorInSpecificSpecialization resp: ",resp);
@@ -109,6 +123,7 @@ export class OrderDoctorPage {
           }
           if(this.DoctorsArray.length == 0)
           {
+            console.log("if = 0");
             this.presentToast(this.translate.instant("noSearchResult"));
           }
       },
@@ -205,7 +220,8 @@ export class OrderDoctorPage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

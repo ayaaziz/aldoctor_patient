@@ -26,6 +26,8 @@ export class DoctorProfilePage {
   services=["any thing","any thing","any thing"];
   accessToken;
 
+  tostClass ;
+
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, 
     public service:LoginserviceProvider,
@@ -33,6 +35,11 @@ export class DoctorProfilePage {
      public navParams: NavParams,public translate: TranslateService) {
 
     this.langDirection = this.helper.lang_direction;
+    if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
+
     this.translate.use(this.helper.currentLang);
     
     this.doctorProfile = navParams.get('data');
@@ -41,8 +48,8 @@ export class DoctorProfilePage {
     this.name = this.doctorProfile.name;
     this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
-    // this.services = this.doctorProfile.SpecialityServices;
-    this.services = ["any thing","any thing","any thing"];
+    this.services = this.doctorProfile.speciality_services;
+    // this.services = ["any thing","any thing","any thing"];
   }
 
   ionViewDidLoad() {
@@ -78,7 +85,8 @@ export class DoctorProfilePage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

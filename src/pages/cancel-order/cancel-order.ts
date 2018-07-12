@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { OrderhistoryPage } from '../orderhistory/orderhistory';
+import 'rxjs/add/operator/timeout';
 
 
 
@@ -18,15 +19,16 @@ import { OrderhistoryPage } from '../orderhistory/orderhistory';
 })
 export class CancelOrderPage {
 
-  reasons = [{"id":"1","value":"any reason"},
-  {"id":"2","value":"any reason"},
-  {"id":"3","value":"any reason"}];
+  // reasons = [{"id":"1","value":"any reason"},
+  // {"id":"2","value":"any reason"},
+  // {"id":"3","value":"any reason"}];
+  reasons=[];
   userReasons = [] ;
   orderId;
   accessToken;
   desc;
   langDirection;
-
+  tostClass ;
 
   constructor(public storage: Storage,public helper:HelperProvider, 
     public service:LoginserviceProvider,public translate: TranslateService,
@@ -34,6 +36,12 @@ export class CancelOrderPage {
     public toastCtrl: ToastController) {
    this.orderId =  this.navParams.get('orderId');
    this.langDirection = this.helper.lang_direction;
+
+      
+   if(this.langDirection == "rtl")
+     this.tostClass = "toastRight";
+   else
+     this.tostClass="toastLeft";
     this.translate.use(this.helper.currentLang);
     console.log("orderId from cancel order: ",this.orderId);
   }
@@ -42,9 +50,18 @@ export class CancelOrderPage {
     console.log('ionViewDidLoad CancelOrderPage');
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
-      this.service.cancelreasons(this.accessToken).subscribe(
+      this.service.cancelreasons(this.accessToken).timeout(10000).subscribe(
         resp=>{
+
           console.log("resp from cancelreasons: ", resp);
+          var cancelationReasons = JSON.parse(JSON.stringify(resp));
+          console.log("l = ",cancelationReasons.length);
+          
+          for(var i=0;i<cancelationReasons.length;i++){
+            console.log("reasons ",cancelationReasons[i]);
+            this.reasons.push(cancelationReasons[i]);
+          }
+          
         },err=>{
           console.log("error from cancelreasons: ",err);
         }
@@ -75,7 +92,8 @@ export class CancelOrderPage {
     console.log("user reasons",this.userReasons.join());
     console.log("desc: ",this.desc);
     console.log("order id from cancle: ",this.orderId);
-      this.service.cancelorder(this.orderId,this.userReasons.join(),this.desc,this.accessToken).subscribe(
+    if (navigator.onLine) {
+      this.service.cancelorder(this.orderId,this.userReasons.join(),this.desc,this.accessToken).timeout(10000).subscribe(
         resp => {
           console.log("cancel order resp: ",resp);
           this.presentToast(this.translate.instant("orderCancled"));     
@@ -85,14 +103,18 @@ export class CancelOrderPage {
           console.log("cancel order err: ", err);
         }
       );
+    }else{
+      this.helper.presentToast(this.translate.instant("serverError"));
     }
+  }
   
 
     private presentToast(text) {
       let toast = this.toastCtrl.create({
         message: text,
         duration: 3000,
-        position: 'bottom'
+        position: 'bottom',
+        cssClass: this.tostClass
       });
       toast.present();
     }

@@ -1,6 +1,9 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
+import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
+import { Storage } from '@ionic/storage';
+
 
 
 @IonicPage(
@@ -17,17 +20,24 @@ export class SpecializationsPage {
   @ViewChild('i') simage1;
   // @ViewChild('image2') simage2;
   specializations;
-  specializations1;
-  specializations2;
+  specializations1=[];
+  specializations2=[];
 
   langDirection;
   hideElement=true;
   color="white";
   labelColor="grey";
+  accessToken ;
 
   constructor(public helper:HelperProvider,public navCtrl: NavController,
-     public navParams: NavParams) {
+     public navParams: NavParams,public storage: Storage,
+     public service:LoginserviceProvider) {
       this.langDirection = this.helper.lang_direction;
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+
+      // });
+      
   }
 
   ionViewDidLoad() {
@@ -45,24 +55,69 @@ export class SpecializationsPage {
     }
   }
   initializeSpecializations() {
-    this.specializations = [
-    {"name":"specialization1","image":""},
-    {"name":"specialization2","image":""},
-    {"name":"specialization3","image":""},
-    {"name":"specialization4","image":""},
-    {"name":"specialization5","image":""},
-    {"name":"specialization6","image":""}];
-    this.specializations1=[   
-       {"name":"اطفال","status":'0',"image":"assets/icon/baby.png","image2":"assets/icon/baby2.png"},
-    {"name":"جراحات الفم","status":'0',"image":"assets/icon/premolar1.png","image2":"assets/icon/premolar2.png"},
-    {"name":"مخ واعصاب","status":'0',"image":"assets/icon/brain.png","image2":"assets/icon/brain2.png"},
-    {"name":"باطنه وقلب","status":'0',"image":"assets/icon/heart.png","image2":"assets/icon/heart2.png"}];
-    this.specializations2=[{"name":"انف واذن","status":'0',"image":"assets/icon/ear1.png","image2":"assets/icon/ear2.png"},
-    {"name":"نساء وتوليد","status":'0',"image":"assets/icon/pregnancy1.png","image2":"assets/icon/pregnancy2.png"},
-    {"name":"تغذيه","status":'0',"image":"assets/icon/science1.png","image2":"assets/icon/science2.png"},
-    {"name":"كلى","status":'0',"image":"assets/icon/kidneys1.png","image2":"assets/icon/kidneys2.png"}];
+    // this.specializations = [
+    // {"name":"specialization1","image":""},
+    // {"name":"specialization2","image":""},
+    // {"name":"specialization3","image":""},
+    // {"name":"specialization4","image":""},
+    // {"name":"specialization5","image":""},
+    // {"name":"specialization6","image":""}];
+    // this.specializations1=[   
+    //    {"name":"اطفال","status":'0',"image":"assets/icon/baby.png","image2":"assets/icon/baby2.png"},
+    // {"name":"جراحات الفم","status":'0',"image":"assets/icon/premolar1.png","image2":"assets/icon/premolar2.png"},
+    // {"name":"مخ واعصاب","status":'0',"image":"assets/icon/brain.png","image2":"assets/icon/brain2.png"},
+    // {"name":"باطنه وقلب","status":'0',"image":"assets/icon/heart.png","image2":"assets/icon/heart2.png"}];
+    // this.specializations2=[{"name":"انف واذن","status":'0',"image":"assets/icon/ear1.png","image2":"assets/icon/ear2.png"},
+    // {"name":"نساء وتوليد","status":'0',"image":"assets/icon/pregnancy1.png","image2":"assets/icon/pregnancy2.png"},
+    // {"name":"تغذيه","status":'0',"image":"assets/icon/science1.png","image2":"assets/icon/science2.png"},
+    // {"name":"كلى","status":'0',"image":"assets/icon/kidneys1.png","image2":"assets/icon/kidneys2.png"}];
    
 
+    // var arr1 = [10,20,30];
+    // console.log("lenght of arr1",arr1.length);
+    // console.log("lenght of arr1/2",arr1.length/2);
+    // for(var i=0 ;i<arr1.length;i++ )
+    // {
+    //   console.log("item ",arr1[i]);
+    // }
+    // for(var j=0;j<arr1.length/2;j++)
+    // {
+    //   console.log("item /2",arr1[j]);
+    // }
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+      this.service.getSpecializations(this.accessToken).subscribe(
+        resp=>{
+          
+          console.log("getSpecializations resp: ",resp);
+          var specializationData = JSON.parse(JSON.stringify(resp));
+          this.specializations1 = [];
+          this.specializations2 = [];
+          for(var i=0;i<specializationData.length/2;i++){
+            this.specializations1.push(specializationData[i]);
+          }
+          for(var j=(specializationData.length/2);j<specializationData.length;j++){
+            this.specializations2.push(specializationData[j]);
+          }
+         
+          console.log("sp1 ",this.specializations1);
+          console.log("sp2 ",this.specializations2);
+
+          for(var j=0;j<this.specializations1.length;j++){
+            this.specializations1[j].status = '0';
+          }
+          for(var j=0;j<this.specializations2.length;j++){
+            this.specializations2[j].status = '0';
+          }
+
+        },
+        err=>{
+          console.log("getSpecializations error: ",err);
+        }
+      );
+    });
+
+   
   }
 
 
@@ -103,7 +158,7 @@ export class SpecializationsPage {
     }
     console.log("item",item);
     console.log("event: ",ev);
-    this.navCtrl.push('order-doctor');
+    this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
     // ev.target.style.color="white";
     // ev.target.style.background-color="#016a38";
     // console.log("event: ",ev.target);
