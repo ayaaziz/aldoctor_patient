@@ -1,14 +1,13 @@
 
 <ion-header>
-
+<!-- 
   <ion-navbar hideBackButton>
     
 
     <ion-buttons *ngIf="langDirection == 'rtl'"  right>
         <button ion-button  (click)="dismiss()">
             <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-            <!-- <ion-icon name="arrow-back"></ion-icon> 
-            -->
+           
         </button>
     </ion-buttons>
 
@@ -22,6 +21,34 @@
   <ion-title *ngIf="langDirection != 'rtl'" >{{"aboutApp" | translate}}</ion-title>
 
   </ion-navbar>
+ -->
+ <ion-navbar hideBackButton>
+  <ion-row>
+    <ion-col col-8>
+        <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"aboutApp" | translate}}</ion-title>
+        <ion-title *ngIf="langDirection != 'rtl'">{{"aboutApp" | translate}}</ion-title>
+    </ion-col>
+    <ion-col col-2 >
+        <img src="assets/imgs/dlogo.png" style="width:50px;height:30px" left>
+    </ion-col>
+  
+
+  <ion-col col-2>
+    <ion-buttons *ngIf="langDirection == 'rtl'"  left>
+      <button ion-button  (click)="dismiss()">
+          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+         
+      </button>
+  </ion-buttons>
+
+  <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+    <button ion-button  (click)="dismiss()">
+        <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+    </button>
+</ion-buttons>
+  </ion-col>
+</ion-row>
+</ion-navbar>
 
 </ion-header>
 

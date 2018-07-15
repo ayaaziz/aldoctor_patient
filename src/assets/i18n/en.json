@@ -224,7 +224,8 @@
       "specificcenter":"Order specific radiology center",
       "labName":"Laboratory",
       "centerName":" Radiology center",
-      "chooseSpecialization":"choose Specialization"
+      "chooseSpecialization":"choose Specialization",
+      "doctoroffline":"Doctor offline"
       
       
 

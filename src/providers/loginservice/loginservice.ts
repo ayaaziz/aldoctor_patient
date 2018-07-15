@@ -342,7 +342,9 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
   getDurationAndDistance(sLat,sLon,dLat,dLon){
     //https://maps.googleapis.com/maps/api/directions/json?origin=31.0657632,31.6421222&destination=31.037933,31.381523
-    return this.http.get('https://maps.googleapis.com/maps/api/directions/json?origin='+sLat+','+sLon+'&destination='+dLat+','+dLon);
+    var url = 'https://maps.googleapis.com/maps/api/directions/json?origin='+sLat+','+sLon+'&destination='+dLat+','+dLon+'&key='+this.helper.key;
+    console.log("googlw api url ",url);
+    return this.http.get(url);
   }
   rateDoctor(docId,rate,notes,userId,orderId,access_token){
     let headers = new HttpHeaders();

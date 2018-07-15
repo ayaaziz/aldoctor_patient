@@ -57,6 +57,10 @@ page-doctor-profile {
         background-color: #016a38 !important;
         border-color: #016a38 !important;
     }
+    .btn:disabled {
+        background-color: #dddddd !important ;
+        border-color: #dddddd  !important;
+    }
     
 
 }

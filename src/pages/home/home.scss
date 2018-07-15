@@ -5,7 +5,7 @@ page-home {
 
       }
       .labelStyle{
-          margin: 10px;
+          margin-top: 10px;
         text-align:center;color:grey;font-size:18px;
         
       }
@@ -27,13 +27,16 @@ page-home {
         height: 150px;
         
     }
-    .toolbar-title-md{
-        padding: 0px;
-    }
+    // .toolbar-title-md{
+    //     padding: 0px;
+    // }
     .row{
         margin:0px;
         padding: 0px;
     }
+    // .item-md h4,.item-md h3, .item-md h2{
+    //     line-height: 1;
+    //   }
 
     // img{
     //    width:100px;

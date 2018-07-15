@@ -150,6 +150,11 @@ getUserLocation(){
 
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
+      
+      this.helper.lon = this.lng;
+      this.helper.lat = this.lat;
+
+      
       console.log("resp: ", resp);
       this.initMapwithUserLocation();
       this.storage.get("access_token").then(data=>{

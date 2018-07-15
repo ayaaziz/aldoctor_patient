@@ -225,6 +225,7 @@
       "specificcenter":"اطلب مركز معين",
       "labName":"معمل ",
       "centerName":" مركز اشعه",
-      "chooseSpecialization":"اختر تخصص"
+      "chooseSpecialization":"اختر تخصص",
+      "doctoroffline":"الطبيب غير متاح الان"
 
 }

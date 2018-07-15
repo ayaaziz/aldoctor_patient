@@ -15,6 +15,10 @@ export class HelperProvider {
   //0 -> ios , 1-> android
   public notification;
   public accessToken;
+  public lon=31.381523;
+  public lat=31.037933;
+  //google maps api key
+  public key="AIzaSyB73L1RyzXHkT9fZMlnitShWfEkF3bzrVk";
 
   constructor(public toastCtrl: ToastController, public http: HttpClient) {
     console.log('Hello HelperProvider Provider');

@@ -28,6 +28,8 @@ export class DoctorProfilePage {
 
   tostClass ;
 
+  offline;
+
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, 
     public service:LoginserviceProvider,
@@ -49,6 +51,11 @@ export class DoctorProfilePage {
     this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
     this.services = this.doctorProfile.speciality_services;
+    
+    if(this.doctorProfile.availability == "1")
+      this.offline = "0";
+    else
+      this.offline = "1";
     // this.services = ["any thing","any thing","any thing"];
   }
 
@@ -60,6 +67,13 @@ export class DoctorProfilePage {
   }
   
   sendOrder(){
+
+    if(this.offline == "1")
+    {
+      this.presentToast(this.translate.instant("doctoroffline"));
+    }else{
+
+    
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
     this.storage.get("access_token").then(data=>{
@@ -80,6 +94,7 @@ export class DoctorProfilePage {
 
   });
 
+}
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({

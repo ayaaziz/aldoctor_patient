@@ -31,7 +31,11 @@ export class OrderDoctorPage {
   fourth
   last;
   tostClass ;
+  index;
+
   @ViewChild('fireSElect') sElement;
+
+  //color;
  
   // DoctorsArray=[{"name":"ali","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
   // {"name":"mohamed","cost":"300","rate":"2.5","specialization":"specialization2","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
@@ -121,6 +125,20 @@ export class OrderDoctorPage {
             console.log("doctor: ",doctorData["results"][i]);  
             this.DoctorsArray.push(doctorData["results"][i]);
           }
+          
+          for(i=0;i<this.DoctorsArray.length;i++)
+          {
+            if(this.DoctorsArray[i].availability == "1")
+            {
+              this.DoctorsArray[i].color="green";
+            }else{
+              this.DoctorsArray[i].color="grey";
+            }
+          }
+
+
+          this.getDistanceAndDuration(0);
+          
           if(this.DoctorsArray.length == 0)
           {
             console.log("if = 0");
@@ -134,6 +152,43 @@ export class OrderDoctorPage {
     
   }
 
+  getDistanceAndDuration(i){
+    console.log("doctors from array",this.DoctorsArray[i]);
+    console.log("lat from helper",this.helper.lat);
+    console.log("lon from helper",this.helper.lon);
+    var docLat = this.DoctorsArray[i].lat;
+    var docLon = this.DoctorsArray[i].lng;
+    console.log("doctor lat :",docLat);
+    console.log("doctor lng: ",docLon);
+    console.log("doctor before duration",this.DoctorsArray[i]);
+    this.index = i;
+    this.service.getDurationAndDistance(this.helper.lat,this.helper.lon,docLat,docLon).subscribe(
+      resp=>{
+        console.log("doctors",this.DoctorsArray);
+        console.log("doctor ",this.DoctorsArray[this.index]);
+        console.log("get data from google api",resp);
+        var respObj = JSON.parse(JSON.stringify(resp));
+        console.log("duration : ",respObj.routes[0].legs[0].duration.text);
+        console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+       console.log("doctor from array in get duration ",this.DoctorsArray[this.index]);
+        this.DoctorsArray[this.index].distance = respObj.routes[0].legs[0].distance.text;
+        this.DoctorsArray[this.index].duration = respObj.routes[0].legs[0].duration.text;
+        console.log("distance from array ",this.DoctorsArray[this.index].distance);
+  
+        if( this.index < this.DoctorsArray.length)
+        {
+          this.index++;
+          this.getDistanceAndDuration(this.index);
+          console.log("if index")
+        }else{
+          console.log("else index") 
+        }
+      },
+      err=>{
+        console.log("get err from google api",err);
+      }
+    );
+  }
   doctorChecked(item , event){
     console.log("doctor checked",item);
     if(item.checked == true)
@@ -189,6 +244,7 @@ export class OrderDoctorPage {
     console.log("card item ",item);
     item.specialization = this.Specialization;
     console.log("item after add specialization: ",item);
+  
     this.navCtrl.push('doctor-profile',{
       data:item
     });
