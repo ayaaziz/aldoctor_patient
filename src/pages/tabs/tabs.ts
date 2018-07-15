@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 import { NotificationPage } from '../notification/notification';
 import { ProfilePage } from '../profile/profile';
 import { OrderhistoryPage } from '../orderhistory/orderhistory';
+import { Events } from 'ionic-angular';
 
 
 @Component({
@@ -18,7 +19,14 @@ export class TabsPage {
   tab3Root = ProfilePage;
   tab4Root = NotificationPage;
 
-  constructor() {
+  favCount ;
 
+  constructor(public events: Events) {
+    this.events.subscribe('lengthdata', (count) => {
+      
+      this.favCount = count;
+    });
   }
+  
+
 }

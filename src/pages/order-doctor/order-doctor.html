@@ -71,7 +71,7 @@
     <ion-checkbox  [(ngModel)]="item.checked" (click)="doctorChecked(item ,$event)"  class="x">{{item.name}}</ion-checkbox>
   </ion-item>
  -->
- <ion-scroll scrollY="true"  style="height: 385px" >
+ <ion-scroll scrollY="true"  style="height: 385px;" >
  <ion-card *ngFor="let item of DoctorsArray" [ngStyle]="{'opacity': item.availability == 0 ? '0.5' : '1'}" style="height:110px;" (click)="showDoctorProfile(item)" >          
     <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;" >
         <!-- fixed class="customItem3" -->

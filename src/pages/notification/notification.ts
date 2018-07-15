@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -27,7 +27,8 @@ export class NotificationPage {
         
   data = [];
 
-  constructor(public service:LoginserviceProvider,public storage: Storage,
+  constructor(public events: Events,
+    public service:LoginserviceProvider,public storage: Storage,
     public translate:TranslateService,public helper:HelperProvider
     ,public navCtrl: NavController, public navParams: NavParams) {
 
@@ -38,7 +39,8 @@ export class NotificationPage {
   ionViewDidLoad() {
     
     // this.navCtrl.push('rate-doctor',{data:{doctorId:28,orderId:177}});
-    
+    this.events.publish('lengthdata', 0);
+
     console.log('ionViewDidLoad NotificationPage');
     this.storage.get("access_token").then(data=>{
 

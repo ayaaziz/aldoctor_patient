@@ -396,8 +396,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     // let parameter = new HttpParams().set('notifications',status);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/notifications/read/1';
-    return this.http.post(serviceUrl,{headers: headers });
+    let serviceUrl = this.helper.serviceUrl +'api/notifications/read/5';
+    return this.http.get(serviceUrl,{headers: headers });
 
   }
 

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController , ToastController, Platform} from 'ionic-angular';
+import { NavController , ToastController, Platform, Events} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { SpecializationsPage } from '../specializations/specializations';
 import { LoginPage } from '../login/login';
+import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 //import { CancelorderPage } from '../cancelorder/cancelorder';
 //import { FolloworderPage } from '../followorder/followorder';
 
@@ -15,11 +16,26 @@ import { LoginPage } from '../login/login';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  
   langDirection:any;
-  constructor(public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
+  accessToken;
+
+  constructor(public service: LoginserviceProvider,public events: Events,
+    public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
-
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+    this.service.getCountOfNotifications(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp count of notifications",resp);
+         this.events.publish('lengthdata', 10);
+      },
+      err=>{
+        console.log("err count of notifications",err);
+      }
+    );
+    });
     
     storage.get('language').then((val) => {
         console.log("language val ",val);
