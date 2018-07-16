@@ -65,12 +65,18 @@ export class SignupPage {
   imgPreview = 'assets/imgs/default-avatar.png';
   regData = { avatar:'', email: '', password: '', fullname: '' };
   
+  tostClass;
+
   constructor(private platform: Platform,
      //private imagePicker: ImagePicker,private base64: Base64,
     public camera: Camera,
     public actionSheetCtrl: ActionSheetController, public storage: Storage,public loginservice:LoginserviceProvider, public toastCtrl: ToastController, public translate: TranslateService,public helper: HelperProvider, public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder) {
     this.langDirection = this.helper.lang_direction;
 
+    if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
 
     this.patientRegisterForm = formBuilder.group({
 
@@ -168,7 +174,8 @@ y;
     let toast = this.toastCtrl.create({
       message: text,
       duration: 4000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }
@@ -412,6 +419,13 @@ y;
     }, (err) => {
       // Handle error
      });
+  }
+  dismiss(){
+    this.navCtrl.pop();
+  }
+  agreeConditions(){
+    console.log("agree conditions");
+    this.navCtrl.push('conditions');
   }
   
 }

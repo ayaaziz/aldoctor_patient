@@ -29,10 +29,18 @@ export class OrderhistoryPage {
   orderobject={"orderId":"","order_status":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
 
+  tostClass ;
+  
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage, 
     public translate: TranslateService, public navCtrl: NavController,
      public navParams: NavParams,public toastCtrl: ToastController) {
+
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
+
       this.langDirection = this.helper.lang_direction;
       console.log("langdir:",this.langDirection);
       this.translate.use(this.helper.currentLang);
@@ -47,7 +55,8 @@ export class OrderhistoryPage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

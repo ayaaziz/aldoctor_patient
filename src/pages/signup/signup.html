@@ -1,8 +1,22 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title></ion-title>
+  <ion-navbar hideBackButton>
+    <!-- <ion-title></ion-title> -->
+    <ion-buttons *ngIf="langDirection == 'rtl'"  right>
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+           
+        </button>
+    </ion-buttons>
+  
+    <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+      <button ion-button  (click)="dismiss()">
+          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+      </button>
+  </ion-buttons>
   </ion-navbar>
+
+
 
 </ion-header>
 
@@ -172,9 +186,9 @@ type="password"></ion-input>
   </ion-item>
 
 
-  <ion-item no-lines>
-      <ion-label style="font-size: 14px; color: gray;">{{"agreeConditions" | translate}}</ion-label>
-      <ion-checkbox   [ngModelOptions]="{standalone: true}"
+  <ion-item no-lines >
+      <ion-label style="font-size: 14px; color: gray;" >{{"agreeConditions" | translate}}</ion-label>
+      <ion-checkbox  (click)="agreeConditions()" [ngModelOptions]="{standalone: true}"
         [(ngModel)]="termsStatus" >
         </ion-checkbox>
     </ion-item>

@@ -33,6 +33,7 @@ export class SearchForDoctorPage {
   lng=31.381523;
   doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
   langDirection;
+  tostClass ;
 
   constructor(public service:LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -43,6 +44,10 @@ export class SearchForDoctorPage {
      public navCtrl: NavController, public navParams: NavParams) {
   
       this.langDirection = this.helper.lang_direction;
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
   }
   
   
@@ -337,7 +342,8 @@ initMapWithDoctorsLocation(){
     let toast = this.toastCtrl.create({
       message: text,
       duration: 4000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

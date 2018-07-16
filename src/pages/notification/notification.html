@@ -9,7 +9,7 @@
 
   </ion-navbar>
 </ion-header> -->
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <ion-row>
       <ion-col col-1>
@@ -28,8 +28,28 @@
     
   </ion-navbar>
   
-</ion-header>
+</ion-header> -->
 
+<ion-header>
+  <ion-navbar>
+    <ion-row>
+      <ion-col col-1 style="text-align:right">
+          <button ion-button menuToggle>
+              <ion-icon name="more"></ion-icon>
+            </button>
+      </ion-col>
+      <ion-col col-8>
+          <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;padding-right:5px;">{{"notification" | translate }}</ion-title>
+          <ion-title *ngIf="langDirection != 'rtl'" style="padding:5px;">{{"notification" | translate }}</ion-title>
+      </ion-col>
+      <ion-col col-3 style="text-align:center">
+          <img src="assets/imgs/dlogo.png" style="width:50px;height:30px">
+      </ion-col>
+    </ion-row>
+    
+  </ion-navbar>
+  
+</ion-header>
 <ion-content padding>
     <!-- <ion-card *ngFor="let item of data">
 

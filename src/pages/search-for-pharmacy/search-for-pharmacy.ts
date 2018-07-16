@@ -35,6 +35,7 @@ export class SearchForPharmacyPage {
   title;
   btn1;
   btn2;
+  tostClass ;
 
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -44,6 +45,12 @@ export class SearchForPharmacyPage {
      public navCtrl: NavController, public navParams: NavParams) {
 
       this.langDirection = this.helper.lang_direction;
+      
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
+
       this.btn = this.navParams.get('data');
       console.log("btn txt ",this.btn);
       // this.title = this.translate.instant(this.btn.title);
@@ -340,7 +347,8 @@ export class SearchForPharmacyPage {
       let toast = this.toastCtrl.create({
         message: text,
         duration: 4000,
-        position: 'bottom'
+        position: 'bottom',
+        cssClass: this.tostClass
       });
       toast.present();
     }

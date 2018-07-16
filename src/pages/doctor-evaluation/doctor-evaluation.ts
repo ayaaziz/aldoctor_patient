@@ -45,8 +45,40 @@ export class DoctorEvaluationPage {
         this.tostClass="toastLeft";
 
       var notificationdata = this.navParams.get('data');
-      this.doctorId = notificationdata.doctorId;
-      this.orderId = notificationdata.orderId;
+      if(notificationdata )
+      {
+        console.log("data");
+        this.doctorId = notificationdata.doctorId;
+        this.orderId = notificationdata.orderId;
+
+        this.storage.set("rate_doctor",{
+          "doctorId":this.doctorId,
+          "orderId":this.orderId,
+          "date":new Date().toISOString().split('T')[0]
+          
+        }).then(
+          thenResp=>{
+          console.log("save rate doc",thenResp);
+          }
+        ).catch(
+          catchResp=>{
+            console.log("can't save rate doc",catchResp);
+          }
+        );
+
+      }else{
+        var notificationdata2 = this.navParams.get('data2');
+        console.log("data2");
+        this.doctorId = notificationdata2.doctorId;
+        this.orderId = notificationdata2.orderId;
+      }
+
+      // this.storage.get("rate_doctor").then(data=>{
+      //   if(data){
+      //     this.doctorId = data.doctorId;
+      //     this.orderId = data.orderId;
+      //   }
+      // });
 
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;

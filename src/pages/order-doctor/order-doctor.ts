@@ -33,6 +33,8 @@ export class OrderDoctorPage {
   tostClass ;
   index;
 
+  scrollHeight="0px";
+
   @ViewChild('fireSElect') sElement;
 
   //color;
@@ -126,6 +128,13 @@ export class OrderDoctorPage {
             this.DoctorsArray.push(doctorData["results"][i]);
           }
           
+        if(this.DoctorsArray.length >= 3)
+        {
+          this.scrollHeight = "385px";
+        
+        }else{
+          this.scrollHeight = "260px";
+        }
           for(i=0;i<this.DoctorsArray.length;i++)
           {
             if(this.DoctorsArray[i].availability == "1")
@@ -172,6 +181,7 @@ export class OrderDoctorPage {
         console.log("distance : ",respObj.routes[0].legs[0].distance.text);
        console.log("doctor from array in get duration ",this.DoctorsArray[this.index]);
         this.DoctorsArray[this.index].distance = respObj.routes[0].legs[0].distance.text;
+        this.DoctorsArray[this.index].distanceVal = respObj.routes[0].legs[0].distance.value;
         this.DoctorsArray[this.index].duration = respObj.routes[0].legs[0].duration.text;
         console.log("distance from array ",this.DoctorsArray[this.index].distance);
   
@@ -181,13 +191,22 @@ export class OrderDoctorPage {
           this.getDistanceAndDuration(this.index);
           console.log("if index")
         }else{
-          console.log("else index") 
+          console.log("else index")
+          this.sortDoctors(); 
         }
       },
       err=>{
         console.log("get err from google api",err);
       }
     );
+  }
+  sortDoctors(){
+    console.log("doc before sort ",this.DoctorsArray);
+    this.DoctorsArray.sort(function(a,b){
+
+      return a.distanceVal - b.distanceVal;
+    });
+    console.log("doc after sort ",this.DoctorsArray);
   }
   doctorChecked(item , event){
     console.log("doctor checked",item);

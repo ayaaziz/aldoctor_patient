@@ -1,13 +1,12 @@
 
 <ion-header>
 
-  <ion-navbar hideBackButton>
+  <!-- <ion-navbar hideBackButton>
 
       <ion-buttons *ngIf="langDirection == 'rtl'"  right>
           <button ion-button  (click)="dismiss()">
               <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-              <!-- <ion-icon name="arrow-back"></ion-icon> 
-              -->
+              
           </button>
       </ion-buttons>
 
@@ -19,8 +18,35 @@
 
     <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"order Doctor" | translate}}</ion-title>
     <ion-title *ngIf="langDirection != 'rtl'" >{{"order Doctor" | translate}}</ion-title>
-  </ion-navbar>
+  </ion-navbar> -->
 
+  <ion-navbar hideBackButton>
+    <ion-row>
+      <ion-col col-8>
+          <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"order Doctor" | translate}}</ion-title>
+          <ion-title *ngIf="langDirection != 'rtl'">{{"order Doctor" | translate}}</ion-title>
+      </ion-col>
+      <ion-col col-2 >
+          <img src="assets/imgs/dlogo.png" style="width:50px;height:30px" left>
+      </ion-col>
+    
+  
+    <ion-col col-2>
+      <ion-buttons *ngIf="langDirection == 'rtl'"  left>
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+           
+        </button>
+    </ion-buttons>
+  
+    <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+      <button ion-button  (click)="dismiss()">
+          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+      </button>
+  </ion-buttons>
+    </ion-col>
+  </ion-row>
+  </ion-navbar>
 </ion-header>
 
 
@@ -37,12 +63,12 @@
   <ion-grid>
   <ion-row style="width:100%;">
       <!-- fixed class="customItem"   -->
-    <ion-col col-5 col-sm-3 col-md-2>
+    <ion-col col-4 col-sm-2 col-md-2>
         <ion-item no-lines >{{"Specialization"|translate}}</ion-item>
         
       </ion-col>
       <!-- col-3 col-sm-9  -->
-      <ion-col  *ngIf="langDirection != 'rtl'" style="background-color: #e8f1ed;height:50px;" col-7 col-sm-9 col-md-10>
+      <ion-col  *ngIf="langDirection != 'rtl'" style="background-color: #e8f1ed;height:50px;" col-8 col-sm-10 col-md-10>
         <ion-select  [(ngModel)]="Specialization" interface="popover"  class="selector" >
           <ion-option  value="{{item.value}}" *ngFor="let item of SpecializationArray" class="option"  (ionSelect)='SpecializationChecked()'>{{item.value}}</ion-option>
         </ion-select>   
@@ -50,7 +76,7 @@
         <img src="assets/icon/arrow.png" style="margin-top:-70px;width:20px;height:20px;">  
       </div>
       </ion-col>
-      <ion-col *ngIf="langDirection == 'rtl'"  style="background-color: #e8f1ed;height:50px;" col-6 col-sm-9 col-md-10 >
+      <ion-col *ngIf="langDirection == 'rtl'"  style="background-color: #e8f1ed;height:50px;" col-8 col-sm-10 col-md-10 >
         <ion-select  [(ngModel)]="Specialization" style="text-align:right;" interface="popover"  class="selector" > 
           <ion-option  value="{{item.value}}" *ngFor="let item of SpecializationArray" class="option" (ionSelect)='SpecializationChecked()'>{{item.value}}</ion-option>
         </ion-select> 
@@ -71,12 +97,14 @@
     <ion-checkbox  [(ngModel)]="item.checked" (click)="doctorChecked(item ,$event)"  class="x">{{item.name}}</ion-checkbox>
   </ion-item>
  -->
- <ion-scroll scrollY="true"  style="height: 385px;" >
+ <!-- style="height: 385px;" -->
+
+ <ion-scroll scrollY="true" [ngStyle]="{'height': scrollHeight }"   >
  <ion-card *ngFor="let item of DoctorsArray" [ngStyle]="{'opacity': item.availability == 0 ? '0.5' : '1'}" style="height:110px;" (click)="showDoctorProfile(item)" >          
     <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;" >
         <!-- fixed class="customItem3" -->
       <ion-col  col-2  col-sm-2  style="padding-top:5px;text-align: center;" >
-        <div style="position:absolute;top:45px;left:5px;width:20px;height:20px;border-radius: 50%;" [style.background-color]="item.color">  </div>
+        <div style="position:absolute;top:50px;left:calc(50% - 20px);width:10px;height:10px;border-radius: 50%;" [style.background-color]="item.color">  </div>
         <img [src]="item.profile_pic" style="border-radius: 50%;width:60px;height:60px" >
         
       </ion-col>
@@ -109,13 +137,14 @@
 </ion-card>
 </ion-scroll>
 
+
 <ion-row style="width:100%;">
   <!-- fixed class="customItem6"   -->
-<ion-col col-6 col-sm-3 col-md-2 >
+<ion-col col-4 col-sm-2 col-md-2 >
     <ion-item no-lines>{{"Discount code"| translate}}</ion-item>
   </ion-col>
   
-  <ion-col col-6 col-sm-9 col-md-10 *ngIf="langDirection == 'rtl'"  style="text-align:right;padding-top:15px;" >
+  <ion-col col-8 col-sm-10 col-md-10  *ngIf="langDirection == 'rtl'"  style="text-align:right;padding-top:15px;" >
       <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first" >
       <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
       <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third">
@@ -123,7 +152,7 @@
       <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="last" (change)="validate()" >
 
   </ion-col>
-  <ion-col col-6 col-sm-9 col-md-10 *ngIf="langDirection != 'rtl'" style="text-align:left;padding-top:15px;" >
+  <ion-col col-8 col-sm-10 col-md-10  *ngIf="langDirection != 'rtl'" style="text-align:left;padding-top:15px;" >
     <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first">
     <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
     <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third" >

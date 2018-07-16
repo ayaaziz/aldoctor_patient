@@ -29,6 +29,7 @@ export class HelperProvider {
       message: text,
       duration: 4000,
       position: 'bottom'
+      
     });
     toast.present();
   }

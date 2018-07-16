@@ -22,10 +22,18 @@ export class VerificationcodePage {
   submitAttempt = false;
   code;
   langDirection;
+  tostClass ;
 
   constructor(public storage: Storage,public translate: TranslateService, public loginservice:LoginserviceProvider,public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
     
     this.langDirection = this.helper.lang_direction;
+
+    if(this.langDirection == "rtl")
+      this.tostClass = "toastRight";
+    else
+      this.tostClass="toastLeft";
+
+
     this.activationForm = formBuilder.group({
       code: ['', Validators.required]
     });
@@ -63,7 +71,8 @@ export class VerificationcodePage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 3000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

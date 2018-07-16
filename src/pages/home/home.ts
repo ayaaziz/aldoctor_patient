@@ -24,6 +24,41 @@ export class HomePage {
     public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
+
+    console.log("date", new Date().toISOString().split('T')[0]);
+var date1 = new Date('2018-06-01');
+var date2 = new Date('2018-05-25');
+
+var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+console.log("diff ",diffDays);
+
+this.storage.get("rate_doctor").then(data=>{
+      if(data){
+        var rateDate = new Date(data.date);
+        var currentDate = new Date();
+        var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        if(diffDays == 14)
+        {
+          this.storage.remove("rate_doctor");
+
+          this.navCtrl.setRoot('rate-doctor',
+          {data2:
+            {
+              "doctorId":data.doctorId, 
+              "orderId":data.orderId
+            }
+          });
+
+          
+
+
+        }
+        
+      }
+    });
+
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
     this.service.getCountOfNotifications(this.accessToken).subscribe(
@@ -113,18 +148,28 @@ export class HomePage {
     });
   }
 
-  // follow(){
-  // this.navCtrl.setRoot('follow-order',
-  // {data:
-  //   {"orderId":201, 
-  //     "doctorId":28
-  //   }
-  // });
+  rate(){
+    
+    this.navCtrl.setRoot('rate-doctor',
+  {data:
+    {"doctorId":28, 
+      "orderId":177
+    }
+  });
+  }
 
-  // }
-  // cancel(){
-  //   this.navCtrl.push('cancel-order',{orderId:201});
-  // }
+  follow(){
+  this.navCtrl.setRoot('follow-order',
+  {data:
+    {"orderId":201, 
+      "doctorId":28
+    }
+  });
+
+  }
+  cancel(){
+    this.navCtrl.push('cancel-order',{orderId:201});
+  }
   
   private presentToast(text) {
     let toast = this.toastCtrl.create({

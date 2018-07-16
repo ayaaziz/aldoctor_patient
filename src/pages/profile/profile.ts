@@ -31,6 +31,8 @@ export class ProfilePage {
 
   profileImg = "";
   imgPreview = 'assets/imgs/avatar-ts-jessie.png';
+  
+  tostClass ;
 
   constructor(//private imagePicker: ImagePicker,
     //private base64: Base64,
@@ -45,6 +47,12 @@ export class ProfilePage {
   {
     
         this.langDirection = this.helper.lang_direction;
+        
+        if(this.langDirection == "rtl")
+          this.tostClass = "toastRight";
+        else
+          this.tostClass="toastLeft";
+
         this.translate.use(this.helper.currentLang);
     // this.langDirection='rtl';
     console.log("language: ",this.langDirection);
@@ -138,7 +146,8 @@ export class ProfilePage {
     let toast = this.toastCtrl.create({
       message: text,
       duration: 7000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }

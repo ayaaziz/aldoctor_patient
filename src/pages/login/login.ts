@@ -188,6 +188,7 @@ export class LoginPage {
 
   register(){
     //this.navCtrl.setRoot(SignupPage);
-    this.navCtrl.setRoot('register');
+    //this.navCtrl.setRoot('register');
+    this.navCtrl.push('register');
   }
 }

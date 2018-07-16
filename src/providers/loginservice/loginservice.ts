@@ -391,6 +391,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
   readNotification(access_token){
 //api/notifications/read/{id} (post)
+//read properity -> null or date when clicked
     let headers = new HttpHeaders();
     
     // let parameter = new HttpParams().set('notifications',status);

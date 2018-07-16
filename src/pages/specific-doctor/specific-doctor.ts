@@ -36,6 +36,9 @@ export class SpecificDoctorPage {
   rate;
 
   tostClass ;
+  scrollHeight="0px";
+  index;
+
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
     public storage: Storage, 
     public service:LoginserviceProvider, public navCtrl: NavController,
@@ -106,6 +109,24 @@ export class SpecificDoctorPage {
             console.log("doctor: ",doctorData["results"][i]);  
             this.doctors.push(doctorData["results"][i]);
           }
+          if(this.doctors.length >= 3)
+          {
+            this.scrollHeight = "385px";
+          
+          }else{
+            this.scrollHeight = "260px";
+          }
+          for(i=0;i<this.doctors.length;i++)
+          {
+            if(this.doctors[i].availability == "1")
+            {
+              this.doctors[i].color="green";
+            }else{
+              this.doctors[i].color="grey";
+            }
+          }
+          this.getDistanceAndDuration(0);
+
           if(this.doctors.length == 0)
           {
             this.presentToast(this.translate.instant("noSearchResult"));
@@ -116,6 +137,54 @@ export class SpecificDoctorPage {
       }
     );
     
+  }
+
+  getDistanceAndDuration(i){
+    console.log("doctors from array",this.doctors[i]);
+    console.log("lat from helper",this.helper.lat);
+    console.log("lon from helper",this.helper.lon);
+    var docLat = this.doctors[i].lat;
+    var docLon = this.doctors[i].lng;
+    console.log("doctor lat :",docLat);
+    console.log("doctor lng: ",docLon);
+    console.log("doctor before duration",this.doctors[i]);
+    this.index = i;
+    this.service.getDurationAndDistance(this.helper.lat,this.helper.lon,docLat,docLon).subscribe(
+      resp=>{
+        console.log("doctors",this.doctors);
+        console.log("doctor ",this.doctors[this.index]);
+        console.log("get data from google api",resp);
+        var respObj = JSON.parse(JSON.stringify(resp));
+        console.log("duration : ",respObj.routes[0].legs[0].duration.text);
+        console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+       console.log("doctor from array in get duration ",this.doctors[this.index]);
+        this.doctors[this.index].distance = respObj.routes[0].legs[0].distance.text;
+        this.doctors[this.index].distanceVal = respObj.routes[0].legs[0].distance.value;
+        this.doctors[this.index].duration = respObj.routes[0].legs[0].duration.text;
+        console.log("distance from array ",this.doctors[this.index].distance);
+  
+        if( this.index < this.doctors.length)
+        {
+          this.index++;
+          this.getDistanceAndDuration(this.index);
+          console.log("if index")
+        }else{
+          console.log("else index")
+          this.sortDoctors(); 
+        }
+      },
+      err=>{
+        console.log("get err from google api",err);
+      }
+    );
+  }
+  sortDoctors(){
+    console.log("doc before sort ",this.doctors);
+    this.doctors.sort(function(a,b){
+
+      return a.distanceVal - b.distanceVal;
+    });
+    console.log("doc after sort ",this.doctors);
   }
 
   initializeDoctors() {
