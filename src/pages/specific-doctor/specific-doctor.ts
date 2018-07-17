@@ -170,7 +170,7 @@ export class SpecificDoctorPage {
           console.log("if index")
         }else{
           console.log("else index")
-          this.sortDoctors(); 
+          //this.sortDoctors(); 
         }
       },
       err=>{

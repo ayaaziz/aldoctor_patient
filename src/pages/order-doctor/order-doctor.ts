@@ -192,7 +192,7 @@ export class OrderDoctorPage {
           console.log("if index")
         }else{
           console.log("else index")
-          this.sortDoctors(); 
+          //this.sortDoctors(); 
         }
       },
       err=>{

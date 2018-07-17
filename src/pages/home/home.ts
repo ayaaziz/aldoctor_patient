@@ -167,6 +167,9 @@ this.storage.get("rate_doctor").then(data=>{
   });
 
   }
+  activate(){
+    this.navCtrl.setRoot("remaining-time-to-accept");
+  }
   cancel(){
     this.navCtrl.push('cancel-order',{orderId:201});
   }

@@ -147,7 +147,7 @@ page-specific-doctor {
         .searchbar-md .searchbar-input {
             background: #e8f1ed;
             display: inline;
-            color:green;
+            // color:green;
             padding: 0px;
             padding-left:20px; 
             margin: 0px;
@@ -186,6 +186,12 @@ page-specific-doctor {
           width:20px;
           
       }
+
+      .row{
+        margin: 0px;
+        padding: 0px;
+      }
+
      
     }
     .toastRight{
