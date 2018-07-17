@@ -36,10 +36,29 @@ export class NotificationPage {
       this.translate.use(this.helper.currentLang);
   }
 
+  ionViewWillEnter(){
+    console.log("will enter notifications");
+    
+    this.storage.get("access_token").then(data=>{
+
+      this.accessToken = data;
+
+    this.service.readNotification(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from read notification",resp);
+        this.events.publish('lengthdata', 0);
+      },err=>{
+        console.log("err from read notification",err);
+      }
+    );
+
+  });
+
+}
   ionViewDidLoad() {
     
     // this.navCtrl.push('rate-doctor',{data:{doctorId:28,orderId:177}});
-    this.events.publish('lengthdata', 0);
+    
 
     console.log('ionViewDidLoad NotificationPage');
     this.storage.get("access_token").then(data=>{
@@ -49,13 +68,13 @@ export class NotificationPage {
       
 
       this.loadNotification();
-      this.service.getCountOfNotifications(this.accessToken).subscribe(
-        resp=>{;
-          console.log("resp from getcountofnotifications ",resp);
-        },err=>{
-          console.log("err from getcountofnotifications ",err);
-        }
-      );
+      // this.service.getCountOfNotifications(this.accessToken).subscribe(
+      //   resp=>{;
+      //     console.log("resp from getcountofnotifications ",resp);
+      //   },err=>{
+      //     console.log("err from getcountofnotifications ",err);
+      //   }
+      // );
       // this.service.getNotifications(this.accessToken).subscribe(
       //   resp=>{
       //     console.log("resp from getNotifications : ",resp);

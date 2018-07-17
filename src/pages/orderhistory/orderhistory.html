@@ -50,43 +50,46 @@
     
   </ion-navbar>
   
+  
 </ion-header>
+
 <ion-content padding>
+    
 
 <ion-row style="margin:0px;width:100%;padding-bottom:7px; border-bottom:2px solid rgb(205, 219, 205);">
-  <ion-col col-6 >
+  <ion-col col-6 col-sm-3 col-md-3 >
       <!-- fixed class="customItem3" -->
     <ion-label style="margin:0px;text-align:right;">{{"From" | translate}}</ion-label>
   </ion-col>
   
-  <ion-col col-2 style="background-color: #e8f1ed;height:35px;">
-    <ion-datetime displayFormat="MM/DD/YYYY" style="height:35px;background-color: #e8f1ed;"
+  <ion-col col-2 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">
+    <ion-datetime displayFormat="MM/DD/YYYY" style="height:35px;background-color: #e8f1ed;text-align:right"
       [(ngModel)]="from" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateFromChanged($event)"></ion-datetime> 
       <div *ngIf="langDirection != 'rtl'" style="text-align:right">
-      <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
+      <img src="assets/icon/arrow.png" style="margin-top:-55px;width:15px;height:15px;padding-left:2px">  
     </div>
     <div *ngIf="langDirection == 'rtl'" >
-      <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
+      <img src="assets/icon/arrow.png" style="margin-top:-55px;width:15px;height:15px;padding-left:2px">  
     </div>
     </ion-col>
   <!-- <ion-col style="background-color: #e8f1ed;height:36px;"  col-1>
     <img src="assets/icon/arrow.png" style="margin-top:12px;width:20px;height:20px;">
   </ion-col> -->
 
-  <ion-col col-2>
+  <ion-col col-2 col-sm-1 col-md-1>
       <!-- fixed class="customItem3"  -->
     <ion-label style="margin:0px;text-align:right;padding-right:5px;">{{"To" | translate}}</ion-label>
   </ion-col>
 
-  <ion-col col-2 style="background-color: #e8f1ed;height:35px;">    
-    <ion-datetime style="background-color: #e8f1ed;height:35px;" displayFormat="MM/DD/YYYY"
+  <ion-col col-2 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">    
+    <ion-datetime style="background-color: #e8f1ed;height:35px;text-align:right" displayFormat="MM/DD/YYYY"
         [(ngModel)]="to" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateToChanged($event)" ></ion-datetime>
         
         <div *ngIf="langDirection != 'rtl'" style="text-align:right">
-          <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
+          <img src="assets/icon/arrow.png" style="margin-top:-55px;width:15px;height:15px;padding-left:2px">  
         </div>
         <div *ngIf="langDirection == 'rtl'" >
-          <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;">  
+          <img src="assets/icon/arrow.png" style="margin-top:-55px;width:15px;height:15px;padding-left:2px">  
         </div>
         <!-- <img src="assets/icon/arrow.png" style="margin-top:-55px;width:20px;height:20px;"> -->
   </ion-col>
@@ -122,9 +125,14 @@
                   ></rating>
           </ion-item>
         </ion-col>
-        <!-- fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->
-        <ion-col col-2 col-sm-1 style="text-align: center;margin-top:10px;padding-top: 5px;" >
-          <div style="width:20px;height:20px;border-radius: 50%;" [style.background-color]="color">  </div>
+        <!-- redo , sync , repeat , fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->
+        <ion-col col-2 col-sm-1 style="margin-top:10px;" >
+         
+          <div style="width:20px;height:20px;border-radius: 50%;" [style.background-color]="item.color">  </div>
+          
+          <ion-icon *ngIf="item.reorder == '1'" name="sync" style="color:#016a38;font-size:30px;"></ion-icon>
+          <ion-icon *ngIf="item.rated == '0'" name="star" style="color:#016a38;font-size:30px;"></ion-icon>
+        
         </ion-col>
       </ion-row>
       

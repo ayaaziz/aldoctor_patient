@@ -214,8 +214,13 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
   saveOrder(doctorsId ,access_token){
     let headers = new HttpHeaders();
-    
-    let parameter = new HttpParams().set('doctor_id',doctorsId);
+    console.log("lat from service ",this.helper.lat);
+    console.log("lon from service ",this.helper.lon);
+
+    let userLocation = this.helper.lat + "," + this.helper.lon;
+
+    let parameter = new HttpParams().set('doctor_id',doctorsId).
+    set('extra',userLocation);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/orders/create';
@@ -392,13 +397,15 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   readNotification(access_token){
 //api/notifications/read/{id} (post)
 //read properity -> null or date when clicked
+console.log("access token from read notification",access_token);
     let headers = new HttpHeaders();
     
     // let parameter = new HttpParams().set('notifications',status);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/notifications/read/5';
-    return this.http.get(serviceUrl,{headers: headers });
+    console.log("headers from read notifications",headers);
+    let serviceUrl = this.helper.serviceUrl +'api/notifications/read/1';
+    return this.http.post(serviceUrl,{headers: headers });
 
   }
 

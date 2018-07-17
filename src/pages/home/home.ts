@@ -64,7 +64,7 @@ this.storage.get("rate_doctor").then(data=>{
     this.service.getCountOfNotifications(this.accessToken).subscribe(
       resp=>{
         console.log("resp count of notifications",resp);
-         this.events.publish('lengthdata', 10);
+         this.events.publish('lengthdata', JSON.parse(JSON.stringify(resp)).count);
       },
       err=>{
         console.log("err count of notifications",err);
