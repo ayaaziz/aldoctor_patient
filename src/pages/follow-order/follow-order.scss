@@ -23,6 +23,12 @@ page-follow-order {
         background-color: #016a38 !important;
         border-color: #016a38 !important;
     }
+    .btn-primary:disabled{
+      color: #fff;
+        background-color: lightgray !important;
+        border-color: lightgray !important
+    }
+    
     img,h3{
    
         *width:50px;

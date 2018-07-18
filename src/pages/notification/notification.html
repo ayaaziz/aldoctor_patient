@@ -79,15 +79,21 @@
         
         </ion-list> -->
     
+        <ion-refresher  (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+
         <ion-item *ngFor="let item of data">
      
           <h2>{{item}}</h2> <!-- item.data.txt -->
           <!-- <p>{{item.txt}}</p> -->
         </ion-item>
 
-        <ion-infinite-scroll (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">
+        <ion-infinite-scroll   (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">
           <ion-infinite-scroll-content></ion-infinite-scroll-content>
         </ion-infinite-scroll>
+
+        
 
 
 </ion-content>

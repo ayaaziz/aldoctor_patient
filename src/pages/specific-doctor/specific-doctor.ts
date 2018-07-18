@@ -17,7 +17,7 @@ import { HelperProvider } from '../../providers/helper/helper';
 })
 export class SpecificDoctorPage {
   
-
+  // disableButton=true;
   Specialization="";
   spText;
   SpecializationArray=[];

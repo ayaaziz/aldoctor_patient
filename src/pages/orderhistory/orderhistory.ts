@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams , ToastController,AlertController} from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -27,13 +27,14 @@ export class OrderhistoryPage {
   ordersArray=[];
 
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
-  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
+  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
+"custom_date":"","date_id":""};
 
   tostClass ;
   refresher;
   
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
-    public storage: Storage, 
+    public storage: Storage,  public alertCtrl: AlertController,
     public translate: TranslateService, public navCtrl: NavController,
      public navParams: NavParams,public toastCtrl: ToastController) {
 
@@ -93,19 +94,24 @@ export class OrderhistoryPage {
 
          console.log("orders: ",ordersData);
           for(var j=0;j<ordersData.length;j++){
-            console.log("status ",ordersData[j].status);
+            console.log("status ",ordersData[j].status );
             // ordersData[j].status="7";
             if(ordersData[j].status == "0") //canceled by doctor
               ordersData[j].color = "red";
-            else if(ordersData[j].status == "2") //accepted by doctor
-              ordersData[j].color="green";
             else if(ordersData[j].status == "5") //finished
               ordersData[j].color="grey";
-            else 
-              ordersData[j].color = "orange";
+            
+            if(ordersData[j].reorder == "1")
+              ordersData[j].color = "green";
+            
+            if(ordersData[j].rated == "0")
+              ordersData[j].color = "yellow";
 
-            this.orderobject.orderId = ordersData[j].id;
-            this.orderobject.order_status = ordersData[j].status;
+            // this.orderobject.orderId = ordersData[j].id;
+            // this.orderobject.order_status = ordersData[j].status;
+
+            console.log("orderStatus: " ,this.orderobject.order_status , "orderid: ",this.orderobject.orderId);
+
 
             console.log("order id:", ordersData[j].id, "order :",ordersData[j]);
             var serviceProfile = ordersData[j].theServiceProfile;
@@ -122,12 +128,24 @@ export class OrderhistoryPage {
                   this.orderobject.color = ordersData[j].color;
                   this.orderobject.reorder = ordersData[j].reorder;
                   this.orderobject.rated = ordersData[j].rated;
-                    
+                  this.orderobject.orderId = ordersData[j].id;
+                  this.orderobject.order_status = ordersData[j].status;
+                  if(ordersData[j].reorder == "1")
+                  {
+                    this.orderobject.custom_date = ordersData[j].custom_date;
+                    this.orderobject.date_id = ordersData[j].date_id;
+
+                  } else{
+                    this.orderobject.custom_date ="";
+                    this.orderobject.date_id = "";
+
+                  } 
 
                   this.data.push(this.orderobject);
 
                   this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
-                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
+                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
+                  "custom_date":"","date_id":""};
                     }
                     //break;
             }
@@ -208,11 +226,13 @@ export class OrderhistoryPage {
               ordersData[j].color="green";
             else if(ordersData[j].status == "5") //finished
               ordersData[j].color="grey";
+            else if(ordersData[j].status == "" )
+              ordersData[j].color = "white";
             else 
               ordersData[j].color = "orange";
 
-           this.orderobject.orderId = ordersData[j].id;
-           this.orderobject.order_status = ordersData[j].status;
+          //  this.orderobject.orderId = ordersData[j].id;
+          //  this.orderobject.order_status = ordersData[j].status;
 
             console.log("order id:", ordersData[j].id);
             var serviceProfile = ordersData[j].theServiceProfile;
@@ -230,12 +250,15 @@ export class OrderhistoryPage {
                   this.orderobject.color = ordersData[j].color;
                   this.orderobject.reorder = ordersData[j].reorder;
                   this.orderobject.rated = ordersData[j].rated;
+                  this.orderobject.orderId = ordersData[j].id;
+                  this.orderobject.order_status = ordersData[j].status;
                   
                   
 
                   this.data.push(this.orderobject);
                   this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
-                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
+                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
+                  "custom_date":"","date_id":""};
                     }
                     //break;
             }
@@ -306,11 +329,13 @@ export class OrderhistoryPage {
             ordersData[j].color="green";
           else if(ordersData[j].status == "5") //finished
             ordersData[j].color="grey";
+          else if(ordersData[j].status == "" )
+            ordersData[j].color = "white";
           else 
             ordersData[j].color = "orange";
 
-           this.orderobject.orderId = ordersData[j].id;
-           this.orderobject.order_status = ordersData[j].status;
+          //  this.orderobject.orderId = ordersData[j].id;
+          //  this.orderobject.order_status = ordersData[j].status;
 
             console.log("order id:", ordersData[j].id);
             var serviceProfile = ordersData[j].theServiceProfile;
@@ -328,11 +353,13 @@ export class OrderhistoryPage {
                   this.orderobject.color = ordersData[j].color;
                   this.orderobject.reorder = ordersData[j].reorder;
                   this.orderobject.rated = ordersData[j].rated;
-                  
+                  this.orderobject.orderId = ordersData[j].id;
+                  this.orderobject.order_status = ordersData[j].status;
 
                   this.data.push(this.orderobject);
                   this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
-                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
+                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
+                  "custom_date":"","date_id":""};
                     }
                     //break;
             }
@@ -417,6 +444,17 @@ export class OrderhistoryPage {
     //     data:item
     //   });
     // }
+
+    /*
+      1 started 
+      2 accepted by doctor 
+      0 cancelled by doctor
+      3 no respond 
+      5 finished
+      6 finshed with reorder
+      7 start detection
+      8 move to paient 
+    */
 if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7")
 {
   // this.navCtrl.setRoot('follow-order',{
@@ -437,4 +475,47 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
     this.getOrders();
     
   }
+  rateagain(item){
+    console.log("item from rate function ",item);
+    this.navCtrl.push("rate-doctor",{data:{doctorId:item.doctor_id,
+      orderId:item.orderId}});
+
+  }
+  reorder(item){
+    console.log("item from reorder",item);
+    this.presentConfirm(item);
+  }
+
+  presentConfirm(item) {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmReorder"),
+      message: this.translate.instant("confirmReorderMsg"),
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('confirm reorder agree clicked');
+            this.service.reorder(item.orderId,item.custom_date,item.date_id,this.accessToken).subscribe(
+              resp=>{
+                console.log("reorder resp",resp);
+                this.presentToast( this.translate.instant("sendReorder"));
+              },
+              err=>{
+                console.log("reorder err",err);
+              }
+            );            
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 }

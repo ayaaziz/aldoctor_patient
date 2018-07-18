@@ -228,6 +228,12 @@
       "chooseSpecialization":"اختر تخصص",
       "doctoroffline":"الطبيب غير متاح الان",
       "second":"ثانية",
-      "rateBtn":"تقييم"
+      "rateBtn":"تقييم",
+      "confirmReorder":"تأكيد موعد الاعادة",
+      "confirmReorderMsg":"هل تريد ارسال طلب لتأكيد موعد الاعاده ؟",
+      "sendReorder":"تم ارسال طلب لاعاده الكشف",
+      "rateOrder":"قيم الطلب",
+      "reorder":"اعادة الكشف",
+      "confirmCancelOrder":"تأكيد الغاء الطلب"
 
 }

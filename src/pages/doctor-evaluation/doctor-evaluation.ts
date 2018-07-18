@@ -47,7 +47,7 @@ export class DoctorEvaluationPage {
       var notificationdata = this.navParams.get('data');
       if(notificationdata )
       {
-        console.log("data");
+        console.log("data",notificationdata);
         this.doctorId = notificationdata.doctorId;
         this.orderId = notificationdata.orderId;
 
@@ -68,7 +68,7 @@ export class DoctorEvaluationPage {
 
       }else{
         var notificationdata2 = this.navParams.get('data2');
-        console.log("data2");
+        console.log("data2",notificationdata2);
         this.doctorId = notificationdata2.doctorId;
         this.orderId = notificationdata2.orderId;
       }

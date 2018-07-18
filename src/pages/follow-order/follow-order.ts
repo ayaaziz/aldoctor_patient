@@ -40,6 +40,8 @@ export class FollowOrderPage {
 
   lat=31.037933; 
   lng=31.381523;
+  disableCancelBtn = false;
+
 
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
@@ -95,14 +97,17 @@ export class FollowOrderPage {
      
 
       if(this.orderStatus == "8"){
-        console.log("order status 8");
+        console.log("order status 8"); //move to paient
         this.folllowdoctor();
-      }else if(this.orderStatus == "7"){ //7
-        console.log("order status 7");
+      }else if(this.orderStatus == "5"){ 
+        console.log("order status 5"); //finshed 
         clearTimeout(timer);
         // this.navCtrl.pop();
         this.navCtrl.push(TabsPage);
         
+      }else if(this.orderStatus == "7")// 7 start detection
+      {
+        this.disableCancelBtn = true;
       }
     },5000);
 
@@ -166,6 +171,30 @@ export class FollowOrderPage {
             console.log('agree clicked');
             this.diagnostic.switchToLocationSettings();
             this.getUserLocation();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  presentCancelConfirm(cancelMsg) {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmCancelOrder"),
+      message: cancelMsg,
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('cancel order agree clicked');
+            this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
+            
           }
         }
       ]
@@ -357,8 +386,13 @@ private presentToast(text) {
 }
 
   cancelOrder(){
-    this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
-
+    //this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
+    this.service.cancelMsg(this.accessToken).subscribe(
+      resp=>{
+        console.log("cancel msg resp",resp);
+        this.presentCancelConfirm(JSON.parse(JSON.stringify(resp)).message);
+      }
+    );
   }
   dismiss(){
     this.navCtrl.pop();

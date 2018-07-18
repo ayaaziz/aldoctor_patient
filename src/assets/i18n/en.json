@@ -227,7 +227,14 @@
       "chooseSpecialization":"choose Specialization",
       "doctoroffline":"Doctor offline",
       "second":"Second",
-      "rateBtn":"Rate"
+      "rateBtn":"Rate",
+      "confirmReorder":"Confirm Reorder",
+      "confirmReorderMsg":"confirm reorder ...?",
+      "sendReorder":"reorder sent",
+      "rateOrder":"rate",
+      "reorder":"reorder",
+      "confirmCancelOrder":"Cancel order confirmation"
+
       
       
 

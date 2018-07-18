@@ -394,18 +394,27 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let serviceUrl = this.helper.serviceUrl +'api/notifications-update';
     return this.http.post(serviceUrl,parameter,{headers: headers });
   }
+//   readNotification(access_token){
+// //api/notifications/read/{id} (post)
+// //read properity -> null or date when clicked
+// console.log("access token from read notification",access_token);
+//     let headers = new HttpHeaders();
+    
+//     // let parameter = new HttpParams().set('notifications',status);
+    
+//     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+//     console.log("headers from read notifications",headers);
+//     let serviceUrl = this.helper.serviceUrl +'api/notifications/read/1';
+//     return this.http.post(serviceUrl,{headers: headers });
+
+//   }
   readNotification(access_token){
-//api/notifications/read/{id} (post)
-//read properity -> null or date when clicked
-console.log("access token from read notification",access_token);
     let headers = new HttpHeaders();
-    
-    // let parameter = new HttpParams().set('notifications',status);
-    
+    let parameter = new HttpParams().set("","");
+    console.log("parameters from service: ",parameter);
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    console.log("headers from read notifications",headers);
     let serviceUrl = this.helper.serviceUrl +'api/notifications/read/1';
-    return this.http.post(serviceUrl,{headers: headers });
+    return this.http.post(serviceUrl,parameter,{headers: headers });
 
   }
 
@@ -416,6 +425,24 @@ console.log("access token from read notification",access_token);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/get/lkps/rate-criteriea?rate='+rate;
+    return this.http.get(serviceUrl,{headers: headers });
+
+  }
+  reorder(orderId , custom_date ,date_id,access_token){
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('order_id',orderId)
+    .set('date_id',date_id).set('custom_date',custom_date);
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/orders/create-reorder';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+
+  }
+  cancelMsg(access_token){
+    let headers = new HttpHeaders();
+    var lang = this.helper.currentLang;
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'/api/cancelMessage?lang='+lang;
     return this.http.get(serviceUrl,{headers: headers });
 
   }
