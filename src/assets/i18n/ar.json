@@ -168,7 +168,7 @@
       "Discount code":"كود الخصم",
       "Governorate":"المحافظه",
       "check3doctors":"الرجاء اختيار 3 اطباء فقط",
-      "checkAtleastone":"الرجاء ادخال طبيب واحد على الاقل",
+      "checkAtleastone":"الرجاء اختيار طبيب واحد على الاقل",
       "ProvidedServices":"الخدمات المقدمة",
       "To":"الى",
       "From":"العرض فى الفترة من",
@@ -234,6 +234,13 @@
       "sendReorder":"تم ارسال طلب لاعاده الكشف",
       "rateOrder":"قيم الطلب",
       "reorder":"اعادة الكشف",
-      "confirmCancelOrder":"تأكيد الغاء الطلب"
+      "confirmCancelOrder":"تأكيد الغاء الطلب",
+      "forgetPass":"تغيير كلمه المرور",
+      "forgetPassTxt": "سوف تصلك رسالة تحتوي علي كلمه المرور فى خلال ثواني ",
+      "invalidPhone":"رقم الهاتف غير صحيح",
+      "createAccount":"حساب جديد",
+      "changePhone":"تغيير رقم الهاتف",
+      "phoneChanged":"تم تغيير رقم الهاتف ",
+      "wrongCode":"كود التفعيل غير صحيح"
 
 }

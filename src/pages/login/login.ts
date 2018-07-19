@@ -191,4 +191,7 @@ export class LoginPage {
     //this.navCtrl.setRoot('register');
     this.navCtrl.push('register');
   }
+  forgetPass(){
+    this.navCtrl.push('forget-Pass');
+  }
 }

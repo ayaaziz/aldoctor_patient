@@ -127,12 +127,13 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       return this.http.post(serviceUrl,parameter,{headers: headers });
       
     }
-    editUser(name,phone,add,dob,email,access_token){
+    editUser(name,add,dob,email,access_token){
       let headers = new HttpHeaders();
 
       let parameter = new HttpParams().set('name',name)
-      .set('birth_date',dob).set('phone',phone).set('email',email)
+      .set('birth_date',dob).set('email',email)
       .set('address',add);
+      //.set('phone',phone)
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/edit';
       return this.http.post(serviceUrl,parameter,{headers: headers });
@@ -442,8 +443,25 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
     var lang = this.helper.currentLang;
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'/api/cancelMessage?lang='+lang;
+    let serviceUrl = this.helper.serviceUrl +'api/cancelMessage?lang='+lang;
     return this.http.get(serviceUrl,{headers: headers });
 
+  }
+  forgetPassword(phone){
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('phone',phone);
+    
+    //headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/forget';
+    return this.http.post(serviceUrl,parameter);
+  }
+  changePhoneNumber(phone,access_token){
+    console.log("access token from change phone",access_token);
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('phone',phone);
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/change-phone';
+    return this.http.post(serviceUrl,parameter,{headers: headers });  
   }
 }

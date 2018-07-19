@@ -89,7 +89,7 @@
     <p> {{"enterSurnameName" | translate}} </p>
     </ion-item>
     
-    <ion-item [class.invalid]="!patientRegisterForm.controls.phone.valid && submitAttempt">
+    <!-- <ion-item [class.invalid]="!patientRegisterForm.controls.phone.valid && submitAttempt">
     <ion-label><img src="assets/icon/mob.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
     <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="رقم الهاتف"   style="border-radius: 2px;padding: 0px;" formControlName="phone" [(ngModel)]="phone"
     type="tel"></ion-input>
@@ -97,9 +97,9 @@
     type="tel"></ion-input>
     </ion-item>
     <ion-item *ngIf="!patientRegisterForm.controls.phone.valid && submitAttempt" no-lines>
-    <!-- <p> {{"enterPhone" | translate}} </p> -->
+    
     <p>{{phoneErrMsg}}</p>
-    </ion-item>
+    </ion-item> -->
 
 <ion-item [class.invalid]="!patientRegisterForm.controls.email.valid && submitAttempt">
     <ion-label><img src="assets/icon/mail.png" style="margin: 0 2px;" height="25" width="25"></ion-label>

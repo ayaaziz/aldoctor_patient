@@ -34,6 +34,7 @@ export class OrderDoctorPage {
   index;
 
   scrollHeight="0px";
+  offline=false;
 
   @ViewChild('fireSElect') sElement;
 
@@ -140,8 +141,10 @@ export class OrderDoctorPage {
             if(this.DoctorsArray[i].availability == "1")
             {
               this.DoctorsArray[i].color="green";
+              this.offline=false;
             }else{
               this.DoctorsArray[i].color="grey";
+              this.offline=true;
             }
           }
 

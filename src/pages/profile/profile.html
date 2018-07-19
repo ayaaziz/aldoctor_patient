@@ -110,6 +110,12 @@
     <ion-label *ngIf="langDirection != 'rtl'" style="color:gray;" (click)="changePassword()" >Do you want to change password?</ion-label>
     <ion-label *ngIf="langDirection == 'rtl'" class="right" style="color:rgb(215, 219, 201)" (click)="changePassword()" >هل تريد تغير كلمه المرور ؟</ion-label>
   </ion-item>
+
+  <ion-item no-lines>
+      <ion-label *ngIf="langDirection != 'rtl'" style="color:gray;" (click)="changePhone()" >Do you want to change phone number?</ion-label>
+      <ion-label *ngIf="langDirection == 'rtl'" class="right" style="color:rgb(215, 219, 201)" (click)="changePhone()" >هل تريد تغير رقم الهاتف ؟</ion-label>
+    </ion-item>
+
 </div>
 
 

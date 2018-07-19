@@ -24,7 +24,7 @@ export class EditProfilePage {
   surname;
   passwrodTxt;
   email;
-  phone;
+  // phone;
   birthdate;
   patientRegisterForm;
   gender;
@@ -45,7 +45,7 @@ export class EditProfilePage {
   countries=[];
   cities=[];
   regAccessToken;
-  phoneErrMsg="";
+  //phoneErrMsg="";
 
   constructor(public storage: Storage, public translate: TranslateService,
      public loginservice:LoginserviceProvider, public helper: HelperProvider, public formBuilder: FormBuilder , public navCtrl: NavController, public navParams: NavParams) {
@@ -58,7 +58,7 @@ export class EditProfilePage {
       surname: ['', Validators.required],
       email: ['', Validators.compose([Validators.required,Validators.email])],
       // phone: ['', Validators.required],
-      phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
+    //  phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
       address: ['', Validators.required],
       //password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid])],
       //confirmpassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid, matchOtherValidator('password')])],
@@ -94,7 +94,7 @@ addArr;
         this.firstname = this.nameArr[0];
         this.secondname = this.nameArr[1];
         this.surname = this.nameArr[2];
-        this.phone = data.phone;
+      //  this.phone = data.phone;
         this.birthdate = data.dob;
         this.addArr = data.add.split("-");
         this.city = this.addArr[2];
@@ -180,23 +180,23 @@ addArr;
 
       this.content.scrollToTop(3000); 
 
-      if(this.patientRegisterForm.controls["phone"].errors){
-        if(this.patientRegisterForm.controls["phone"].errors['required'])
-        {
-          this.phoneErrMsg = this.translate.instant("enterPhone");
-        }else if(this.patientRegisterForm.controls["phone"].errors['pattern']) {
-          this.phoneErrMsg = this.translate.instant("phoneErr");
-        }else{
-          console.log("phone errors:",this.patientRegisterForm.controls["phone"].errors);
-        }
-      }
+      // if(this.patientRegisterForm.controls["phone"].errors){
+      //   if(this.patientRegisterForm.controls["phone"].errors['required'])
+      //   {
+      //     this.phoneErrMsg = this.translate.instant("enterPhone");
+      //   }else if(this.patientRegisterForm.controls["phone"].errors['pattern']) {
+      //     this.phoneErrMsg = this.translate.instant("phoneErr");
+      //   }else{
+      //     console.log("phone errors:",this.patientRegisterForm.controls["phone"].errors);
+      //   }
+      // }
       }
     else{
       this.name = this.firstname +" "+this.secondname+" "+this.surname;
       this.add = this.address +"-"+this.city +"-"+this.country;
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;
-        this.loginservice.editUser(this.name,this.phone,this.add,this.birthdate,this.email,this.accessToken).subscribe(
+        this.loginservice.editUser(this.name,this.add,this.birthdate,this.email,this.accessToken).subscribe(
           resp =>{
             console.log("edit resp: ",resp);
             this.storage.ready().then(() => {
@@ -207,7 +207,7 @@ addArr;
                 this.userprofileData = data;  
                 console.log("user data between edit",this.userprofileData); 
                 this.userprofileData.name=this.name;
-                this.userprofileData.phone=this.phone;
+                // this.userprofileData.phone=this.phone;
                 this.userprofileData.dob=this.birthdate;
                 this.userprofileData.add=this.add;
                 this.userprofileData.email=this.email;

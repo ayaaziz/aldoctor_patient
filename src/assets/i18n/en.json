@@ -233,7 +233,15 @@
       "sendReorder":"reorder sent",
       "rateOrder":"rate",
       "reorder":"reorder",
-      "confirmCancelOrder":"Cancel order confirmation"
+      "confirmCancelOrder":"Cancel order confirmation",
+      "forgetPass":"Forget Password",
+      "forgetPassTxt": "You will receive a message containing password in seconds",
+      "invalidPhone":"Invalid mobile number",
+      "createAccount":"New account",
+      "changePhone":"Change Phone",
+      "phoneChanged":"Phone changed",
+      "wrongCode":"Wrong code"
+      
 
       
       

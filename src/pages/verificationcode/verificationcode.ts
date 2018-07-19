@@ -78,7 +78,36 @@ export class VerificationcodePage {
   }
   activationSuccessCallback(data){
     console.log("activationSuccessCallback: ",data);
-    this.navCtrl.setRoot(TabsPage);
+    if(JSON.parse(JSON.stringify(data)).success )
+    {
+      this.presentToast(this.translate.instant("phoneChanged"));
+                
+      this.loginservice.getuserProfile(this.accessToken).subscribe(
+        resp=>{
+          var newuserData = JSON.parse(JSON.stringify(resp));
+          this.storage.set("user_info",{
+            "id":newuserData.id,
+            "name":newuserData.name,
+            "email":newuserData.email,
+            "phone":newuserData.phone,
+            "dob":newuserData.user_info.birth_date,
+            "add":newuserData.extraInfo.address,
+            "profile_pic":newuserData.profile_pic
+          }).then((data)=>{
+            this.navCtrl.setRoot(TabsPage);
+          },(error)=>{
+          //  this.presentToast("set then error from signup: "+error)
+          });
+          
+        },err=>{
+
+        }
+      );
+
+
+      
+    }else
+      this.presentToast(this.translate.instant('wrongCode'));
   }
   failureSuccessCallback(data){
     console.log("failureSuccessCallback: ",data);

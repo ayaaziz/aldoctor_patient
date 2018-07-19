@@ -331,4 +331,8 @@ export class ProfilePage {
      });
   }
   
+  changePhone(){
+    console.log("change phone");
+    this.navCtrl.push('change-phone');
+  }
 }
