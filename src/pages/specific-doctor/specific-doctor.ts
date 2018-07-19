@@ -272,10 +272,14 @@ export class SpecificDoctorPage {
       console.log("doctors id: ",doctorsId);
       this.service.saveOrder(doctorsId,this.accessToken).subscribe(
         resp => {
+          if(JSON.parse(JSON.stringify(resp)).success ){
           console.log("saveOrder resp: ",resp);
           this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
           this.navCtrl.push('remaining-time-to-accept');
+          }else{
+            this.presentToast(this.translate.instant("serverError"));
+          }
         },
         err=>{
           console.log("saveOrder error: ",err);
