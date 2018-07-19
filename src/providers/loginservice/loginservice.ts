@@ -464,4 +464,12 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let serviceUrl = this.helper.serviceUrl +'api/change-phone';
     return this.http.post(serviceUrl,parameter,{headers: headers });  
   }
+  resendActivationCode(access_token){
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set("","");
+    console.log("parameters from service: ",parameter);
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/resend-activation';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+  }
 }

@@ -87,7 +87,8 @@ input.text-input{
         color: #424242;
     }
     .text-muted {
-        color: #9a9b9c !important;
+        // color: #9a9b9c !important;
+        color: #016a38 !important;
     }
     img {
         max-width: 40%;
@@ -120,6 +121,9 @@ select option[selected]{
         color: #fff;
         background-color: #016a38 !important;
         border-color: #016a38 !important;
+    }
+    .right{
+        direction:rtl;
     }
 
 }

@@ -28,9 +28,9 @@ type="text"></ion-input>
 
 <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.email.valid && submitAttempt">
     <ion-label><img src="assets/icon/mob.png" style="margin: 0 2px;" height="20" width="25"></ion-label>
-    <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="رقم الهاتف"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+    <ion-input  class="right" *ngIf="langDirection == 'rtl'" placeholder="رقم الهاتف"  [dir]="langDirection"  style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
     type="tel"></ion-input>
-    <ion-input *ngIf="langDirection != 'rtl'" placeholder="phone"    style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+    <ion-input *ngIf="langDirection != 'rtl'" placeholder="phone" [dir]="langDirection"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
  type="tel"></ion-input>
 </ion-item>
 <ion-item *ngIf="!loginForm.controls.email.valid && submitAttempt" no-lines>
@@ -39,9 +39,9 @@ type="text"></ion-input>
 <br>
  <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.password.valid && submitAttempt">
       <ion-label><img src="assets/icon/pass.png" style="margin: 0 2px;" height="15" width="25"></ion-label>
-      <ion-input *ngIf="langDirection != 'rtl'" placeholder="Password"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
+      <ion-input *ngIf="langDirection != 'rtl'" placeholder="Password"  [dir]="langDirection"  style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
       type="password"></ion-input>
-      <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="كلمة المرور"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
+      <ion-input  *ngIf="langDirection == 'rtl'" class="right" [dir]="langDirection"  placeholder="كلمة المرور"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
       type="password"></ion-input>
    
  </ion-item>
@@ -50,7 +50,7 @@ type="text"></ion-input>
     <p>{{"enterPassword" | translate}}</p>
   </ion-item>
   <br>
-  <small class="passwordHelpBlock " class="form-text text-muted" style="font-family: 'Cairo';font-size:16px" (click)="forgetPass()">
+  <small class="passwordHelpBlock " class="form-text text-muted" style="font-family: 'Cairo';font-size:16px;" (click)="forgetPass()">
    {{"forgetPassword" | translate}}
     </small>
 
@@ -61,7 +61,7 @@ type="text"></ion-input>
   </ion-item>
  
   <div class="text-center">
-    <small class="text-muted " (click)="register()" style="font-family: 'Cairo';font-size:16px">
+    <small class="text-muted " (click)="register()" style="font-family: 'Cairo';font-size:16px;">
     {{"SignUp" | translate}}
      </small>
     </div>

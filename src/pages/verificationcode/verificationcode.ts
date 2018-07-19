@@ -114,5 +114,8 @@ export class VerificationcodePage {
     this.presentToast(this.translate.instant("serverError"))
     
   }
+  resendActivationCode(){
+    
+  }
 
 }
