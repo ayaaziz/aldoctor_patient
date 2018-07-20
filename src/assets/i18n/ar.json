@@ -241,6 +241,9 @@
       "createAccount":"حساب جديد",
       "changePhone":"تغيير رقم الهاتف",
       "phoneChanged":"تم تغيير رقم الهاتف ",
-      "wrongCode":"كود التفعيل غير صحيح"
+      "wrongCode":"كود التفعيل غير صحيح",
+      "enterSearchVal":"اختر تخصص",
+      "enterdoctor":"اختر طبيب",
+      "enterDoctorAndSpecilaization":"اختر تخصص وطبيب "
 
 }

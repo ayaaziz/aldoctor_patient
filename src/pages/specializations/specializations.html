@@ -59,11 +59,11 @@
     <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
 
         <ion-col style="background-color: #e8f1ed" col-11>
-          <ion-searchbar *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="search for Specialization" style="color: red;width:100%;"> </ion-searchbar>
-          <ion-searchbar *ngIf="langDirection == 'rtl'" (ionInput)="getItems($event)" placeholder="ابحث عن تخصص" class="right" style="color: red;width:100%;"> </ion-searchbar>
+          <ion-searchbar [dir]="langDirection" *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="search for Specialization" style="color: red;width:100%;"> </ion-searchbar>
+          <ion-searchbar [dir]="langDirection" *ngIf="langDirection == 'rtl'"  (ionInput)="getItems($event)" placeholder="ابحث عن تخصص" class="right" style="color: red;width:100%;" > </ion-searchbar>
         </ion-col>
         <!-- fixed class="customItem5" -->
-        <ion-col style="background-color: #e8f1ed" col-1>
+        <ion-col style="background-color: #e8f1ed" col-1 (click)="searchIcon()">
           <img src="assets/icon/search.png" style="margin-top:15px;width:20px;height:20px;">
         </ion-col>
     </ion-row>

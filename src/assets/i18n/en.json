@@ -240,7 +240,10 @@
       "createAccount":"New account",
       "changePhone":"Change Phone",
       "phoneChanged":"Phone changed",
-      "wrongCode":"Wrong code"
+      "wrongCode":"Wrong code",
+      "enterSearchVal":"Enter Specialization",
+      "enterdoctor":"Choose doctor",
+      "enterDoctorAndSpecilaization":"Choose doctor and specialization"
       
 
       

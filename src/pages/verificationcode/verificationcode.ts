@@ -24,7 +24,9 @@ export class VerificationcodePage {
   langDirection;
   tostClass ;
 
-  constructor(public storage: Storage,public translate: TranslateService, public loginservice:LoginserviceProvider,public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public storage: Storage,public translate: TranslateService, 
+    public loginservice:LoginserviceProvider,
+    public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
     
     this.langDirection = this.helper.lang_direction;
 
@@ -115,7 +117,16 @@ export class VerificationcodePage {
     
   }
   resendActivationCode(){
-    
+    this.loginservice.resendActivationCode(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from resend activation code",resp);
+        this.presentToast(this.translate.instant("activationCodeTxt"));
+      },
+      err=>{
+        console.log("err from resend activation code",err);
+      }
+    );
+
   }
 
 }

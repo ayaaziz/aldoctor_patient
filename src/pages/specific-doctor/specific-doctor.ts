@@ -39,6 +39,7 @@ export class SpecificDoctorPage {
   scrollHeight="0px";
   index;
   offline=false;
+  searchValue;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
     public storage: Storage, 
@@ -69,7 +70,7 @@ export class SpecificDoctorPage {
           for(var i=0;i<JSON.parse(JSON.stringify(resp)).length;i++){
             console.log("sp: ",resp[i].value);
             //this.Specialization=resp[0].value;
-            this.Specialization=this.translate.instant("chooseSpecialization");
+            //this.Specialization=this.translate.instant("chooseSpecialization");
            // this.SpecializationArray.push(resp[i].value);
             this.SpecializationArray.push(resp[i]);
             // this.SpecializationChecked();
@@ -203,6 +204,7 @@ export class SpecificDoctorPage {
   getItems(ev) {
     var searchVal = ev.target.value;
     var id ;
+    this.searchValue = searchVal;
 
     console.log("search value: ",searchVal);
     for(var i=0;i<this.SpecializationArray.length;i++){
@@ -336,5 +338,12 @@ export class SpecificDoctorPage {
   dismiss(){
     this.navCtrl.pop();
   }
-  
+  searchIcon(){
+    if( !this.searchValue  && this.Specialization)
+      this.presentToast(this.translate.instant('enterdoctor'));
+    else if (this.searchValue && ! this.Specialization)
+      this.presentToast(this.translate.instant('chooseSpecialization'));
+    else if (!this.searchValue && !this.Specialization)
+      this.presentToast(this.translate.instant('enterDoctorAndSpecilaization'));
+  }
 }

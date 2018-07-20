@@ -35,6 +35,7 @@ page-specializations {
       padding-left:20px; 
       margin: 0px;
       box-shadow: none;
+      direction: rtl;
     
   }
   .label-md{
@@ -72,4 +73,12 @@ page-specializations {
 //   #child:hover{
 //     content: url('../../assets/icon/babyWhite.png');
 //   }
+
+}
+
+.toastRight{
+  text-align: right;
+}
+.toastLeft{
+  text-align: left;
 }

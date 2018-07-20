@@ -1,8 +1,10 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
+
+import { TranslateService } from '@ngx-translate/core';
 
 
 
@@ -28,11 +30,21 @@ export class SpecializationsPage {
   color="white";
   labelColor="grey";
   accessToken ;
+  tostClass ;
+  searchValue;
 
   constructor(public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public storage: Storage,
-     public service:LoginserviceProvider) {
+     public service:LoginserviceProvider,public toastCtrl: ToastController,
+     public translate: TranslateService
+    ) {
       this.langDirection = this.helper.lang_direction;
+
+      if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
+
       // this.storage.get("access_token").then(data=>{
       //   this.accessToken = data;
 
@@ -120,18 +132,30 @@ export class SpecializationsPage {
    
   }
 
-
+  
   getItems(ev) {
     
-    this.initializeSpecializations();
+    // this.initializeSpecializations();
     
     var val = ev.target.value;
+this.searchValue = val;
+console.log("sp item search val ",val);
 
-    
     if (val && val.trim() != '') {
-      this.specializations = this.specializations.filter((item) => {
-        return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      this.specializations1 = this.specializations1.filter((item) => {
+        return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+      this.specializations2 = this.specializations2.filter((item)=>{
+        return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      });
+      if(this.specializations2.length == 0 && this.specializations1.length == 0)
+      {
+        this.presentToast(this.translate.instant('noSearchResult'));
+        this.initializeSpecializations();
+      }
+   
+    }else{
+      this.initializeSpecializations();
     }
   }
 
@@ -171,5 +195,18 @@ export class SpecializationsPage {
     // this.simage1.nativeElement.src="assets/icon/science2.png";
     //this.simage2.nativeElement.attributes.style.nodeValue="width:60px;height:60px;display:inherit";
     
+  }
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom',
+      cssClass: this.tostClass
+    });
+    toast.present();
+  }
+  searchIcon(){
+    if( !this.searchValue )
+      this.presentToast(this.translate.instant('enterSearchVal'));
   }
 }
