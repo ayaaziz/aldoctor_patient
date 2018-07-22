@@ -473,3 +473,4 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.post(serviceUrl,parameter,{headers: headers });
   }
 }
+

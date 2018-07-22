@@ -120,10 +120,14 @@ export class VerificationcodePage {
     this.loginservice.resendActivationCode(this.accessToken).subscribe(
       resp=>{
         console.log("resp from resend activation code",resp);
-        this.presentToast(this.translate.instant("activationCodeTxt"));
+        if(JSON.parse(JSON.stringify(resp)).success)
+          this.presentToast(this.translate.instant("activationCodeTxt"));
+        else
+        this.presentToast(this.translate.instant("serverError"));
       },
       err=>{
         console.log("err from resend activation code",err);
+        this.presentToast(this.translate.instant("serverError"));
       }
     );
 

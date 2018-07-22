@@ -59,9 +59,9 @@
         <ion-item  [class.invalid]="!patientRegisterForm.controls.firstname.valid && submitAttempt">
             <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
             <ion-input *ngIf="langDirection != 'rtl'" placeholder="First Name"   style="border-radius: 2px;padding: 0px;" formControlName="firstname" [(ngModel)]="firstname"
-            type="text"></ion-input>
+            type="text" [dir]="langDirection" ></ion-input>
             <ion-input *ngIf="langDirection == 'rtl'"  class="right"  placeholder="الاسم الاول"    style="border-radius: 2px;padding: 0px;" formControlName="firstname" [(ngModel)]="firstname"
-            type="text"></ion-input>
+            type="text" [dir]="langDirection" ></ion-input>
         </ion-item>
         <ion-item *ngIf="!patientRegisterForm.controls.firstname.valid && submitAttempt" no-lines>
             <p> {{"enterFirstName" | translate}} </p>
@@ -70,9 +70,9 @@
      <ion-item [class.invalid]="!patientRegisterForm.controls.secondname.valid && submitAttempt">
         <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
         <ion-input *ngIf="langDirection != 'rtl'" placeholder="Second Name"   style="border-radius: 2px;padding: 0px;" formControlName="secondname" [(ngModel)]="secondname"
-        type="text"></ion-input>
+        type="text" [dir]="langDirection"></ion-input>
         <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="الاسم الثاني"    style="border-radius: 2px;padding: 0px;" formControlName="secondname" [(ngModel)]="secondname"
-    type="text"></ion-input>
+    type="text" [dir]="langDirection"></ion-input>
     </ion-item>
     <ion-item *ngIf="!patientRegisterForm.controls.secondname.valid && submitAttempt" no-lines>
     <p> {{"enterSecondName" | translate}} </p>
@@ -81,9 +81,9 @@
     <ion-item [class.invalid]="!patientRegisterForm.controls.surname.valid && submitAttempt">
     <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
     <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="الجد أو اللقب"   style="border-radius: 2px;padding: 0px;" formControlName="surname" [(ngModel)]="surname"
-    type="text"></ion-input>
+    type="text" [dir]="langDirection" ></ion-input>
     <ion-input *ngIf="langDirection != 'rtl'" placeholder="Grandpa or Surname"    style="border-radius: 2px;padding: 0px;" formControlName="surname" [(ngModel)]="surname"
-    type="text"></ion-input>
+    type="text" [dir]="langDirection" ></ion-input>
     </ion-item>
     <ion-item *ngIf="!patientRegisterForm.controls.surname.valid && submitAttempt" no-lines>
     <p> {{"enterSurnameName" | translate}} </p>
@@ -104,9 +104,9 @@
 <ion-item [class.invalid]="!patientRegisterForm.controls.email.valid && submitAttempt">
     <ion-label><img src="assets/icon/mail.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
     <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="البريد الالكتروني"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
-    type="text"></ion-input>
+    type="text" [dir]="langDirection"></ion-input>
     <ion-input *ngIf="langDirection != 'rtl'" placeholder="Email"    style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
-type="text"></ion-input>
+type="text" [dir]="langDirection"></ion-input>
 </ion-item>
 <ion-item *ngIf="!patientRegisterForm.controls.email.valid && submitAttempt" no-lines>
 <p> {{"enterEmail" | translate}} </p>
@@ -146,9 +146,9 @@ type="text"></ion-input>
             <ion-item [class.invalid]="!patientRegisterForm.controls.address.valid && submitAttempt">
                 <ion-label><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
                 <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="العنوان"   style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
-                type="text"></ion-input>
+                type="text" [dir]="langDirection"></ion-input>
                 <ion-input *ngIf="langDirection != 'rtl'" placeholder="address"    style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
-                type="text"></ion-input>
+                type="text" [dir]="langDirection"></ion-input>
                 </ion-item>
                 <ion-item *ngIf="!patientRegisterForm.controls.address.valid && submitAttempt" no-lines>
                 <p> {{"enterAddress" | translate}} </p>
