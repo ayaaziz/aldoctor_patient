@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -22,9 +22,14 @@ export class AboutAppPage {
   accessToken:any;
   langDirection:any;
   aboutdata:any;
+  tostClass ;
   
 
-  constructor(public platform:Platform,public helper:HelperProvider,public translate:TranslateService,public service: LoginserviceProvider,public storage:Storage,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public toastCtrl: ToastController,
+    public platform:Platform,public helper:HelperProvider,
+    public translate:TranslateService,public service: LoginserviceProvider,
+    public storage:Storage,public navCtrl: NavController, 
+    public navParams: NavParams) {
     
     
 
@@ -47,6 +52,11 @@ export class AboutAppPage {
       this.langDirection = "ltr";
       this.platform.setDir('ltr',true)
     }
+
+    if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
   
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
@@ -61,10 +71,11 @@ export class AboutAppPage {
           console.log("val from about app",this.aboutdata);
         },err=>{
           console.log("error from about-app : ",err);
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
     }else{
-      this.helper.presentToast(this.translate.instant("serverError"));
+      this.presentToast(this.translate.instant("checkNetwork"));
     }
     });
   
@@ -76,6 +87,15 @@ export class AboutAppPage {
   }
   dismiss(){
     this.navCtrl.pop();
+  }
+  private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom',
+      cssClass: this.tostClass
+    });
+    toast.present();
   }
   AboutSuccess(data)
   {

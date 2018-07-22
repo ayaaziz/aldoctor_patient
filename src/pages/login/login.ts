@@ -47,6 +47,8 @@ export class LoginPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    if(!navigator.onLine)
+      this.presentToast(this.translate.instant("checkNetwork"));
    
   }
 
@@ -91,7 +93,7 @@ export class LoginPage {
      
     }
     else {
-      this.presentToast(this.translate.instant("serverError"))
+      this.presentToast(this.translate.instant("checkNetwork"))
     }
   }
   }
@@ -103,7 +105,7 @@ export class LoginPage {
       this.loginservice.userLogin(this.email, this.password, data.access_token, (data) => this.loginSuccessCallback(data), (data) => this.loginFailureCallback(data))
     }
     else {
-      this.presentToast(this.translate.instant("serverError"))
+      this.presentToast(this.translate.instant("checkNetwork"))
     }
    
   }

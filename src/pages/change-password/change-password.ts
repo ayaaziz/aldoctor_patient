@@ -8,6 +8,8 @@ import { LoginPage } from '../login/login';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 
+import 'rxjs/add/operator/timeout';
+
 @IonicPage(
   {
     name:'change-password'
@@ -79,13 +81,20 @@ passErrMsg="";
   else{
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
-      this.service.changePassword(this.currentPass,this.newPass,this.confirmTxt,this.accessToken).subscribe(
+      if (navigator.onLine) {
+      this.service.changePassword(this.currentPass,this.newPass,this.confirmTxt,this.accessToken).timeout(10000).subscribe(
         resp => {
           
           console.log("cp resp: ",resp);
           this.navCtrl.setRoot(LoginPage);
+        },
+        err=>{
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
+    }else{
+      this.presentToast(this.translate.instant("checkNetwork"));
+    }
     })
   }
 

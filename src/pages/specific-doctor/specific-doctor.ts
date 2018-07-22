@@ -125,10 +125,10 @@ export class SpecificDoctorPage {
             if(this.doctors[i].availability == "1")
             {
               this.doctors[i].color="green";
-              this.offline=false;
+              this.doctors[i].offline=false;
             }else{
               this.doctors[i].color="grey";
-              this.offline=true;
+              this.doctors[i].offline=true;
             }
 
           }
@@ -227,10 +227,37 @@ export class SpecificDoctorPage {
             console.log("doctor: ",doctorData["results"][i]);  
             this.doctors.push(doctorData["results"][i]);
           }
+          if(this.doctors.length >= 3)
+          {
+            this.scrollHeight = "385px";
+          
+          }else{
+            this.scrollHeight = "260px";
+          }
+          for(i=0;i<this.doctors.length;i++)
+          {
+            // this.doctors[i].availability="0";
+
+            if(this.doctors[i].availability == "1")
+            {
+              this.doctors[i].color="green";
+              this.doctors[i].offline=false;
+            }else{
+              this.doctors[i].color="grey";
+              this.doctors[i].offline=true;
+            }
+
+          }
+          this.getDistanceAndDuration(0);
+
           if(this.doctors.length == 0)
           {
             this.presentToast(this.translate.instant("noSearchResult"));
           }
+          // if(this.doctors.length == 0)
+          // {
+          //   this.presentToast(this.translate.instant("noSearchResult"));
+          // }
 
         },
         err=>{

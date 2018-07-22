@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {LoginPage }from '../login/login';
 import { Storage } from '@ionic/storage';
 
-
+import 'rxjs/add/operator/timeout';
 
 
 @IonicPage({
@@ -77,7 +77,7 @@ export class ChangePhonePage {
       if(navigator.onLine){
         this.storage.get("access_token").then(data=>{
           this.accessToken = data;
-        this.loginservice.changePhoneNumber(this.phone,this.accessToken).subscribe(
+        this.loginservice.changePhoneNumber(this.phone,this.accessToken).timeout(10000).subscribe(
             resp=>{
               console.log("resp from changephone",resp);
               if(JSON.parse(JSON.stringify(resp)).success )
@@ -90,7 +90,7 @@ export class ChangePhonePage {
             },
             err=>{
               console.log("err from changephone",err);
-            this.presentToast(this.translate.instant("serverError"))
+            this.presentToast(this.translate.instant("serverError"));
             }
         );
         
@@ -100,7 +100,7 @@ export class ChangePhonePage {
        
       }
       else{
-        this.presentToast(this.translate.instant("serverError"))
+        this.presentToast(this.translate.instant("checkNetwork"));
       }
     }
   }

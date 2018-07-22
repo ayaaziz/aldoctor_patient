@@ -244,6 +244,7 @@
       "wrongCode":"كود التفعيل غير صحيح",
       "enterSearchVal":"اختر تخصص",
       "enterdoctor":"اختر طبيب",
-      "enterDoctorAndSpecilaization":"اختر تخصص وطبيب "
+      "enterDoctorAndSpecilaization":"اختر تخصص وطبيب ",
+      "checkNetwork":"تأكد من اتصالك بالانترنت"
 
 }

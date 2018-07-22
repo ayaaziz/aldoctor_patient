@@ -105,6 +105,8 @@ export class DoctorEvaluationPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DoctorEvaluationPage');
+    if(!navigator.onLine)
+    this.presentToast(this.translate.instant("checkNetwork"));
   }
   onModelChange(event){
     console.log("rate :",this.rate);

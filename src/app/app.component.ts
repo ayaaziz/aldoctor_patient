@@ -50,6 +50,7 @@ export class MyApp {
       this.dir="left";
     }
     
+    
     //this.menu.toggle('left');
     
     // if (this.helper.currentLang == 'ar')

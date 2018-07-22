@@ -1,5 +1,5 @@
 import { Component ,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams,Content } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Content,ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -46,11 +46,19 @@ export class EditProfilePage {
   cities=[];
   regAccessToken;
   //phoneErrMsg="";
+  tostClass;
 
-  constructor(public storage: Storage, public translate: TranslateService,
+  constructor(public toastCtrl: ToastController,
+    public storage: Storage, public translate: TranslateService,
      public loginservice:LoginserviceProvider, public helper: HelperProvider, public formBuilder: FormBuilder , public navCtrl: NavController, public navParams: NavParams) {
     this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);
+     
+    if(this.langDirection == "rtl")
+      this.tostClass = "toastRight";
+    else
+      this.tostClass="toastLeft";
+
     this.patientRegisterForm = formBuilder.group({
 
       firstname: ['', Validators.required],
@@ -81,6 +89,9 @@ nameArr;
 addArr;
 
   ionViewDidLoad() {
+    if(!navigator.onLine)
+      this.presentToast(this.translate.instant("checkNetwork"));
+
     this.storage.ready().then(() => {
     
       // this.storage.get('data').then(data=>{
@@ -237,6 +248,15 @@ addArr;
   }
   dismiss(){
     this.navCtrl.pop();
+  }
+ private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom',
+      cssClass: this.tostClass
+    });
+    toast.present();
   }
 
 }

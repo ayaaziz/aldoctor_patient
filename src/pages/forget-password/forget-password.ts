@@ -44,6 +44,8 @@ export class ForgetPasswordPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ForgetPasswordPage');
+    if(!navigator.onLine)
+      this.presentToast(this.translate.instant("checkNetwork"));
   }
   dismiss(){
     this.navCtrl.pop();

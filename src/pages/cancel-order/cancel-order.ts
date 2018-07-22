@@ -50,6 +50,7 @@ export class CancelOrderPage {
     console.log('ionViewDidLoad CancelOrderPage');
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+      if (navigator.onLine) {
       this.service.cancelreasons(this.accessToken).timeout(10000).subscribe(
         resp=>{
 
@@ -64,9 +65,13 @@ export class CancelOrderPage {
           
         },err=>{
           console.log("error from cancelreasons: ",err);
+          this.presentToast(this.translate.instant("serverError"));
         }
 
-      );   
+      );  
+    }else{
+      this.presentToast(this.translate.instant("checkNetwork"));
+    } 
    
    
     });
@@ -101,10 +106,11 @@ export class CancelOrderPage {
         },
         err=>{
           console.log("cancel order err: ", err);
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
     }else{
-      this.helper.presentToast(this.translate.instant("serverError"));
+      this.presentToast(this.translate.instant("checkNetwork"));
     }
   }
   

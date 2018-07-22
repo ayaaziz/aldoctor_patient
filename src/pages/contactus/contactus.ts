@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Platform } from 'ionic-angular/platform/platform';
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
-
+import 'rxjs/add/operator/timeout';
 
 @IonicPage({
   name:'contact-us'
@@ -29,8 +29,14 @@ export class ContactusPage {
   email;
   phone;
   mobile;
-
-  constructor(public service:LoginserviceProvider,public helper:HelperProvider,public translate:TranslateService,public platform:Platform,public storage:Storage,public navCtrl: NavController, public navParams: NavParams) {
+  tostClass;
+  
+  constructor(public toastCtrl: ToastController,
+    public service:LoginserviceProvider,public helper:HelperProvider,
+    public translate:TranslateService,public platform:Platform,
+    public storage:Storage,public navCtrl: NavController,
+    public navParams: NavParams) {
+    
     if (this.helper.currentLang == 'ar')
     {
      
@@ -51,10 +57,16 @@ export class ContactusPage {
       this.platform.setDir('ltr',true)
     }
   
+    if(this.langDirection == "rtl")
+      this.tostClass = "toastRight";
+    else
+      this.tostClass="toastLeft";
+
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+      if(navigator.onLine){
       this.service.ContactUs(this.accessToken)
-      .subscribe(
+      .timeout(10000).subscribe(
         resp=>{
           this.contactusdata = JSON.parse(JSON.stringify(resp));
           this.email = this.contactusdata[0].value;
@@ -63,8 +75,12 @@ export class ContactusPage {
           console.log("resp from contact us",resp);
         },err=>{
           console.log("err from contact us: ",err);
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
+    }else{
+      this.presentToast(this.translate.instant("checkNetwork"));
+    }
     });
   }
 
@@ -74,6 +90,15 @@ export class ContactusPage {
 
   dismiss(){
     this.navCtrl.pop();
+  }
+    private presentToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom',
+      cssClass: this.tostClass
+    });
+    toast.present();
   }
   
 }

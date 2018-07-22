@@ -243,7 +243,8 @@
       "wrongCode":"Wrong code",
       "enterSearchVal":"Enter Specialization",
       "enterdoctor":"Choose doctor",
-      "enterDoctorAndSpecilaization":"Choose doctor and specialization"
+      "enterDoctorAndSpecilaization":"Choose doctor and specialization",
+      "checkNetwork":"Check internet connection"
       
 
       

@@ -41,7 +41,7 @@ export class FollowOrderPage {
   lat=31.037933; 
   lng=31.381523;
   disableCancelBtn = false;
-
+  tostClass;
 
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
@@ -51,6 +51,10 @@ export class FollowOrderPage {
        console.log("follow order");
     this.langDirection = this.helper.lang_direction;
     
+    if(this.langDirection == "rtl")
+        this.tostClass = "toastRight";
+      else
+        this.tostClass="toastLeft";
 
     console.log("langdir: ",this.langDirection);
     this.translate.use(this.helper.currentLang);
@@ -85,6 +89,9 @@ export class FollowOrderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FollowOrderPage');
+    if(!navigator.onLine)
+      this.presentToast(this.translate.instant("checkNetwork"));
+
     this.test();
     this.initMap();
 
@@ -380,7 +387,8 @@ private presentToast(text) {
   let toast = this.toastCtrl.create({
     message: text,
     duration: 4000,
-    position: 'bottom'
+    position: 'bottom',
+    cssClass: this.tostClass
   });
   toast.present();
 }

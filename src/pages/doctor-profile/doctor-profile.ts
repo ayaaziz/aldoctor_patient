@@ -61,6 +61,8 @@ export class DoctorProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DoctorProfilePage');
+    if(!navigator.onLine)
+    this.presentToast(this.translate.instant("checkNetwork"));
   }
   dismiss(){
     this.navCtrl.pop();

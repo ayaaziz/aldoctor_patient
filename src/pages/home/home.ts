@@ -19,6 +19,7 @@ export class HomePage {
   
   langDirection:any;
   accessToken;
+  tostClass;
 
   constructor(public service: LoginserviceProvider,public events: Events,
     public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
@@ -86,6 +87,11 @@ this.storage.get("rate_doctor").then(data=>{
         }
         this.langDirection = this.helper.lang_direction;
         this.translate.use(this.helper.currentLang);
+        
+        if(this.langDirection == "rtl")
+          this.tostClass = "toastRight";
+        else
+          this.tostClass="toastLeft";
 
         console.log("lang: ",this.helper.currentLang,"dir: ",this.langDirection);
 
@@ -178,12 +184,15 @@ this.storage.get("rate_doctor").then(data=>{
     let toast = this.toastCtrl.create({
       message: text,
       duration: 4000,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: this.tostClass
     });
     toast.present();
   }
 
   ionViewDidLoad(){
+    if(!navigator.onLine)
+      this.presentToast(this.translate.instant("checkNetwork"));
   //   this.storage.ready().then(() => {
     
   //     this.storage.set('data',"samar").then(

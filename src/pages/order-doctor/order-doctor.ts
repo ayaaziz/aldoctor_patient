@@ -141,10 +141,10 @@ export class OrderDoctorPage {
             if(this.DoctorsArray[i].availability == "1")
             {
               this.DoctorsArray[i].color="green";
-              this.offline=false;
+              this.DoctorsArray[i].offline=false;
             }else{
               this.DoctorsArray[i].color="grey";
-              this.offline=true;
+              this.DoctorsArray[i].offline=true;
             }
           }
 
