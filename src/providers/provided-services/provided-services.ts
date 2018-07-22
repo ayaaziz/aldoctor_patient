@@ -23,9 +23,11 @@ export class ProvidedServicesProvider {
     //request
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/users/search';
+    let serviceUrl = this.helper.serviceUrl +'api/users/search?service_id=3&type_id='+type_id+'&name='+searchName;
     return this.http.get(serviceUrl,{headers: headers });
   
   }
+
+  
 
 }

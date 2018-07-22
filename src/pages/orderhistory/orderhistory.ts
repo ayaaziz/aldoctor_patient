@@ -32,6 +32,7 @@ export class OrderhistoryPage {
 
   tostClass ;
   refresher;
+  swipe=0;
   
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage,  public alertCtrl: AlertController,
@@ -190,6 +191,9 @@ export class OrderhistoryPage {
           if(this.refresher){
             this.refresher.complete();
             }
+
+          if(this.swipe)
+            this.swipe = 0;
         },
         err=>{
 
@@ -517,5 +521,31 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
     });
     alert.present();
   }
+
+  swipeUp(event: any): any {
+    console.log('Swipe Up', event);
+    // let loading = this.loadingCtrl.create({
+    //   content: 'Please wait...'
+    // });
+  
+    // loading.present();
+    // loading.dismiss();
+}
+
+swipeDown(event: any): any {
+    console.log('Swipe Down', event);
+    this.swipe=1;
+    this.getOrders();
+    // let loading = this.loadingCtrl.create({
+    //   spinner: 'hide',
+    //   content: `
+    //     <div class="custom-spinner-container">
+    //       <div class="custom-spinner-box"></div>
+    //     </div>`,
+    //   duration: 5000
+    // });
+  
+    // loading.present();
+}
 
 }

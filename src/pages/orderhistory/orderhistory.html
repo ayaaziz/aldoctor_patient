@@ -53,7 +53,7 @@
   
 </ion-header>
 
-<ion-content padding>
+<ion-content padding >
     
 
 <ion-row style="margin:0px;width:100%;padding-bottom:7px; border-bottom:2px solid rgb(205, 219, 205);">
@@ -99,6 +99,16 @@
   </ion-col> -->
 
 </ion-row>  
+
+
+<!-- <ion-icon name="refresh" *ngIf="swipe == '1' " class="ion-refreshing" style="text-align:center"></ion-icon> -->
+<!-- <div swipeAll
+           
+           (swipeleft)="swipeLeft($event)"
+           (swiperight)="swipeRight($event)"
+           (swipeup)="swipeUp($event)"
+           (swipedown)="swipeDown($event)"
+      >  -->
 
     <ion-card *ngFor="let item of data" style="height:110px;border-width: 3px;" [style.border-color]="item.color"   (click)="followOrder(item)" >          
       <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;">
@@ -148,5 +158,5 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
+<!-- </div> -->
 </ion-content>
