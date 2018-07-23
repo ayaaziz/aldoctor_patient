@@ -36,7 +36,6 @@
     "@ngx-translate/http-loader": "^3.0.1",
     "angularfire2": "^5.0.0-rc.11",
     "bootstrap": "^4.1.1",
-    "cordova-android": "^7.1.0",
     "cordova-plugin-apprate": "^1.4.0",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",

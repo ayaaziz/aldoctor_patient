@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {Nav, Platform, NavController, MenuController ,AlertController} from 'ionic-angular';
+import {Nav, Platform, NavController, MenuController ,AlertController,Events} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -42,7 +42,7 @@ export class MyApp {
   langDirection:string;
   image="assets/imgs/default-avatar.png";  
   name="";
-  constructor(public service:LoginserviceProvider, private alertCtrl: AlertController, private push: Push,public storage:Storage,public socialSharing:SocialSharing,public helper:HelperProvider,public menu:MenuController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
+  constructor(public events: Events,public service:LoginserviceProvider, private alertCtrl: AlertController, private push: Push,public storage:Storage,public socialSharing:SocialSharing,public helper:HelperProvider,public menu:MenuController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
     console.log("current lang: ",this.helper.currentLang);
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
@@ -377,13 +377,21 @@ export class MyApp {
           console.log("android");
           this.helper.notification=notification;
           var orderStatus = notification.additionalData.order_status;
+          if(orderStatus == "8")
+            this.events.publish('status8');
+          // if(orderStatus == "5")
+          //   this.events.publish('status5');
+          if(orderStatus == "7")
+            this.events.publish('status7');
           if(orderStatus == "5")
+          { //
+            this.events.publish('status5'); //
             this.nav.push('rate-doctor',{
               data:{
                 doctorId:notification.additionalData.doctorId,
                 orderId:notification.additionalData.orderId}
             });
-
+          } //
           if (notification.additionalData.type == "0" || notification.additionalData.type == "1" || notification.additionalData.type == "3") {
             // this.storage.get('access_token').then((val) => {
   

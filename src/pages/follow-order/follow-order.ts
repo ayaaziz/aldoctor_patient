@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController,AlertController ,Events} from 'ionic-angular';
 
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -43,11 +43,15 @@ export class FollowOrderPage {
   disableCancelBtn = false;
   tostClass;
 
+  allMarkers = [] ;
+
+
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
     private geolocation: Geolocation,public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public translate: TranslateService,
-     public toastCtrl: ToastController, public alertCtrl: AlertController) {
+     public toastCtrl: ToastController, public alertCtrl: AlertController,
+     public events: Events) {
        console.log("follow order");
     this.langDirection = this.helper.lang_direction;
     
@@ -73,7 +77,10 @@ export class FollowOrderPage {
             this.doctorName = tempData.name;
             this.doctorRate = tempData.rate;
             this.doctorSpecialization = tempData.speciality; 
-            this.doctorLocation = tempData.location;
+            
+            //this.doctorLocation = tempData.location;
+           
+            this.helper.getDoctorlocation(this.doctorId);
 
           },err=>{
             console.log("error from getserviceprofile in followorder:",err);
@@ -81,6 +88,58 @@ export class FollowOrderPage {
   
         );
       });
+      this.events.subscribe('location', (data) => {
+        console.log(" event location ",data);
+        if(data.location){
+          this.doctorLocation = data.location;
+        }
+        });
+        this.events.subscribe('locationChanged', (data) => {
+          console.log(" event location ",data);
+          if(data.location){
+            this.doctorLocation = data.location;
+            var markers, i;
+            for(var j=0;j<this.allMarkers.length;j++)
+            {
+            this.allMarkers[j].setMap(null);
+            }
+        //this.doctorLocation.lat, this.doctorLocation.lng
+        markers = new google.maps.Marker({
+        position: new google.maps.LatLng(this.doctorLocation.split(',')[0], this.doctorLocation.split(',')[0]),
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        icon: { 
+          url : 'assets/icon/location.png',
+          size: new google.maps.Size(71, 71),
+          scaledSize: new google.maps.Size(25, 25) 
+          
+         },
+         label:{
+           text:this.doctorName,
+           color:"black",
+           
+         }
+      });
+      console.log("draw");
+      this.allMarkers.push(markers);
+
+      console.log("markers ",markers);
+      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[0]).subscribe(
+        resp=>{
+          console.log("resp from getDurationAndDistance: ", resp);
+          var respObj = JSON.parse(JSON.stringify(resp));
+          console.log("duration",respObj.routes[0].legs[0].duration.text);
+          this.duration = respObj.routes[0].legs[0].duration.text;
+          console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+        },
+        err=>{
+          console.log("err from getDurationAndDistance: ",err);
+        }
+      );
+
+          }
+
+          });
     // this.doctorName = this.doctorData.name;
     // this.doctorRate = this.doctorData.rate;
     // this.doctorSpecialization = this.doctorData.specialization;
@@ -95,28 +154,44 @@ export class FollowOrderPage {
     this.test();
     this.initMap();
 
-    var timer = setInterval(()=>{
+    this.events.subscribe('status8', (data) => {
+      console.log("notification event status 8");
+      this.helper.trackDoctor(this.doctorId); 
+    });
+    this.events.subscribe('status5', (data) => {
+      console.log("notification event status 5");
+      this.navCtrl.push(TabsPage);
+    });
+    this.events.subscribe('status7', (data) => {
+      console.log("notification event status 7");
+      this.disableCancelBtn = true;
+    });
 
-      //this.folllowdoctor();
+    // var timer = setInterval(()=>{
 
-      this.notification = this.helper.notification;
-      this.orderStatus = this.notification.additionalData.order_status;
+      
+
+    //   this.notification = this.helper.notification;
+    //   this.orderStatus = this.notification.additionalData.order_status;
      
 
-      if(this.orderStatus == "8"){
-        console.log("order status 8"); //move to paient
-        this.folllowdoctor();
-      }else if(this.orderStatus == "5"){ 
-        console.log("order status 5"); //finshed 
-        clearTimeout(timer);
-        // this.navCtrl.pop();
-        this.navCtrl.push(TabsPage);
+    //   if(this.orderStatus == "8"){
+    //     console.log("order status 8"); //move to paient
+    //     this.folllowdoctor();
+    //   }else if(this.orderStatus == "5"){ 
+    //     console.log("order status 5"); //finshed 
+    //     clearTimeout(timer);
+    //     // this.navCtrl.pop();
+    //     this.navCtrl.push(TabsPage);
         
-      }else if(this.orderStatus == "7")// 7 start detection
-      {
-        this.disableCancelBtn = true;
-      }
-    },5000);
+    //   }else if(this.orderStatus == "7")// 7 start detection
+    //   {
+    //     this.disableCancelBtn = true;
+    //   }
+    // },5000);
+
+
+
 
   }
   initMap(){
@@ -303,7 +378,7 @@ initMapwithUserLocation(){
   // });
   
 }
-allMarkers = [] ;
+
 folllowdoctor(){
 console.log("follow doctor");
   this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
@@ -341,8 +416,9 @@ for(var j=0;j<this.allMarkers.length;j++)
 {
   this.allMarkers[j].setMap(null);
 }
+//this.doctorLocation.lat, this.doctorLocation.lng
       markers = new google.maps.Marker({
-        position: new google.maps.LatLng(this.doctorLocation.lat, this.doctorLocation.lng),
+        position: new google.maps.LatLng(this.doctorLocation.split(',')[0], this.doctorLocation.split(',')[0]),
         map: this.map,
         animation: google.maps.Animation.DROP,
         icon: { 
@@ -361,7 +437,7 @@ for(var j=0;j<this.allMarkers.length;j++)
       this.allMarkers.push(markers);
 
       console.log("markers ",markers);
-      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.lat,this.doctorLocation.lng).subscribe(
+      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[0]).subscribe(
         resp=>{
           console.log("resp from getDurationAndDistance: ", resp);
           var respObj = JSON.parse(JSON.stringify(resp));

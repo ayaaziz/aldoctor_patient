@@ -253,6 +253,7 @@ export class OrderDoctorPage {
             //   this.DoctorsArray[i].offline=true;
             // }
           }
+          
 
 
            this.getDistanceAndDuration(0);
