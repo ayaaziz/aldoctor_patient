@@ -52,10 +52,10 @@ export class DoctorProfilePage {
     this.rate = this.doctorProfile.rate;
     this.services = this.doctorProfile.speciality_services;
     
-    if(this.doctorProfile.availability == "1")
-      this.offline = "0";
-    else
+    if(this.doctorProfile.offline == true)
       this.offline = "1";
+    else
+      this.offline = "0";
     // this.services = ["any thing","any thing","any thing"];
   }
 

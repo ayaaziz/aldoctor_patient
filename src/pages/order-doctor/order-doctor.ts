@@ -4,6 +4,7 @@ import { LoginserviceProvider } from '../../providers/loginservice/loginservice'
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
 import { HelperProvider } from '../../providers/helper/helper';
+import { Events } from 'ionic-angular';
 
 
 @IonicPage(
@@ -50,7 +51,7 @@ export class OrderDoctorPage {
   choosenDoctors=[];
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController, 
-    public storage: Storage, 
+    public storage: Storage, public events: Events,
     public service:LoginserviceProvider,public navCtrl: NavController, 
     public navParams: NavParams,  public translate: TranslateService) {
 
@@ -68,6 +69,78 @@ export class OrderDoctorPage {
         this.Specialization = this.spValue;
         console.log("construct id ",this.spId," value ",this.spValue);
     
+
+        this.events.subscribe('statusChanged', (data) => {
+          console.log(" event status changed ",data);
+          // data.status;
+          // data.id;
+
+          for(var k=0;k<this.DoctorsArray.length;k++)
+          {
+            
+            if(this.DoctorsArray[k].id == data.id)
+            {
+              if(data.status == "online")
+              {
+                this.DoctorsArray[k].color="green";
+                this.DoctorsArray[k].offline=false;
+
+              }else if (data.status == "offline")
+              {
+                this.DoctorsArray[k].color="grey";
+                this.DoctorsArray[k].offline=true;
+              }
+            }
+            
+          }
+
+
+        });
+        this.events.subscribe('status', (data) => {
+          console.log(" event status ",data);
+          // data.status;
+          // data.id;
+
+          for(var k=0;k<this.DoctorsArray.length;k++)
+          {
+            
+            if(this.DoctorsArray[k].id == data.id)
+            {
+              if(data.status == "online")
+              {
+                this.DoctorsArray[k].color="green";
+                this.DoctorsArray[k].offline=false;
+
+              }else if (data.status == "offline")
+              {
+                this.DoctorsArray[k].color="grey";
+                this.DoctorsArray[k].offline=true;
+              }
+            } 
+          }
+        });
+
+        this.events.subscribe('locationChanged', (data) => {
+          console.log(" event location changed ",data);
+
+        });
+  this.events.subscribe('location', (data) => {
+    console.log(" event location ",data);
+    if(data.location){
+    for(var k=0;k<this.DoctorsArray.length;k++)
+    {   
+      if(this.DoctorsArray[k].id == data.id)
+      {
+        this.DoctorsArray[k].lat = data.location.split(',')[0];
+        this.DoctorsArray[k].lng = data.location.split(',')[1];
+      }
+            
+    }
+    }
+
+
+
+    });
 
   }
   colclicked(){
@@ -103,6 +176,32 @@ export class OrderDoctorPage {
     });
 
    
+    // this.events.subscribe('statusChanged', (data) => {
+    //   console.log(" event status changed ",data);
+    //   // data.status;
+    //   // data.id;
+
+    //   for(var k=0;k<this.DoctorsArray.length;k++)
+    //   {
+        
+    //     if(this.DoctorsArray[k].id == data.id)
+    //     {
+    //       if(data.status == "online")
+    //       {
+    //         this.DoctorsArray[k].color="green";
+    //         this.DoctorsArray[k].offline=false;
+
+    //       }else if (data.status == "offline")
+    //       {
+    //         this.DoctorsArray[k].color="grey";
+    //         this.DoctorsArray[k].offline=true;
+    //       }
+    //     }
+        
+    //   }
+
+
+    // });
   
   }
 
@@ -138,18 +237,25 @@ export class OrderDoctorPage {
         }
           for(i=0;i<this.DoctorsArray.length;i++)
           {
-            if(this.DoctorsArray[i].availability == "1")
-            {
-              this.DoctorsArray[i].color="green";
-              this.DoctorsArray[i].offline=false;
-            }else{
-              this.DoctorsArray[i].color="grey";
-              this.DoctorsArray[i].offline=true;
-            }
+            
+            //this.helper.userId=this.DoctorsArray[i].id;
+            this.helper.intializeFirebase(this.DoctorsArray[i].id);
+            this.helper.getDoctorStatus(this.DoctorsArray[i].id);
+            this.helper.trackDoctor(this.DoctorsArray[i].id);
+            this.helper.getDoctorlocation(this.DoctorsArray[i].id);
+            
+            // if(this.DoctorsArray[i].availability == "1")
+            // {
+            //   this.DoctorsArray[i].color="green";
+            //   this.DoctorsArray[i].offline=false;
+            // }else{
+            //   this.DoctorsArray[i].color="grey";
+            //   this.DoctorsArray[i].offline=true;
+            // }
           }
 
 
-          this.getDistanceAndDuration(0);
+           this.getDistanceAndDuration(0);
           
           if(this.DoctorsArray.length == 0)
           {

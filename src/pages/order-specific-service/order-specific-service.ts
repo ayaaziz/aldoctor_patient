@@ -36,7 +36,7 @@ export class OrderSpecificServicePage {
   third;
   fourth
   last;
-  
+  photos = [];
  
   //DoctorsArray = [];
 
@@ -139,31 +139,31 @@ export class OrderSpecificServicePage {
     console.log("second: ",this.second);
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
-    // if(this.choosenDoctors.length > 3 )
-    // {
-    //   this.presentToast(this.translate.instant("check3doctors"));
-    // }else if (this.choosenDoctors.length<1){
-    //   this.presentToast(this.translate.instant("checkAtleastone"));
-    // }else{
-    //   var doctorsId="";
-    //   for(var j=0;j<this.choosenDoctors.length;j++)
-    //   {
-    //     doctorsId += this.choosenDoctors[j].id+",";
-    //   }
-    //   console.log("doctors id: ",doctorsId);
-    //   this.service.saveOrder(doctorsId,this.accessToken).subscribe(
-    //     resp => {
-    //       console.log("saveOrder resp: ",resp);
-    //       this.presentToast(this.translate.instant("ordersent"));
-    //       // this.navCtrl.pop();
-    //       this.navCtrl.push('remaining-time-to-accept');
-    //     },
-    //     err=>{
-    //       console.log("saveOrder error: ",err);
-    //       this.presentToast(this.translate.instant("serverError"));
-    //     }
-    //   );    
-    // }
+    if(this.choosenDoctors.length > 3 )
+    {
+      this.presentToast(this.translate.instant("check3doctors"));
+    }else if (this.choosenDoctors.length<1){
+      this.presentToast(this.translate.instant("checkAtleastone"));
+    }else{
+      var doctorsId="";
+      for(var j=0;j<this.choosenDoctors.length;j++)
+      {
+        doctorsId += this.choosenDoctors[j].id+",";
+      }
+      console.log("doctors id: ",doctorsId);
+      this.srv.saveOrder(doctorsId,this.photos,this.accessToken).subscribe(
+        resp => {
+          console.log("saveOrder resp: ",resp);
+          this.presentToast(this.translate.instant("ordersent"));
+          // this.navCtrl.pop();
+          this.navCtrl.push('remaining-time-to-accept');
+        },
+        err=>{
+          console.log("saveOrder error: ",err);
+          this.presentToast(this.translate.instant("serverError"));
+        }
+      );    
+    }
     
   }
 
@@ -257,11 +257,20 @@ export class OrderSpecificServicePage {
  
     this.camera.getPicture(options).then((imageData) => {
    
+      console.log("imageData" , imageData);
       this.image = 'data:image/jpeg;base64,' + imageData;
+      
+      console.log("image ",this.image);
+      this.photos.push(imageData.replace(/\+/g,","));
+      console.log("all photos ",this.photos);
+      
     
     }, (err) => {
      
      });
+  }
+  deletePhoto(index){
+    this.photos.splice(index, 1);
   }
   getItems(ev) {
     var searchVal = ev.target.value;

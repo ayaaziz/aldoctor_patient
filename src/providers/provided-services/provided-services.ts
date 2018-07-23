@@ -28,6 +28,22 @@ export class ProvidedServicesProvider {
   
   }
 
+  saveOrder(doctorsId ,images,access_token){
+    let headers = new HttpHeaders();
+    console.log("lat from service ",this.helper.lat);
+    console.log("lon from service ",this.helper.lon);
+
+    let userLocation = this.helper.lat + "," + this.helper.lon;
+
+    let parameter = new HttpParams().set('doctor_id',doctorsId).
+    set('extra',userLocation).set('files',images);
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/orders/create';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+
+    
+  }
   
 
 }

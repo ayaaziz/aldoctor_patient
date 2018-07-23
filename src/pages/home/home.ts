@@ -26,6 +26,9 @@ export class HomePage {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
 
+    // this.helper.userId=114;
+    // this.helper.intializeFirebase();
+
     console.log("date", new Date().toISOString().split('T')[0]);
 var date1 = new Date('2018-06-01');
 var date2 = new Date('2018-05-25');

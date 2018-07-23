@@ -100,7 +100,7 @@
  <!-- style="height: 385px;" -->
 
  <ion-scroll scrollY="true" [ngStyle]="{'height': scrollHeight }"   >
- <ion-card *ngFor="let item of DoctorsArray" [ngStyle]="{'opacity': item.availability == 0 ? '0.5' : '1'}" style="height:110px;" (click)="showDoctorProfile(item)" >          
+ <ion-card *ngFor="let item of DoctorsArray" [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" style="height:110px;" (click)="showDoctorProfile(item)" >          
     <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;" >
         <!-- fixed class="customItem3" -->
       <ion-col  col-2  col-sm-2  style="padding-top:5px;text-align: center;" >

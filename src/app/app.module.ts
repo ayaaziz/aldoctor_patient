@@ -91,6 +91,30 @@ import { ProvidedServicesProvider } from '../providers/provided-services/provide
 //import { ConditionsPage } from '../pages/conditions/conditions';
 //import { ContactusPage } from '../pages/contactus/contactus';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuth } from '../../node_modules/angularfire2/auth';
+import { AngularFireDatabase } from '../../node_modules/angularfire2/database';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+
+// export const firebaseConfig = {
+//   apiKey: "AIzaSyDnAX0CQbbsMYuOTJ66ox_F0GwzPM4XPXY",
+//   authDomain: "angularfire2-list-example.firebaseapp.com",
+//   databaseURL: "https://angularfire2-list-example.firebaseio.com",
+//   storageBucket: "",
+//   messagingSenderId: "609067141823"
+// };
+
+var firebaseConfig  = {
+  apiKey: "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo",
+  authDomain: "aldoctor-b33ed.firebaseapp.com",
+  databaseURL: "https://aldoctor-b33ed.firebaseio.com",
+  projectId: "aldoctor-b33ed",
+  storageBucket: "aldoctor-b33ed.appspot.com",
+  messagingSenderId: "381921023811"
+};
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -133,6 +157,9 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    
+    AngularFireModule.initializeApp(firebaseConfig),  
+    AngularFirestoreModule,
     //IonicImageLoader.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -174,7 +201,8 @@ export function createTranslateLoader(http: HttpClient) {
     //Base64,
     Geolocation,
     ProvidedServicesProvider,
-    
+    AngularFireAuth,
+    AngularFireDatabase,
   ]
 })
 export class AppModule {}

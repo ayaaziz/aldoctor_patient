@@ -203,6 +203,21 @@ page-order-specific-service {
         margin: 0px;
         padding: 0px;
       }
+
+
+.block {
+  position: relative;
+
+  .deleteIcon {
+    position: absolute !important;
+    color: #ffffff !important;
+    margin-left: 80% !important;
+  }
+  .deleteIcon:before {
+    font-size: 30px !important;
+  }
+}
+
     
 }
 .toastRight{
