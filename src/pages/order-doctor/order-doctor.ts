@@ -106,12 +106,12 @@ export class OrderDoctorPage {
             
             if(this.DoctorsArray[k].id == data.id)
             {
-              if(data.status == "online")
+              if(data.status == "1")
               {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
 
-              }else if (data.status == "offline")
+              }else if (data.status == "0")
               {
                 this.DoctorsArray[k].color="grey";
                 this.DoctorsArray[k].offline=true;
@@ -121,7 +121,7 @@ export class OrderDoctorPage {
         });
 
         this.events.subscribe('locationChanged', (data) => {
-          console.log(" event location changed ",data);
+          console.log("location changed event",data);
 
         });
   this.events.subscribe('location', (data) => {
@@ -239,10 +239,12 @@ export class OrderDoctorPage {
           {
             
             //this.helper.userId=this.DoctorsArray[i].id;
-            this.helper.intializeFirebase(this.DoctorsArray[i].id);
+            // this.helper.intializeFirebase(this.DoctorsArray[i].id);
             this.helper.getDoctorStatus(this.DoctorsArray[i].id);
-            this.helper.trackDoctor(this.DoctorsArray[i].id);
+            this.helper.statusChanged(this.DoctorsArray[i].id);
             this.helper.getDoctorlocation(this.DoctorsArray[i].id);
+            this.helper.trackDoctor(this.DoctorsArray[i].id);
+            
             
             // if(this.DoctorsArray[i].availability == "1")
             // {

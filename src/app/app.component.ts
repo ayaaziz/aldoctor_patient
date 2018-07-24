@@ -30,6 +30,17 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 import { LoginserviceProvider } from '../providers/loginservice/loginservice';
 
+import * as firebase from 'firebase/app';
+
+var firebaseConfig  = {
+  apiKey: "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo",
+  authDomain: "aldoctor-b33ed.firebaseapp.com",
+  databaseURL: "https://aldoctor-b33ed.firebaseio.com",
+  projectId: "aldoctor-b33ed",
+  storageBucket: "aldoctor-b33ed.appspot.com",
+  messagingSenderId: "381921023811"
+};
+
 @Component({
   templateUrl: 'app.html',
   providers:[Push]
@@ -50,6 +61,7 @@ export class MyApp {
       this.dir="left";
     }
     
+    firebase.initializeApp(firebaseConfig);    
     
     //this.menu.toggle('left');
     

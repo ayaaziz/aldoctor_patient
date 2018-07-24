@@ -151,8 +151,10 @@ gpslocationerrorCallback(){
 accessToken;
 getUserLocation(){
   
+  console.log("get user location");
     this.geolocation.getCurrentPosition().then((resp) => {
 
+      console.log("current location resp: ", resp);
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
       
@@ -160,7 +162,7 @@ getUserLocation(){
       this.helper.lat = this.lat;
 
       
-      console.log("resp: ", resp);
+      
       this.initMapwithUserLocation();
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;

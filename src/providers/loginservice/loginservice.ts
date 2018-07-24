@@ -64,7 +64,7 @@ userRegister(userData,access_token,SuccessCallback,FailureCallback) {
   console.log("lname: ",userData.secondname);
   let headers = new HttpHeaders();
   let parameter = new HttpParams().set('name',userData.firstname+" "+userData.secondname+" "+userData.surname)
-  .set('phone',userData.phone).set('birth_date',userData.birthdate)
+  .set('phone','2'+userData.phone).set('birth_date',userData.birthdate)
   .set('address',userData.address)
   .set('password',userData.password).set('city',userData.city)
   .set('country',userData.country).set('gender',userData.gender)
@@ -99,7 +99,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       //   'password' :password
       // }
       
-      let parameter = new HttpParams().set('email',email).set('password',password)
+      let parameter = new HttpParams().set('email','2'+email).set('password',password)
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/login';
       this.http.post(serviceUrl,parameter,{headers: headers })

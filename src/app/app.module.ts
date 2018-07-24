@@ -91,11 +91,11 @@ import { ProvidedServicesProvider } from '../providers/provided-services/provide
 //import { ConditionsPage } from '../pages/conditions/conditions';
 //import { ContactusPage } from '../pages/contactus/contactus';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireAuth } from '../../node_modules/angularfire2/auth';
-import { AngularFireDatabase } from '../../node_modules/angularfire2/database';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFirestoreModule } from 'angularfire2/firestore';
+// import { AngularFireAuth } from '../../node_modules/angularfire2/auth';
+// import { AngularFireDatabase } from '../../node_modules/angularfire2/database';
+// import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 
 // export const firebaseConfig = {
@@ -158,8 +158,8 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     
-    AngularFireModule.initializeApp(firebaseConfig),  
-    AngularFirestoreModule,
+    // AngularFireModule.initializeApp(firebaseConfig),  
+    // AngularFirestoreModule,
     //IonicImageLoader.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -201,8 +201,8 @@ export function createTranslateLoader(http: HttpClient) {
     //Base64,
     Geolocation,
     ProvidedServicesProvider,
-    AngularFireAuth,
-    AngularFireDatabase,
+    // AngularFireAuth,
+    // AngularFireDatabase,
   ]
 })
 export class AppModule {}

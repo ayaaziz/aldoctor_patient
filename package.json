@@ -36,6 +36,7 @@
     "@ngx-translate/http-loader": "^3.0.1",
     "angularfire2": "^5.0.0-rc.11",
     "bootstrap": "^4.1.1",
+    "cordova-android": "~7.1.0",
     "cordova-plugin-apprate": "^1.4.0",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
@@ -53,7 +54,7 @@
     "cordova-support-google-services": "^1.1.0",
     "cordova.plugins.diagnostic": "^4.0.8",
     "es6-promise-plugin": "^4.2.2",
-    "firebase": "^5.3.0",
+    "firebase": "^4.8.0",
     "ionic-angular": "3.9.2",
     "ionic-swipe-all": "^1.2.0",
     "ionic2-rating": "^1.2.2",
@@ -62,8 +63,7 @@
     "phonegap-plugin-push": "^2.2.3",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
-    "zone.js": "0.8.26",
-    "cordova-android": "~7.1.0"
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.1.10",

@@ -105,7 +105,7 @@ export class FollowOrderPage {
             }
         //this.doctorLocation.lat, this.doctorLocation.lng
         markers = new google.maps.Marker({
-        position: new google.maps.LatLng(this.doctorLocation.split(',')[0], this.doctorLocation.split(',')[0]),
+        position: new google.maps.LatLng(this.doctorLocation.split(',')[0], this.doctorLocation.split(',')[1]),
         map: this.map,
         animation: google.maps.Animation.DROP,
         icon: { 
@@ -124,7 +124,7 @@ export class FollowOrderPage {
       this.allMarkers.push(markers);
 
       console.log("markers ",markers);
-      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[0]).subscribe(
+      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
         resp=>{
           console.log("resp from getDurationAndDistance: ", resp);
           var respObj = JSON.parse(JSON.stringify(resp));
@@ -418,7 +418,7 @@ for(var j=0;j<this.allMarkers.length;j++)
 }
 //this.doctorLocation.lat, this.doctorLocation.lng
       markers = new google.maps.Marker({
-        position: new google.maps.LatLng(this.doctorLocation.split(',')[0], this.doctorLocation.split(',')[0]),
+        position: new google.maps.LatLng(this.doctorLocation.split(',')[0], this.doctorLocation.split(',')[1]),
         map: this.map,
         animation: google.maps.Animation.DROP,
         icon: { 
@@ -437,7 +437,7 @@ for(var j=0;j<this.allMarkers.length;j++)
       this.allMarkers.push(markers);
 
       console.log("markers ",markers);
-      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[0]).subscribe(
+      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
         resp=>{
           console.log("resp from getDurationAndDistance: ", resp);
           var respObj = JSON.parse(JSON.stringify(resp));
