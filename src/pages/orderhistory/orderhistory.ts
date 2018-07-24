@@ -321,11 +321,37 @@ export class OrderhistoryPage {
 
 
   }
+
+  refreshFilterOrders(){
+    this.service.filterOrder(this.from,this.to,1,this.accessToken).subscribe(
+      resp=>{
+
+        console.log("resp from refresh filter resp",resp);
+        if(this.refresher){
+          this.data = [];
+         
+        }    
+        var ordersData =JSON.parse(JSON.stringify(resp)).orders;
+        if(ordersData.length == 0)
+          this.scroll = 0;  
+          // this.filterpage=1;
+          //this.infiniteScroll.complete();
+
+        this.respFromGetOrders(resp);
+        
+        
+      },err=>{
+        console.log("resp from filter err",err);
+      }
+    );
+  }
   respFromFilterOrders()
   {
     this.service.filterOrder(this.from,this.to,this.filterpage,this.accessToken).subscribe(
       resp=>{
+
         console.log("resp from filter resp",resp);
+        
         var ordersData =JSON.parse(JSON.stringify(resp)).orders;
         if(ordersData.length == 0)
           this.scroll = 0;  
@@ -456,7 +482,8 @@ export class OrderhistoryPage {
     console.log("will enter get orders")
     this.cancelTxt = this.translate.instant("canceltxt");
     this.doneTxt = this.translate.instant("doneTxt");
-
+    this.to="";
+    this.from="";
     this.getOrders();
 
     // this.getSpecializationsData()
@@ -517,7 +544,16 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
   doRefresh(ev){
     console.log("refresh",ev);
     this.refresher = ev;
-    this.refreshOrders();
+    if(this.to || this.from)
+    {
+      // this.filterpage=1;
+      // this.respFromFilterOrders();
+      this.refreshFilterOrders();
+    }else{
+     
+      this.refreshOrders();
+    }
+    
     
   }
   rateagain(item){

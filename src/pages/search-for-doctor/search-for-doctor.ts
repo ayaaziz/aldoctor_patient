@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TabsPage } from '../tabs/tabs';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
+import 'rxjs/add/operator/timeout';
 
 
 @IonicPage({
@@ -48,12 +49,15 @@ export class SearchForDoctorPage {
         this.tostClass = "toastRight";
       else
         this.tostClass="toastLeft";
+
+        
   }
   
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForDoctorPage');
 
+    // this.getUserLocation();
     //31.0657632,31.6421222-->
     //31.037933,31.381523-->mans
   // var directionsService = new google.maps.DirectionsService();
@@ -152,7 +156,9 @@ accessToken;
 getUserLocation(){
   
   console.log("get user location");
-    this.geolocation.getCurrentPosition().then((resp) => {
+  // , enableHighAccuracy: true, maximumAge: 3600
+  let GPSoptions = {timeout: 60000};
+    this.geolocation.getCurrentPosition(GPSoptions).then((resp) => {
 
       console.log("current location resp: ", resp);
       this.lat = resp.coords.latitude;
