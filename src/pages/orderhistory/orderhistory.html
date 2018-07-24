@@ -54,6 +54,9 @@
 </ion-header>
 
 <ion-content padding >
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
     
 
 <ion-row style="margin:0px;width:100%;padding-bottom:7px; border-bottom:2px solid rgb(205, 219, 205);">
@@ -155,8 +158,10 @@
 
   
    
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+  
+
+  <ion-infinite-scroll   (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 <!-- </div> -->
 </ion-content>

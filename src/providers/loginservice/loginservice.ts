@@ -229,26 +229,43 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
     
   }
-  getUserOrders(access_token){
+  getUserOrders(page,access_token){
+    // var lang = this.helper.currentLang;
+    // let headers = new HttpHeaders();
+    
+    // headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    // let serviceUrl = this.helper.serviceUrl +'api/users/my-orders?lang='+lang;
+    // return this.http.get(serviceUrl,{headers: headers });
+
+    //4.8
     var lang = this.helper.currentLang;
     let headers = new HttpHeaders();
-    
+    let parameter = new HttpParams().set('page',page).
+    set('lang',lang);
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/users/my-orders?lang='+lang;
-    return this.http.get(serviceUrl,{headers: headers });
+    let serviceUrl = this.helper.serviceUrl +'api/users/my-orders';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
     
 
   }
-  filterOrder(after,before,access_token){
+  filterOrder(after,before,page,access_token){
+    // var lang = this.helper.currentLang;
+    // let headers = new HttpHeaders();
+    
+    // // let parameter = new HttpParams().set('before','2018-06-20').
+    // // set('after','2018-06-20');2018-06-18,after,from=2018-06-17&before,to=2018-06-18
+    
+    // headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    // let serviceUrl = this.helper.serviceUrl +"api/users/my-orders?after="+after+"&before="+before;
+    // return this.http.get(serviceUrl,{headers: headers });
     var lang = this.helper.currentLang;
     let headers = new HttpHeaders();
-    
-    // let parameter = new HttpParams().set('before','2018-06-20').
-    // set('after','2018-06-20');2018-06-18,after,from=2018-06-17&before,to=2018-06-18
-    
+    let parameter = new HttpParams().set('page',page).
+    set('lang',lang);
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +"api/users/my-orders?after="+after+"&before="+before+"&lang="+lang;
-    return this.http.get(serviceUrl,{headers: headers });
+    let serviceUrl = this.helper.serviceUrl +"api/users/my-orders?after="+after+"&before="+before;
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+    
   }
   getServiceProfile(id,access_token){
     let headers = new HttpHeaders();

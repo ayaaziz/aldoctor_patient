@@ -33,6 +33,10 @@ export class OrderhistoryPage {
   tostClass ;
   refresher;
   swipe=0;
+  page=1;
+  infiniteScroll;
+  filterpage=1;
+  scroll = 1;
   
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage,  public alertCtrl: AlertController,
@@ -53,7 +57,7 @@ export class OrderhistoryPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderhistoryPage');
-    this.getOrders();
+   // this.getOrders();
   }
  
   private presentToast(text) {
@@ -65,38 +69,16 @@ export class OrderhistoryPage {
     });
     toast.present();
   }
-
-  getOrders(){
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
-      this.service.getSpecializations(this.accessToken).subscribe(
-        resp=>{
-          for(var i=0;i<JSON.parse(JSON.stringify(resp)).length;i++){
-            console.log("sp: ",resp[i].value);
-            // this.SpecializationArray.push(resp[i].value);
-            this.SpecializationArray.push(resp[i]);
-
-          }
-//  if(this.refresher){
-//           this.refresher.complete();
-//  }
-      //   },
-      //   err=>{
-
-      //   }
-      // );
-      this.service.getUserOrders(this.accessToken).subscribe(
-        resp=>{
+  respFromGetOrders(resp)
+  {
+    console.log("order in page 1",resp);
+          var ordersData =JSON.parse(JSON.stringify(resp)).orders;
+          this.ordersArray = [];
+          this.ordersArray = ordersData;
           
-         console.log("getUserOrders resp: ",resp);
-         var ordersData =JSON.parse(JSON.stringify(resp)).orders;
-         this.ordersArray = [];
-         this.ordersArray = ordersData;
 
-         console.log("orders: ",ordersData);
           for(var j=0;j<ordersData.length;j++){
-            console.log("status ",ordersData[j].status );
-            // ordersData[j].status="7";
+            
             if(ordersData[j].status == "0") //canceled by doctor
               ordersData[j].color = "red";
             else if(ordersData[j].status == "5") //finished
@@ -108,308 +90,367 @@ export class OrderhistoryPage {
             if(ordersData[j].rated == "0")
               ordersData[j].color = "yellow";
 
-            // this.orderobject.orderId = ordersData[j].id;
-            // this.orderobject.order_status = ordersData[j].status;
-
-            console.log("orderStatus: " ,this.orderobject.order_status , "orderid: ",this.orderobject.orderId);
-
-
-            console.log("order id:", ordersData[j].id, "order :",ordersData[j]);
             var serviceProfile = ordersData[j].theServiceProfile;
             if(serviceProfile){
-            for(var k=0;k<this.SpecializationArray.length;k++){
-              //      // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
-              if(serviceProfile.doctor.speciality_id == this.SpecializationArray[k].id)
-                    {
-                  this.orderobject.name = serviceProfile.name;
-                  this.orderobject.profile_pic = serviceProfile.profile_pic;
-                  this.orderobject.rate = serviceProfile.rate;
-                  this.orderobject.specialization = this.SpecializationArray[k].value;
-                  this.orderobject.doctor_id = serviceProfile.id;
-                  this.orderobject.color = ordersData[j].color;
-                  this.orderobject.reorder = ordersData[j].reorder;
-                  this.orderobject.rated = ordersData[j].rated;
-                  this.orderobject.orderId = ordersData[j].id;
-                  this.orderobject.order_status = ordersData[j].status;
-                  if(ordersData[j].reorder == "1")
-                  {
-                    this.orderobject.custom_date = ordersData[j].custom_date;
-                    this.orderobject.date_id = ordersData[j].date_id;
+          
+              this.orderobject.name = serviceProfile.name;
+              this.orderobject.profile_pic = serviceProfile.profile_pic;
+              this.orderobject.rate = serviceProfile.rate;
+              this.orderobject.specialization = serviceProfile.speciality;
+              this.orderobject.doctor_id = serviceProfile.id;
+              this.orderobject.color = ordersData[j].color;
+              this.orderobject.reorder = ordersData[j].reorder;
+              this.orderobject.rated = ordersData[j].rated;
+              this.orderobject.orderId = ordersData[j].id;
+              this.orderobject.order_status = ordersData[j].status;
+              if(ordersData[j].reorder == "1")
+              {
+                this.orderobject.custom_date = ordersData[j].custom_date;
+                this.orderobject.date_id = ordersData[j].date_id;
 
-                  } else{
-                    this.orderobject.custom_date ="";
-                    this.orderobject.date_id = "";
+              } else{
+                this.orderobject.custom_date ="";
+                this.orderobject.date_id = "";
+              } 
 
-                  } 
+              this.data.push(this.orderobject);
 
-                  this.data.push(this.orderobject);
-
-                  this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
+              this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
                   "custom_date":"","date_id":""};
-                    }
-                    //break;
+          
+                    
             }
           }
-            // this.service.getServiceProfile(ordersData[j].service_profile_id,this.accessToken).subscribe(
-            //   resp =>{
-            //    // console.log("get service id resp",resp);
-            //     var serviceProfile = JSON.parse(JSON.stringify(resp)).user;
-            //     for(var k=0;k<this.SpecializationArray.length;k++){
-            //      // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
-            //       if(serviceProfile.extraInfo.speciality_id == this.SpecializationArray[k].id)
-            //       {
-            //        /* console.log("name: ",serviceProfile.name,
-            //         "image: ",serviceProfile.profile_pic,"rate: ",serviceProfile.rate,
-            //       " sp: ",this.SpecializationArray[k].value);*/
-            //       this.orderobject.name = serviceProfile.name;
-            //       this.orderobject.profile_pic = serviceProfile.profile_pic;
-            //       this.orderobject.rate = serviceProfile.rate;
-            //       this.orderobject.specialization = this.SpecializationArray[k].value;
-            //       this.orderobject.doctor_id = serviceProfile.id;
-
-            //       this.data.push(this.orderobject);
-            //       this.orderobject={"orderId":"",
-            //       "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
-                
-            //           break;
-            //       }
-
-            //     }
-
-            //   },
-            //   err=>{
-            //     console.log("get service id err",err);
-            //   }
-            // );
-          }
+           
+          
           if(this.data.length == 0)
           {
             this.presentToast(this.translate.instant("noOrders"));
           }
-          //this.refresher.complete(); 
+          
           if(this.refresher){
             this.refresher.complete();
-            }
-
+          }
+          if (this.infiniteScroll) {
+            this.infiniteScroll.complete();
+          }
           if(this.swipe)
             this.swipe = 0;
-        },
-        err=>{
+  }
 
-        }
-      );
+  refreshOrders(){
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+      this.service.getUserOrders(1,this.accessToken).subscribe(
+        resp=>{
+          if(this.refresher){
+            this.data = [];
+            this.page = 1;
+            this.filterpage=1;
+            this.scroll = 1;
+          }
+          this.respFromGetOrders(resp);
+          
         },
         err=>{
-          console.log("getUserOrders error: ",err);
+          console.log("refresh",err);
         }
       );
     });
+  }
+  getOrders(){
+    
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+      this.service.getUserOrders(this.page,this.accessToken).subscribe(
+        resp=>{
+
+          var ordersData =JSON.parse(JSON.stringify(resp)).orders;
+          if(ordersData.length == 0)
+            this.scroll = 0;
+          //  this.page=1;
+          //  this.infiniteScroll.enable(false);
+          
+          if(resp)
+            this.respFromGetOrders(resp);
+          else
+            this.infiniteScroll.enable(false);
+ 
+        },
+        err=>{
+          console.log("order in page 1",err);
+        }
+      );
+//       this.service.getSpecializations(this.accessToken).subscribe(
+//         resp=>{
+//           for(var i=0;i<JSON.parse(JSON.stringify(resp)).length;i++){
+//             console.log("sp: ",resp[i].value);
+//             // this.SpecializationArray.push(resp[i].value);
+//             this.SpecializationArray.push(resp[i]);
+
+//           }
+// //  if(this.refresher){
+// //           this.refresher.complete();
+// //  }
+//       //   },
+//       //   err=>{
+
+//       //   }
+//       // );
+//       this.service.getUserOrders(1,this.accessToken).subscribe(
+//         resp=>{
+          
+//          console.log("getUserOrders resp: ",resp);
+//          var ordersData =JSON.parse(JSON.stringify(resp)).orders;
+//          this.ordersArray = [];
+//          this.ordersArray = ordersData;
+
+//          console.log("orders: ",ordersData);
+//           for(var j=0;j<ordersData.length;j++){
+//             console.log("status ",ordersData[j].status );
+//             // ordersData[j].status="7";
+//             if(ordersData[j].status == "0") //canceled by doctor
+//               ordersData[j].color = "red";
+//             else if(ordersData[j].status == "5") //finished
+//               ordersData[j].color="grey";
+            
+//             if(ordersData[j].reorder == "1")
+//               ordersData[j].color = "green";
+            
+//             if(ordersData[j].rated == "0")
+//               ordersData[j].color = "yellow";
+
+//             // this.orderobject.orderId = ordersData[j].id;
+//             // this.orderobject.order_status = ordersData[j].status;
+
+//             console.log("orderStatus: " ,this.orderobject.order_status , "orderid: ",this.orderobject.orderId);
+
+
+//             console.log("order id:", ordersData[j].id, "order :",ordersData[j]);
+//             var serviceProfile = ordersData[j].theServiceProfile;
+//             if(serviceProfile){
+//             for(var k=0;k<this.SpecializationArray.length;k++){
+//               //      // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
+//               if(serviceProfile.doctor.speciality_id == this.SpecializationArray[k].id)
+//                     {
+//                   this.orderobject.name = serviceProfile.name;
+//                   this.orderobject.profile_pic = serviceProfile.profile_pic;
+//                   this.orderobject.rate = serviceProfile.rate;
+//                   this.orderobject.specialization = this.SpecializationArray[k].value;
+//                   this.orderobject.doctor_id = serviceProfile.id;
+//                   this.orderobject.color = ordersData[j].color;
+//                   this.orderobject.reorder = ordersData[j].reorder;
+//                   this.orderobject.rated = ordersData[j].rated;
+//                   this.orderobject.orderId = ordersData[j].id;
+//                   this.orderobject.order_status = ordersData[j].status;
+//                   if(ordersData[j].reorder == "1")
+//                   {
+//                     this.orderobject.custom_date = ordersData[j].custom_date;
+//                     this.orderobject.date_id = ordersData[j].date_id;
+
+//                   } else{
+//                     this.orderobject.custom_date ="";
+//                     this.orderobject.date_id = "";
+
+//                   } 
+
+//                   this.data.push(this.orderobject);
+
+//                   this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
+//                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
+//                   "custom_date":"","date_id":""};
+//                     }
+//                     //break;
+//             }
+//           }
+//             // this.service.getServiceProfile(ordersData[j].service_profile_id,this.accessToken).subscribe(
+//             //   resp =>{
+//             //    // console.log("get service id resp",resp);
+//             //     var serviceProfile = JSON.parse(JSON.stringify(resp)).user;
+//             //     for(var k=0;k<this.SpecializationArray.length;k++){
+//             //      // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
+//             //       if(serviceProfile.extraInfo.speciality_id == this.SpecializationArray[k].id)
+//             //       {
+//             //        /* console.log("name: ",serviceProfile.name,
+//             //         "image: ",serviceProfile.profile_pic,"rate: ",serviceProfile.rate,
+//             //       " sp: ",this.SpecializationArray[k].value);*/
+//             //       this.orderobject.name = serviceProfile.name;
+//             //       this.orderobject.profile_pic = serviceProfile.profile_pic;
+//             //       this.orderobject.rate = serviceProfile.rate;
+//             //       this.orderobject.specialization = this.SpecializationArray[k].value;
+//             //       this.orderobject.doctor_id = serviceProfile.id;
+
+//             //       this.data.push(this.orderobject);
+//             //       this.orderobject={"orderId":"",
+//             //       "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
+                
+//             //           break;
+//             //       }
+
+//             //     }
+
+//             //   },
+//             //   err=>{
+//             //     console.log("get service id err",err);
+//             //   }
+//             // );
+//           }
+//           if(this.data.length == 0)
+//           {
+//             this.presentToast(this.translate.instant("noOrders"));
+//           }
+//           //this.refresher.complete(); 
+//           if(this.refresher){
+//             this.refresher.complete();
+//             }
+
+//           if(this.swipe)
+//             this.swipe = 0;
+//         },
+//         err=>{
+
+//         }
+//       );
+//         },
+//         err=>{
+//           console.log("getUserOrders error: ",err);
+//         }
+//       );
+   });
 
 
   }
-  dateFromChanged(event){
-    this.data=[];
-    console.log("to: ",this.to);
-    console.log("from: ",this.from);
-    this.service.filterOrder(this.from,this.to,this.accessToken).subscribe(
+  respFromFilterOrders()
+  {
+    this.service.filterOrder(this.from,this.to,this.filterpage,this.accessToken).subscribe(
       resp=>{
         console.log("resp from filter resp",resp);
-
-        console.log("getUserOrders resp: ",resp);
         var ordersData =JSON.parse(JSON.stringify(resp)).orders;
-        this.ordersArray = [];
-        this.ordersArray = ordersData;
-        console.log("orders: ",ordersData);
-         for(var j=0;j<ordersData.length;j++){
-           console.log("status ",ordersData[j].status);
-         
-           if(ordersData[j].status == "0") //canceled by doctor
-              ordersData[j].color = "red";
-            else if(ordersData[j].status == "2") //accepted by doctor
-              ordersData[j].color="green";
-            else if(ordersData[j].status == "5") //finished
-              ordersData[j].color="grey";
-            else if(ordersData[j].status == "" )
-              ordersData[j].color = "white";
-            else 
-              ordersData[j].color = "orange";
+        if(ordersData.length == 0)
+          this.scroll = 0;  
+          // this.filterpage=1;
+          //this.infiniteScroll.complete();
 
-          //  this.orderobject.orderId = ordersData[j].id;
-          //  this.orderobject.order_status = ordersData[j].status;
-
-            console.log("order id:", ordersData[j].id);
-            var serviceProfile = ordersData[j].theServiceProfile;
-
-            for(var k=0;k<this.SpecializationArray.length;k++){
-            // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
-            console.log("service profile",serviceProfile);  
-            if(serviceProfile.doctor.speciality_id == this.SpecializationArray[k].id)
-                    {
-                  this.orderobject.name = serviceProfile.name;
-                  this.orderobject.profile_pic = serviceProfile.profile_pic;
-                  this.orderobject.rate = serviceProfile.rate;
-                  this.orderobject.specialization = this.SpecializationArray[k].value;
-                  this.orderobject.doctor_id = serviceProfile.id;
-                  this.orderobject.color = ordersData[j].color;
-                  this.orderobject.reorder = ordersData[j].reorder;
-                  this.orderobject.rated = ordersData[j].rated;
-                  this.orderobject.orderId = ordersData[j].id;
-                  this.orderobject.order_status = ordersData[j].status;
-                  
-                  
-
-                  this.data.push(this.orderobject);
-                  this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
-                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":""};
-                    }
-                    //break;
-            }
-
-          //  this.service.getServiceProfile(ordersData[j].service_profile_id,this.accessToken).subscribe(
-          //    resp =>{
-          //     // console.log("get service id resp",resp);
-          //      var serviceProfile = JSON.parse(JSON.stringify(resp)).user;
-          //     //this.data=[];
-          //      for(var k=0;k<this.SpecializationArray.length;k++){
-          //       // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
-          //        if(serviceProfile.extraInfo.speciality_id == this.SpecializationArray[k].id)
-          //        {
-          //         /* console.log("name: ",serviceProfile.name,
-          //          "image: ",serviceProfile.profile_pic,"rate: ",serviceProfile.rate,
-          //        " sp: ",this.SpecializationArray[k].value);*/
-          //        this.orderobject.name = serviceProfile.name;
-          //        this.orderobject.profile_pic = serviceProfile.profile_pic;
-          //        this.orderobject.rate = serviceProfile.rate;
-          //        this.orderobject.specialization = this.SpecializationArray[k].value;
-          //       this.orderobject.doctor_id = serviceProfile.id;
-
-          //        this.data.push(this.orderobject);
-          //        this.orderobject={"orderId":"","order_status":"",
-          //        "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
-               
-          //            break;
-          //        }
-
-          //      }
-
-          //    },
-          //    err=>{
-          //      console.log("get service id err",err);
-          //    }
-          //  );
-         }
-         if(this.data.length == 0)
-         {
-           this.presentToast(this.translate.instant("noOrders"));
-         }
+        this.respFromGetOrders(resp);
+        
+        
       },err=>{
         console.log("resp from filter err",err);
       }
     );
   }
+
+  dateFromChanged(event){
+    this.data=[];
+    console.log("to: ",this.to);
+    console.log("from: ",this.from);
+    this.respFromFilterOrders();
+   
+  }
+  
   dateToChanged(event){
     this.data=[];
     var currentDate = new Date().toLocaleDateString();
     console.log("current date",currentDate);
     console.log("to: ",this.to);
     console.log("from: ",this.from);
-    this.service.filterOrder(this.from,this.to,this.accessToken).subscribe(
-      resp=>{
-        console.log("resp to filter resp",resp);
-
-        console.log("getUserOrders resp: ",resp);
-        var ordersData =JSON.parse(JSON.stringify(resp)).orders;
-        this.ordersArray= [];
-        this.ordersArray = ordersData;
-        console.log("orders: ",ordersData);
-         for(var j=0;j<ordersData.length;j++){
-           console.log("status ",ordersData[j].status);
+    this.respFromFilterOrders();
+    // this.service.filterOrder(this.from,this.to,this.filterpage,this.accessToken).subscribe(
+    //   resp=>{
+    //     console.log("resp to filter resp",resp);
+    //     this.respFromGetOrders(resp);
+    //     // console.log("getUserOrders resp: ",resp);
+    //     // var ordersData =JSON.parse(JSON.stringify(resp)).orders;
+    //     // this.ordersArray= [];
+    //     // this.ordersArray = ordersData;
+    //     // console.log("orders: ",ordersData);
+    //     //  for(var j=0;j<ordersData.length;j++){
+    //     //    console.log("status ",ordersData[j].status);
            
-          if(ordersData[j].status == "0") //canceled by doctor
-            ordersData[j].color = "red";
-          else if(ordersData[j].status == "2") //accepted by doctor
-            ordersData[j].color="green";
-          else if(ordersData[j].status == "5") //finished
-            ordersData[j].color="grey";
-          else if(ordersData[j].status == "" )
-            ordersData[j].color = "white";
-          else 
-            ordersData[j].color = "orange";
+    //     //   if(ordersData[j].status == "0") //canceled by doctor
+    //     //     ordersData[j].color = "red";
+    //     //   else if(ordersData[j].status == "2") //accepted by doctor
+    //     //     ordersData[j].color="green";
+    //     //   else if(ordersData[j].status == "5") //finished
+    //     //     ordersData[j].color="grey";
+    //     //   else if(ordersData[j].status == "" )
+    //     //     ordersData[j].color = "white";
+    //     //   else 
+    //     //     ordersData[j].color = "orange";
 
-          //  this.orderobject.orderId = ordersData[j].id;
-          //  this.orderobject.order_status = ordersData[j].status;
+    //     //   //  this.orderobject.orderId = ordersData[j].id;
+    //     //   //  this.orderobject.order_status = ordersData[j].status;
 
-            console.log("order id:", ordersData[j].id);
-            var serviceProfile = ordersData[j].theServiceProfile;
-          console.log(this.SpecializationArray);
-            for(var k=0;k<this.SpecializationArray.length;k++){
-             console.log("serviceProfile.doctor.speciality_id",serviceProfile.doctor.speciality_id,"k=",k);
-             console.log("sp id...: ", this.SpecializationArray[k].id);
-              if(serviceProfile.doctor.speciality_id == this.SpecializationArray[k].id)
-                    {
-                  this.orderobject.name = serviceProfile.name;
-                  this.orderobject.profile_pic = serviceProfile.profile_pic;
-                  this.orderobject.rate = serviceProfile.rate;
-                  this.orderobject.specialization = this.SpecializationArray[k].value;
-                  this.orderobject.doctor_id = serviceProfile.id;
-                  this.orderobject.color = ordersData[j].color;
-                  this.orderobject.reorder = ordersData[j].reorder;
-                  this.orderobject.rated = ordersData[j].rated;
-                  this.orderobject.orderId = ordersData[j].id;
-                  this.orderobject.order_status = ordersData[j].status;
+    //     //     console.log("order id:", ordersData[j].id);
+    //     //     var serviceProfile = ordersData[j].theServiceProfile;
+    //     //   console.log(this.SpecializationArray);
+    //     //     for(var k=0;k<this.SpecializationArray.length;k++){
+    //     //      console.log("serviceProfile.doctor.speciality_id",serviceProfile.doctor.speciality_id,"k=",k);
+    //     //      console.log("sp id...: ", this.SpecializationArray[k].id);
+    //     //       if(serviceProfile.doctor.speciality_id == this.SpecializationArray[k].id)
+    //     //             {
+    //     //           this.orderobject.name = serviceProfile.name;
+    //     //           this.orderobject.profile_pic = serviceProfile.profile_pic;
+    //     //           this.orderobject.rate = serviceProfile.rate;
+    //     //           this.orderobject.specialization = this.SpecializationArray[k].value;
+    //     //           this.orderobject.doctor_id = serviceProfile.id;
+    //     //           this.orderobject.color = ordersData[j].color;
+    //     //           this.orderobject.reorder = ordersData[j].reorder;
+    //     //           this.orderobject.rated = ordersData[j].rated;
+    //     //           this.orderobject.orderId = ordersData[j].id;
+    //     //           this.orderobject.order_status = ordersData[j].status;
 
-                  this.data.push(this.orderobject);
-                  this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
-                  "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":""};
-                    }
-                    //break;
-            }
+    //     //           this.data.push(this.orderobject);
+    //     //           this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
+    //     //           "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
+    //     //           "custom_date":"","date_id":""};
+    //     //             }
+    //     //             //break;
+    //     //     }
 
-          //  this.service.getServiceProfile(ordersData[j].service_profile_id,this.accessToken).subscribe(
-          //    resp =>{
-          //     // console.log("get service id resp",resp);
-          //      var serviceProfile = JSON.parse(JSON.stringify(resp)).user;
-          //     //  this.data=[];
-          //      for(var k=0;k<this.SpecializationArray.length;k++){
-          //       // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
-          //        if(serviceProfile.extraInfo.speciality_id == this.SpecializationArray[k].id)
-          //        {
-          //         /* console.log("name: ",serviceProfile.name,
-          //          "image: ",serviceProfile.profile_pic,"rate: ",serviceProfile.rate,
-          //        " sp: ",this.SpecializationArray[k].value);*/
-          //        this.orderobject.name = serviceProfile.name;
-          //        this.orderobject.profile_pic = serviceProfile.profile_pic;
-          //        this.orderobject.rate = serviceProfile.rate;
-          //        this.orderobject.specialization = this.SpecializationArray[k].value;
-          //         this.orderobject.doctor_id = serviceProfile.id;
+    //     //   //  this.service.getServiceProfile(ordersData[j].service_profile_id,this.accessToken).subscribe(
+    //     //   //    resp =>{
+    //     //   //     // console.log("get service id resp",resp);
+    //     //   //      var serviceProfile = JSON.parse(JSON.stringify(resp)).user;
+    //     //   //     //  this.data=[];
+    //     //   //      for(var k=0;k<this.SpecializationArray.length;k++){
+    //     //   //       // console.log("serviceProfile.speciality_id",serviceProfile.extraInfo.speciality_id)
+    //     //   //        if(serviceProfile.extraInfo.speciality_id == this.SpecializationArray[k].id)
+    //     //   //        {
+    //     //   //         /* console.log("name: ",serviceProfile.name,
+    //     //   //          "image: ",serviceProfile.profile_pic,"rate: ",serviceProfile.rate,
+    //     //   //        " sp: ",this.SpecializationArray[k].value);*/
+    //     //   //        this.orderobject.name = serviceProfile.name;
+    //     //   //        this.orderobject.profile_pic = serviceProfile.profile_pic;
+    //     //   //        this.orderobject.rate = serviceProfile.rate;
+    //     //   //        this.orderobject.specialization = this.SpecializationArray[k].value;
+    //     //   //         this.orderobject.doctor_id = serviceProfile.id;
 
-          //        this.data.push(this.orderobject);
-          //        this.orderobject={"orderId":"","order_status":"",
-          //        "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
+    //     //   //        this.data.push(this.orderobject);
+    //     //   //        this.orderobject={"orderId":"","order_status":"",
+    //     //   //        "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":""};
                
-          //            break;
-          //        }
+    //     //   //            break;
+    //     //   //        }
 
-          //      }
+    //     //   //      }
 
-          //    },
-          //    err=>{
-          //      console.log("get service id err",err);
-          //    }
-          //  );
-         }
-         if(this.data.length == 0)
-         {
-           this.presentToast(this.translate.instant("noOrders"));
-         }
+    //     //   //    },
+    //     //   //    err=>{
+    //     //   //      console.log("get service id err",err);
+    //     //   //    }
+    //     //   //  );
+    //     //  }
+    //     //  if(this.data.length == 0)
+    //     //  {
+    //     //    this.presentToast(this.translate.instant("noOrders"));
+    //     //  }
 
-      },err=>{
-        console.log("resp to filter err",err);
-      }
-    );
+    //   },err=>{
+    //     console.log("resp to filter err",err);
+    //   }
+    // );
   }
   ionViewWillEnter() {
     console.log("will enter get orders")
@@ -476,7 +517,7 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
   doRefresh(ev){
     console.log("refresh",ev);
     this.refresher = ev;
-    this.getOrders();
+    this.refreshOrders();
     
   }
   rateagain(item){
@@ -522,6 +563,34 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
     alert.present();
   }
 
+
+  loadMore(infiniteScroll) {
+    console.log("load more");
+    this.infiniteScroll = infiniteScroll;
+    if(this.scroll == 1)
+    {
+    if(this.to || this.from)
+    {
+      this.filterpage ++;
+      this.respFromFilterOrders();
+    }else{
+      this.page++;
+      this.getOrders();
+    }
+  }else{
+    this.infiniteScroll.complete();
+  }  
+    //this.loadNotification(infiniteScroll);
+ 
+    // if (this.page == this.maximumPages) {
+    //   infiniteScroll.enable(false);
+    // }
+    
+  }
+
+  
+
+
   swipeUp(event: any): any {
     console.log('Swipe Up', event);
     // let loading = this.loadingCtrl.create({
@@ -547,5 +616,7 @@ swipeDown(event: any): any {
   
     // loading.present();
 }
+
+
 
 }

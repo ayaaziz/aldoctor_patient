@@ -230,7 +230,7 @@ export class DoctorEvaluationPage {
       resp=>{
         console.log("resp from rate :",resp); 
         this.presentToast(this.translate.instant("done"));
-        this.navCtrl.push(TabsPage);
+        this.navCtrl.setRoot(TabsPage);
         
       },err=>{
         console.log("err from rate: ",err);
