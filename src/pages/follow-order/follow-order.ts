@@ -67,7 +67,12 @@ export class FollowOrderPage {
     
      this.doctorId = this.doctorData.doctorId;
       console.log("doctorid: ",this.doctorId," orderid: ",this.doctorData.orderId);
-      
+      if(this.doctorData.order_status && this.doctorData.order_status == "7")
+        this.disableCancelBtn = true;
+      else
+        this.disableCancelBtn = false;
+        
+
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
@@ -95,15 +100,19 @@ export class FollowOrderPage {
         }
         });
         this.events.subscribe('locationChanged', (data) => {
-          console.log(" event location ",data);
+          console.log(" event location changed",data);
           if(data.location){
             this.doctorLocation = data.location;
+            
+            console.log("doctor location",this.doctorLocation);
+
             var markers, i;
             for(var j=0;j<this.allMarkers.length;j++)
             {
             this.allMarkers[j].setMap(null);
             }
         //this.doctorLocation.lat, this.doctorLocation.lng
+        console.log("lat : ",this.doctorLocation.split(',')[0], "lon : ",this.doctorLocation.split(',')[1])
         markers = new google.maps.Marker({
         position: new google.maps.LatLng(this.doctorLocation.split(',')[0], this.doctorLocation.split(',')[1]),
         map: this.map,
@@ -128,6 +137,7 @@ export class FollowOrderPage {
         resp=>{
           console.log("resp from getDurationAndDistance: ", resp);
           var respObj = JSON.parse(JSON.stringify(resp));
+          
           console.log("duration",respObj.routes[0].legs[0].duration.text);
           this.duration = respObj.routes[0].legs[0].duration.text;
           console.log("distance : ",respObj.routes[0].legs[0].distance.text);
@@ -151,9 +161,12 @@ export class FollowOrderPage {
     if(!navigator.onLine)
       this.presentToast(this.translate.instant("checkNetwork"));
 
-    this.test();
     this.initMap();
-
+    this.test();
+    
+//
+// this.helper.trackDoctor(this.doctorId); 
+//
     this.events.subscribe('status8', (data) => {
       console.log("notification event status 8");
       this.helper.trackDoctor(this.doctorId); 
@@ -164,6 +177,7 @@ export class FollowOrderPage {
     });
     this.events.subscribe('status7', (data) => {
       console.log("notification event status 7");
+
       this.disableCancelBtn = true;
     });
 
@@ -284,12 +298,12 @@ export class FollowOrderPage {
     alert.present();
   }
   getUserLocation(){
-  
+  console.log("get user location");
     this.geolocation.getCurrentPosition().then((resp) => {
 
       this.lat = resp.coords.latitude;
       this.lng = resp.coords.longitude;
-      console.log("resp: ", resp);
+      console.log("user location resp: ", resp);
       this.initMapwithUserLocation();
       
     }).catch((error) => {

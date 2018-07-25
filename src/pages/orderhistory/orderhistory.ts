@@ -535,8 +535,9 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
 
   this.navCtrl.setRoot('follow-order',
         {data:
-          {"orderId":item.orderId          , 
-            "doctorId":item.doctor_id
+          {"orderId":item.orderId, 
+            "doctorId":item.doctor_id,
+            "order_status":item.order_status
           }
         });
 }

@@ -23,6 +23,7 @@ export class VerificationcodePage {
   code;
   langDirection;
   tostClass ;
+  from;
 
   constructor(public storage: Storage,public translate: TranslateService, 
     public loginservice:LoginserviceProvider,
@@ -35,6 +36,8 @@ export class VerificationcodePage {
     else
       this.tostClass="toastLeft";
 
+      this.from = this.navParams.get('data');
+      console.log("activation from ",this.from);
 
     this.activationForm = formBuilder.group({
       code: ['', Validators.required]
@@ -82,7 +85,8 @@ export class VerificationcodePage {
     console.log("activationSuccessCallback: ",data);
     if(JSON.parse(JSON.stringify(data)).success )
     {
-      this.presentToast(this.translate.instant("phoneChanged"));
+      if(this.from)
+        this.presentToast(this.translate.instant("phoneChanged"));
                 
       this.loginservice.getuserProfile(this.accessToken).subscribe(
         resp=>{

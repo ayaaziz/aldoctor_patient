@@ -136,6 +136,9 @@ export class NotificationPage {
     this.service.getNotifications("1",this.accessToken).subscribe(
       resp=>{
         console.log("resp from getNotifications : ",resp);
+        if(this.refresher){
+          this.data=[];
+        }
         var notificatoionResp = JSON.parse(JSON.stringify(resp)).notifications;
         this.maximumPages = notificatoionResp.last_page;
         var notificationsData = notificatoionResp.data;

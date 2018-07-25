@@ -279,7 +279,7 @@ export class MyApp {
             this.storage.remove("user_info");
             this.storage.remove("language");
             
-            this.navctrl.push(LoginPage);
+            this.navctrl.setRoot(LoginPage);
             this.menu.close();
             
           },err=>{

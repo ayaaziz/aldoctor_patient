@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ToastController, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -42,7 +42,7 @@ export class SpecificDoctorPage {
   searchValue;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
-    public storage: Storage, 
+    public storage: Storage,  public events: Events,
     public service:LoginserviceProvider, public navCtrl: NavController,
      public navParams: NavParams, public translate: TranslateService) {
 
@@ -54,6 +54,87 @@ export class SpecificDoctorPage {
         this.tostClass="toastLeft";
 
       this.spText=this.translate.instant("chooseSpecialization");
+
+      this.events.subscribe('statusChanged', (data) => {
+        console.log(" event status changed ",data);
+        // data.status;
+        // data.id;
+
+        for(var k=0;k<this.doctors.length;k++)
+        {
+          
+          if(this.doctors[k].id == data.id)
+          {
+            if(data.status == "1")
+            {
+              this.doctors[k].color="green";
+              this.doctors[k].offline=false;
+
+            }else if (data.status == "0")
+            {
+              this.doctors[k].color="grey";
+              this.doctors[k].offline=true;
+            }
+          }
+          
+        }
+
+
+      });
+      this.events.subscribe('status', (data) => {
+        console.log(" event status ",data);
+        // data.status;
+        // data.id;
+
+        for(var k=0;k<this.doctors.length;k++)
+        {
+          
+          if(this.doctors[k].id == data.id)
+          {
+            if(data.status == "1")
+            {
+              this.doctors[k].color="green";
+              this.doctors[k].offline=false;
+
+            }else if (data.status == "0")
+            {
+              this.doctors[k].color="grey";
+              this.doctors[k].offline=true;
+            }
+          } 
+        }
+      });
+
+      this.events.subscribe('locationChanged', (data) => {
+        console.log("location changed event",data);
+
+      });
+this.events.subscribe('location', (data) => {
+  console.log(" event location ",data);
+  if(data.location){
+  for(var k=0;k<this.doctors.length;k++)
+  {   
+    if(this.doctors[k].id == data.id)
+    {
+      this.doctors[k].lat = data.location.split(',')[0];
+      this.doctors[k].lng = data.location.split(',')[1];
+      this.getDistanceAndDuration(k);
+      
+      if(k == (this.doctors.length -1))
+        {
+          console.log("call sort function");
+          this.sortDoctors();
+        }
+
+    }
+          
+  }
+  }
+
+
+
+  });
+
   }
 
   ionViewDidLoad() {
@@ -120,19 +201,25 @@ export class SpecificDoctorPage {
           }
           for(i=0;i<this.doctors.length;i++)
           {
+            this.helper.getDoctorStatus(this.doctors[i].id);
+            this.helper.statusChanged(this.doctors[i].id);
+            this.helper.getDoctorlocation(this.doctors[i].id);
+            this.helper.trackDoctor(this.doctors[i].id);
+            this.doctors[i].distanceVal =10000;
+
             // this.doctors[i].availability="0";
 
-            if(this.doctors[i].availability == "1")
-            {
-              this.doctors[i].color="green";
-              this.doctors[i].offline=false;
-            }else{
-              this.doctors[i].color="grey";
-              this.doctors[i].offline=true;
-            }
+            // if(this.doctors[i].availability == "1")
+            // {
+            //   this.doctors[i].color="green";
+            //   this.doctors[i].offline=false;
+            // }else{
+            //   this.doctors[i].color="grey";
+            //   this.doctors[i].offline=true;
+            // }
 
           }
-          this.getDistanceAndDuration(0);
+          //this.getDistanceAndDuration(0);
 
           if(this.doctors.length == 0)
           {
@@ -162,23 +249,26 @@ export class SpecificDoctorPage {
         console.log("doctor ",this.doctors[this.index]);
         console.log("get data from google api",resp);
         var respObj = JSON.parse(JSON.stringify(resp));
+        if(respObj.routes[0])
+        {
         console.log("duration : ",respObj.routes[0].legs[0].duration.text);
         console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-       console.log("doctor from array in get duration ",this.doctors[this.index]);
+        console.log("doctor from array in get duration ",this.doctors[this.index]);
         this.doctors[this.index].distance = respObj.routes[0].legs[0].distance.text;
         this.doctors[this.index].distanceVal = respObj.routes[0].legs[0].distance.value;
         this.doctors[this.index].duration = respObj.routes[0].legs[0].duration.text;
         console.log("distance from array ",this.doctors[this.index].distance);
-  
-        if( this.index < this.doctors.length)
-        {
-          this.index++;
-          this.getDistanceAndDuration(this.index);
-          console.log("if index")
-        }else{
-          console.log("else index")
-          //this.sortDoctors(); 
         }
+
+        // if( this.index < this.doctors.length)
+        // {
+        //   this.index++;
+        //   this.getDistanceAndDuration(this.index);
+        //   console.log("if index")
+        // }else{
+        //   console.log("else index")
+        //   //this.sortDoctors(); 
+        // }
       },
       err=>{
         console.log("get err from google api",err);
@@ -236,19 +326,24 @@ export class SpecificDoctorPage {
           }
           for(i=0;i<this.doctors.length;i++)
           {
+            this.helper.getDoctorStatus(this.doctors[i].id);
+            this.helper.statusChanged(this.doctors[i].id);
+            this.helper.getDoctorlocation(this.doctors[i].id);
+            this.helper.trackDoctor(this.doctors[i].id);
+            this.doctors[i].distanceVal =10000;
             // this.doctors[i].availability="0";
 
-            if(this.doctors[i].availability == "1")
-            {
-              this.doctors[i].color="green";
-              this.doctors[i].offline=false;
-            }else{
-              this.doctors[i].color="grey";
-              this.doctors[i].offline=true;
-            }
+            // if(this.doctors[i].availability == "1")
+            // {
+            //   this.doctors[i].color="green";
+            //   this.doctors[i].offline=false;
+            // }else{
+            //   this.doctors[i].color="grey";
+            //   this.doctors[i].offline=true;
+            // }
 
           }
-          this.getDistanceAndDuration(0);
+          //this.getDistanceAndDuration(0);
 
           if(this.doctors.length == 0)
           {

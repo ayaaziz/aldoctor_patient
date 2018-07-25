@@ -340,7 +340,7 @@ y;
     this.storage.set("access_token",data.access_token);
     this.storage.set("refresh_token",data.refresh_token);
     // this.navCtrl.setRoot(TabsPage);
-    this.navCtrl.setRoot('verification-code');
+    this.navCtrl.setRoot('verification-code',{data:0});
   }
   loginFailure(data){
     this.presentToast("login failure call back");

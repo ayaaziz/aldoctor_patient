@@ -83,7 +83,7 @@ export class ChangePhonePage {
               if(JSON.parse(JSON.stringify(resp)).success )
               {
                 
-                this.navCtrl.setRoot('verification-code');
+                this.navCtrl.setRoot('verification-code',{data:1});
               
               }else
                 this.presentToast(this.translate.instant("invalidPhone"));

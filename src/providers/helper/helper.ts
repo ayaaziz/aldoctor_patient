@@ -26,6 +26,7 @@ export class HelperProvider {
 
   public userId ;
   public trackInterval;
+  public changePhoneNumber;
 
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
