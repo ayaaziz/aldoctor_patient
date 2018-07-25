@@ -120,11 +120,11 @@ this.events.subscribe('location', (data) => {
       this.doctors[k].lng = data.location.split(',')[1];
       this.getDistanceAndDuration(k);
       
-      if(k == (this.doctors.length -1))
-        {
-          console.log("call sort function");
-          this.sortDoctors();
-        }
+      // if(k == (this.doctors.length -1))
+      //   {
+      //     console.log("call sort function");
+      //     this.sortDoctors();
+      //   }
 
     }
           
@@ -260,6 +260,12 @@ this.events.subscribe('location', (data) => {
         console.log("distance from array ",this.doctors[this.index].distance);
         }
 
+        if(this.index == (this.doctors.length -1))
+        {
+          console.log("call sort function");
+          this.sortDoctors();
+        }
+
         // if( this.index < this.doctors.length)
         // {
         //   this.index++;
@@ -277,10 +283,12 @@ this.events.subscribe('location', (data) => {
   }
   sortDoctors(){
     console.log("doc before sort ",this.doctors);
-    this.doctors.sort(function(a,b){
+    // this.doctors.sort(function(a,b){
 
-      return a.distanceVal - b.distanceVal;
-    });
+    //   return a.distanceVal - b.distanceVal;
+    // });
+    this.doctors.sort((a,b)=>a.distanceVal-b.distanceVal); 
+    
     console.log("doc after sort ",this.doctors);
   }
 

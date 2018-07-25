@@ -144,11 +144,11 @@ export class OrderDoctorPage {
         this.DoctorsArray[k].lat = data.location.split(',')[0];
         this.DoctorsArray[k].lng = data.location.split(',')[1];
         this.getDistanceAndDuration(k);
-        if(k == (this.DoctorsArray.length -1))
-        {
-          console.log("call sort function");
-          this.sortDoctors();
-        }
+        // if(k == (this.DoctorsArray.length -1))
+        // {
+        //   console.log("call sort function");
+        //   this.sortDoctors();
+        // }
         
       }
             
@@ -318,6 +318,12 @@ export class OrderDoctorPage {
         this.DoctorsArray[this.index].distanceVal = respObj.routes[0].legs[0].distance.value;
         this.DoctorsArray[this.index].duration = respObj.routes[0].legs[0].duration.text;
         console.log("distance from array ",this.DoctorsArray[this.index].distance);
+        }
+
+        if(this.index == (this.DoctorsArray.length -1))
+        {
+          console.log("call sort function");
+          this.sortDoctors();
         }
 
         // if( this.index < this.DoctorsArray.length)

@@ -468,7 +468,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
   forgetPassword(phone){
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('phone',phone);
+    let parameter = new HttpParams().set('phone','2'+phone);
     
     //headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/forget';
@@ -477,7 +477,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   changePhoneNumber(phone,access_token){
     console.log("access token from change phone",access_token);
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('phone',phone);
+    let parameter = new HttpParams().set('phone','2'+phone);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/change-phone';
