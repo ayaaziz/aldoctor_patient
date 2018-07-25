@@ -395,7 +395,7 @@ export class MyApp {
           //   this.events.publish('status5');
           if(orderStatus == "7")
             this.events.publish('status7');
-          if(orderStatus == "5")
+          if(orderStatus == "5" || orderStatus == "6")
           { //
             this.events.publish('status5'); //
             this.nav.push('rate-doctor',{
