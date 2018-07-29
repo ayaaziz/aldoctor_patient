@@ -40,6 +40,7 @@ export class SpecificDoctorPage {
   index;
   offline=false;
   searchValue;
+  showLoading=true;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
     public storage: Storage,  public events: Events,
@@ -162,8 +163,8 @@ this.events.subscribe('location', (data) => {
 
         }else if (data.status == "0")
         {
-          this.doctors[k].color="grey";
-          this.doctors[k].offline=true;
+          this.doctors[k].color="green";
+          this.doctors[k].offline=false;
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from get busy");
                 this.sortDoctors();
@@ -196,8 +197,8 @@ this.events.subscribe('location', (data) => {
 
         }else if (data.status == "0")
         {
-          this.doctors[k].color="grey";
-          this.doctors[k].offline=true;
+          this.doctors[k].color="green";
+          this.doctors[k].offline=false;
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from busy changed");
                 this.sortDoctors();
@@ -222,9 +223,10 @@ this.events.subscribe('location', (data) => {
     console.log('ionViewDidLoad SpecificDoctorPage');
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+      this.showLoading=false;
       this.service.getSpecializations(this.accessToken).subscribe(
         resp=>{
-          
+          this.showLoading=true;
           console.log("getSpecializations resp: ",resp);
           for(var i=0;i<JSON.parse(JSON.stringify(resp)).length;i++){
             console.log("sp: ",resp[i].value);
@@ -240,7 +242,9 @@ this.events.subscribe('location', (data) => {
 
         },
         err=>{
+          this.showLoading=true;
           console.log("getSpecializations error: ",err);
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
     });
@@ -260,8 +264,10 @@ this.events.subscribe('location', (data) => {
       }
     }
     console.log("id: ",id);
+    this.showLoading = false;
     this.service.getDoctorInSpecificSpecialization(id,this.accessToken).subscribe(
       resp =>{
+        this.showLoading = true;
         console.log("getDoctorInSpecificSpecialization resp: ",resp);
         let doctorData =JSON.parse(JSON.stringify(resp));
         console.log(doctorData["results"].length);
@@ -286,7 +292,7 @@ this.events.subscribe('location', (data) => {
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
             this.doctors[i].distanceVal =10000;
-            this.doctors[i].offline=true;
+            //this.doctors[i].offline=true;
 
             // this.doctors[i].availability="0";
 
@@ -308,7 +314,10 @@ this.events.subscribe('location', (data) => {
           }
       },
       err=>{
+        this.showLoading=true;
         console.log("getDoctorInSpecificSpecialization error: ",err);
+        this.presentToast(this.translate.instant("serverError"));
+        
       }
     );
     
@@ -403,8 +412,10 @@ this.events.subscribe('location', (data) => {
     }
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+      this.showLoading = false;
       this.service.getDoctorsByName(searchVal,id,this.accessToken).subscribe(
         resp=>{
+          this.showLoading = true;
           this.choosenDoctors=[];
           console.log("getDoctorsByName resp: ",resp);
           let doctorData =JSON.parse(JSON.stringify(resp));
@@ -430,7 +441,8 @@ this.events.subscribe('location', (data) => {
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
             this.doctors[i].distanceVal =10000;
-            this.doctors[i].offline=true;
+            //this.doctors[i].offline=true;
+            
             // this.doctors[i].availability="0";
 
             // if(this.doctors[i].availability == "1")
@@ -456,7 +468,9 @@ this.events.subscribe('location', (data) => {
 
         },
         err=>{
+          this.showLoading = true;
           console.log("getDoctorsByName error: ",err);
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
     });

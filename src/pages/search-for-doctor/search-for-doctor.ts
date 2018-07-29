@@ -157,7 +157,7 @@ getUserLocation(){
   
   console.log("get user location");
   // , enableHighAccuracy: true, maximumAge: 3600
-  let GPSoptions = {timeout: 60000};
+  let GPSoptions = {timeout: 40000,enableHighAccuracy: true, maximumAge: 3600};
     this.geolocation.getCurrentPosition(GPSoptions).then((resp) => {
 
       console.log("current location resp: ", resp);

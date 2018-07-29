@@ -22,7 +22,8 @@ export class HelperProvider {
   public lon=31.381523;
   public lat=31.037933;
   //google maps api key
-  public key="AIzaSyB73L1RyzXHkT9fZMlnitShWfEkF3bzrVk";
+  // public key = "AIzaSyB73L1RyzXHkT9fZMlnitShWfEkF3bzrVk";
+  public key = "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo";
 
   public userId ;
   public trackInterval;

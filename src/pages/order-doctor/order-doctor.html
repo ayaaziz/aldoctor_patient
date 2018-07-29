@@ -99,6 +99,16 @@
  -->
  <!-- style="height: 385px;" -->
 
+ <ion-row [hidden]="showLoading" style="text-align: center;">
+    <ion-col col-5></ion-col>
+    <ion-col col-2> 
+      <ion-spinner name="circles" [hidden]="showLoading" ></ion-spinner>
+    </ion-col>
+    <ion-col col-5></ion-col>
+    </ion-row>
+
+
+
  <ion-scroll scrollY="true" [ngStyle]="{'height': scrollHeight }"   >
  <ion-card *ngFor="let item of DoctorsArray" [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" style="height:110px;" (click)="showDoctorProfile(item)" >          
     <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;" >

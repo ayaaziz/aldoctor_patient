@@ -32,6 +32,8 @@ export class SpecializationsPage {
   accessToken ;
   tostClass ;
   searchValue;
+  showLoading=true;
+
 
   constructor(public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public storage: Storage,
@@ -98,9 +100,14 @@ export class SpecializationsPage {
     // }
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+
+      this.showLoading = false;
+      
       this.service.getSpecializations(this.accessToken).subscribe(
         resp=>{
-          
+      
+          this.showLoading = true;
+      
           console.log("getSpecializations resp: ",resp);
           var specializationData = JSON.parse(JSON.stringify(resp));
           this.specializations1 = [];
@@ -124,7 +131,9 @@ export class SpecializationsPage {
 
         },
         err=>{
+          this.showLoading = true;
           console.log("getSpecializations error: ",err);
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
     });

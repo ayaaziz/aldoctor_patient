@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import {ToastController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import {ToastController, IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -37,6 +37,10 @@ export class OrderDoctorPage {
   scrollHeight="0px";
   offline=false;
 
+  loading;
+  showLoading=true;
+
+
   @ViewChild('fireSElect') sElement;
 
   //color;
@@ -53,7 +57,8 @@ export class OrderDoctorPage {
   constructor(public helper:HelperProvider, public toastCtrl: ToastController, 
     public storage: Storage, public events: Events,
     public service:LoginserviceProvider,public navCtrl: NavController, 
-    public navParams: NavParams,  public translate: TranslateService) {
+    public navParams: NavParams,  public translate: TranslateService,
+    public loadingCtrl: LoadingController) {
 
      
         this.langDirection = this.helper.lang_direction;
@@ -182,15 +187,16 @@ export class OrderDoctorPage {
           {
             this.DoctorsArray[k].color="red";
             this.DoctorsArray[k].offline=true;
-            console.log("call sort function from get busy");
+            console.log("call sort function from get busy red");
                 this.sortDoctors();
 
           }else if (data.status == "0")
           {
-            this.DoctorsArray[k].color="grey";
-            this.DoctorsArray[k].offline=true;
+            this.DoctorsArray[k].color="green";
+            this.DoctorsArray[k].offline=false;
+            console.log("doctor :(",this.DoctorsArray[k]);
             this.helper.getDoctorStatus(data.id);
-            console.log("call sort function from get busy");
+            console.log("call sort function from get busy green");
                 this.sortDoctors();
           }
           // else if(data.status == "0")
@@ -221,8 +227,9 @@ export class OrderDoctorPage {
 
           } else if (data.status == "0")
           {
-            this.DoctorsArray[k].color="grey";
-            this.DoctorsArray[k].offline=true;
+            this.DoctorsArray[k].color="green";
+            this.DoctorsArray[k].offline=false;
+            
             this.helper.getDoctorStatus(data.id);
             console.log("call sort function from get busy changed");
                 this.sortDoctors();
@@ -311,9 +318,15 @@ export class OrderDoctorPage {
       }
     }
     console.log("get doctor sp id: ",id);
+    // this.presentLoadingCustom();
+    this.showLoading = false;
+
     this.service.getDoctorInSpecificSpecialization(id,this.accessToken).subscribe(
       resp =>{
         console.log("getDoctorInSpecificSpecialization resp: ",resp);
+        // this.loading.dismiss();
+        this.showLoading=true;
+        console.log("this.showLoading: ",this.showLoading);
         let doctorData =JSON.parse(JSON.stringify(resp));
         console.log("doctors data",doctorData["results"]);
         this.DoctorsArray=[];  
@@ -340,8 +353,9 @@ export class OrderDoctorPage {
             this.helper.trackDoctor(this.DoctorsArray[i].id);
             this.helper.getBusyDoctor(this.DoctorsArray[i].id);
             this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
-            this.DoctorsArray[i].distanceVal =10000;
-            this.DoctorsArray[i].offline=true;
+            this.DoctorsArray[i].distanceVal = 10000;
+            //this.DoctorsArray[i].offline = true;
+
             
            
             // if(this.DoctorsArray[i].availability == "1")
@@ -365,6 +379,8 @@ export class OrderDoctorPage {
           }
       },
       err=>{
+        this.showLoading = true;
+        this.presentToast(this.translate.instant("serverError"));
         console.log("getDoctorInSpecificSpecialization error: ",err);
       }
     );
@@ -534,6 +550,23 @@ export class OrderDoctorPage {
       cssClass: this.tostClass
     });
     toast.present();
+  }
+
+  presentLoadingCustom() {
+     this.loading = this.loadingCtrl.create({
+      spinner: 'hide',
+      content: `
+        <div class="custom-spinner-container">
+          <div class="custom-spinner-box"></div>
+        </div>`,
+      duration: 5000
+    });
+  
+    this.loading.onDidDismiss(() => {
+      console.log('Dismissed loading');
+    });
+  
+    this.loading.present();
   }
 
 }

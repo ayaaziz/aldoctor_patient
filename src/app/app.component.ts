@@ -308,10 +308,11 @@ export class MyApp {
         options = {
           android: {
             //senderID: "403805018537",
-           icon: "icon",
+           icon: "drawable-ldpi-icon", //icon
            iconColor: "#64B5F6",
            forceShow: true,
            clearNotifications: false
+           //sound: true
           },
           ios: {
             alert: 'true',
