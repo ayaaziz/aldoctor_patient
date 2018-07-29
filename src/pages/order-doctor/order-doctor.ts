@@ -84,11 +84,15 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
+                console.log("call sort function from status changed");
+                this.sortDoctors();
 
               }else if (data.status == "0")
               {
                 this.DoctorsArray[k].color="grey";
                 this.DoctorsArray[k].offline=true;
+                console.log("call sort function from status changed");
+                this.sortDoctors();
               }
             }
             
@@ -110,11 +114,15 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
+                console.log("call sort function from status");
+                this.sortDoctors();
 
               }else if (data.status == "0")
               {
                 this.DoctorsArray[k].color="grey";
                 this.DoctorsArray[k].offline=true;
+                console.log("call sort function whenfrom status");
+                this.sortDoctors();
               }
             } 
           }
@@ -158,6 +166,74 @@ export class OrderDoctorPage {
     
 
 
+    });
+
+    this.events.subscribe('getBusyDoctor', (data) => {
+      console.log(" event getBusyDoctor ",data);
+      // data.status;
+      // data.id;
+
+      for(var k=0;k<this.DoctorsArray.length;k++)
+      {
+        
+        if(this.DoctorsArray[k].id == data.id)
+        {
+          if(data.status == "1")
+          {
+            this.DoctorsArray[k].color="red";
+            this.DoctorsArray[k].offline=true;
+            console.log("call sort function from get busy");
+                this.sortDoctors();
+
+          }else if (data.status == "0")
+          {
+            this.DoctorsArray[k].color="grey";
+            this.DoctorsArray[k].offline=true;
+            this.helper.getDoctorStatus(data.id);
+            console.log("call sort function from get busy");
+                this.sortDoctors();
+          }
+          // else if(data.status == "0")
+          // {
+          //   this.helper.getDoctorStatus(data.id);
+          // }
+        } 
+      }
+    });
+
+    this.events.subscribe('busyDoctorChanged', (data) => {
+      console.log(" event busyDoctorChanged ",data);
+      // data.status;
+      // data.id;
+
+      for(var k=0;k<this.DoctorsArray.length;k++)
+      {
+        
+        if(this.DoctorsArray[k].id == data.id)
+        {
+          if(data.status == "1")
+          {
+            this.DoctorsArray[k].color="red";
+            this.DoctorsArray[k].offline=true;
+            
+            console.log("call sort function from get busy changed");
+                this.sortDoctors();
+
+          } else if (data.status == "0")
+          {
+            this.DoctorsArray[k].color="grey";
+            this.DoctorsArray[k].offline=true;
+            this.helper.getDoctorStatus(data.id);
+            console.log("call sort function from get busy changed");
+                this.sortDoctors();
+          }
+
+          // else if(data.status == "0")
+          // {
+          //   this.helper.getDoctorStatus(data.id);
+          // }
+        } 
+      }
     });
 
   }
@@ -262,7 +338,10 @@ export class OrderDoctorPage {
             this.helper.statusChanged(this.DoctorsArray[i].id);
             this.helper.getDoctorlocation(this.DoctorsArray[i].id);
             this.helper.trackDoctor(this.DoctorsArray[i].id);
+            this.helper.getBusyDoctor(this.DoctorsArray[i].id);
+            this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
             this.DoctorsArray[i].distanceVal =10000;
+            this.DoctorsArray[i].offline=true;
             
            
             // if(this.DoctorsArray[i].availability == "1")
@@ -348,7 +427,16 @@ export class OrderDoctorPage {
     //   return a.distanceVal - b.distanceVal;
     // });
 
-    this.DoctorsArray.sort((a,b)=>a.distanceVal-b.distanceVal); 
+    //sort by nearest
+    // this.DoctorsArray.sort((a,b)=>a.distanceVal-b.distanceVal); 
+
+    //sort by nearest & online
+    this.DoctorsArray.sort((a,b)=>{
+      if(!a.offline || !b.offline)
+        return a.distanceVal-b.distanceVal;
+  
+    }); 
+
     console.log("doc after sort ",this.DoctorsArray);
   }
   doctorChecked(item , event){

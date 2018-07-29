@@ -156,27 +156,47 @@ getDoctorlocation(userId){
   });
 }
 
- updateUserLoc(loc: string) {
-   if (!this.userId) return
-   firebase.database().ref().child(`user/`+this.userId)
-   .update({ location: loc })
- }
- private updateStatus(status: string) {
-   if (!this.userId) return
-   firebase.database().ref().child(`user/`+this.userId).update({ status: status })
-   let time = Date.now()
-   firebase.database().ref().child(`user/`+this.userId).update({ last_updated:  time})
- }
- /// Updates status when connection to Firebase starts
- private updateOnConnect() {
-   firebase.database().ref().on('value', snapshot => {
-     console.log(snapshot.numChildren())
-     console.log(snapshot.val());
-     let status = snapshot.val() == true ? 'online' : 'offline'
-     this.updateStatus(status)
-   })
+busyDoctorChanged(userId)
+{
+  console.log("enter busy doctor chnaged",userId);
+  firebase.database().ref(`user/${userId}/availablity/busy/status`).on('child_changed',(snap)=>{
+      
+    console.log("busyDoctorChanged "+snap.val(),"id: ",userId);
+    var data = {status:snap.val() , id:userId};
+    this.events.publish('busyDoctorChanged',data );
+  });
+}
+getBusyDoctor(userId){
+  firebase.database().ref(`user/${userId}/availablity/busy/status`).on('value',(snap)=>{
+    
+    console.log("getBusyDoctor "+snap.val(),"id: ",userId);
+    var data = {status:snap.val() , id:userId};
+    this.events.publish('getBusyDoctor',data );
+
+  });
+}
+
+//  updateUserLoc(loc: string) {
+//    if (!this.userId) return
+//    firebase.database().ref().child(`user/`+this.userId)
+//    .update({ location: loc })
+//  }
+//  private updateStatus(status: string) {
+//    if (!this.userId) return
+//    firebase.database().ref().child(`user/`+this.userId).update({ status: status })
+//    let time = Date.now()
+//    firebase.database().ref().child(`user/`+this.userId).update({ last_updated:  time})
+//  }
+//  /// Updates status when connection to Firebase starts
+//  private updateOnConnect() {
+//    firebase.database().ref().on('value', snapshot => {
+//      console.log(snapshot.numChildren())
+//      console.log(snapshot.val());
+//      let status = snapshot.val() == true ? 'online' : 'offline'
+//      this.updateStatus(status)
+//    })
  
- }
+//  }
 
 
 

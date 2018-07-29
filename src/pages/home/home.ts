@@ -21,6 +21,8 @@ export class HomePage {
   accessToken;
   tostClass;
 
+  DoctorsArray = [{distanceVal:5,offline:false},{distanceVal:1000,offline:true},{distanceVal:3,offline:false},{distanceVal:1,offline:true}];
+
   constructor(public service: LoginserviceProvider,public events: Events,
     public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
     // this.langDirection = this.helper.lang_direction;
@@ -28,6 +30,7 @@ export class HomePage {
 
     // this.helper.userId=114;
     // this.helper.intializeFirebase();
+    this.sortDoctors();
 
     console.log("date", new Date().toISOString().split('T')[0]);
 var date1 = new Date('2018-06-01');
@@ -122,6 +125,22 @@ this.storage.get("rate_doctor").then(data=>{
     // }
   }
  
+  sortDoctors(){
+
+    console.log("doc before sort ",this.DoctorsArray);
+    // this.DoctorsArray.sort(function(a,b){
+    //   console.log("a.distanceVal: ",a.distanceVal,"b.distanceVal: ",b.distanceVal);
+    //   return a.distanceVal - b.distanceVal;
+    // });
+
+    this.DoctorsArray.sort((a,b)=>{
+      if(!a.offline || !b.offline)
+        return a.distanceVal-b.distanceVal;
+  
+    }); 
+    console.log("doc after sort ",this.DoctorsArray);
+  }
+
   orderDoctor(){
   
      this.navCtrl.push('search-for-doctor');

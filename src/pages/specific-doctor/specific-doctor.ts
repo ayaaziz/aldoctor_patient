@@ -69,11 +69,15 @@ export class SpecificDoctorPage {
             {
               this.doctors[k].color="green";
               this.doctors[k].offline=false;
+              console.log("call sort function from status changed");
+              this.sortDoctors();
 
             }else if (data.status == "0")
             {
               this.doctors[k].color="grey";
               this.doctors[k].offline=true;
+              console.log("call sort function from status changed");
+                this.sortDoctors();
             }
           }
           
@@ -95,11 +99,15 @@ export class SpecificDoctorPage {
             {
               this.doctors[k].color="green";
               this.doctors[k].offline=false;
+              console.log("call sort function from status");
+                this.sortDoctors();
 
             }else if (data.status == "0")
             {
               this.doctors[k].color="grey";
               this.doctors[k].offline=true;
+              console.log("call sort function from status");
+                this.sortDoctors();
             }
           } 
         }
@@ -134,6 +142,76 @@ this.events.subscribe('location', (data) => {
 
 
   });
+
+  this.events.subscribe('getBusyDoctor', (data) => {
+    console.log(" event getBusyDoctor ",data);
+    // data.status;
+    // data.id;
+
+    for(var k=0;k<this.doctors.length;k++)
+    {
+      
+      if(this.doctors[k].id == data.id)
+      {
+        if(data.status == "1")
+        {
+          this.doctors[k].color="red";
+          this.doctors[k].offline=true;
+          console.log("call sort function from get busy");
+                this.sortDoctors();
+
+        }else if (data.status == "0")
+        {
+          this.doctors[k].color="grey";
+          this.doctors[k].offline=true;
+          this.helper.getDoctorStatus(data.id);
+          console.log("call sort function from get busy");
+                this.sortDoctors();
+        }
+
+        // else if(data.status == "0")
+        // {
+        //   this.helper.getDoctorStatus(data.id);
+        // }
+      } 
+    }
+  });
+
+  this.events.subscribe('busyDoctorChanged', (data) => {
+    console.log(" event busyDoctorChanged ",data);
+    // data.status;
+    // data.id;
+
+    for(var k=0;k<this.doctors.length;k++)
+    {
+      
+      if(this.doctors[k].id == data.id)
+      {
+        if(data.status == "1")
+        {
+          this.doctors[k].color="red";
+          this.doctors[k].offline=true;
+          console.log("call sort function from busy changed");
+                this.sortDoctors();
+
+        }else if (data.status == "0")
+        {
+          this.doctors[k].color="grey";
+          this.doctors[k].offline=true;
+          this.helper.getDoctorStatus(data.id);
+          console.log("call sort function from busy changed");
+                this.sortDoctors();
+        }
+
+
+        // else if(data.status == "0")
+        // {
+        //   this.helper.getDoctorStatus(data.id);
+        // }
+      } 
+    }
+  });
+
 
   }
 
@@ -205,7 +283,10 @@ this.events.subscribe('location', (data) => {
             this.helper.statusChanged(this.doctors[i].id);
             this.helper.getDoctorlocation(this.doctors[i].id);
             this.helper.trackDoctor(this.doctors[i].id);
+            this.helper.getBusyDoctor(this.doctors[i].id);
+            this.helper.busyDoctorChanged(this.doctors[i].id);
             this.doctors[i].distanceVal =10000;
+            this.doctors[i].offline=true;
 
             // this.doctors[i].availability="0";
 
@@ -284,10 +365,18 @@ this.events.subscribe('location', (data) => {
   sortDoctors(){
     console.log("doc before sort ",this.doctors);
     // this.doctors.sort(function(a,b){
-
     //   return a.distanceVal - b.distanceVal;
     // });
-    this.doctors.sort((a,b)=>a.distanceVal-b.distanceVal); 
+
+    //sort by nearest
+    // this.doctors.sort((a,b)=>a.distanceVal-b.distanceVal); 
+
+    //sort by nearest & online
+    this.doctors.sort((a,b)=>{
+      if(!a.offline || !b.offline)
+        return a.distanceVal-b.distanceVal;
+  
+    });
     
     console.log("doc after sort ",this.doctors);
   }
@@ -338,7 +427,10 @@ this.events.subscribe('location', (data) => {
             this.helper.statusChanged(this.doctors[i].id);
             this.helper.getDoctorlocation(this.doctors[i].id);
             this.helper.trackDoctor(this.doctors[i].id);
+            this.helper.getBusyDoctor(this.doctors[i].id);
+            this.helper.busyDoctorChanged(this.doctors[i].id);
             this.doctors[i].distanceVal =10000;
+            this.doctors[i].offline=true;
             // this.doctors[i].availability="0";
 
             // if(this.doctors[i].availability == "1")
