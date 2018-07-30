@@ -147,7 +147,11 @@
         </ion-row>
 
         <ion-row>
-        <ion-col col-6 *ngFor="let photo of photos; let id = index">
+          <ion-col col-6 col-sm-3 col-md-2 >
+            <ion-item no-lines>{{medicalprescriptionImage}}</ion-item>
+          </ion-col>
+          
+        <ion-col col-2 *ngFor="let photo of photos; let id = index">
           <ion-card class="block">
             <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
             <img [src]="photo" *ngIf="photo" />

@@ -113,6 +113,16 @@
            (swipedown)="swipeDown($event)"
       >  -->
 
+      <ion-row [hidden]="showLoading" style="text-align: center;">
+          <ion-col col-5></ion-col>
+          <ion-col col-2> 
+            <ion-spinner name="circles" [hidden]="showLoading" ></ion-spinner>
+          </ion-col>
+          <ion-col col-5></ion-col>
+          </ion-row>
+      
+
+          
     <ion-card *ngFor="let item of data" style="height:110px;border-width: 3px;" [style.border-color]="item.color"   (click)="followOrder(item)" >          
       <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;">
           <!-- fixed class="customItem3" -->

@@ -245,7 +245,8 @@
       "enterdoctor":"Choose doctor",
       "enterDoctorAndSpecilaization":"Choose doctor and specialization",
       "checkNetwork":"Check internet connection",
-      "AccessLocationFailed":"Can't get your location"
+      "AccessLocationFailed":"Can't get your location",
+      "noNOtification":"No notifications"
       
 
       

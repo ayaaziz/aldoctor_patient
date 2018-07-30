@@ -37,6 +37,8 @@ export class OrderhistoryPage {
   infiniteScroll;
   filterpage=1;
   scroll = 1;
+  showLoading=true;
+
   
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage,  public alertCtrl: AlertController,
@@ -142,6 +144,8 @@ export class OrderhistoryPage {
   refreshOrders(){
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+      this.showLoading = false;
+
       this.service.getUserOrders(1,this.accessToken).subscribe(
         resp=>{
           if(this.refresher){
@@ -150,10 +154,12 @@ export class OrderhistoryPage {
             this.filterpage=1;
             this.scroll = 1;
           }
+          this.showLoading = true;
           this.respFromGetOrders(resp);
           
         },
         err=>{
+          this.showLoading = true;
           console.log("refresh",err);
         }
       );
@@ -163,9 +169,10 @@ export class OrderhistoryPage {
     
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
+      this.showLoading = false;
       this.service.getUserOrders(this.page,this.accessToken).subscribe(
         resp=>{
-
+          this.showLoading = true;
           var ordersData =JSON.parse(JSON.stringify(resp)).orders;
           if(ordersData.length == 0)
             this.scroll = 0;
@@ -179,6 +186,7 @@ export class OrderhistoryPage {
  
         },
         err=>{
+          this.showLoading = true;
           console.log("order in page 1",err);
         }
       );
@@ -323,9 +331,11 @@ export class OrderhistoryPage {
   }
 
   refreshFilterOrders(){
+    this.showLoading = false;
     this.service.filterOrder(this.from,this.to,1,this.accessToken).subscribe(
       resp=>{
 
+        this.showLoading = true;
         console.log("resp from refresh filter resp",resp);
         if(this.refresher){
           this.data = [];
@@ -341,14 +351,17 @@ export class OrderhistoryPage {
         
         
       },err=>{
+        this.showLoading = true;
         console.log("resp from filter err",err);
       }
     );
   }
   respFromFilterOrders()
   {
+    this.showLoading = false;
     this.service.filterOrder(this.from,this.to,this.filterpage,this.accessToken).subscribe(
       resp=>{
+        this.showLoading = true;
 
         console.log("resp from filter resp",resp);
         
@@ -362,6 +375,7 @@ export class OrderhistoryPage {
         
         
       },err=>{
+        this.showLoading = true;
         console.log("resp from filter err",err);
       }
     );

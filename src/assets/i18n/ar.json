@@ -246,6 +246,7 @@
       "enterdoctor":"اختر طبيب",
       "enterDoctorAndSpecilaization":"اختر تخصص وطبيب ",
       "checkNetwork":"تأكد من اتصالك بالانترنت",
-      "AccessLocationFailed":"غير قادر على تحديد موقعك"
+      "AccessLocationFailed":"غير قادر على تحديد موقعك",
+      "noNOtification":"لا يوجد اشعارات"
 
 }

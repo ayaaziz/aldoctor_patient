@@ -335,15 +335,7 @@ y;
     //this.presentToast("login success callback");
     console.log("loginsuccess data: ",data);
     
-    if(JSON.parse(JSON.stringify(data)).success){
-      console.log("access token: ",data.access_token);
-      //this.presentToast("token: "+data.access_token);
-      console.log("refresh token: ",data.refresh_token);
-      this.storage.set("access_token",data.access_token);
-      this.storage.set("refresh_token",data.refresh_token);
-      // this.navCtrl.setRoot(TabsPage);
-      this.navCtrl.setRoot('verification-code',{data:0});
-    }else{
+     if (JSON.parse(JSON.stringify(data)).success == false){
       var errorsFromApi = JSON.parse(JSON.stringify(data)).errors;
       if(errorsFromApi.email)
       {
@@ -353,6 +345,16 @@ y;
       {
         this.presentToast(errorsFromApi.phone);
       }
+    }
+    else{
+    // else if(JSON.parse(JSON.stringify(data))){ //.success
+      console.log("access token: ",data.access_token);
+      //this.presentToast("token: "+data.access_token);
+      console.log("refresh token: ",data.refresh_token);
+      this.storage.set("access_token",data.access_token);
+      this.storage.set("refresh_token",data.refresh_token);
+      // this.navCtrl.setRoot(TabsPage);
+      this.navCtrl.setRoot('verification-code',{data:0});
     }
    
   }

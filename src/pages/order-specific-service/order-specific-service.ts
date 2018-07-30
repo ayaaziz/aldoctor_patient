@@ -37,7 +37,7 @@ export class OrderSpecificServicePage {
   fourth
   last;
   photos = [];
- 
+  photosForApi=[];
   //DoctorsArray = [];
 
   DoctorsArray=[{"name":"pharmacy 1","place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
@@ -151,7 +151,7 @@ export class OrderSpecificServicePage {
         doctorsId += this.choosenDoctors[j].id+",";
       }
       console.log("doctors id: ",doctorsId);
-      this.srv.saveOrder(doctorsId,this.photos,this.accessToken).subscribe(
+      this.srv.saveOrder(doctorsId,this.photosForApi,this.accessToken).subscribe(
         resp => {
           console.log("saveOrder resp: ",resp);
           this.presentToast(this.translate.instant("ordersent"));
@@ -261,9 +261,11 @@ export class OrderSpecificServicePage {
       this.image = 'data:image/jpeg;base64,' + imageData;
       
       console.log("image ",this.image);
-      this.photos.push(imageData.replace(/\+/g,","));
-      console.log("all photos ",this.photos);
+      this.photos.push(imageData);
+      this.photosForApi.push(imageData.replace(/\+/g,","));
       
+      console.log("all photos ",this.photosForApi);
+      console.log("photos arr length",this.photosForApi.length);
     
     }, (err) => {
      

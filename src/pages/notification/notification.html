@@ -83,6 +83,15 @@
           <ion-refresher-content></ion-refresher-content>
         </ion-refresher>
 
+        <ion-row [hidden]="showLoading" style="text-align: center;">
+            <ion-col col-5></ion-col>
+            <ion-col col-2> 
+              <ion-spinner name="circles" [hidden]="showLoading" ></ion-spinner>
+            </ion-col>
+            <ion-col col-5></ion-col>
+            </ion-row>
+
+            
         <ion-item *ngFor="let item of data">
      
           <h2>{{item}}</h2> <!-- item.data.txt -->

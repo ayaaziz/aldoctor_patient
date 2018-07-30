@@ -11,12 +11,10 @@ import * as firebase from 'firebase';
 @Injectable()
 export class HelperProvider {
 
-  
-
   public lang_direction ='rtl';
   public currentLang ='ar';
-  public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
-  //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
+  //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
+  public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
   
   // public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
 
