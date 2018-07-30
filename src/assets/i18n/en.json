@@ -244,7 +244,8 @@
       "enterSearchVal":"Enter Specialization",
       "enterdoctor":"Choose doctor",
       "enterDoctorAndSpecilaization":"Choose doctor and specialization",
-      "checkNetwork":"Check internet connection"
+      "checkNetwork":"Check internet connection",
+      "AccessLocationFailed":"Can't get your location"
       
 
       

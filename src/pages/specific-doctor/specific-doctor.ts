@@ -512,6 +512,12 @@ this.events.subscribe('location', (data) => {
         resp => {
           if(JSON.parse(JSON.stringify(resp)).success ){
           console.log("saveOrder resp: ",resp);
+          var newOrder = JSON.parse(JSON.stringify(resp));
+          
+
+          this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id);
+          this.helper.orderStatusChanged(newOrder.order.id);
+
           this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
           this.navCtrl.push('remaining-time-to-accept');

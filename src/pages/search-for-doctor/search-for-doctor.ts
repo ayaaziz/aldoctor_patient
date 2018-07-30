@@ -209,7 +209,7 @@ getUserLocation(){
       
     }).catch((error) => {
       console.log('Error getting location', error);
-      
+      this.presentToast(this.translate.instant("AccessLocationFailed"));
       //this.getUserLocation();
       this.initMap();
       //this.test();
@@ -232,7 +232,15 @@ initMap(){
     // setMyLocationButtonEnabled: true,
   };
   this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+  // this.map.on('click', (e)=>{
+  //   console.log("from map clicked",e.latlng.lng, e.latlng.lat);
+  // });
+
+  // this.map.on('click').subscribe((e) => {
+  //   console.log("map clicked",e); 
+  //  })
   
+
 }
 initMapwithUserLocation(){
 

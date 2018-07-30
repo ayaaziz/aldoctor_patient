@@ -31,6 +31,9 @@ export class HomePage {
     // this.helper.userId=114;
     // this.helper.intializeFirebase();
     this.sortDoctors();
+    // this.helper.createOrder(3);
+    //this.helper.orderStatusChanged(313);
+    //this.helper.updateCancelOrderStatus(313);
 
     console.log("date", new Date().toISOString().split('T')[0]);
 var date1 = new Date('2018-06-01');

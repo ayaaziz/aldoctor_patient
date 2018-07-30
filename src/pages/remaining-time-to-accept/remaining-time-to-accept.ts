@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,Events} from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
 
@@ -14,7 +14,8 @@ import { HelperProvider } from '../../providers/helper/helper';
 export class RemainingTimeToAcceptPage {
 
   constructor(public helper:HelperProvider,public navCtrl: NavController, 
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    public events: Events) {
   }
 
   time=45;
@@ -35,34 +36,53 @@ export class RemainingTimeToAcceptPage {
          this.navCtrl.setRoot('order-not-accepted');
          
         }
-        console.log("time: ",this.time);
-     console.log("timer : ",this.timer);
-     this.notification = this.helper.notification;
-    console.log("notification from remaining time :",this.notification);
+    //     console.log("time: ",this.time);
+    //  console.log("timer : ",this.timer);
+    //  this.notification = this.helper.notification;
+    // console.log("notification from remaining time :",this.notification);
 
-      this.orderStatus = this.notification.additionalData.order_status;
-      if(this.orderStatus == "2")
-      {
-        clearTimeout(this.timer);
-        this.navCtrl.setRoot('follow-order',
-        {data:
-          {"orderId":this.notification.additionalData.orderId          , 
-            "doctorId":this.notification.additionalData.doctorId
-          }
-        });
+    //   this.orderStatus = this.notification.additionalData.order_status;
+    //   if(this.orderStatus == "2")
+    //   {
+    //     clearTimeout(this.timer);
+    //     this.navCtrl.setRoot('follow-order',
+    //     {data:
+    //       {"orderId":this.notification.additionalData.orderId          , 
+    //         "doctorId":this.notification.additionalData.doctorId
+    //       }
+    //     });
         
-      }else if(this.orderStatus == "0")
-      {
-        clearTimeout(this.timer);
-        this.navCtrl.setRoot('order-not-accepted');
+    //   }else if(this.orderStatus == "0")
+    //   {
+    //     clearTimeout(this.timer);
+    //     this.navCtrl.setRoot('order-not-accepted');
         
-      }else{
-        console.log("another status");
-      }
+    //   }else{
+    //     console.log("another status");
+    //   }
 
      
       
     },1000);
+
+
+    this.events.subscribe('status0', (data) => {
+      console.log("status0",data);
+      clearTimeout(this.timer);
+      this.navCtrl.setRoot('order-not-accepted');
+    });
+
+    this.events.subscribe('status2', (data) => {
+      console.log("status2",data);
+      clearTimeout(this.timer);
+      this.navCtrl.setRoot('follow-order',
+      {data:
+        { "orderId":data.orderId, 
+          "doctorId":data.doctorId
+        }
+      });
+    });
+
   }
 
 }

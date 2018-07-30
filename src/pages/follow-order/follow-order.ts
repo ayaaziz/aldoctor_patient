@@ -172,8 +172,16 @@ export class FollowOrderPage {
       this.helper.trackDoctor(this.doctorId); 
     });
     this.events.subscribe('status5', (data) => {
-      console.log("notification event status 5");
+      console.log("notification event status 5",data);
       this.navCtrl.push(TabsPage);
+      // this.navCtrl.pop();
+      this.navCtrl.push('rate-doctor',{
+        data:{
+          doctorId:data.doctorId,
+          orderId:data.orderId
+        }
+      });
+      
     });
     this.events.subscribe('status7', (data) => {
       console.log("notification event status 7");

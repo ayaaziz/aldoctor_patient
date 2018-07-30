@@ -245,6 +245,7 @@
       "enterSearchVal":"اختر تخصص",
       "enterdoctor":"اختر طبيب",
       "enterDoctorAndSpecilaization":"اختر تخصص وطبيب ",
-      "checkNetwork":"تأكد من اتصالك بالانترنت"
+      "checkNetwork":"تأكد من اتصالك بالانترنت",
+      "AccessLocationFailed":"غير قادر على تحديد موقعك"
 
 }

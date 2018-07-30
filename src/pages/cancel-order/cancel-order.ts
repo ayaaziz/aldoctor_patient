@@ -101,8 +101,12 @@ export class CancelOrderPage {
       this.service.cancelorder(this.orderId,this.userReasons.join(),this.desc,this.accessToken).timeout(10000).subscribe(
         resp => {
           console.log("cancel order resp: ",resp);
-          this.presentToast(this.translate.instant("orderCancled"));     
-          this.navCtrl.setRoot(OrderhistoryPage);
+          if(JSON.parse(JSON.stringify(resp)).success)
+          {
+            this.helper.updateCancelOrderStatus(this.orderId);
+            this.presentToast(this.translate.instant("orderCancled"));     
+            this.navCtrl.setRoot(OrderhistoryPage);
+          }
         },
         err=>{
           console.log("cancel order err: ", err);

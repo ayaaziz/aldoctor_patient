@@ -7,12 +7,19 @@ import { ToastController ,Events} from 'ionic-angular';
 import * as firebase from 'firebase';
 
 
+
 @Injectable()
 export class HelperProvider {
+
+  
 
   public lang_direction ='rtl';
   public currentLang ='ar';
   public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
+  //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
+  
+  // public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+
   public registration;
   public device_type="1";
   //if(platfrom==ios )
@@ -177,6 +184,66 @@ getBusyDoctor(userId){
   });
 }
 
+createOrder(orderId,serviceId){
+  //firebase.database().ref('orders/'+orderId).push({status:1});
+  var orderData = firebase.database().ref('orders/');
+  orderData.child(orderId).set({orderStatus:{status:1},serviceProfileId:serviceId});
+
+}
+orderStatusChanged(orderId){
+  firebase.database().ref(`orders/${orderId}/orderStatus`).on('child_changed',(snap)=>{
+   
+    console.log("order status changed",snap.val(),"order id: ",orderId)
+   
+    if(snap.val() == "0") //cancelled by doctor
+      this.events.publish('status0');
+    else if (snap.val() == "2") //accepted by doctor
+      this.getServiceProfileIdToFollowOrder(orderId);
+    else if (snap.val() == "3") //no respond
+      this.events.publish('status0');
+    else if (snap.val() == "5" || snap.val() == "6") //5->finished , 6->finished with reorder
+      this.getServiceProfileIdToRate(orderId);        
+    else if (snap.val() == "7") //start detection
+      this.events.publish('status7');
+    else if (snap.val() == "8") // move to patient
+      this.events.publish('status8'); 
+
+   
+ 
+
+  });
+}
+getServiceProfileIdToRate(orderid){
+
+  firebase.database().ref(`orders/${orderid}/serviceProfileId`).on('value',(snap)=>{
+    
+    console.log("getServiceProfileIdToRate "+snap.val(),"id: ",orderid);
+    var data = {orderId:orderid, doctorId:snap.val()};
+    this.events.publish('status5',data);
+
+  });
+
+}
+getServiceProfileIdToFollowOrder(orderid){
+
+  firebase.database().ref(`orders/${orderid}/serviceProfileId`).on('value',(snap)=>{
+    
+    console.log("getServiceProfileIdToFollowOrder "+snap.val(),"id: ",orderid);
+    var data = {orderId:orderid, doctorId:snap.val()};
+    this.events.publish('status2',data);
+    
+
+  });
+  
+
+
+}
+updateCancelOrderStatus(orderId){
+
+  firebase.database().ref().child(`orders/${orderId}/orderStatus`)
+   .update({status:4})
+
+}
 //  updateUserLoc(loc: string) {
 //    if (!this.userId) return
 //    firebase.database().ref().child(`user/`+this.userId)
