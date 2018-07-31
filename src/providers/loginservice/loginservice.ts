@@ -65,7 +65,7 @@ userRegister(userData,access_token,SuccessCallback,FailureCallback) {
   let headers = new HttpHeaders();
   let parameter = new HttpParams().set('name',userData.firstname+" "+userData.secondname+" "+userData.surname)
   .set('phone','2'+userData.phone).set('birth_date',userData.birthdate)
-  .set('address',userData.address)
+  .set('address',userData.address+"-"+userData.city+"-"+userData.country)
   .set('password',userData.password).set('city',userData.city)
   .set('country',userData.country).set('gender',userData.gender)
   .set('terms',"1").set('email',userData.email)

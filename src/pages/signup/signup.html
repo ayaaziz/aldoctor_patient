@@ -140,7 +140,7 @@ type="password" [dir]="langDirection"></ion-input>
     <ion-item>
     <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;" ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Governorate" | translate}}</ion-label>
     <ion-label floating *ngIf="langDirection != 'rtl'"  ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Governorate" | translate}}</ion-label>
-    <ion-select  [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
+    <ion-select [dir]="langDirection" [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
     [(ngModel)]="country" >
     <ion-option  value="{{item.name}}" *ngFor="let item of countries" (ionSelect)='countryChecked()' >{{item.name}}</ion-option>
     <!-- <ion-option value="alex">{{"Alex" | translate}}</ion-option>  -->
@@ -211,14 +211,23 @@ type="password" [dir]="langDirection"></ion-input>
     </ion-avatar>
   </ion-item>
 
-
+<ion-row>
+    <ion-col col-11>
   <ion-item no-lines >
-      <ion-label style="font-size: 14px; color: gray;" >{{"agreeConditions" | translate}}</ion-label>
-      <ion-checkbox  (click)="agreeConditions()" [ngModelOptions]="{standalone: true}"
+      <ion-label style="font-size: 14px; color: gray;" >{{"agreeConditions" | translate}}
+      </ion-label>
+      <ion-checkbox   [ngModelOptions]="{standalone: true}"
         [(ngModel)]="termsStatus" >
         </ion-checkbox>
+        
     </ion-item>
+</ion-col>
+<ion-col col-1 style="text-align:right">
+        <ion-icon  [dir]="langDirection" name="information-circle" style="color:#016a38; font-size:20px;margin-top:20px;" (click)="agreeConditions()"></ion-icon>
+</ion-col>
+</ion-row>
     
+
   <ion-item id="btnSignIn" style="text-align:center;" no-lines>
 
      <button type="button"   class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black'" (click)="registerUser()"> {{"register" | translate}}</button>  

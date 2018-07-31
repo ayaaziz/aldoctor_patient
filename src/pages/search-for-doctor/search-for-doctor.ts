@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController,Platform,AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController,Platform,AlertController ,Events} from 'ionic-angular';
 import { SpecificDoctorPage } from '../specific-doctor/specific-doctor';
 import { SpecializationsPage } from '../specializations/specializations';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -31,6 +31,7 @@ export class SearchForDoctorPage {
   @ViewChild('map') mapElement;
   map: any;
   lat=31.037933; 
+  // lat=55; 
   lng=31.381523;
   doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
   langDirection;
@@ -42,7 +43,8 @@ export class SearchForDoctorPage {
     public diagnostic: Diagnostic, public translate: TranslateService,
      private geolocation: Geolocation, public toastCtrl: ToastController, 
      //private backgroundGeolocation: BackgroundGeolocation, 
-     public navCtrl: NavController, public navParams: NavParams) {
+     public navCtrl: NavController, public navParams: NavParams,
+     public events: Events) {
   
       this.langDirection = this.helper.lang_direction;
       if(this.langDirection == "rtl")
@@ -50,12 +52,27 @@ export class SearchForDoctorPage {
       else
         this.tostClass="toastLeft";
 
+      console.log("helper langDirection",this.helper);
+
         
   }
   
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForDoctorPage');
+    // this.events.subscribe('userlocationnnnn', (data) => {
+    //   console.log("location changed event",data);
+
+    //   this.lng = data.lon;
+    //   this.lat = data.lat;
+    //   this.helper.lon = this.lng;
+    //   this.helper.lat = this.lat;
+    //   console.log("lat, lon from helper",this.helper.lat,
+    // this.helper.lon);
+
+    //   this.handleuserLocattion();
+
+    // });
 
     // this.getUserLocation();
     //31.0657632,31.6421222-->
@@ -82,7 +99,7 @@ export class SearchForDoctorPage {
   // });
 
     this.initMap();
-    //this.allowUserToChooseHisLocation();
+    // this.allowUserToChooseHisLocation();
     this.test();
     //this.geoLoc();
     // this.initMap();
@@ -263,62 +280,95 @@ initMap(){
 }
 allowUserToChooseHisLocation(){
   console.log("allowUserToChooseHisLocation");
+  
 
-  this.map.addListener('click', function(event) {
+  // this.map.addListener('click', function(ev) {
     
-    console.log("lat clicked",event.latLng.lat());
-    console.log("lon clicked",event.latLng.lng());
+  //   console.log("lat clicked",ev.latLng.lat());
+  //   console.log("lon clicked",ev.latLng.lng());
 
-    this.lat = event.latLng.lat();
-    this.lng = event.latLng.lng();
+  //   console.log("lat .. ",this.lat);
+  //   this.lat = ev.latLng.lat();
+  //   this.lng = ev.latLng.lng();
       
+  //   console.log("lat",this.lat);
+  //   console.log("lon",this.lng);
+  //   var x = {lat : ev.latLng.lat(),lon:ev.latLng.lng()};
+  //   this.events.publish('userlocationnnnn',x);
+
+  //   // this.handleuserLocattion();
+  //   // console.log("helper lon",this.helper.lon);
+  //   // console.log("helper lat",this.helper.lat);
+    
+  // });
+
+  this.map.addListener('click',(ev) => {
+    
+    console.log("lat clicked",ev.latLng.lat());
+    console.log("lon clicked",ev.latLng.lng());
+    console.log("lat .. ",this.lat);
+
+    this.lat = ev.latLng.lat();
+    this.lng = ev.latLng.lng();
+    this.helper.lon = this.lng;
+    this.helper.lat = this.lat;
+    this.handleuserLocattion();
+
     console.log("lat",this.lat);
     console.log("lon",this.lng);
+  //  var x = {lat : ev.latLng.lat(),lon:ev.latLng.lng()};
+//    this.events.publish('userlocationnnnn',x);
 
+    
+
+    
     // console.log("helper lon",this.helper.lon);
     // console.log("helper lat",this.helper.lat);
-    if(this.helper)
-    {
-      this.helper.lon = this.lng;
-      this.helper.lat = this.lat;
-    }  
-   
-      
-      
-      this.initMapwithUserLocations();
-
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
-        this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
-          resp =>{
-            console.log("resp from nearby doctors: ",resp);
-            var docsData = JSON.parse(JSON.stringify(resp)).result;
-            console.log("res ",docsData,"lenght: ",docsData.lenght);
-            this.doctorsLoc = [];
-            for (let element in docsData) {
-              console.log("element ",docsData[element]);
-              if(docsData[element].location != null)
-                this.doctorsLoc.push( docsData[element].location);
-
-             }
-             console.log("doctorsLoc",this.doctorsLoc);
-             this.initMapWithDoctorsLocation();
-            
-
-          },err=>{
-            console.log("err from nearby doctors: ",err);
-          }
-        );
-     
-      });
-
-
+    
   });
+  
+     
+
+}
+handleuserLocattion(){
+  
+  // this.helper.lon = this.lng;
+  // this.helper.lat = this.lat;
+
+  
+  
+  this.initMapwithUserLocations();
+
+  this.storage.get("access_token").then(data=>{
+    this.accessToken = data;
+    this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
+      resp =>{
+        console.log("resp from nearby doctors: ",resp);
+        var docsData = JSON.parse(JSON.stringify(resp)).result;
+        console.log("res ",docsData,"lenght: ",docsData.lenght);
+        this.doctorsLoc = [];
+        for (let element in docsData) {
+          console.log("element ",docsData[element]);
+          if(docsData[element].location != null)
+            this.doctorsLoc.push( docsData[element].location);
+
+         }
+         console.log("doctorsLoc",this.doctorsLoc);
+         this.initMapWithDoctorsLocation();
+        
+
+      },err=>{
+        console.log("err from nearby doctors: ",err);
+      }
+    );
+ 
+  });
+
 
 }
 initMapwithUserLocations(){
 
-  console.log("initMapwithUserLocation");
+  console.log("initMapwithUserLocations");
   let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
    center:latlng,

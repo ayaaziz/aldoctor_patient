@@ -292,7 +292,7 @@ this.events.subscribe('location', (data) => {
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
             this.doctors[i].distanceVal =10000;
-            //this.doctors[i].offline=true;
+            this.doctors[i].offline=true;
 
             // this.doctors[i].availability="0";
 
@@ -441,7 +441,7 @@ this.events.subscribe('location', (data) => {
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
             this.doctors[i].distanceVal =10000;
-            //this.doctors[i].offline=true;
+            this.doctors[i].offline=true;
             
             // this.doctors[i].availability="0";
 

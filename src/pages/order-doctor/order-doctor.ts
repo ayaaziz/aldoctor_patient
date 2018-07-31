@@ -354,7 +354,7 @@ export class OrderDoctorPage {
             this.helper.getBusyDoctor(this.DoctorsArray[i].id);
             this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
             this.DoctorsArray[i].distanceVal = 10000;
-            //this.DoctorsArray[i].offline = true;
+            this.DoctorsArray[i].offline = true;
 
             
            

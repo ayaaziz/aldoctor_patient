@@ -108,11 +108,18 @@ addArr;
       //  this.phone = data.phone;
         this.birthdate = data.dob;
         this.addArr = data.add.split("-");
-        this.city = this.addArr[2];
-        this.country = this.addArr[1];
+
+        // this.countries.push({name:this.addArr[2]});
+        // this.cities.push({name:this.addArr[1]});
+        console.log("add..",data.add);
+        this.city = this.addArr[1];
+        this.country = this.addArr[2];
+        
+        console.log("city: ",this.city,"country: ",this.country);
+
         this.address = this.addArr[0];
         this.email = data.email;
-        
+      //  this.countryChecked();
       });
   
   });
@@ -148,6 +155,7 @@ addArr;
     {
       if(this.countries[i].name == this.country)
       {
+        
         this.loginservice.getCities(this.countries[i].id).subscribe(
           resp =>{
             console.log("cities: ",resp);

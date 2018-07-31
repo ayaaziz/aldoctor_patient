@@ -95,3 +95,18 @@ ion-app{
 //     width:20px;
 //     height:20px;
 // }
+
+
+html[dir="rtl"] body > ion-app > ion-alert .alert-button-group {
+    flex-direction: row-reverse !important;
+    justify-content: flex-start !important;
+    
+}
+.popover-content{
+    right: 32px !important;
+}
+html[dir="rtl"] body > ion-app > ion-picker-cmp .picker-toolbar {
+    flex-direction: row-reverse !important;
+    justify-content: flex-end !important;
+    
+}

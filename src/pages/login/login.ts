@@ -123,6 +123,8 @@ export class LoginPage {
       resp=>{
         console.log("from registerFirebase resp: ",resp);
         var jsonUserData  = JSON.parse(JSON.stringify(resp)).user;
+        console.log("json ",jsonUserData);
+        
         this.storage.set("user_info",{
                 "id":jsonUserData.id,
                 "name":jsonUserData.name,

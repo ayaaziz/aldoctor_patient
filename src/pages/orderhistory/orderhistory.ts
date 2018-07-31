@@ -82,7 +82,10 @@ export class OrderhistoryPage {
           for(var j=0;j<ordersData.length;j++){
             
             if(ordersData[j].status == "0") //canceled by doctor
+            {  
               ordersData[j].color = "red";
+              ordersData[j].rated = "1";
+            }
             else if(ordersData[j].status == "5") //finished
               ordersData[j].color="grey";
             
