@@ -36,8 +36,11 @@ export class VerificationcodePage {
     else
       this.tostClass="toastLeft";
 
-      this.from = this.navParams.get('data');
-      console.log("activation from ",this.from);
+      if(this.navParams.get('data')){
+        this.from = this.navParams.get('data');
+        console.log("activation from ",this.from);
+      }
+     
 
     this.activationForm = formBuilder.group({
       code: ['', Validators.required]
@@ -85,6 +88,8 @@ export class VerificationcodePage {
     console.log("activationSuccessCallback: ",data);
     if(JSON.parse(JSON.stringify(data)).success )
     {
+      this.storage.remove("verification_page");
+
       if(this.from)
         this.presentToast(this.translate.instant("phoneChanged"));
                 

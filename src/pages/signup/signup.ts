@@ -353,6 +353,8 @@ y;
       console.log("refresh token: ",data.refresh_token);
       this.storage.set("access_token",data.access_token);
       this.storage.set("refresh_token",data.refresh_token);
+      this.storage.set("verification_page",1);
+      
       // this.navCtrl.setRoot(TabsPage);
       this.navCtrl.setRoot('verification-code',{data:0});
     }

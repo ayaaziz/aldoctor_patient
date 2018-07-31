@@ -81,10 +81,11 @@ export class SearchForDoctorPage {
   //   }
   // });
 
-
+    this.initMap();
+    //this.allowUserToChooseHisLocation();
     this.test();
     //this.geoLoc();
-    this.initMap();
+    // this.initMap();
     //this.getUserLocation();
     //  this.getDoctorsLocation();
 
@@ -157,7 +158,7 @@ getUserLocation(){
   
   console.log("get user location");
   // , enableHighAccuracy: true, maximumAge: 3600
-  let GPSoptions = {timeout: 40000,enableHighAccuracy: true, maximumAge: 3600};
+  let GPSoptions = {timeout: 30000,enableHighAccuracy: true, maximumAge: 3600};
     this.geolocation.getCurrentPosition(GPSoptions).then((resp) => {
 
       console.log("current location resp: ", resp);
@@ -169,7 +170,7 @@ getUserLocation(){
 
       
       
-      this.initMapwithUserLocation();
+      this.initMapwithUserLocations();
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;
         this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
@@ -210,8 +211,11 @@ getUserLocation(){
     }).catch((error) => {
       console.log('Error getting location', error);
       this.presentToast(this.translate.instant("AccessLocationFailed"));
+      // this.presentToast(this.translate.instant("chooseYourLocation"));
+      this.allowUserToChooseHisLocation();
+      
       //this.getUserLocation();
-      this.initMap();
+      //this.initMap();
       //this.test();
       
     });
@@ -220,6 +224,8 @@ getUserLocation(){
 }
 
 initMap(){
+
+  console.log("init map");
   let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
    center:latlng,
@@ -240,10 +246,79 @@ initMap(){
   //   console.log("map clicked",e); 
   //  })
   
+  // var infowindow = new google.maps.InfoWindow({
+  //   content:"Hello World!"
+  //   });
+
+  // google.maps.event.addListener(this.map,'click',event=>{
+  //   console.log("map clicked ", event.latLng);
+  //   // infowindow.open(this.map,marker);
+  // });
+
+ 
+
+
+
+  
+}
+allowUserToChooseHisLocation(){
+  console.log("allowUserToChooseHisLocation");
+
+  this.map.addListener('click', function(event) {
+    
+    console.log("lat clicked",event.latLng.lat());
+    console.log("lon clicked",event.latLng.lng());
+
+    this.lat = event.latLng.lat();
+    this.lng = event.latLng.lng();
+      
+    console.log("lat",this.lat);
+    console.log("lon",this.lng);
+
+    // console.log("helper lon",this.helper.lon);
+    // console.log("helper lat",this.helper.lat);
+    if(this.helper)
+    {
+      this.helper.lon = this.lng;
+      this.helper.lat = this.lat;
+    }  
+   
+      
+      
+      this.initMapwithUserLocations();
+
+      this.storage.get("access_token").then(data=>{
+        this.accessToken = data;
+        this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
+          resp =>{
+            console.log("resp from nearby doctors: ",resp);
+            var docsData = JSON.parse(JSON.stringify(resp)).result;
+            console.log("res ",docsData,"lenght: ",docsData.lenght);
+            this.doctorsLoc = [];
+            for (let element in docsData) {
+              console.log("element ",docsData[element]);
+              if(docsData[element].location != null)
+                this.doctorsLoc.push( docsData[element].location);
+
+             }
+             console.log("doctorsLoc",this.doctorsLoc);
+             this.initMapWithDoctorsLocation();
+            
+
+          },err=>{
+            console.log("err from nearby doctors: ",err);
+          }
+        );
+     
+      });
+
+
+  });
 
 }
-initMapwithUserLocation(){
+initMapwithUserLocations(){
 
+  console.log("initMapwithUserLocation");
   let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
    center:latlng,
@@ -290,6 +365,8 @@ initMapwithUserLocation(){
   
 }
 initMapWithDoctorsLocation(){
+
+  console.log("initMapWithDoctorsLocation");
 
   let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
@@ -392,7 +469,7 @@ initMapWithDoctorsLocation(){
   nearestLoader;
   GPSOpened() {
     
-    let optionsLoc = {timeout: 35000,enableHighAccuracy: true, maximumAge: 3600};
+    let optionsLoc = {timeout: 30000,enableHighAccuracy: true, maximumAge: 3600};
     this.geolocation.getCurrentPosition(optionsLoc).then((resp) => {
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;

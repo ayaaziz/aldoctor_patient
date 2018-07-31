@@ -108,7 +108,24 @@ export class MyApp {
     //   else  
     //     this.rootPage = LoginPage;
     // });
-    
+
+    storage.get("verification_page").then((val) => {
+      if (val){
+        console.log(" verification_page from storage",val);
+        this.rootPage = 'verification-code';
+     
+      } else{
+        console.log("else verification_page from storage",val);
+        this.rootPage = TabsPage;
+        
+      }
+    }).catch(
+      (err)=>{
+        console.log("err from verification_page stoage",err);
+        this.rootPage = TabsPage;
+      }
+    );
+
     storage.get("user_info").then((val) => {
       if (val){
         console.log(" if get user info from storage",val);

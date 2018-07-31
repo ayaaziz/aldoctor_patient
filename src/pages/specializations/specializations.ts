@@ -112,11 +112,16 @@ export class SpecializationsPage {
           var specializationData = JSON.parse(JSON.stringify(resp));
           this.specializations1 = [];
           this.specializations2 = [];
-          for(var i=0;i<specializationData.length/2;i++){
+          for(var i=0;i<(specializationData.length/2);i++){
+            // console.log("sp1",specializationData[i]);
             this.specializations1.push(specializationData[i]);
           }
-          for(var j=(specializationData.length/2);j<specializationData.length;j++){
+          // console.log("sp..",specializationData);
+          for(var j=Math.ceil(specializationData.length/2);j<specializationData.length;j++){
+            // console.log("j ",j);
+            // console.log("sp2",specializationData[j]);
             this.specializations2.push(specializationData[j]);
+            
           }
          
           console.log("sp1 ",this.specializations1);

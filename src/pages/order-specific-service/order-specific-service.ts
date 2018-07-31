@@ -264,14 +264,15 @@ export class OrderSpecificServicePage {
       this.photos.push(imageData);
       this.photosForApi.push(imageData.replace(/\+/g,","));
       
-      console.log("all photos ",this.photosForApi);
-      console.log("photos arr length",this.photosForApi.length);
+      console.log("all photos ",this.photos,"length",this.photos.length);
+      console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);
     
     }, (err) => {
      
      });
   }
   deletePhoto(index){
+    console.log("photo index",index);
     this.photos.splice(index, 1);
   }
   getItems(ev) {
