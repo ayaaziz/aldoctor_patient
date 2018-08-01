@@ -138,6 +138,29 @@ export class OrderDoctorPage {
         this.events.subscribe('locationChanged', (data) => {
           console.log("location changed event",data);
 
+          if(data.location){
+            for(var k=0;k<this.DoctorsArray.length;k++)
+            {   
+              if(this.DoctorsArray[k].id == data.id)
+              {
+                this.DoctorsArray[k].lat = data.location.split(',')[0];
+                this.DoctorsArray[k].lng = data.location.split(',')[1];
+                if(this.DoctorsArray[k].offline == false)
+                {
+                  this.getDistanceAndDuration(k);
+                  this.sortDoctors();
+                }
+                  // if(k == (this.DoctorsArray.length -1))
+                // {
+                //   console.log("call sort function");
+                //   this.sortDoctors();
+                // }
+                
+              }
+                    
+            }
+            }
+
         });
   this.events.subscribe('location', (data) => {
     console.log(" event location ",data);
@@ -158,7 +181,10 @@ export class OrderDoctorPage {
       {
         this.DoctorsArray[k].lat = data.location.split(',')[0];
         this.DoctorsArray[k].lng = data.location.split(',')[1];
-        this.getDistanceAndDuration(k);
+        if(this.DoctorsArray[k].offline == false)
+        {  
+          this.getDistanceAndDuration(k);
+        }
         // if(k == (this.DoctorsArray.length -1))
         // {
         //   console.log("call sort function");
@@ -392,7 +418,13 @@ export class OrderDoctorPage {
   }
 
   getDistanceAndDuration(i){
-    console.log("doctors from array",this.DoctorsArray[i]);
+
+    if(this.DoctorsArray[i].offline == false){
+      
+      console.log("online doctor i",this.DoctorsArray[i]);
+      console.log("online doctor index",this.DoctorsArray[this.index]);
+
+      console.log("doctors from array",this.DoctorsArray[i]);
     console.log("lat from helper",this.helper.lat);
     console.log("lon from helper",this.helper.lon);
     var docLat = this.DoctorsArray[i].lat;
@@ -401,10 +433,13 @@ export class OrderDoctorPage {
     console.log("doctor lng: ",docLon);
     console.log("doctor before duration",this.DoctorsArray[i]);
     this.index = i;
+
+    
     this.service.getDurationAndDistance(this.helper.lat,this.helper.lon,docLat,docLon).subscribe(
       resp=>{
+        // this.index => i
         console.log("doctors",this.DoctorsArray);
-        console.log("doctor ",this.DoctorsArray[this.index]);
+        console.log("doctor ",this.DoctorsArray[i]);
         console.log("get data from google api",resp);
         var respObj = JSON.parse(JSON.stringify(resp));
         
@@ -412,14 +447,15 @@ export class OrderDoctorPage {
         {
         console.log("duration : ",respObj.routes[0].legs[0].duration.text);
         console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-        console.log("doctor from array in get duration ",this.DoctorsArray[this.index]);
-        this.DoctorsArray[this.index].distance = respObj.routes[0].legs[0].distance.text;
-        this.DoctorsArray[this.index].distanceVal = respObj.routes[0].legs[0].distance.value;
-        this.DoctorsArray[this.index].duration = respObj.routes[0].legs[0].duration.text;
-        console.log("distance from array ",this.DoctorsArray[this.index].distance);
-        }
+        console.log("doctor from array in get duration ",this.DoctorsArray[i]);
+        this.DoctorsArray[i].distance = respObj.routes[0].legs[0].distance.text;
+        this.DoctorsArray[i].distanceVal = respObj.routes[0].legs[0].distance.value;
+        this.DoctorsArray[i].duration = respObj.routes[0].legs[0].duration.text;
+        console.log("distance from array ",this.DoctorsArray[i].distance);
+        //this.sortDoctors();
+      }
 
-        if(this.index == (this.DoctorsArray.length -1))
+        if(i == (this.DoctorsArray.length -1))
         {
           console.log("call sort function");
           this.sortDoctors();
@@ -440,6 +476,7 @@ export class OrderDoctorPage {
       }
     );
   }
+  }
   sortDoctors(){
     console.log("doc before sort ",this.DoctorsArray);
     // this.DoctorsArray.sort(function(a,b){
@@ -452,7 +489,7 @@ export class OrderDoctorPage {
 
     //sort by nearest & online
     this.DoctorsArray.sort((a,b)=>{
-      if(!a.offline || !b.offline)
+      if(a.offline == false || b.offline == false)
         return a.distanceVal-b.distanceVal;
   
     }); 

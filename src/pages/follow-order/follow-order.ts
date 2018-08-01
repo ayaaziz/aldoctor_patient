@@ -82,7 +82,7 @@ export class FollowOrderPage {
             this.doctorName = tempData.name;
             this.doctorRate = tempData.rate;
             this.doctorSpecialization = tempData.speciality; 
-            this.OrderCost = tempData.extraInfo.price;
+            this.OrderCost = tempData.extraInfo.discount;
             
             //this.doctorLocation = tempData.location;
            

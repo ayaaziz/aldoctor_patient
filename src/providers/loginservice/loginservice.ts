@@ -445,6 +445,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/get/lkps/rate-criteriea?rate='+rate;
+    //let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-rate-criteriea?rate='+rate;
+    
     return this.http.get(serviceUrl,{headers: headers });
 
   }

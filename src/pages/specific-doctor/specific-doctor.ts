@@ -116,6 +116,29 @@ export class SpecificDoctorPage {
 
       this.events.subscribe('locationChanged', (data) => {
         console.log("location changed event",data);
+        if(data.location){
+          for(var k=0;k<this.doctors.length;k++)
+          {   
+            if(this.doctors[k].id == data.id)
+            {
+              this.doctors[k].lat = data.location.split(',')[0];
+              this.doctors[k].lng = data.location.split(',')[1];
+              if(this.doctors[k].offline == false)
+              {
+                this.getDistanceAndDuration(k);
+                this.sortDoctors();
+              }
+                // if(k == (this.DoctorsArray.length -1))
+              // {
+              //   console.log("call sort function");
+              //   this.sortDoctors();
+              // }
+              
+            }
+                  
+          }
+          }
+
 
       });
 this.events.subscribe('location', (data) => {
@@ -127,7 +150,10 @@ this.events.subscribe('location', (data) => {
     {
       this.doctors[k].lat = data.location.split(',')[0];
       this.doctors[k].lng = data.location.split(',')[1];
-      this.getDistanceAndDuration(k);
+      if(this.doctors[k].offline == false){
+        this.getDistanceAndDuration(k);
+      }
+      
       
       // if(k == (this.doctors.length -1))
       //   {
@@ -325,6 +351,12 @@ this.events.subscribe('location', (data) => {
   }
 
   getDistanceAndDuration(i){
+
+    if(this.doctors[i].offline == false){
+
+      console.log("online doctor i",this.doctors[i]);
+      console.log("online doctor index",this.doctors[this.index]);
+
     console.log("doctors from array",this.doctors[i]);
     console.log("lat from helper",this.helper.lat);
     console.log("lon from helper",this.helper.lon);
@@ -334,6 +366,8 @@ this.events.subscribe('location', (data) => {
     console.log("doctor lng: ",docLon);
     console.log("doctor before duration",this.doctors[i]);
     this.index = i;
+    
+      
     this.service.getDurationAndDistance(this.helper.lat,this.helper.lon,docLat,docLon).subscribe(
       resp=>{
         console.log("doctors",this.doctors);
@@ -344,14 +378,14 @@ this.events.subscribe('location', (data) => {
         {
         console.log("duration : ",respObj.routes[0].legs[0].duration.text);
         console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-        console.log("doctor from array in get duration ",this.doctors[this.index]);
-        this.doctors[this.index].distance = respObj.routes[0].legs[0].distance.text;
-        this.doctors[this.index].distanceVal = respObj.routes[0].legs[0].distance.value;
-        this.doctors[this.index].duration = respObj.routes[0].legs[0].duration.text;
-        console.log("distance from array ",this.doctors[this.index].distance);
+        console.log("doctor from array in get duration ",this.doctors[i]);
+        this.doctors[i].distance = respObj.routes[0].legs[0].distance.text;
+        this.doctors[i].distanceVal = respObj.routes[0].legs[0].distance.value;
+        this.doctors[i].duration = respObj.routes[0].legs[0].duration.text;
+        console.log("distance from array ",this.doctors[i].distance);
         }
 
-        if(this.index == (this.doctors.length -1))
+        if(i == (this.doctors.length -1))
         {
           console.log("call sort function");
           this.sortDoctors();
@@ -372,6 +406,8 @@ this.events.subscribe('location', (data) => {
       }
     );
   }
+
+  }
   sortDoctors(){
     console.log("doc before sort ",this.doctors);
     // this.doctors.sort(function(a,b){
@@ -383,7 +419,7 @@ this.events.subscribe('location', (data) => {
 
     //sort by nearest & online
     this.doctors.sort((a,b)=>{
-      if(!a.offline || !b.offline)
+      if(a.offline == false || b.offline == false)
         return a.distanceVal-b.distanceVal;
   
     });
