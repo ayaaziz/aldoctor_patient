@@ -248,6 +248,7 @@
       "checkNetwork":"تأكد من اتصالك بالانترنت",
       "AccessLocationFailed":"غير قادر على تحديد موقعك,الرجاء تحديد موقعك على الخريطه",
       "noNOtification":"لا يوجد اشعارات",
-      "chooseYourLocation":"حدد موقعك على الخريطة"
+      "chooseYourLocation":"حدد موقعك على الخريطة",
+      "invalidData":"رقم الهاتف أو كلمه المرور غير صحيحه"
 
 }

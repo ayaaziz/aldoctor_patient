@@ -184,6 +184,7 @@ getBusyDoctor(userId){
 
 createOrder(orderId,serviceId){
   //firebase.database().ref('orders/'+orderId).push({status:1});
+  console.log("create order",orderId,"service id",serviceId);
   var orderData = firebase.database().ref('orders/');
   orderData.child(orderId).set({orderStatus:{status:1},serviceProfileId:serviceId});
 
@@ -193,7 +194,7 @@ orderStatusChanged(orderId){
    
     console.log("order status changed",snap.val(),"order id: ",orderId)
    
-    if(snap.val() == "0") //cancelled by doctor
+    if(snap.val() == "10") //cancelled by doctor 0
       this.events.publish('status0');
     else if (snap.val() == "2") //accepted by doctor
       this.getServiceProfileIdToFollowOrder(orderId);

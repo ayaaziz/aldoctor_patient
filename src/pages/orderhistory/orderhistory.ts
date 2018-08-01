@@ -81,7 +81,7 @@ export class OrderhistoryPage {
 
           for(var j=0;j<ordersData.length;j++){
             
-            if(ordersData[j].status == "0") //canceled by doctor
+            if(ordersData[j].status == "10") //canceled by doctor 0
             {  
               ordersData[j].color = "red";
               ordersData[j].rated = "1";

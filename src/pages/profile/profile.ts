@@ -314,10 +314,15 @@ export class ProfilePage {
         this.service.changeProfilePic(this.profileImg,this.accessToken).subscribe(
           resp =>{
             console.log("resp from api: ",resp);
-            this.image=JSON.parse(JSON.stringify(resp)).profile_pic;
+            if(JSON.parse(JSON.stringify(resp)).success == true)
+            {
+              this.image=JSON.parse(JSON.stringify(resp)).user.profile_pic;
+              console.log("resp fro.m change photo: "+JSON.stringify(resp));
+            }
+            //this.image=JSON.parse(JSON.stringify(resp)).profile_pic;
             //this.image = "http://itrootsdemos.com/aldoctor/public/uploads/1528288759.png";
             //this.presentToast("resp fro.m change photo: "+JSON.stringify(resp));
-            console.log("resp fro.m change photo: "+JSON.stringify(resp));
+            //console.log("resp fro.m change photo: "+JSON.stringify(resp));
           }
           ,err=>{
             this.presentToast("err from change photo: "+ JSON.stringify(err));

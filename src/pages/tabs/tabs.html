@@ -16,8 +16,17 @@
     background-image: url('https://raw.github.com/driftyco/ionic-site/gh-pages/img/docs/mcfly.jpg');
     background-size:contain;
   } -->
-  <ion-tab [root]="tab1Root"  tabIcon="home" ></ion-tab>
+ 
+  <!-- <ion-tab [root]="tab1Root"  tabIcon="home" ></ion-tab>
   <ion-tab [root]="tab2Root"  tabIcon="calendar"></ion-tab>
   <ion-tab [root]="tab3Root"  tabIcon="person"></ion-tab>
   <ion-tab [root]="tab4Root"  tabIcon="notifications" [tabBadge]="favCount"></ion-tab>
+ -->
+
+  <ion-tab [root]="tab1Root"  tabIcon="ios-home-outline" ></ion-tab>
+  <ion-tab [root]="tab2Root"  tabIcon="ios-calendar-outline"></ion-tab>
+  <ion-tab [root]="tab3Root"  tabIcon="ios-person-outline"></ion-tab>
+  <ion-tab [root]="tab4Root"  tabIcon="ios-notifications-outline" [tabBadge]="favCount"></ion-tab>
+
+
 </ion-tabs>

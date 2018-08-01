@@ -185,7 +185,7 @@ this.storage.get("rate_doctor").then(data=>{
     
     this.navCtrl.setRoot('rate-doctor',
   {data:
-    {"doctorId":28, 
+    {"doctorId":3, 
       "orderId":177
     }
   });

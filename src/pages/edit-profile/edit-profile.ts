@@ -111,7 +111,9 @@ addArr;
 
         // this.countries.push({name:this.addArr[2]});
         // this.cities.push({name:this.addArr[1]});
-        console.log("add..",data.add);
+        
+         console.log("add..",data.add);
+        
         this.city = this.addArr[1];
         this.country = this.addArr[2];
         

@@ -247,7 +247,8 @@
       "checkNetwork":"Check internet connection",
       "AccessLocationFailed":"Can't get your location,Specify your location on map",
       "noNOtification":"No notifications",
-      "chooseYourLocation":"Specify your location on map"
+      "chooseYourLocation":"Specify your location on map",
+      "invalidData":"Invalid data"
       
 
       

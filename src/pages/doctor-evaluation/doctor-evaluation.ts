@@ -32,6 +32,7 @@ export class DoctorEvaluationPage {
   accessToken;
   rateArray=[];
   tostClass ;
+  rateWordsWithId=[];
   
   constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider,public translate: TranslateService,
@@ -97,22 +98,95 @@ export class DoctorEvaluationPage {
           }
   
         );
+        
       });
       this.storage.get("user_info").then(data=>{
         this.userId = data.id;
       });
-  }
+  
+      this.storage.get("access_token").then(data=>{
+        this.accessToken = data;
+      
+      this.service.rateWords(this.accessToken).subscribe(
+        resp=>{
+          console.log("rateWords resp ",resp);
+          var reteWordsResp = JSON.parse(JSON.stringify(resp));
+          console.log("length ",reteWordsResp.length,"...");
+          console.log(reteWordsResp[0].translation.value);
+          this.rateWordsWithId = [];
+          this.rateWordsWithId=reteWordsResp;
+            this.rateWord = reteWordsResp[0].translation.value;
+            this.rateCommentsFromApi();    
+          
+
+        },err=>{
+          console.log("ratewords err",err);
+        }
+      );
+    });
+    }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DoctorEvaluationPage');
     if(!navigator.onLine)
     this.presentToast(this.translate.instant("checkNetwork"));
   }
+
+  rateWordsFromApi(rateIndex){
+    this.service.rateWords(this.accessToken).subscribe(
+      resp=>{
+        console.log("rateWords resp ",resp);
+        var reteWordsResp = JSON.parse(JSON.stringify(resp));
+        console.log("length ",reteWordsResp.length);
+        
+        this.rateWordsWithId = [];
+        this.rateWordsWithId=reteWordsResp;
+
+          this.rateWord = reteWordsResp[rateIndex].translation.value;
+        
+        this.rateCommentsFromApi();
+
+      },err=>{
+        console.log("ratewords err",err);
+      }
+    );
+
+  }
+  rateCommentsFromApi(){
+    this.rateArray=[];
+    for(var h=0;h<this.rateWordsWithId.length;h++){
+      if(this.rateWord == this.rateWordsWithId[h].translation.value)
+      {
+
+        this.service.reteWordsComments(this.rateWordsWithId[h].id,this.accessToken).subscribe(
+          resp=>{
+            console.log("comments from api",resp);
+            console.log("res from rate ",resp);
+            var rateCriteriea = JSON.parse(JSON.stringify(resp));
+            console.log(rateCriteriea.length);
+            //this.rateArray=[];
+            for(var i=0;i<rateCriteriea.length;i++){
+              this.rateArray.push({value:rateCriteriea[i].translation.value,status:0});
+            }
+
+          },err=>{
+            console.log("comments err from api",err);
+          }
+        );
+
+      }
+    }
+    
+  }
   onModelChange(event){
     console.log("rate :",this.rate);
     if(this.rate == "5"){
       this.note=this.translate.instant("thanks");
-      this.rateWord=this.translate.instant("excellent");
+      
+      //this.rateWord=this.translate.instant("excellent");
+      this.rateWordsFromApi(4);
+
+/*
       this.service.rateCriteriea(5,this.accessToken).subscribe(
         resp=>{
           console.log("res from rate ",resp);
@@ -126,11 +200,14 @@ export class DoctorEvaluationPage {
         err=>{
           console.log("err from rate ",err);
         }
-      );
+      );*/
     }else if(this.rate == "4"){
-      this.rateWord=this.translate.instant("good");
+      //this.rateWord=this.translate.instant("good");
+      this.rateWordsFromApi(3);
+
       this.note = this.translate.instant("notes");
-      this.service.rateCriteriea(4,this.accessToken).subscribe(
+  
+  /*    this.service.rateCriteriea(4,this.accessToken).subscribe(
         resp=>{
           console.log("res from rate ",resp);
           var rateCriteriea = JSON.parse(JSON.stringify(resp));
@@ -145,11 +222,13 @@ export class DoctorEvaluationPage {
           console.log("err from rate ",err);
         }
       );
-
+*/
     }else if(this.rate == "3"){
-      this.rateWord=this.translate.instant("fine");
+      //this.rateWord=this.translate.instant("fine");
+      this.rateWordsFromApi(2);
+
       this.note = this.translate.instant("notes");
-      this.service.rateCriteriea(3,this.accessToken).subscribe(
+  /*    this.service.rateCriteriea(3,this.accessToken).subscribe(
         resp=>{
           console.log("res from rate ",resp);
           var rateCriteriea = JSON.parse(JSON.stringify(resp));
@@ -163,10 +242,12 @@ export class DoctorEvaluationPage {
           console.log("err from rate ",err);
         }
       );
-
+*/
     }else if(this.rate == "2"){
-      this.rateWord=this.translate.instant("bad");
+      //this.rateWord=this.translate.instant("bad");
+      this.rateWordsFromApi(1);
       this.note = this.translate.instant("notes");
+/*
       this.service.rateCriteriea(2,this.accessToken).subscribe(
         resp=>{
           console.log("res from rate ",resp);
@@ -180,11 +261,14 @@ export class DoctorEvaluationPage {
         err=>{
           console.log("err from rate ",err);
         }
-      );
+      );*/
 
     }else if(this.rate == "1"){
-      this.rateWord=this.translate.instant("vbad");
+      //this.rateWord=this.translate.instant("vbad");
+      this.rateWordsFromApi(0);
+
       this.note = this.translate.instant("notes");
+      /*
       this.service.rateCriteriea(1,this.accessToken).subscribe(
         resp=>{
           console.log("res from rate ",resp);
@@ -199,6 +283,7 @@ export class DoctorEvaluationPage {
           console.log("err from rate ",err);
         }
       );
+*/
 
     }
    
