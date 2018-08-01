@@ -33,7 +33,8 @@ export class SearchForDoctorPage {
   lat=31.037933; 
   // lat=55; 
   lng=31.381523;
-  doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
+  // doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
+  doctorsLoc=[];
   langDirection;
   tostClass ;
 
@@ -60,6 +61,31 @@ export class SearchForDoctorPage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForDoctorPage');
+
+    this.events.subscribe('location', (data) => {
+      console.log(" event location ",data);
+      
+      if(data.location){
+      for(var k=0;k<this.doctorsLoc.length;k++)
+      {   
+        if(this.doctorsLoc[k].id == data.id)
+        {
+          this.doctorsLoc[k].lat = data.location.split(',')[0];
+          this.doctorsLoc[k].lng = data.location.split(',')[1];
+          
+          
+        }
+              
+      }
+      }
+       this.initMapWithDoctorsLocation();
+  
+      
+  
+  
+      });
+
+      
     // this.events.subscribe('userlocationnnnn', (data) => {
     //   console.log("location changed event",data);
 
@@ -106,6 +132,7 @@ export class SearchForDoctorPage {
     //this.getUserLocation();
     //  this.getDoctorsLocation();
 
+  
 }
 test(){
   this.diagnostic.isGpsLocationEnabled().then(
@@ -198,12 +225,17 @@ getUserLocation(){
             this.doctorsLoc = [];
             for (let element in docsData) {
               console.log("element ",docsData[element]);
-              if(docsData[element].location != null)
-                this.doctorsLoc.push( docsData[element].location);
 
+              // if(docsData[element].location != null)
+              //   this.doctorsLoc.push( docsData[element].location);
+                this.doctorsLoc.push( docsData[element]);
+
+              this.helper.getDoctorlocation(docsData[element].id);
              }
              console.log("doctorsLoc",this.doctorsLoc);
-             this.initMapWithDoctorsLocation();
+            //  this.initMapWithDoctorsLocation();
+
+
             // docsData.forEach(element => {
               
             //   console.log("element from foreach ",element);
@@ -349,12 +381,15 @@ handleuserLocattion(){
         this.doctorsLoc = [];
         for (let element in docsData) {
           console.log("element ",docsData[element]);
-          if(docsData[element].location != null)
-            this.doctorsLoc.push( docsData[element].location);
+          // if(docsData[element].location != null)
+          //   this.doctorsLoc.push( docsData[element].location);
+          this.doctorsLoc.push( docsData[element]);
+
+            this.helper.getDoctorlocation(docsData[element].id);
 
          }
          console.log("doctorsLoc",this.doctorsLoc);
-         this.initMapWithDoctorsLocation();
+        //  this.initMapWithDoctorsLocation();
         
 
       },err=>{

@@ -285,14 +285,15 @@ this.events.subscribe('location', (data) => {
           }
           for(i=0;i<this.doctors.length;i++)
           {
+            this.doctors[i].distanceVal =10000;
+            this.doctors[i].offline=true;
             this.helper.getDoctorStatus(this.doctors[i].id);
             this.helper.statusChanged(this.doctors[i].id);
             this.helper.getDoctorlocation(this.doctors[i].id);
             this.helper.trackDoctor(this.doctors[i].id);
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
-            this.doctors[i].distanceVal =10000;
-            this.doctors[i].offline=true;
+            
 
             // this.doctors[i].availability="0";
 
@@ -434,14 +435,15 @@ this.events.subscribe('location', (data) => {
           }
           for(i=0;i<this.doctors.length;i++)
           {
+            this.doctors[i].distanceVal =10000;
+            this.doctors[i].offline=true;
             this.helper.getDoctorStatus(this.doctors[i].id);
             this.helper.statusChanged(this.doctors[i].id);
             this.helper.getDoctorlocation(this.doctors[i].id);
             this.helper.trackDoctor(this.doctors[i].id);
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
-            this.doctors[i].distanceVal =10000;
-            this.doctors[i].offline=true;
+            
             
             // this.doctors[i].availability="0";
 

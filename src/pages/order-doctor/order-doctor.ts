@@ -89,6 +89,7 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
+                console.log("offline false ",this.DoctorsArray[k]);
                 console.log("call sort function from status changed");
                 this.sortDoctors();
 
@@ -119,6 +120,7 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
+                console.log("offline false ",this.DoctorsArray[k]);
                 console.log("call sort function from status");
                 this.sortDoctors();
 
@@ -195,6 +197,7 @@ export class OrderDoctorPage {
             this.DoctorsArray[k].color="green";
             this.DoctorsArray[k].offline=false;
             console.log("doctor :(",this.DoctorsArray[k]);
+            console.log("offline false ",this.DoctorsArray[k]);
             this.helper.getDoctorStatus(data.id);
             console.log("call sort function from get busy green");
                 this.sortDoctors();
@@ -229,7 +232,7 @@ export class OrderDoctorPage {
           {
             this.DoctorsArray[k].color="green";
             this.DoctorsArray[k].offline=false;
-            
+            console.log("offline false ",this.DoctorsArray[k]);
             this.helper.getDoctorStatus(data.id);
             console.log("call sort function from get busy changed");
                 this.sortDoctors();
@@ -347,14 +350,15 @@ export class OrderDoctorPage {
             
             //this.helper.userId=this.DoctorsArray[i].id;
             // this.helper.intializeFirebase(this.DoctorsArray[i].id);
+            this.DoctorsArray[i].distanceVal = 10000;
+            this.DoctorsArray[i].offline = true;
             this.helper.getDoctorStatus(this.DoctorsArray[i].id);
             this.helper.statusChanged(this.DoctorsArray[i].id);
             this.helper.getDoctorlocation(this.DoctorsArray[i].id);
             this.helper.trackDoctor(this.DoctorsArray[i].id);
             this.helper.getBusyDoctor(this.DoctorsArray[i].id);
             this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
-            this.DoctorsArray[i].distanceVal = 10000;
-            this.DoctorsArray[i].offline = true;
+            
 
             
            

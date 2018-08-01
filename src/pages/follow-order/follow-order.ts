@@ -82,6 +82,7 @@ export class FollowOrderPage {
             this.doctorName = tempData.name;
             this.doctorRate = tempData.rate;
             this.doctorSpecialization = tempData.speciality; 
+            this.OrderCost = tempData.extraInfo.price;
             
             //this.doctorLocation = tempData.location;
            
@@ -97,6 +98,7 @@ export class FollowOrderPage {
         console.log(" event location ",data);
         if(data.location){
           this.doctorLocation = data.location;
+          this.initMapWithDoctorLocation(this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]);
         }
         });
         this.events.subscribe('locationChanged', (data) => {
@@ -323,6 +325,56 @@ export class FollowOrderPage {
       
     });
 }
+initMapWithDoctorLocation(xlat,xlon){
+
+  console.log("init map with doctor location");
+  let latlng2 = new google.maps.LatLng(xlat,xlon);
+var mapOptions={
+ center:latlng2,
+  zoom:15,
+  mapTypeId:google.maps.MapTypeId.ROADMAP,
+  // controls: {
+  //   myLocationButton: true         
+  // }, 
+  // MyLocationEnabled: true,
+  // setMyLocationButtonEnabled: true,
+};
+this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+let marker = new google.maps.Marker({
+  map: this.map,
+  animation: google.maps.Animation.DROP,
+  position: latlng2,
+  icon: { 
+    url : 'assets/icon/location.png',
+    size: new google.maps.Size(71, 71),
+    scaledSize: new google.maps.Size(25, 25) 
+  }
+  ,
+  label:{
+    text:this.doctorName,
+    color:"black",
+    
+  }
+ 
+});
+
+this.service.getDurationAndDistance(this.lat,this.lng,xlat,xlon).subscribe(
+  resp=>{
+    console.log("resp from getDurationAndDistance -> doctor map: ", resp);
+    var respObj = JSON.parse(JSON.stringify(resp));
+    
+    console.log("duration",respObj.routes[0].legs[0].duration.text);
+    this.duration = respObj.routes[0].legs[0].duration.text;
+    console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+  },
+  err=>{
+    console.log("err from getDurationAndDistance: ",err);
+  }
+);
+
+
+}
+
 initMapwithUserLocation(){
 
   let latlng = new google.maps.LatLng(this.lat,this.lng);

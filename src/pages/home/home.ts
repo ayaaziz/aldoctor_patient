@@ -34,6 +34,8 @@ export class HomePage {
     // this.helper.createOrder(3);
     //this.helper.orderStatusChanged(313);
     //this.helper.updateCancelOrderStatus(313);
+    // for(var i=2;i<60;i++)
+    //   this.helper.removeOrder(i);
 
     console.log("date", new Date().toISOString().split('T')[0]);
 var date1 = new Date('2018-06-01');
@@ -193,7 +195,7 @@ this.storage.get("rate_doctor").then(data=>{
   this.navCtrl.setRoot('follow-order',
   {data:
     {"orderId":201, 
-      "doctorId":114
+      "doctorId":3
     }
   });
 
