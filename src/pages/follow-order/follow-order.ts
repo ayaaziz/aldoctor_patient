@@ -318,9 +318,13 @@ export class FollowOrderPage {
       
     }).catch((error) => {
       console.log('Error getting location', error);
-      
+      //this.initMap();
+
+      this.lat = this.helper.lat;
+      this.lng = this.helper.lon;
+      this.initMapwithUserLocation();
+
       //this.getUserLocation();
-      this.initMap();
       //this.test();
       
     });

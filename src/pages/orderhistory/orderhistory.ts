@@ -28,7 +28,7 @@ export class OrderhistoryPage {
 
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-"custom_date":"","date_id":""};
+"custom_date":"","date_id":"","statusTxt":""};
 
   tostClass ;
   refresher;
@@ -81,7 +81,7 @@ export class OrderhistoryPage {
 
           for(var j=0;j<ordersData.length;j++){
             
-            if(ordersData[j].status == "10") //canceled by doctor 0
+            if(ordersData[j].status == "10" || ordersData[j].status == "3") //canceled by doctor 0
             {  
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
@@ -89,11 +89,45 @@ export class OrderhistoryPage {
             else if(ordersData[j].status == "5") //finished
               ordersData[j].color="grey";
             
-            if(ordersData[j].reorder == "1")
+            if(ordersData[j].is_reorder == "1")
               ordersData[j].color = "green";
             
             if(ordersData[j].rated == "0")
               ordersData[j].color = "yellow";
+
+            if(ordersData[j].status == "0" || ordersData[j].status == "4")
+            {
+              ordersData[j].statusTxt = "الغاء" ;
+              ordersData[j].color = "red";
+              ordersData[j].rated = "1";
+            }
+            else if (ordersData[j].status == "10")
+            {
+              ordersData[j].statusTxt ="رفض" ;
+              ordersData[j].color = "red";
+              ordersData[j].rated = "1";
+            }
+            else if (ordersData[j].status == "3")
+            {
+              ordersData[j].statusTxt ="لا يوجد استجابه" ;
+              ordersData[j].color = "red";
+              ordersData[j].rated = "1";
+            }
+            else if (ordersData[j].status == "5" || ordersData[j].status == "6" )
+            { 
+              ordersData[j].statusTxt="تم النتفيذ";
+              ordersData[j].color = "grey";
+            }
+            else{
+              ordersData[j].statusTxt = "قيد التنفيذ";
+              ordersData[j].color = "green";
+            }
+
+              
+            // if(ordersData[j].reorder == "1")
+            //   ordersData[j].color = "green";
+
+            
 
             var serviceProfile = ordersData[j].theServiceProfile;
             if(serviceProfile){
@@ -104,11 +138,14 @@ export class OrderhistoryPage {
               this.orderobject.specialization = serviceProfile.speciality;
               this.orderobject.doctor_id = serviceProfile.id;
               this.orderobject.color = ordersData[j].color;
-              this.orderobject.reorder = ordersData[j].reorder;
+              // this.orderobject.reorder = ordersData[j].reorder;
+              this.orderobject.reorder = ordersData[j].is_reorder;
               this.orderobject.rated = ordersData[j].rated;
               this.orderobject.orderId = ordersData[j].id;
               this.orderobject.order_status = ordersData[j].status;
-              if(ordersData[j].reorder == "1")
+              this.orderobject.statusTxt = ordersData[j].statusTxt;
+              // if(ordersData[j].reorder == "1")
+              if(ordersData[j].is_reorder == "1")
               {
                 this.orderobject.custom_date = ordersData[j].custom_date;
                 this.orderobject.date_id = ordersData[j].date_id;
@@ -122,7 +159,7 @@ export class OrderhistoryPage {
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":""};
+                  "custom_date":"","date_id":"","statusTxt":""};
           
                     
             }

@@ -445,6 +445,9 @@ this.events.subscribe('location', (data) => {
       {
         id = this.SpecializationArray[i].id;
         break;
+      }else{
+        id="";
+        
       }
     }
     this.storage.get("access_token").then(data=>{

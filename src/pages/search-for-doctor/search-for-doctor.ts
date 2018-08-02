@@ -31,12 +31,13 @@ export class SearchForDoctorPage {
   @ViewChild('map') mapElement;
   map: any;
   lat=31.037933; 
-  // lat=55; 
   lng=31.381523;
+  
   // doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
   doctorsLoc=[];
   langDirection;
   tostClass ;
+  locFlag= 0;
 
   constructor(public service:LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -142,7 +143,19 @@ test(){
       if(a)
       {
        //this.presentToast("location on");
-      this.getUserLocation();
+      if(this.helper.detectLocation == false)
+       {
+          this.getUserLocation();
+       }
+      else
+        {
+          this.lat = this.helper.lat;
+          this.lng = this.helper.lon;
+          this.locFlag = 1;
+          this.handleuserLocattion();
+        }
+
+
       }
       else
       {
@@ -212,7 +225,9 @@ getUserLocation(){
       this.helper.lon = this.lng;
       this.helper.lat = this.lat;
 
-      
+      this.locFlag = 1;
+      this.helper.detectLocation = true;
+      console.log("loc flag from get location",this.locFlag,"detectLocation ",this.helper.detectLocation);
       
       this.initMapwithUserLocations();
       this.storage.get("access_token").then(data=>{
@@ -261,6 +276,7 @@ getUserLocation(){
       console.log('Error getting location', error);
       this.presentToast(this.translate.instant("AccessLocationFailed"));
       // this.presentToast(this.translate.instant("chooseYourLocation"));
+     
       this.allowUserToChooseHisLocation();
       
       //this.getUserLocation();
@@ -344,6 +360,11 @@ allowUserToChooseHisLocation(){
     this.lng = ev.latLng.lng();
     this.helper.lon = this.lng;
     this.helper.lat = this.lat;
+  
+    this.locFlag = 1;
+    this.helper.detectLocation = true;
+    console.log("loc flag form err ",this.locFlag , "flag from helper",this.helper.detectLocation);
+
     this.handleuserLocattion();
 
     console.log("lat",this.lat);
@@ -503,11 +524,21 @@ initMapWithDoctorsLocation(){
 
  
   searchBySpecificDoctor(){
-    this.navCtrl.push('specific-doctor');
 
+    console.log("loc flag ",this.locFlag);
+    
+    if(this.locFlag == 1)
+      this.navCtrl.push('specific-doctor');
+    else
+      this.presentToast(this.translate.instant("chooseYourLocation"));
   }
   searchBySpecializations(){
-    this.navCtrl.push('specializations-page');
+    console.log("loc flag ",this.locFlag);
+
+    if(this.locFlag == 1)
+      this.navCtrl.push('specializations-page');
+    else
+      this.presentToast(this.translate.instant("chooseYourLocation"));
     //this.navCtrl.push('order-doctor');
   }
 

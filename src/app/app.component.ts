@@ -116,30 +116,59 @@ export class MyApp {
      
       } else{
         console.log("else verification_page from storage",val);
-        this.rootPage = TabsPage;
+       // this.rootPage = TabsPage;
+       storage.get("user_info").then((val) => {
+        if (val){
+          console.log(" if get user info from storage",val);
+          this.image=val.profile_pic;
+          this.name=val.name;
+          this.rootPage = TabsPage;
+          
+         
+        } else{
+          console.log("else get user info from storage",val);
+          this.rootPage = LoginPage;
+         
+        }
+      });
+
         
       }
     }).catch(
       (err)=>{
         console.log("err from verification_page stoage",err);
-        this.rootPage = TabsPage;
+       // this.rootPage = TabsPage;
+       storage.get("user_info").then((val) => {
+        if (val){
+          console.log(" if get user info from storage",val);
+          this.image=val.profile_pic;
+          this.name=val.name;
+          this.rootPage = TabsPage;
+          
+         
+        } else{
+          console.log("else get user info from storage",val);
+          this.rootPage = LoginPage;
+         
+        }
+      });
       }
     );
 
-    storage.get("user_info").then((val) => {
-      if (val){
-        console.log(" if get user info from storage",val);
-        this.image=val.profile_pic;
-        this.name=val.name;
-        this.rootPage = TabsPage;
+    // storage.get("user_info").then((val) => {
+    //   if (val){
+    //     console.log(" if get user info from storage",val);
+    //     this.image=val.profile_pic;
+    //     this.name=val.name;
+    //     this.rootPage = TabsPage;
         
-        // this.rootPage = LoginPage;
-      } else{
-        console.log("else get user info from storage",val);
-        this.rootPage = LoginPage;
-        //this.rootPage = TabsPage;
-      }
-    });
+    //     // this.rootPage = LoginPage;
+    //   } else{
+    //     console.log("else get user info from storage",val);
+    //     this.rootPage = LoginPage;
+    //     //this.rootPage = TabsPage;
+    //   }
+    // });
 
     platform.ready().then(() => {
 

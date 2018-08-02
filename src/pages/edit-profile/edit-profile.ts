@@ -28,8 +28,8 @@ export class EditProfilePage {
   birthdate;
   patientRegisterForm;
   gender;
-  city;
-  country;
+  city = "xx" ;
+  country = "xx";
   submitAttempt = false;
   langDirection;
   cancelTxt;
@@ -47,6 +47,7 @@ export class EditProfilePage {
   regAccessToken;
   //phoneErrMsg="";
   tostClass;
+  
 
   constructor(public toastCtrl: ToastController,
     public storage: Storage, public translate: TranslateService,

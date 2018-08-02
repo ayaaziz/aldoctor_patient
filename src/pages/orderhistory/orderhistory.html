@@ -60,12 +60,12 @@
     
 
 <ion-row style="margin:0px;width:100%;padding-bottom:7px; border-bottom:2px solid rgb(205, 219, 205);">
-  <ion-col col-5 col-sm-3 col-md-3 >
+  <ion-col col-3 col-sm-3 col-md-3 >
       <!-- fixed class="customItem3" -->
     <ion-label style="margin:0px;text-align:right;">{{"From" | translate}}</ion-label>
   </ion-col>
   
-  <ion-col col-3 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">
+  <ion-col col-4 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">
     <ion-datetime displayFormat="MM/DD/YYYY" style="height:35px;background-color: #e8f1ed;text-align:right"
       [(ngModel)]="from" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateFromChanged($event)"></ion-datetime> 
       <div *ngIf="langDirection != 'rtl'" style="text-align:right">
@@ -84,7 +84,7 @@
     <ion-label style="margin:0px;text-align:right;padding-right:2px">{{"To" | translate}}</ion-label>
   </ion-col>
 
-  <ion-col col-3 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">    
+  <ion-col col-4 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">    
     <ion-datetime style="background-color: #e8f1ed;height:35px;text-align:right" displayFormat="MM/DD/YYYY"
         [(ngModel)]="to" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateToChanged($event)" ></ion-datetime>
         
@@ -122,13 +122,13 @@
           </ion-row>
       
 
-          
-    <ion-card *ngFor="let item of data" style="height:110px;border-width: 3px;" [style.border-color]="item.color"   (click)="followOrder(item)" >          
-      <ion-row style="width: calc(100% - 5px);margin: 2px;height:110px;">
+          <!-- [style.border-color]="item.color" height:110px; -->
+    <ion-card *ngFor="let item of data" style="height:130px;border-width: 3px;"    (click)="followOrder(item)" >          
+      <ion-row style="width: calc(100% - 5px);margin: 2px;height:130px;">
           <!-- fixed class="customItem3" -->
-        <ion-col  col-2  col-sm-2  style="margin-top:10px;padding-top:5px;text-align: center;" >
-          <img [src]="item.profile_pic" style="border-radius: 50%;width:50px;height:50px" >
-          <h3>{{item.orderId}} </h3>
+        <ion-col  col-2  col-sm-2  style="margin-top:10px;padding-top:5px;" >
+          <img [src]="item.profile_pic" style="border-radius: 50%;width:50px;height:50px;margin-bottom:10px;display:block" >
+          <h4 style="text-align:right;margin-right:10px">#{{item.orderId}} </h4>
         </ion-col>
         
         <ion-col  col-6 col-sm-8>
@@ -147,10 +147,16 @@
                   starIconName="star" 
                   nullable="false" 
                   ></rating>
+                  <div style="width:15px;height:15px;border-radius: 50%;display:inline-block;padding-top:0px;margin-top:5px" 
+                    [style.background-color]="item.color">  </div>
+                  <h3 style="padding-top:0px;margin-top:0px;font-size:15px;">{{item.statusTxt}}</h3>
+                  <!-- <p style="display:inline"></p> -->
+                 
           </ion-item>
+         
         </ion-col>
         <!-- redo , sync , repeat , fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->
-        <ion-col col-4 col-sm-2 style="margin-top:10px;" >
+        <ion-col col-4 col-sm-2 style="margin-top:15px;" >
          
           <!-- <div style="width:20px;height:20px;border-radius: 50%;" 
           [style.background-color]="item.color">  </div>
@@ -160,8 +166,9 @@
         <div style="text-align:right">
           <ion-icon *ngIf="item.rated == '0'" name="star" style="color:#016a38;font-size:28px;" (click)="rateagain(item)"></ion-icon>
         </div> -->
-        <button *ngIf="item.rated == '0'" class="btn btn-primary " style="width:90px" (click)="rateagain(item)" >{{"rateOrder" | translate}}</button>
-        <button *ngIf="item.reorder == '1'" class="btn btn-primary " style="margin-top:5px;width:90px" (click)="reorder(item)">{{"reorder" | translate}}</button>
+        <button *ngIf="item.rated == '0'" class="btn btn-primary " style="width:90px;margin-bottom:15px;" (click)="rateagain(item)" >{{"rateOrder" | translate}}</button>
+        <button *ngIf="item.reorder == '1'" class="btn btn-primary " style="width:90px" (click)="reorder(item)">{{"reorder" | translate}}</button>
+        <!-- <button *ngIf="item.is_reorder == '1'" class="btn btn-primary " style="margin-top:5px;width:90px" (click)="reorder(item)">{{"reorder" | translate}}</button> -->
         </ion-col>
       </ion-row>
       

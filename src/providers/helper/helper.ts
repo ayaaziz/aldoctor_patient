@@ -26,6 +26,10 @@ export class HelperProvider {
   public accessToken;
   public lon=31.381523;
   public lat=31.037933;
+  public detectLocation = false;
+  // public lon;
+  // public lat;
+
   //google maps api key
    public key = "AIzaSyB73L1RyzXHkT9fZMlnitShWfEkF3bzrVk";
   //public key = "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo";

@@ -171,7 +171,7 @@
       "checkAtleastone":"الرجاء اختيار طبيب واحد على الاقل",
       "ProvidedServices":"الخدمات المقدمة",
       "To":"الى",
-      "From":"العرض فى الفترة من",
+      "From":" الفترة من",
       "cancelOrder":"الغاء الطلب",
       "followOrder":"متابعة الطلب",
       "changePass":"تغيير كلمه المرور",
@@ -181,7 +181,7 @@
       "ordersent":"تم ارسال طلبك",
       "orderCancled":"تم الغاء طلبك",
       "accessLocation":"تحديد موقعك",
-      "msgAccessLocation":"هل تسمح لهذا التطبيق بتحديد إلى موقعك؟",
+      "msgAccessLocation":"هل تسمح لهذا التطبيق بتحديد موقعك؟",
       "agree":"موافق",
       "disagree":"الغاء",
       "children":"اطفال",
@@ -248,7 +248,7 @@
       "checkNetwork":"تأكد من اتصالك بالانترنت",
       "AccessLocationFailed":"غير قادر على تحديد موقعك,الرجاء تحديد موقعك على الخريطه",
       "noNOtification":"لا يوجد اشعارات",
-      "chooseYourLocation":"حدد موقعك على الخريطة",
+      "chooseYourLocation":" انتظر لحين تحديد موقعك ",
       "invalidData":"رقم الهاتف أو كلمه المرور غير صحيحه"
 
 }
