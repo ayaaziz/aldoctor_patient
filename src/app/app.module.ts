@@ -145,6 +145,9 @@ export function createTranslateLoader(http: HttpClient) {
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    // IonicModule.forRoot(MyApp, {
+    //   tabsHideOnSubPages: true
+    // }),
     //IonicStorageModule.forRoot(),
     IonicStorageModule.forRoot({ name: '__mydb', driverOrder: ['sqlite', 'websql', 'indexeddb'] }) ,
     HttpModule,

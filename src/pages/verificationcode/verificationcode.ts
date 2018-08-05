@@ -24,6 +24,8 @@ export class VerificationcodePage {
   langDirection;
   tostClass ;
   from;
+  codeErrMsg;
+
 
   constructor(public storage: Storage,public translate: TranslateService, 
     public loginservice:LoginserviceProvider,
@@ -43,7 +45,8 @@ export class VerificationcodePage {
      
 
     this.activationForm = formBuilder.group({
-      code: ['', Validators.required]
+      // code: ['', Validators.required]
+      code: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{5}")])]
     });
     
     console.log("activation code lang dir :",this.langDirection);
@@ -59,6 +62,19 @@ export class VerificationcodePage {
     //   this.submitAttempt=true;
     // else{}
     this.submitAttempt = true;
+    if( !this.activationForm.valid){
+
+      if(this.activationForm.controls["code"].errors){
+        if(this.activationForm.controls["code"].errors['required'])
+        {
+          this.codeErrMsg = this.translate.instant("enterCode");
+        }else if(this.activationForm.controls["code"].errors['pattern']) {
+          this.codeErrMsg = this.translate.instant("codeErr");
+        }else{
+          console.log("phone errors:",this.activationForm.controls["code"].errors);
+        }
+      }
+    }
     if(this.activationForm.valid){
       if(navigator.onLine){
         this.storage.get("access_token").then(data=>{

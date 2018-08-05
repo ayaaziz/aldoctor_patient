@@ -137,10 +137,10 @@ type="password" [dir]="langDirection"></ion-input>
 <p> {{"passwordNotConfirmed" | translate}} </p>
 </ion-item>
 
-    <ion-item>
+    <ion-item [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt">
     <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;" ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Governorate" | translate}}</ion-label>
     <ion-label floating *ngIf="langDirection != 'rtl'"  ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Governorate" | translate}}</ion-label>
-    <ion-select [dir]="langDirection" [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
+    <ion-select [dir]="langDirection"  formControlName="country" interface="popover"
     [(ngModel)]="country" >
     <ion-option  value="{{item.name}}" *ngFor="let item of countries" (ionSelect)='countryChecked()' >{{item.name}}</ion-option>
     <!-- <ion-option value="alex">{{"Alex" | translate}}</ion-option>  -->
@@ -152,10 +152,10 @@ type="password" [dir]="langDirection"></ion-input>
 
 
 
-    <ion-item >
+    <ion-item   [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" >
     <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
     <ion-label floating *ngIf="langDirection != 'rtl'" ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
-    <ion-select  [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" formControlName="city" interface="popover"
+    <ion-select formControlName="city" interface="popover"
     [(ngModel)]="city">
     <ion-option  value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
     <!-- <ion-option value="city2">{{"any city" | translate}}</ion-option>  -->
@@ -177,18 +177,18 @@ type="password" [dir]="langDirection"></ion-input>
             <p> {{"enterAddress" | translate}} </p>
             </ion-item>
 
-            <ion-item>
+            <ion-item [class.invalid]="!patientRegisterForm.controls.birthdate.valid && submitAttempt" >
                 <ion-label floating style="transform-origin: right top;"><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
                 
-                <ion-datetime [class.invalid]="!patientRegisterForm.controls.birthdate.valid && submitAttempt" formControlName="birthdate" displayFormat="MM/DD/YYYY"
+                <ion-datetime  formControlName="birthdate" displayFormat="MM/DD/YYYY"
                         [(ngModel)]="birthdate" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}"></ion-datetime>
                 </ion-item>
                 <ion-item *ngIf="!patientRegisterForm.controls.birthdate.valid && submitAttempt" no-lines>
                 <p> {{"enterDOB" | translate}} </p>
                 </ion-item>
-<ion-item>
+<ion-item [class.invalid]="!patientRegisterForm.controls.gender.valid && submitAttempt">
 <ion-label floating style="transform-origin: right top;"><img src="assets/icon/gender.png" style="margin: 0 2px;" height="25" width="25">{{"Gender" | translate}}</ion-label>
-<ion-select [class.invalid]="!patientRegisterForm.controls.gender.valid && submitAttempt" formControlName="gender" interface="popover"
+<ion-select  formControlName="gender" interface="popover"
 [(ngModel)]="gender">
 <ion-option value="1">{{"male" | translate}}</ion-option>
 <ion-option value="0">{{"female" | translate}}</ion-option> 

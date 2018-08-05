@@ -5,6 +5,7 @@ import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
+import { debugOutputAstAsTypeScript } from '@angular/compiler';
 
 
 @IonicPage({
@@ -28,8 +29,8 @@ export class EditProfilePage {
   birthdate;
   patientRegisterForm;
   gender;
-  city = "xx" ;
-  country = "xx";
+  city  ;
+  country ;
   submitAttempt = false;
   langDirection;
   cancelTxt;
@@ -115,9 +116,13 @@ addArr;
         
          console.log("add..",data.add);
         
-        this.city = this.addArr[1];
-        this.country = this.addArr[2];
+        //  debugger;
+
         
+        this.country = this.addArr[2];
+        this.city = this.addArr[1];
+        this.cities.push(this.city);
+      //  debugger; 
         console.log("city: ",this.city,"country: ",this.country);
 
         this.address = this.addArr[0];
@@ -153,7 +158,7 @@ addArr;
 
   countryChecked(){
     this.cities=[];
-    console.log("country: ",this.country);
+    console.log("country: ",this.country, "city ",this.city);
     for(var i=0;i<this.countries.length;i++)
     {
       if(this.countries[i].name == this.country)

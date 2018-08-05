@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController,App} from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,7 +32,8 @@ export class ChangePhonePage {
     public loginservice:LoginserviceProvider, public helper: HelperProvider,
     public translate: TranslateService,public formBuilder: FormBuilder,
     public toastCtrl: ToastController,public storage: Storage,
-    public navCtrl: NavController, public navParams: NavParams) {
+    public navCtrl: NavController, public navParams: NavParams,
+  public app:App) {
 
 
     this.langDirection = this.helper.lang_direction;
@@ -75,6 +76,15 @@ export class ChangePhonePage {
     // this.submitAttempt = true;
     if(this.activationForm.valid){
       if(navigator.onLine){
+        this.storage.get("user_info").then((data) => {
+        
+        console.log("change phone from storage: ",data, "phone", this.phone);
+        
+        if('2'+this.phone == data.phone ) 
+          this.presentToast(this.translate.instant("phoneAlreadyExist"));
+        else
+        {
+
         this.storage.get("access_token").then(data=>{
           this.accessToken = data;
         this.loginservice.changePhoneNumber(this.phone,this.accessToken).timeout(10000).subscribe(
@@ -82,8 +92,8 @@ export class ChangePhonePage {
               console.log("resp from changephone",resp);
               if(JSON.parse(JSON.stringify(resp)).success )
               {
-                
-                this.navCtrl.setRoot('verification-code',{data:1});
+                this.app.getRootNav().setRoot('verification-code',{data:1});
+                // this.navCtrl.setRoot('verification-code',{data:1});
               
               }else
                 this.presentToast(this.translate.instant("invalidPhone"));
@@ -95,6 +105,11 @@ export class ChangePhonePage {
         );
         
       });
+
+        }
+      });
+
+
        
 
        

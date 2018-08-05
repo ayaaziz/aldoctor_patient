@@ -94,8 +94,12 @@
             
         <ion-item *ngFor="let item of data">
      
-          <h2>{{item}}</h2> <!-- item.data.txt -->
-          <!-- <p>{{item.txt}}</p> -->
+            <ion-avatar item-start>
+                <img [src]="item.data.paitentId.profile_pic">
+              </ion-avatar>
+
+          <h5>{{item.data.text}}</h5> <!-- item.data.txt -->
+          <p>{{item.notificationDate}}</p>
         </ion-item>
 
         <ion-infinite-scroll   (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">

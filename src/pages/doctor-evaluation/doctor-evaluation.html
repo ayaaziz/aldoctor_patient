@@ -78,9 +78,9 @@
 <p style="text-align:center">مقترحات لتحسين الخدمه </p>
     <ion-row  style="text-align:center;" >
        
-       <ion-col  col-6 *ngFor="let item of rateArray" >
+       <ion-col  col-6 *ngFor="let item of rateArray"  style="display: table;">
            <!-- <ion-label class="unselected"  (click)="rateClicked($event,item)">{{item.value}}</ion-label> -->
-           <p class="unselected"  (click)="rateClicked($event,item)" style="height:45px;">{{item.value}}</p>
+           <p class="unselected"  (click)="rateClicked($event,item)" style="height:45px;display: table-cell;vertical-align: middle; border-radius: 8px;">{{item.value}}</p>
         </ion-col>
        <!-- <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey" >text</p></ion-col>
        <ion-col  col-2 (click)="rateClicked($event)"><p style="border:2px solid lightgrey">text</p></ion-col>

@@ -248,7 +248,10 @@
       "AccessLocationFailed":"Can't get your location,Specify your location on map",
       "noNOtification":"No notifications",
       "chooseYourLocation":"Specify your location on map",
-      "invalidData":"Invalid data"
+      "invalidData":"Invalid data",
+      "passNotCorrect":"Current password isn't correct",
+      "phoneAlreadyExist":"Phone already Exist",
+      "codeErr":"Activation code must be 5 numbers"
       
 
       

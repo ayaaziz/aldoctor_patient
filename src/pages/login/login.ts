@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
+  
 })
 export class LoginPage {
 

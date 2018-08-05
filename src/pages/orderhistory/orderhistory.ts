@@ -429,7 +429,20 @@ export class OrderhistoryPage {
     this.data=[];
     console.log("to: ",this.to);
     console.log("from: ",this.from);
-    this.respFromFilterOrders();
+    // console.log("date", new Date().toISOString().split('T')[0]);
+    var date1 = new Date(this.to);
+    var date2 = new Date(this.from);
+    
+    if(date2 > date1)
+      this.presentToast(this.translate.instant("fromGreaterThanTo"));
+    else
+      this.respFromFilterOrders();
+
+    // var timeDiff = Math.abs(date1.getTime() - date2.getTime());
+    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    // console.log("order history diff ",diffDays);
+
+    
    
   }
   
@@ -439,7 +452,19 @@ export class OrderhistoryPage {
     console.log("current date",currentDate);
     console.log("to: ",this.to);
     console.log("from: ",this.from);
-    this.respFromFilterOrders();
+    
+    var date1 = new Date(this.to);
+    var date2 = new Date(this.from);
+    
+    if(date2 > date1)
+      this.presentToast(this.translate.instant("fromGreaterThanTo"));
+    else
+      this.respFromFilterOrders();
+
+
+    //this.respFromFilterOrders();
+    
+    
     // this.service.filterOrder(this.from,this.to,this.filterpage,this.accessToken).subscribe(
     //   resp=>{
     //     console.log("resp to filter resp",resp);

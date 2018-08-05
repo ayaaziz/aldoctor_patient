@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams , ToastController,App} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordValidator,matchOtherValidator } from '../../validators/passwordValidator';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -31,11 +31,13 @@ confirmTxt;
 accessToken;
 langDirection;
 passErrMsg="";
+validPass=false;
 
   constructor(public translate:TranslateService,public helper: HelperProvider,
     public toastCtrl: ToastController, public storage: Storage, 
     public service: LoginserviceProvider,public formBuilder: FormBuilder,
-     public navCtrl: NavController, public navParams: NavParams) {
+     public navCtrl: NavController, public navParams: NavParams,
+    public app : App) {
     this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);
 
@@ -53,6 +55,10 @@ passErrMsg="";
       confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid, matchOtherValidator('newPass')])],
 
     }); 
+  
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+    });
   }
 
   ionViewDidLoad() {
@@ -79,6 +85,9 @@ passErrMsg="";
 
     }
   else{
+
+    if(this.validPass == true)
+    {
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
       if (navigator.onLine) {
@@ -86,7 +95,9 @@ passErrMsg="";
         resp => {
           
           console.log("cp resp: ",resp);
-          this.navCtrl.setRoot(LoginPage);
+          // this.navCtrl.setRoot(LoginPage);
+          this.app.getRootNav().setRoot(LoginPage);
+          
         },
         err=>{
           this.presentToast(this.translate.instant("serverError"));
@@ -96,6 +107,9 @@ passErrMsg="";
       this.presentToast(this.translate.instant("checkNetwork"));
     }
     })
+  }else{
+    this.presentToast(this.translate.instant("passNotCorrect"));
+  }
   }
 
   }
@@ -116,6 +130,14 @@ passErrMsg="";
     this.service.checkUserPass(this.currentPass,this.accessToken).subscribe(
       resp=>{
         console.log("resp from check pass",resp);
+        if(JSON.parse(JSON.stringify(resp)).success == false)
+        {
+          this.presentToast(this.translate.instant("passNotCorrect"));
+          this.validPass = false;
+        }else{
+          this.validPass = true;
+        }
+        
       },
       err=>{
         console.log("err from check pass",err);

@@ -127,7 +127,9 @@ export class NotificationPage {
         
         for(var i=0;i<notificationsData.length;i++){
           console.log("text ",notificationsData[i].data.text);
-          this.data.push(notificationsData[i].data.text);
+          // this.data.push(notificationsData[i].data.text);
+          notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
+          this.data.push(notificationsData[i]);
           
         }
         
@@ -168,7 +170,9 @@ export class NotificationPage {
         // this.data = [];
         for(var i=0;i<notificationsData.length;i++){
           console.log("text ",notificationsData[i].data.text);
-          this.data.push(notificationsData[i].data.text);
+          // this.data.push(notificationsData[i].data.text);
+          notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
+          this.data.push(notificationsData[i]);
           
         }
         

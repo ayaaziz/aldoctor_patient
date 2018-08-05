@@ -63,7 +63,8 @@
           type="text" [dir]="langDirection"></ion-input>
           </ion-item>
           <ion-item *ngIf="!activationForm.controls.code.valid && submitAttempt" no-lines>
-          <p> {{"enterCode" | translate}} </p>
+          <!-- <p> {{"enterCode" | translate}} </p> -->
+          <p> {{codeErrMsg }}</p>
           </ion-item>
           <small *ngIf="langDirection != 'rtl'"  (click)="resendActivationCode()" id="passwordHelpBlock " style="font-family: 'Cairo';font-size:16px" class="form-text text-muted">
          {{"resendCode" | translate}}            

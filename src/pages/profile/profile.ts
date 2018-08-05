@@ -80,7 +80,7 @@ export class ProfilePage {
         console.log("profile from storage: ",data);
         //this.presentToast("all profile from storage: "+data);
         this.name = data.name;
-        this.phone = data.phone;
+        this.phone = data.phone+"+";
         this.dob = data.dob;
         this.address = data.add;
         if(data.profile_pic)
@@ -110,7 +110,7 @@ export class ProfilePage {
                   });
                   this.name = this.newuserData.name;
                   this.dob =this.newuserData.user_info.birth_date;
-                  this.phone = this.newuserData.phone;
+                  this.phone = this.newuserData.phone + "+";
                   this.address =this.newuserData.extraInfo.address;
                  this.image = this.newuserData.profile_pic;
 
