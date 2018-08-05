@@ -28,7 +28,7 @@ export class OrderhistoryPage {
 
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-"custom_date":"","date_id":"","statusTxt":""};
+"custom_date":"","date_id":"","statusTxt":"","orderDate":""};
 
   tostClass ;
   refresher;
@@ -115,7 +115,7 @@ export class OrderhistoryPage {
             }
             else if (ordersData[j].status == "5" || ordersData[j].status == "6" )
             { 
-              ordersData[j].statusTxt="تم النتفيذ";
+              ordersData[j].statusTxt="تم التنفيذ";
               ordersData[j].color = "grey";
             }
             else{
@@ -144,6 +144,10 @@ export class OrderhistoryPage {
               this.orderobject.orderId = ordersData[j].id;
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
+              this.orderobject.orderDate = ordersData[j].date;
+              
+              // console.log("ordersData[j].date ",ordersData[j].date);
+
               // if(ordersData[j].reorder == "1")
               if(ordersData[j].is_reorder == "1")
               {
@@ -159,7 +163,7 @@ export class OrderhistoryPage {
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":"","statusTxt":""};
+                  "custom_date":"","date_id":"","statusTxt":"","orderDate":""};
           
                     
             }

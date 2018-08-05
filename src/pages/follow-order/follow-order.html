@@ -82,7 +82,41 @@
           ></rating>
       </ion-col>
     </ion-row>
-  
+    <!-- <a href="https://api.whatsapp.com/send?phone=01009032582">whats</a>
+    <a href="https://api.whatsapp.com/send?phone=201009032582">whats 2</a>
+    <a href="https://api.whatsapp.com/send?phone=+201009032582">whats +2</a>
+   -->
+    <ion-fab left bottom>
+            <button ion-fab style="background-color:#026938">
+                <!-- <ion-icon name="arrow-dropleft"></ion-icon> -->
+            الطبيب
+            </button>
+            <ion-fab-list side="right">
+              <!-- <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+              <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button> -->
+              <!-- <button ion-fab>
+                  
+                    <ion-icon name="logo-whatsapp" style="color:#026938;" >
+                            <a href="https://api.whatsapp.com/send?phone=01009032582" ></a>
+                    </ion-icon>
+                
+              </button>
+              
+              <button ion-fab>
+                    <a href="tel:{{phone}}">
+                      <ion-icon name="call" style="color:#026938;">  </ion-icon>
+                  </a>
+                </button> -->
+            
+                <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
+                    <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
+           
+                    <a button ion-fab  href="tel:{{phone}}" >
+                        <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
+                </ion-fab-list>
+          </ion-fab>
+          
+          
  
   <h5 *ngIf="langDirection == 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;text-align: right;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
   <h5 *ngIf="langDirection != 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>

@@ -111,4 +111,15 @@ passErrMsg="";
   dismiss(){
     this.navCtrl.pop();
   }
+  checkPass(){
+    console.log("check pass ",this.currentPass);
+    this.service.checkUserPass(this.currentPass,this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from check pass",resp);
+      },
+      err=>{
+        console.log("err from check pass",err);
+      }
+    );
+  }
 }

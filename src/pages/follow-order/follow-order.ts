@@ -42,6 +42,7 @@ export class FollowOrderPage {
   lng=31.381523;
   disableCancelBtn = false;
   tostClass;
+  phone;
 
   allMarkers = [] ;
 
@@ -83,6 +84,7 @@ export class FollowOrderPage {
             this.doctorRate = tempData.rate;
             this.doctorSpecialization = tempData.speciality; 
             this.OrderCost = tempData.extraInfo.discount;
+            this.phone = tempData.phone;
             
             //this.doctorLocation = tempData.location;
            

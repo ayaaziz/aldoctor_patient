@@ -37,7 +37,8 @@ export class SearchForDoctorPage {
   doctorsLoc=[];
   langDirection;
   tostClass ;
-  locFlag= 0;
+  // locFlag= 0;
+  locFlag= 1;
 
   constructor(public service:LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -47,6 +48,8 @@ export class SearchForDoctorPage {
      //private backgroundGeolocation: BackgroundGeolocation, 
      public navCtrl: NavController, public navParams: NavParams,
      public events: Events) {
+
+     
   
       this.langDirection = this.helper.lang_direction;
       if(this.langDirection == "rtl")
@@ -126,6 +129,13 @@ export class SearchForDoctorPage {
   // });
 
     this.initMap();
+
+  
+    // this.initMapwithUserLocations();
+
+    // this.initMapWithDoctorsLocation();
+    // this.handleuserLocattion();
+
     // this.allowUserToChooseHisLocation();
     this.test();
     //this.geoLoc();
@@ -442,9 +452,9 @@ initMapwithUserLocations(){
     animation: google.maps.Animation.DROP,
     position: latlng,
     icon: { 
-      url : 'assets/icon/location.png',
+      url : 'assets/icon/user_locations.png',
       size: new google.maps.Size(71, 71),
-      scaledSize: new google.maps.Size(25, 25) 
+      scaledSize: new google.maps.Size(20, 25) 
     }
 
    
@@ -491,9 +501,9 @@ initMapWithDoctorsLocation(){
     animation: google.maps.Animation.DROP,
     position: latlng,
     icon: { 
-      url : 'assets/icon/location.png',
+      url : 'assets/icon/user_locations.png',
       size: new google.maps.Size(71, 71),
-      scaledSize: new google.maps.Size(25, 25) 
+      scaledSize: new google.maps.Size(20, 25) 
     }
 
    

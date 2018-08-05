@@ -69,6 +69,7 @@ export class RemainingTimeToAcceptPage {
     this.events.subscribe('status0', (data) => {
       console.log("status0",data);
       clearTimeout(this.timer);
+      
       this.navCtrl.setRoot('order-not-accepted');
     });
 

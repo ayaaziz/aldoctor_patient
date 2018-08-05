@@ -64,7 +64,7 @@ userRegister(userData,access_token,SuccessCallback,FailureCallback) {
   console.log("lname: ",userData.secondname);
   let headers = new HttpHeaders();
   let parameter = new HttpParams().set('name',userData.firstname+" "+userData.secondname+" "+userData.surname)
-  .set('phone','+2'+userData.phone).set('birth_date',userData.birthdate)
+  .set('phone','2'+userData.phone).set('birth_date',userData.birthdate)
   .set('address',userData.address+"-"+userData.city+"-"+userData.country)
   .set('password',userData.password).set('city',userData.city)
   .set('country',userData.country).set('gender',userData.gender)
@@ -99,7 +99,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       //   'password' :password
       // }
       
-      let parameter = new HttpParams().set('email','+2'+email).set('password',password)
+      let parameter = new HttpParams().set('email','2'+email).set('password',password)
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/login';
       this.http.post(serviceUrl,parameter,{headers: headers })
@@ -470,7 +470,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
   forgetPassword(phone){
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('phone','+2'+phone);
+    let parameter = new HttpParams().set('phone','2'+phone);
     
     //headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/forget';
@@ -479,7 +479,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   changePhoneNumber(phone,access_token){
     console.log("access token from change phone",access_token);
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('phone','+2'+phone);
+    let parameter = new HttpParams().set('phone','2'+phone);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/change-phone';
@@ -508,6 +508,16 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-rate-criteriea?rate='+rateId;
     
     return this.http.get(serviceUrl,{headers: headers });
+  }
+
+  checkUserPass(pass,access_token){
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set("current_password",pass);
+    // console.log("parameters from service: ",parameter);
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/check_password';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+
   }
 
 }
