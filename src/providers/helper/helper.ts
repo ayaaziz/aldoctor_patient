@@ -37,6 +37,7 @@ export class HelperProvider {
   public userId ;
   public trackInterval;
   public changePhoneNumber;
+  public orderRated=0;
 
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
@@ -198,7 +199,7 @@ orderStatusChanged(orderId){
    
     console.log("order status changed",snap.val(),"order id: ",orderId)
    
-    if(snap.val() == "10") //cancelled by doctor 0
+    if(snap.val() == "10" || snap.val() == "0") //cancelled by doctor 0
       this.events.publish('status0');
     else if (snap.val() == "2") //accepted by doctor
       this.getServiceProfileIdToFollowOrder(orderId);

@@ -29,6 +29,7 @@ export class CancelOrderPage {
   desc;
   langDirection;
   tostClass ;
+  CancelBtn =true;
 
   constructor(public storage: Storage,public helper:HelperProvider, 
     public service:LoginserviceProvider,public translate: TranslateService,
@@ -81,6 +82,10 @@ export class CancelOrderPage {
       {
         console.log("reason checked ",item);
         this.userReasons.push(item.id);
+        if(this.userReasons.length == 0 )
+          this.CancelBtn = true;
+        else
+          this.CancelBtn = false;
       }
     else
       {
@@ -89,6 +94,12 @@ export class CancelOrderPage {
           if(item.id == this.userReasons[i] )
             this.userReasons.splice(i,1);
         }
+        
+        if( this.userReasons.length == 0 )
+          this.CancelBtn = true;
+        else
+          this.CancelBtn = false;
+
       }
 
   
@@ -131,6 +142,14 @@ export class CancelOrderPage {
 
     dismiss(){
       this.navCtrl.pop();
+    }
+
+    notesevent(){
+      console.log("desc....",this.desc);
+      if(this.desc && this.userReasons.length == 0)
+      this.CancelBtn = false;
+      else
+      this.CancelBtn = true;
     }
 
 }

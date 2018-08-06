@@ -40,6 +40,8 @@ export class OrderDoctorPage {
   loading;
   showLoading=true;
 
+  orderBTn = false;
+  
 
   @ViewChild('fireSElect') sElement;
 
@@ -60,7 +62,8 @@ export class OrderDoctorPage {
     public navParams: NavParams,  public translate: TranslateService,
     public loadingCtrl: LoadingController) {
 
-     
+     console.log("ordre btn",this.orderBTn);
+
         this.langDirection = this.helper.lang_direction;
         if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
@@ -361,6 +364,11 @@ export class OrderDoctorPage {
         this.DoctorsArray=[];  
         for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
+            if(doctorData["results"][i].nickname)
+            doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
+            else 
+            doctorData["results"][i].doctorName = doctorData["results"][i].name;
+
             this.DoctorsArray.push(doctorData["results"][i]);
           }
           
@@ -531,6 +539,9 @@ export class OrderDoctorPage {
         doctorsId += this.choosenDoctors[j].id+",";
       }
       console.log("doctors id: ",doctorsId);
+
+   this.orderBTn = true;
+
       this.service.saveOrder(doctorsId,this.accessToken).subscribe(
         resp => {
           if(JSON.parse(JSON.stringify(resp)).success ){

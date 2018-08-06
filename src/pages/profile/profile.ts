@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ActionSheetController ,Events} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -33,10 +33,11 @@ export class ProfilePage {
   imgPreview = 'assets/imgs/avatar-ts-jessie.png';
   
   tostClass ;
+xxx;
 
   constructor(//private imagePicker: ImagePicker,
     //private base64: Base64,
-    public camera: Camera,
+    public camera: Camera,public events: Events,
     public actionSheetCtrl: ActionSheetController,
      public helper: HelperProvider, public toastCtrl: ToastController,
       public storage: Storage, public navCtrl: NavController, 
@@ -297,8 +298,11 @@ export class ProfilePage {
       this.profileImg = 'data:image/jpeg;base64,' + imageData;
       this.image = 'data:image/jpeg;base64,' + imageData;
       this.imgPreview = 'data:image/jpeg;base64,' + imageData;
+
+      this.events.publish('changeProfilePic',{pic:this.image});
       
-      
+      this.xxx = imageData;
+
       this.storage.get("user_info").then(
         (data) => {
             if(data){
@@ -311,13 +315,14 @@ export class ProfilePage {
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;
         console.log("image to api: ",this.profileImg);
-        this.service.changeProfilePic(this.profileImg,this.accessToken).subscribe(
+        this.service.changeProfilePic(encodeURIComponent(this.xxx),this.accessToken).subscribe(
           resp =>{
             console.log("resp from api: ",resp);
             if(JSON.parse(JSON.stringify(resp)).success == true)
             {
               this.image=JSON.parse(JSON.stringify(resp)).user.profile_pic;
               console.log("resp fro.m change photo: "+JSON.stringify(resp));
+              this.events.publish('changeProfilePic',{pic:this.image});
             }
             //this.image=JSON.parse(JSON.stringify(resp)).profile_pic;
             //this.image = "http://itrootsdemos.com/aldoctor/public/uploads/1528288759.png";

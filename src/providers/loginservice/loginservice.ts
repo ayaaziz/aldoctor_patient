@@ -141,8 +141,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     }
   changeProfilePic(profilePic,access_token){
     let headers = new HttpHeaders();
-      let imgdata=profilePic.split(',')[1];
-      let parameter = new HttpParams().set('profile_pic',imgdata.replace(/\+/g,","))
+      // let imgdata=profilePic.split(',')[1]; imgdata.replace(/\+/g,",")
+      let parameter = new HttpParams().set('profile_pic',profilePic)
       .set('profile_pic_ext','png');
       console.log("parameters from service: ",parameter);
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);

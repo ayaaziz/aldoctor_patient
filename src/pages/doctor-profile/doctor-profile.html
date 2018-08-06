@@ -22,13 +22,19 @@
 
   <ion-navbar hideBackButton>
     <ion-row>
-      <ion-col col-8>
+      <ion-col col-7>
           <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{name}}</ion-title>
           <ion-title *ngIf="langDirection != 'rtl'">{{name}}</ion-title>
       </ion-col>
-      <ion-col col-2 >
-          <img src="assets/imgs/dlogo.png" style="width:40px;height:30px" left>
-      </ion-col>
+      <ion-col col-3 >
+          <!-- <img src="assets/imgs/dlogo.png" style="width:40px;height:30px" left> -->
+          <ion-buttons  left>
+              <button ion-button>
+                  <img src="assets/imgs/dlogo.png" style="width:40px;" >
+                 
+              </button>
+          </ion-buttons>
+        </ion-col>
     
   
     <ion-col col-2>

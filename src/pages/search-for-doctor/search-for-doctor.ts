@@ -225,7 +225,7 @@ getUserLocation(){
   
   console.log("get user location");
   // , enableHighAccuracy: true, maximumAge: 3600
-  let GPSoptions = {timeout: 30000,enableHighAccuracy: true, maximumAge: 3600};
+  let GPSoptions = {timeout: 20000,enableHighAccuracy: true, maximumAge: 3600};
     this.geolocation.getCurrentPosition(GPSoptions).then((resp) => {
 
       console.log("current location resp: ", resp);
@@ -595,7 +595,7 @@ initMapWithDoctorsLocation(){
   nearestLoader;
   GPSOpened() {
     
-    let optionsLoc = {timeout: 30000,enableHighAccuracy: true, maximumAge: 3600};
+    let optionsLoc = {timeout: 20000,enableHighAccuracy: true, maximumAge: 3600};
     this.geolocation.getCurrentPosition(optionsLoc).then((resp) => {
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;

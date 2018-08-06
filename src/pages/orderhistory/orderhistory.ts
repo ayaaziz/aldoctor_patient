@@ -97,13 +97,13 @@ export class OrderhistoryPage {
 
             if(ordersData[j].status == "0" || ordersData[j].status == "4")
             {
-              ordersData[j].statusTxt = "الغاء" ;
+              ordersData[j].statusTxt = "ملغي" ;
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
             else if (ordersData[j].status == "10")
             {
-              ordersData[j].statusTxt ="رفض" ;
+              ordersData[j].statusTxt ="مرفوض" ;
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
@@ -131,8 +131,15 @@ export class OrderhistoryPage {
 
             var serviceProfile = ordersData[j].theServiceProfile;
             if(serviceProfile){
-          
+
+            if(serviceProfile.nickname)
+              this.orderobject.name = serviceProfile.nickname;
+            else 
               this.orderobject.name = serviceProfile.name;
+
+
+          
+              // this.orderobject.name = serviceProfile.name;
               this.orderobject.profile_pic = serviceProfile.profile_pic;
               this.orderobject.rate = serviceProfile.rate;
               this.orderobject.specialization = serviceProfile.speciality;

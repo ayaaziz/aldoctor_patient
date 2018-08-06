@@ -61,7 +61,13 @@ export class MyApp {
       this.dir="left";
     }
     
-    firebase.initializeApp(firebaseConfig);    
+    firebase.initializeApp(firebaseConfig);  
+    
+    this.events.subscribe('changeProfilePic', (data) => {
+      console.log(" event change profile pic  ",data);
+      this.image = data.pic;
+      });
+
     
     //this.menu.toggle('left');
     
@@ -444,12 +450,15 @@ export class MyApp {
             this.events.publish('status7');
           if(orderStatus == "5" || orderStatus == "6")
           { //
+            if(this.helper.orderRated == 0)
+            {
             this.events.publish('status5'); //
             this.nav.push('rate-doctor',{
               data:{
                 doctorId:notification.additionalData.doctorId,
                 orderId:notification.additionalData.orderId}
             });
+            }
           } //
           if (notification.additionalData.type == "0" || notification.additionalData.type == "1" || notification.additionalData.type == "3") {
             // this.storage.get('access_token').then((val) => {

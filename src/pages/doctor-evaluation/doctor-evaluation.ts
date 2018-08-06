@@ -314,6 +314,7 @@ export class DoctorEvaluationPage {
     this.service.rateDoctor(this.doctorId,this.rate,this.review,this.userId,this.orderId,this.accessToken).subscribe(
       resp=>{
         console.log("resp from rate :",resp); 
+        this.helper.orderRated = 1;
         this.presentToast(this.translate.instant("done"));
         this.navCtrl.setRoot(TabsPage);
         

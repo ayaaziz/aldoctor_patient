@@ -72,15 +72,19 @@ export class FollowOrderPage {
         this.disableCancelBtn = true;
       else
         this.disableCancelBtn = false;
-        
-
-      this.storage.get("access_token").then(data=>{
+  
+  
+        this.storage.get("access_token").then(data=>{
         this.accessToken = data;
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in followorder: ",resp);
             var tempData = JSON.parse(JSON.stringify(resp)).user;
-            this.doctorName = tempData.name;
+            if (tempData.nickname)
+              this.doctorName = tempData.nickname;
+            else 
+              this.doctorName = tempData.name;
+              
             this.doctorRate = tempData.rate;
             this.doctorSpecialization = tempData.speciality; 
             this.OrderCost = tempData.extraInfo.discount;
@@ -165,8 +169,18 @@ export class FollowOrderPage {
     if(!navigator.onLine)
       this.presentToast(this.translate.instant("checkNetwork"));
 
+    // this.initMap();
+        
     this.initMap();
-    this.test();
+   
+
+    if(this.helper.detectLocation == false)
+      this.test();
+    else{
+      this.lat = this.helper.lat;
+      this.lng = this.helper.lon;
+      this.initMapwithUserLocation();
+    }
     
 //
 // this.helper.trackDoctor(this.doctorId); 
@@ -400,9 +414,9 @@ initMapwithUserLocation(){
     animation: google.maps.Animation.DROP,
     position: latlng,
     icon: { 
-      url : 'assets/icon/location.png',
+      url : 'assets/icon/user_locations.png',
       size: new google.maps.Size(71, 71),
-      scaledSize: new google.maps.Size(25, 25) 
+      scaledSize: new google.maps.Size(20, 25) 
     }
 
    

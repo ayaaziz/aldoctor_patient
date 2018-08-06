@@ -66,6 +66,7 @@ export class SignupPage {
   regData = { avatar:'', email: '', password: '', fullname: '' };
   
   tostClass;
+  xxx;
 
   constructor(private platform: Platform,
      //private imagePicker: ImagePicker,private base64: Base64,
@@ -431,8 +432,13 @@ y;
       //this.presentToast("load image");
       this.profileImg = 'data:image/jpeg;base64,' + imageData;
       this.imgPreview = 'data:image/jpeg;base64,' + imageData;
-      let userImage = this.profileImg.split(',')[1];
-      this.profileImg = userImage.replace(/\+/g,",");
+      // let userImage = this.profileImg.split(',')[1];
+      // this.profileImg = userImage.replace(/\+/g,",");
+// this.xxx = imageData;
+
+      let userImage = encodeURIComponent(imageData);
+      this.profileImg = userImage;
+
       //this.presentToast(this.profileImg);
     }, (err) => {
       // Handle error

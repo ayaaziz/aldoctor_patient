@@ -47,7 +47,7 @@ export class DoctorProfilePage {
     this.doctorProfile = navParams.get('data');
     console.log("from doctor profile: ",this.doctorProfile);
     this.image = this.doctorProfile.profile_pic;
-    this.name = this.doctorProfile.name;
+    this.name = this.doctorProfile.doctorName;
     this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
     this.services = this.doctorProfile.speciality_services;

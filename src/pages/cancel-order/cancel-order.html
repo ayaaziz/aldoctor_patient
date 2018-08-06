@@ -21,13 +21,19 @@
 
   <ion-navbar hideBackButton>
     <ion-row>
-      <ion-col col-8>
+      <ion-col col-7>
           <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"cancelOrder" | translate}}</ion-title>
           <ion-title *ngIf="langDirection != 'rtl'">{{"cancelOrder" | translate}}</ion-title>
       </ion-col>
-      <ion-col col-2 >
-          <img src="assets/imgs/dlogo.png" style="width:40px;height:30px" left>
-      </ion-col>
+      <ion-col col-3 >
+          <!-- <img src="assets/imgs/dlogo.png" style="width:40px;height:30px" left> -->
+          <ion-buttons  left>
+                <button ion-button>
+                    <img src="assets/imgs/dlogo.png" style="width:40px;" >
+                   
+                </button>
+            </ion-buttons>
+        </ion-col>
     
   
     <ion-col col-2>
@@ -68,10 +74,10 @@
 </ion-row>
 
     <div class="form-group">
-        <textarea [(ngModel)]="desc" class="form-control" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>
+        <textarea [(ngModel)]="desc" class="form-control" rows="5" id="comment" style="background-color: #e8f1ed" (change)="notesevent()"></textarea>
       </div>
     <ion-item style="text-align:center;" no-lines>
-        <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="cancelOrder()"> {{"cancelOrder" | translate}}</button>  
+        <button type="button" class="btn btn-primary btn-lg btn-block" [disabled]="CancelBtn" style="font-family: 'Cairo Black';margin:10px auto;" (click)="cancelOrder()"> {{"cancelOrder" | translate}}</button>  
       </ion-item>
 
 </ion-content>

@@ -42,6 +42,8 @@ export class SpecificDoctorPage {
   searchValue;
   showLoading=true;
 
+  orderBTn = false;
+
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
     public storage: Storage,  public events: Events,
     public service:LoginserviceProvider, public navCtrl: NavController,
@@ -300,6 +302,12 @@ this.events.subscribe('location', (data) => {
         this.doctors=[];  
         for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
+            if(doctorData["results"][i].nickname)
+            doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
+            else 
+            doctorData["results"][i].doctorName = doctorData["results"][i].name;
+
+
             this.doctors.push(doctorData["results"][i]);
           }
           if(this.doctors.length >= 3)
@@ -463,6 +471,12 @@ this.events.subscribe('location', (data) => {
           this.doctors=[];  
           for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
+            if(doctorData["results"][i].nickname)
+            doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
+            else 
+            doctorData["results"][i].doctorName = doctorData["results"][i].name;
+
+            
             this.doctors.push(doctorData["results"][i]);
           }
           if(this.doctors.length >= 3)
@@ -549,6 +563,7 @@ this.events.subscribe('location', (data) => {
         doctorsId += this.choosenDoctors[j].id+",";
       }
       console.log("doctors id: ",doctorsId);
+      this.orderBTn = true;
       this.service.saveOrder(doctorsId,this.accessToken).subscribe(
         resp => {
           if(JSON.parse(JSON.stringify(resp)).success ){

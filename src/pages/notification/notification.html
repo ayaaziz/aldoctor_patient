@@ -43,8 +43,12 @@
           <ion-title *ngIf="langDirection != 'rtl'" style="padding:5px;">{{"notification" | translate }}</ion-title>
       </ion-col>
       <ion-col col-3 style="text-align:center">
-          <img src="assets/imgs/dlogo.png" style="width:40px;height:30px">
-      </ion-col>
+          <!-- <img src="assets/imgs/dlogo.png" style="width:40px;height:30px"> -->
+          <ion-buttons style="display: inherit;" left>
+              <button ion-button icon-only  menuToggle><img src="assets/imgs/dlogo.png" width="40" style="border: 0px;"></button>
+          </ion-buttons>
+
+        </ion-col>
     </ion-row>
     
   </ion-navbar>
@@ -98,7 +102,7 @@
                 <img [src]="item.data.paitentId.profile_pic">
               </ion-avatar>
 
-          <h5>{{item.data.text}}</h5> <!-- item.data.txt -->
+          <h6>{{item.data.text}}</h6> <!-- item.data.txt -->
           <p>{{item.notificationDate}}</p>
         </ion-item>
 

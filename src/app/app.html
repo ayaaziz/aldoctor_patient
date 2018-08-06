@@ -1,6 +1,9 @@
 <!-- <ion-nav [root]="rootPage"></ion-nav> -->
 <!-- [side]="dir" -->
 
+
+
+
 <ion-menu [content]="content" *ngIf="this.platform.dir() =='rtl'" 
  side="right" >
   
@@ -10,7 +13,7 @@
                   <h1 style="color:gray;margin-top: 0rem;font-size: 2.9rem">{{name}}</h1>
               </div>    
          
-      <ion-list no-lines >
+      <ion-list  >
             <button ion-item  (click)="openAboutapppage()">
                     <ion-row style="direction: rtl;margin-right: 0px;">
                             <img src="assets/icon/about.png"   class="customIcon">
@@ -84,7 +87,7 @@
                    <h1 style="color:gray;margin-top: 0rem;font-size: 2.9rem">{{name}}</h1>
                </div>    
           
-       <ion-list no-lines >
+       <ion-list>
              <button ion-item  (click)="openAboutapppage()">
                      <ion-row style="direction: ltr;margin-left:10px;">
                             <img src="assets/icon/about.png"   class="customIcon">

@@ -195,7 +195,7 @@ this.storage.get("rate_doctor").then(data=>{
   this.navCtrl.setRoot('follow-order',
   {data:
     {"orderId":201, 
-      "doctorId":3
+      "doctorId":22
     }
   });
 
