@@ -311,6 +311,27 @@ this.events.subscribe('location', (data) => {
             else 
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
 
+            if(doctorData["results"][i].busy == "1")
+            {
+              doctorData["results"][i].color="red";
+              doctorData["results"][i].offline=true;
+            }else if (doctorData["results"][i].busy == "0")
+            {
+              if(doctorData["results"][i].online  == "1")
+                {
+                  doctorData["results"][i].color="green";
+                  doctorData["results"][i].offline=false;
+                
+  
+                }else if (doctorData["results"][i].online  == "0")
+                {
+                  doctorData["results"][i].color="grey";
+                  doctorData["results"][i].offline=true;
+                  
+                }
+             
+            }
+
 
             this.doctors.push(doctorData["results"][i]);
           }
@@ -323,6 +344,7 @@ this.events.subscribe('location', (data) => {
           }
           for(i=0;i<this.doctors.length;i++)
           {
+  /*
             this.doctors[i].distanceVal =10000;
             this.doctors[i].offline=true;
             this.helper.getDoctorStatus(this.doctors[i].id);
@@ -332,6 +354,20 @@ this.events.subscribe('location', (data) => {
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
             
+*/
+ 
+            /* */
+            //this.DoctorsArray[i].distanceVal = 10000;
+            //this.DoctorsArray[i].offline = true;
+            this.helper.getDoctorStatus(this.doctors[i].id);
+            //this.helper.statusChanged(this.DoctorsArray[i].id);
+            //this.helper.getDoctorlocation(this.DoctorsArray[i].id);
+
+            //this.helper.trackDoctor(this.DoctorsArray[i].id);
+            
+            this.helper.getBusyDoctor(this.doctors[i].id);
+            //this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
+            /* */
 
             // this.doctors[i].availability="0";
 
@@ -482,7 +518,27 @@ this.events.subscribe('location', (data) => {
             else 
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
 
-            
+            if(doctorData["results"][i].busy == "1")
+            {
+              doctorData["results"][i].color="red";
+              doctorData["results"][i].offline=true;
+            }else if (doctorData["results"][i].busy == "0")
+            {
+              if(doctorData["results"][i].online  == "1")
+                {
+                  doctorData["results"][i].color="green";
+                  doctorData["results"][i].offline=false;
+                
+  
+                }else if (doctorData["results"][i].online  == "0")
+                {
+                  doctorData["results"][i].color="grey";
+                  doctorData["results"][i].offline=true;
+                  
+                }
+             
+            }
+
             this.doctors.push(doctorData["results"][i]);
           }
           if(this.doctors.length >= 3)
@@ -494,6 +550,7 @@ this.events.subscribe('location', (data) => {
           }
           for(i=0;i<this.doctors.length;i++)
           {
+            /*
             this.doctors[i].distanceVal =10000;
             this.doctors[i].offline=true;
             this.helper.getDoctorStatus(this.doctors[i].id);
@@ -502,7 +559,21 @@ this.events.subscribe('location', (data) => {
             this.helper.trackDoctor(this.doctors[i].id);
             this.helper.getBusyDoctor(this.doctors[i].id);
             this.helper.busyDoctorChanged(this.doctors[i].id);
+            */
+             
+            /* */
+            //this.DoctorsArray[i].distanceVal = 10000;
+            //this.DoctorsArray[i].offline = true;
+            this.helper.getDoctorStatus(this.doctors[i].id);
+            //this.helper.statusChanged(this.DoctorsArray[i].id);
+            //this.helper.getDoctorlocation(this.DoctorsArray[i].id);
+
+            //this.helper.trackDoctor(this.DoctorsArray[i].id);
             
+            this.helper.getBusyDoctor(this.doctors[i].id);
+            //this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
+            /* */
+
             
             // this.doctors[i].availability="0";
 

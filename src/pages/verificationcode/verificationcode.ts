@@ -25,7 +25,7 @@ export class VerificationcodePage {
   tostClass ;
   from;
   codeErrMsg;
-
+phone;
 
   constructor(public storage: Storage,public translate: TranslateService, 
     public loginservice:LoginserviceProvider,
@@ -42,7 +42,10 @@ export class VerificationcodePage {
         this.from = this.navParams.get('data');
         console.log("activation from ",this.from);
       }
-     
+      if(this.navParams.get('phone')){
+        this.phone = this.navParams.get('phone');
+        console.log("from activation phone",this.phone);
+      }
 
     this.activationForm = formBuilder.group({
       // code: ['', Validators.required]
@@ -79,7 +82,62 @@ export class VerificationcodePage {
       if(navigator.onLine){
         this.storage.get("access_token").then(data=>{
           this.accessToken = data;
-          
+          if(this.from)
+          {
+            this.loginservice.checkPhoneWithCode(this.phone,this.code,this.accessToken).subscribe(
+              resp=>{
+                console.log("check phne with code",resp);
+
+                console.log("in success true",JSON.parse(JSON.stringify(resp)).success);
+                if(JSON.parse(JSON.stringify(resp)).success == true)
+                {
+                  console.log("in success true");
+                  this.storage.remove("verification_page");
+            
+                  if(this.from)
+                    this.presentToast(this.translate.instant("phoneChanged"));
+                            
+                  this.loginservice.getuserProfile(this.accessToken).subscribe(
+                    resp=>{
+                      var newuserData = JSON.parse(JSON.stringify(resp));
+                      this.storage.set("user_info",{
+                        "id":newuserData.id,
+                        "name":newuserData.name,
+                        "email":newuserData.email,
+                        "phone":newuserData.phone,
+                        "dob":newuserData.user_info.birth_date,
+                        "add":newuserData.extraInfo.address,
+                        "profile_pic":newuserData.profile_pic
+                      }).then((data)=>{
+                        this.navCtrl.setRoot(TabsPage);
+                      },(error)=>{
+                      //  this.presentToast("set then error from signup: "+error)
+                      });
+                      
+                    },err=>{
+            
+                    }
+                  );
+            
+            
+                  
+                }else if (JSON.parse(JSON.stringify(resp)).success == false){
+                  console.log("resp false",resp);
+                 if(JSON.parse(JSON.stringify(resp)).found == 0)
+                  this.presentToast(this.translate.instant('wrongCode'));
+                  else if (JSON.parse(JSON.stringify(resp)).found == 1)
+                  this.presentToast(this.translate.instant("phoneAlreadyExist"));
+
+
+                }
+                  
+
+              },
+              err=>{
+
+              }
+            );
+          }else
           this.loginservice.activateUser(this.code,this.accessToken,(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data));
         
         })
@@ -87,7 +145,7 @@ export class VerificationcodePage {
        // this.loginservice.activateUser(this.code,"",(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data))
       }
       else{
-        this.presentToast(this.translate.instant("serverError"))
+        this.presentToast(this.translate.instant("checkNetwork"))
       }
     }
   }

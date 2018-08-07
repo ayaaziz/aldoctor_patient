@@ -148,7 +148,8 @@
       <ion-col col-3 col-sm-2 style="text-align: center;padding-top: 5px;" >
         <ion-checkbox [(ngModel)]="item.checked" (click)="doctorChecked(item ,$event)" [disabled]="item.offline"></ion-checkbox>     
         <ion-label style="text-align: center;">{{item.distance}}</ion-label>
-        <ion-label style="text-align: center;">{{item.duration}}</ion-label>
+        <!-- <ion-label style="text-align: center;">{{item.duration}}</ion-label> -->
+        <ion-label style="text-align: center;">{{item.timefordelivery}}</ion-label>
       </ion-col>
     </ion-row>
 </ion-card>

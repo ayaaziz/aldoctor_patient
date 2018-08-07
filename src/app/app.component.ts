@@ -62,6 +62,7 @@ export class MyApp {
     }
     
     firebase.initializeApp(firebaseConfig);  
+    // this.helper.checkConnection();
     
     this.events.subscribe('changeProfilePic', (data) => {
       console.log(" event change profile pic  ",data);

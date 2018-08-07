@@ -43,6 +43,7 @@ export class HelperProvider {
     public toastCtrl: ToastController, public http: HttpClient,
     public events: Events) {
     console.log('Hello HelperProvider Provider');
+    
   }
   
   public presentToast(text) {
@@ -199,7 +200,7 @@ orderStatusChanged(orderId){
    
     console.log("order status changed",snap.val(),"order id: ",orderId)
    
-    if(snap.val() == "10" || snap.val() == "0") //cancelled by doctor 0
+    if(snap.val() == "10" ) //cancelled by doctor 0 || snap.val() == "0"
       this.events.publish('status0');
     else if (snap.val() == "2") //accepted by doctor
       this.getServiceProfileIdToFollowOrder(orderId);
@@ -274,6 +275,19 @@ removeOrder(orderId){
  
 //  }
 
+checkConnection(){
+
+var connectedRef = firebase.database().ref("orders/");
+connectedRef.on("value", function(snap) {
+  if (snap.val() === true) {
+    alert("connected");
+  } else {
+    alert("not connected");
+  }
+});
+
+
+}
 
 
 }

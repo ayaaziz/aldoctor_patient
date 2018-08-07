@@ -31,6 +31,40 @@ export class HomePage {
     // this.helper.userId=114;
     // this.helper.intializeFirebase();
     this.sortDoctors();
+// console.log("google time",this.toHHMMSS(3283));
+// var dis ="100 km";
+// var disarr = dis.split(" ");
+//     if(disarr[1] == "km")
+//     {
+//       disarr[1]="كم";
+//       dis = disarr.join(" ");
+//     }else if(disarr[1] == "m"){
+//       disarr[1]="م";
+//       dis = disarr.join(" ");
+//     }
+//     console.log("dis",dis);
+  
+      //  var dur = "3 hours 43 mins";
+      //   var durarr = dur.split(" ");
+      //   if(durarr[1] == "mins" || durarr[1] == "min"  )
+      //   {
+      //     durarr[1]="د";
+      //     // dur = durarr.join(" ");
+      //   }
+      //   else if (durarr[3] == "mins" || durarr[3] == "min"  ){
+      //     durarr[3]="د";
+      //   }
+         
+      //   dur = durarr.join(" ");
+      //   durarr = dur.split(" ");
+      //   if(durarr[1] == "hours"){
+      //     durarr[1]="س";
+      //     // dur = durarr.join(" ");
+      //   }
+
+      //   console.log("dur",dur);
+
+
     // this.helper.createOrder(3);
     //this.helper.orderStatusChanged(313);
     //this.helper.updateCancelOrderStatus(313);
@@ -250,4 +284,22 @@ this.storage.get("rate_doctor").then(data=>{
 // }).catch(err=>{console.log("can't read languagestorage ")});
 
 // }
+
+// toHHMMSS(time) {
+// //   // var sec_num = parseInt(seconds, 10); // don't forget the second param
+// //   var sec_num = seconds;
+// //   var hours   = Math.floor(sec_num / 3600);
+// //   var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+// //   var second = sec_num - (hours * 3600) - (minutes * 60);
+// //   var hour,min,sec;
+// //   if (hours   < 10) {hour  = "0"+hours;}
+// //   if (minutes < 10) {min = "0"+minutes;}
+// //   if (seconds < 10) {sec = "0"+seconds;}
+// //   return hour+':'+min+':'+sec;
+// var minutes = Math.floor(time / 60);
+// var seconds = time - minutes * 60;
+// var hours = Math.floor(time / 3600);
+// time = time - hours * 3600;
+// }
+
 }

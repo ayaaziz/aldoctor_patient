@@ -92,11 +92,11 @@ export class ChangePhonePage {
               console.log("resp from changephone",resp);
               if(JSON.parse(JSON.stringify(resp)).success )
               {
-                this.app.getRootNav().setRoot('verification-code',{data:1});
+                this.app.getRootNav().setRoot('verification-code',{data:1,phone:this.phone});
                 // this.navCtrl.setRoot('verification-code',{data:1});
               
               }else
-                this.presentToast(this.translate.instant("invalidPhone"));
+                this.presentToast(this.translate.instant("phoneAlreadyExist")); //invalid
             },
             err=>{
               console.log("err from changephone",err);

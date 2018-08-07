@@ -184,7 +184,7 @@ export class OrderhistoryPage {
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":""};
+                  "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false};
           
                     
             }

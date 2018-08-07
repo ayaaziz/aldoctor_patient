@@ -369,6 +369,32 @@ export class OrderDoctorPage {
             else 
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
 
+/**/            
+
+          if(doctorData["results"][i].busy == "1")
+          {
+            doctorData["results"][i].color="red";
+            doctorData["results"][i].offline=true;
+          }else if (doctorData["results"][i].busy == "0")
+          {
+            if(doctorData["results"][i].online  == "1")
+              {
+                doctorData["results"][i].color="green";
+                doctorData["results"][i].offline=false;
+              
+
+              }else if (doctorData["results"][i].online  == "0")
+              {
+                doctorData["results"][i].color="grey";
+                doctorData["results"][i].offline=true;
+                
+              }
+           
+          }
+
+          /* */
+
+
             this.DoctorsArray.push(doctorData["results"][i]);
           }
           
@@ -384,6 +410,8 @@ export class OrderDoctorPage {
             
             //this.helper.userId=this.DoctorsArray[i].id;
             // this.helper.intializeFirebase(this.DoctorsArray[i].id);
+            
+            /* 
             this.DoctorsArray[i].distanceVal = 10000;
             this.DoctorsArray[i].offline = true;
             this.helper.getDoctorStatus(this.DoctorsArray[i].id);
@@ -392,8 +420,20 @@ export class OrderDoctorPage {
             this.helper.trackDoctor(this.DoctorsArray[i].id);
             this.helper.getBusyDoctor(this.DoctorsArray[i].id);
             this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
+             */
             
+            /* */
+            //this.DoctorsArray[i].distanceVal = 10000;
+            //this.DoctorsArray[i].offline = true;
+            this.helper.getDoctorStatus(this.DoctorsArray[i].id);
+            //this.helper.statusChanged(this.DoctorsArray[i].id);
+            //this.helper.getDoctorlocation(this.DoctorsArray[i].id);
 
+            //this.helper.trackDoctor(this.DoctorsArray[i].id);
+            
+            this.helper.getBusyDoctor(this.DoctorsArray[i].id);
+            //this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
+            /* */
             
            
             // if(this.DoctorsArray[i].availability == "1")
@@ -456,11 +496,37 @@ export class OrderDoctorPage {
         console.log("duration : ",respObj.routes[0].legs[0].duration.text);
         console.log("distance : ",respObj.routes[0].legs[0].distance.text);
         console.log("doctor from array in get duration ",this.DoctorsArray[i]);
-        this.DoctorsArray[i].distance = respObj.routes[0].legs[0].distance.text;
+        
+        var dis = respObj.routes[0].legs[0].distance.text;
+        var disarr = dis.split(" ");
+        if(disarr[1] == "km")
+        {
+          disarr[1]="كم";
+          dis = disarr.join(" ");
+        }else if(disarr[1] == "m"){
+          disarr[1]="م";
+          dis = disarr.join(" ");
+        }
+        console.log("dis from get distance",dis);
+
+        var dur = respObj.routes[0].legs[0].duration.text;
+        var durarr = dur.split(" ");
+        if(durarr[1] == "mins")
+        {
+          durarr[1]="د";
+          dur = durarr.join(" ");
+        }else if(durarr[1] == "h"){
+          durarr[1]="س";
+          dur = durarr.join(" ");
+        }
+
+
+        this.DoctorsArray[i].distance = dis;
         this.DoctorsArray[i].distanceVal = respObj.routes[0].legs[0].distance.value;
-        this.DoctorsArray[i].duration = respObj.routes[0].legs[0].duration.text;
+        this.DoctorsArray[i].timefordelivery = dur;
         console.log("distance from array ",this.DoctorsArray[i].distance);
         //this.sortDoctors();
+
       }
 
         if(i == (this.DoctorsArray.length -1))
