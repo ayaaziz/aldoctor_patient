@@ -37,8 +37,8 @@ export class SearchForDoctorPage {
   doctorsLoc=[];
   langDirection;
   tostClass ;
-  locFlag= 0;
-  // locFlag= 1;
+  // locFlag= 0;
+  locFlag= 1;
 
   constructor(public service:LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -65,6 +65,8 @@ export class SearchForDoctorPage {
   
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForDoctorPage');
+
+    
 
     this.events.subscribe('location', (data) => {
       console.log(" event location ",data);
@@ -130,8 +132,9 @@ export class SearchForDoctorPage {
 
     this.initMap();
 
-  
-    // this.initMapwithUserLocations();
+    // this.allowUserToChooseHisLocation();
+
+    //this.initMapwithUserLocations();
 
     // this.initMapWithDoctorsLocation();
     // this.handleuserLocattion();
@@ -528,7 +531,7 @@ initMapWithDoctorsLocation(){
   
   }
   
-  
+  this.allowUserToChooseHisLocation();
 
 }
 

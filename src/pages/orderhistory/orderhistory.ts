@@ -26,9 +26,11 @@ export class OrderhistoryPage {
   color="grey";
   ordersArray=[];
 
+  
+
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-"custom_date":"","date_id":"","statusTxt":"","orderDate":""};
+"custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false};
 
   tostClass ;
   refresher;
@@ -151,13 +153,25 @@ export class OrderhistoryPage {
               this.orderobject.orderId = ordersData[j].id;
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
-              this.orderobject.orderDate = ordersData[j].date;
+              this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
               
               // console.log("ordersData[j].date ",ordersData[j].date);
 
               // if(ordersData[j].reorder == "1")
               if(ordersData[j].is_reorder == "1")
               {
+                console.log("ordersData[j].date ",ordersData[j].date);
+                console.log("today",new Date().toISOString().split('T')[0]);
+                
+                if(new Date().toISOString().split('T')[0] == ordersData[j].date ){
+                  console.log("==")
+                  this.orderobject.reorderBtn = false;
+                }else{
+                  console.log("!=")
+                  this.orderobject.reorderBtn = true;
+                }
+
+
                 this.orderobject.custom_date = ordersData[j].custom_date;
                 this.orderobject.date_id = ordersData[j].date_id;
 
@@ -170,7 +184,7 @@ export class OrderhistoryPage {
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":"","statusTxt":"","orderDate":""};
+                  "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":""};
           
                     
             }

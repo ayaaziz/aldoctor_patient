@@ -284,6 +284,7 @@ this.events.subscribe('location', (data) => {
     var id;
     console.log("all Specialization: ",this.SpecializationArray);
     console.log(this.Specialization);
+    if(this.searchValue){
     for(var i=0;i<this.SpecializationArray.length;i++){
       if(this.Specialization == this.SpecializationArray[i].value)
       {
@@ -293,7 +294,10 @@ this.events.subscribe('location', (data) => {
     }
     console.log("id: ",id);
     this.showLoading = false;
-    this.service.getDoctorInSpecificSpecialization(id,this.accessToken).subscribe(
+    // this.service.getDoctorInSpecificSpecialization(id,this.accessToken)
+    this.service.getDoctorsByName(this.searchValue,id,this.accessToken)
+    .subscribe(
+    
       resp =>{
         this.showLoading = true;
         console.log("getDoctorInSpecificSpecialization resp: ",resp);
@@ -355,7 +359,7 @@ this.events.subscribe('location', (data) => {
         
       }
     );
-    
+  }
   }
 
   getDistanceAndDuration(i){
@@ -447,6 +451,8 @@ this.events.subscribe('location', (data) => {
     var id ;
     this.searchValue = searchVal;
 
+    if(this.searchValue)
+    {
     console.log("search value: ",searchVal);
     for(var i=0;i<this.SpecializationArray.length;i++){
       if(this.Specialization == this.SpecializationArray[i].value)
@@ -529,6 +535,16 @@ this.events.subscribe('location', (data) => {
         }
       );
     });
+  }else{
+    this.doctors = [];
+    if(this.doctors.length >= 3)
+          {
+            this.scrollHeight = "385px";
+          
+          }else{
+            this.scrollHeight = "260px";
+          }
+  }
   }
 
   doctorChecked(item , event){

@@ -122,6 +122,39 @@ html[dir="rtl"] body > ion-app > ion-alert .alert-button-group{
 }
 
 
+// ion-icon::before {
+//     font-size: 30px;
+// }
+
+// ion-icon::after {
+//     font-size: 30px;
+// }
+
+
+.ion-ios-home-outline:before {
+    font-size: 30px;
+}
+.ion-ios-home-outline:after {
+    font-size: 30px;
+}
+.ion-ios-calendar-outline:before {
+    font-size: 30px;
+}
+.ion-ios-calendar-outline:after {
+    font-size: 30px;
+}
+.ion-ios-person-outline:before {
+    font-size: 30px;
+}
+.ion-ios-person-outline:after {
+    font-size: 30px;
+}
+.ion-ios-notifications-outline:before {
+    font-size: 30px;
+}
+.ion-ios-notifications-outline:after {
+    font-size: 30px;
+}
 
 // .item-radio-checked.item-md ion-label {
 //     color: #488aff;
