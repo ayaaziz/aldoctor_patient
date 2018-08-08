@@ -62,9 +62,12 @@ export class HomePage {
       //     // dur = durarr.join(" ");
       //   }
 
-      //   console.log("dur",dur);
-
-
+      //  var dur = "3 hours 43 mins";
+      //   dur = dur.replace("hours","س");
+      //   dur = dur.replace("mins","د");
+        
+      //   dur.replace("min","د");
+      //   console.log("dur ",dur);
     // this.helper.createOrder(3);
     //this.helper.orderStatusChanged(313);
     //this.helper.updateCancelOrderStatus(313);
@@ -229,7 +232,7 @@ this.storage.get("rate_doctor").then(data=>{
   this.navCtrl.setRoot('follow-order',
   {data:
     {"orderId":201, 
-      "doctorId":22
+      "doctorId":27
     }
   });
 

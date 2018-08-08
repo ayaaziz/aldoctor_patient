@@ -156,6 +156,18 @@ html[dir="rtl"] body > ion-app > ion-alert .alert-button-group{
     font-size: 30px;
 }
 
+
+.item_selected{
+    background-color: #e8f1ed;
+    padding-right:20px;
+}
+
+.item_unselected{
+    background-color: white;
+    padding-right:0px;   
+}
+
+
 // .item-radio-checked.item-md ion-label {
 //     color: #488aff;
 //     direction: ltr;

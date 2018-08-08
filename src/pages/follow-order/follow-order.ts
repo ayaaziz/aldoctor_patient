@@ -383,9 +383,26 @@ this.service.getDurationAndDistance(this.lat,this.lng,xlat,xlon).subscribe(
     console.log("resp from getDurationAndDistance -> doctor map: ", resp);
     var respObj = JSON.parse(JSON.stringify(resp));
     
+    
+
     console.log("duration",respObj.routes[0].legs[0].duration.text);
-    this.duration = respObj.routes[0].legs[0].duration.text;
+    var dur = respObj.routes[0].legs[0].duration.text;
     console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+
+if(dur.includes("hours"))
+    dur = dur.replace("hours","س");
+
+if(dur.includes("mins"))
+    dur = dur.replace("mins","د");
+
+if(dur.includes("min"))
+    dur = dur.replace("min","د");
+    
+if (dur.includes("hour"))
+    dur = dur.replace("hour","س");
+
+    this.duration = dur;
+
   },
   err=>{
     console.log("err from getDurationAndDistance: ",err);

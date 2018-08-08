@@ -253,6 +253,6 @@
       "passNotCorrect":"كلمه المرور الحاليه غير صحيحه",
       "phoneAlreadyExist":"رقم الهاتف موجود",
       "codeErr":"كود التفعيل يجب أن يكون 5 أرقام",
-      "fromGreaterThanTo":"الفتره من اكبر من الفتره الى  "
+      "fromGreaterThanTo":"الفتره من تسبق الفتره الى  "
 
 }

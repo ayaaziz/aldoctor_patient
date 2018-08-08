@@ -30,7 +30,7 @@ export class OrderhistoryPage {
 
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-"custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false};
+"custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,"diabledesign":false};
 
   tostClass ;
   refresher;
@@ -154,7 +154,7 @@ export class OrderhistoryPage {
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
               this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
-              
+              this.orderobject.diabledesign = false;
               // console.log("ordersData[j].date ",ordersData[j].date);
 
               // if(ordersData[j].reorder == "1")
@@ -184,9 +184,22 @@ export class OrderhistoryPage {
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false};
+                  "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,"diabledesign":false};
           
                     
+            }
+            else{
+              this.orderobject.diabledesign = true;
+              this.orderobject.orderId = ordersData[j].id;
+              this.orderobject.name = "تم رفض الطلب ";
+              this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
+              this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
+              this.data.push(this.orderobject);
+              this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
+              "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
+              "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,"diabledesign":false};
+      
+           
             }
           }
            
@@ -588,6 +601,8 @@ export class OrderhistoryPage {
     this.doneTxt = this.translate.instant("doneTxt");
     this.to="";
     this.from="";
+    this.data=[];
+    this.page=1;
     this.getOrders();
 
     // this.getSpecializationsData()

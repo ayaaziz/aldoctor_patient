@@ -53,6 +53,14 @@ export class MyApp {
   langDirection:string;
   image="assets/imgs/default-avatar.png";  
   name="";
+
+  app_share = "item_unselected";
+  app_rate = "item_unselected";
+  app_logout = "item_unselected";
+  app_about = "item_unselected";
+  app_contact = "item_unselected";
+  app_conditions = "item_unselected";
+
   constructor(public events: Events,public service:LoginserviceProvider, private alertCtrl: AlertController, private push: Push,public storage:Storage,public socialSharing:SocialSharing,public helper:HelperProvider,public menu:MenuController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
     console.log("current lang: ",this.helper.currentLang);
     if(this.helper.currentLang == 'ar'){
@@ -201,10 +209,28 @@ export class MyApp {
 
 
   }
+
+  menuOpened(){
+    console.log("menu opened");
+    this.app_share = "item_unselected";
+    this.app_rate = "item_unselected";
+    this.app_logout = "item_unselected";
+    this.app_about = "item_unselected";
+    this.app_contact = "item_unselected";
+    this.app_conditions = "item_unselected";
+  }
+  
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     console.log("openpage:");
+    this.app_share = "item_unselected";
+    this.app_rate = "item_unselected";
+    this.app_logout = "item_unselected";
+    this.app_about = "item_unselected";
+    this.app_contact = "item_unselected";
+    this.app_conditions = "item_unselected";
+
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
     }else{
@@ -216,12 +242,24 @@ export class MyApp {
 
   share()
   {
+    if(this.app_share == "item_unselected")
+    {
+      this.app_share = "item_selected";
+      this.app_about = "item_unselected";
+      this.app_conditions = "item_unselected";
+      this.app_contact = "item_unselected";
+      this.app_logout = "item_unselected";
+      this.app_rate = "item_unselected";
+    }
+      
     console.log("share app");
     this.socialSharing.share(" الدكتور" , null , null ,"http://itrootsdemos.com/aldoctor").then(() => {
       console.log("success")
       this.menu.close();
+     
     }).catch(() => {
-      console.log("not available")
+      console.log("not available");
+      
     });
   }
   
@@ -238,6 +276,16 @@ export class MyApp {
   // }
   apprate()
   {
+    if(this.app_rate == "item_unselected")
+    {
+      this.app_rate = "item_selected";
+      this.app_about = "item_unselected";
+      this.app_conditions = "item_unselected";
+      this.app_contact = "item_unselected";
+      this.app_logout = "item_unselected";
+      this.app_share = "item_unselected";
+    }
+
     // this.platform.ready().then(()=>{
     //   this.appRate.preferences.storeAppURL = {
     //     ios: 'ca-app-pub-8649488555231154/7752535828',
@@ -311,8 +359,19 @@ export class MyApp {
     }
     openAboutapppage()
     {
+      if(this.app_about == "item_unselected")
+      {
+        this.app_about = "item_selected";
+        this.app_share = "item_unselected";
+        this.app_conditions = "item_unselected";
+        this.app_contact = "item_unselected";
+        this.app_logout = "item_unselected";
+        this.app_rate = "item_unselected";
+      }
+
       this.navctrl.push('about-app');
       this.menu.close();
+     
 
     }
     setting(){
@@ -322,6 +381,16 @@ export class MyApp {
 
     logout()
     {
+      if(this.app_logout == "item_unselected")
+      {
+        this.app_logout = "item_selected";
+        this.app_about = "item_unselected";
+        this.app_conditions = "item_unselected";
+        this.app_contact = "item_unselected";
+        this.app_share = "item_unselected";
+        this.app_rate = "item_unselected";
+      }
+
       this.storage.get("access_token").then(data=>{
         //this.accessToken = data;
         this.service.updateNotification(0,data).subscribe(
@@ -344,13 +413,33 @@ export class MyApp {
      
     }
     contact()
-    {
+    { 
+      if(this.app_contact == "item_unselected")
+      {
+        this.app_contact = "item_selected";
+        this.app_about = "item_unselected";
+        this.app_conditions = "item_unselected";
+        this.app_share = "item_unselected";
+        this.app_logout = "item_unselected";
+        this.app_rate = "item_unselected";
+      }
+
       this.navctrl.push('contact-us')
       this.menu.close()
     }
     opensuggest()
     {
      // alert("here")
+     if(this.app_conditions == "item_unselected")
+     {
+       this.app_conditions = "item_selected";
+       this.app_about = "item_unselected";
+       this.app_share = "item_unselected";
+       this.app_contact = "item_unselected";
+       this.app_logout = "item_unselected";
+       this.app_rate = "item_unselected";
+     }
+
       this.navctrl.push('conditions')
       this.menu.close()
 

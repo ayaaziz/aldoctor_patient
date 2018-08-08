@@ -25,7 +25,7 @@ export class VerificationcodePage {
   tostClass ;
   from;
   codeErrMsg;
-phone;
+phone="";
 
   constructor(public storage: Storage,public translate: TranslateService, 
     public loginservice:LoginserviceProvider,
@@ -200,7 +200,7 @@ phone;
     
   }
   resendActivationCode(){
-    this.loginservice.resendActivationCode(this.accessToken).subscribe(
+    this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
       resp=>{
         console.log("resp from resend activation code",resp);
         if(JSON.parse(JSON.stringify(resp)).success)

@@ -615,7 +615,7 @@ export class OrderDoctorPage {
           var newOrder = JSON.parse(JSON.stringify(resp));
           
 console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.service_profile_id)
-          this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id);
+          this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
           this.helper.orderStatusChanged(newOrder.order.id);
 
           

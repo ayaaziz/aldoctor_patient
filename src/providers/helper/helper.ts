@@ -26,6 +26,11 @@ export class HelperProvider {
   public accessToken;
   public lon=31.381523;
   public lat=31.037933;
+
+
+  // public lat= 31.205753;
+  // public lon = 29.924526;
+
   public detectLocation = false;
   // public lon;
   // public lat;
@@ -188,11 +193,11 @@ getBusyDoctor(userId){
   });
 }
 
-createOrder(orderId,serviceId){
+createOrder(orderId,serviceId,doctorsNumber){
   //firebase.database().ref('orders/'+orderId).push({status:1});
   console.log("create order",orderId,"service id",serviceId);
   var orderData = firebase.database().ref('orders/');
-  orderData.child(orderId).set({orderStatus:{status:1},serviceProfileId:serviceId});
+  orderData.child(orderId).set({orderStatus:{status:1},serviceProfileId:serviceId,doctorsNo:doctorsNumber});
 
 }
 orderStatusChanged(orderId){
@@ -277,8 +282,8 @@ removeOrder(orderId){
 
 checkConnection(){
 
-var connectedRef = firebase.database().ref("orders/");
-connectedRef.on("value", function(snap) {
+var connectedRef = firebase.database().ref(".info/connected");
+connectedRef.on("value", (snap)=> {
   if (snap.val() === true) {
     alert("connected");
   } else {

@@ -29,6 +29,8 @@ export class DoctorProfilePage {
   tostClass ;
 
   offline;
+  bio;
+  location;
 
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, 
@@ -50,6 +52,8 @@ export class DoctorProfilePage {
     this.name = this.doctorProfile.doctorName;
     this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
+    this.bio = this.doctorProfile.bio;
+    this.location = this.doctorProfile.address;
     this.services = this.doctorProfile.speciality_services;
     
     if(this.doctorProfile.offline == true)
@@ -87,7 +91,7 @@ export class DoctorProfilePage {
         console.log("saveOrder resp: ",resp);
         var newOrder = JSON.parse(JSON.stringify(resp));
           
-        this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id);
+        this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
         this.helper.orderStatusChanged(newOrder.order.id);
 
         this.presentToast(this.translate.instant("ordersent"));
