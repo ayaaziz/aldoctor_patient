@@ -115,7 +115,9 @@
 type="text" [dir]="langDirection"></ion-input>
 </ion-item>
 <ion-item *ngIf="!patientRegisterForm.controls.email.valid && submitAttempt" no-lines>
-<p> {{"enterEmail" | translate}} </p>
+<!-- <p> {{"enterEmail" | translate}} </p> -->
+<!-- <p> {{"invalidEmailAddress" | translate}} </p> -->
+<p>{{emailErr}}</p>
 </ion-item>
 
 

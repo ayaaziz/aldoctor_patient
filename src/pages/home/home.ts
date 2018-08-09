@@ -216,6 +216,7 @@ this.storage.get("rate_doctor").then(data=>{
        type_id:"3"  
       },
     });
+    
   }
 
   rate(){

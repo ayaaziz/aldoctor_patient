@@ -36,7 +36,7 @@ export class SignupPage {
   secondname;
   surname;
   passwrodTxt;
-  email;
+  email="";
   phone;
   birthdate;
   patientRegisterForm;
@@ -61,6 +61,7 @@ export class SignupPage {
 
   passErrMsg="";
   phoneErrMsg="";
+  emailErr="";
 
   imgPreview = 'assets/imgs/default-avatar.png';
   regData = { avatar:'', email: '', password: '', fullname: '' };
@@ -87,7 +88,7 @@ export class SignupPage {
       //email: ['', Validators.compose([Validators.required,Validators.email])],
       // email:[],
       // email:['',Validators.email],
-      email: ['', Validators.compose([emailValidator.isValid])],
+      email: ['', Validators.compose([Validators.required,emailValidator.isValid])],
       //phone: ['', Validators.required],
       phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
       address: ['', Validators.required],
@@ -225,8 +226,23 @@ y;
         console.log("phone errors:",this.patientRegisterForm.controls["phone"].errors);
       }
     }
+console.log("email err",this.patientRegisterForm.controls["email"].errors);
+    
+if(this.patientRegisterForm.controls["email"].errors){
+  if(this.patientRegisterForm.controls["email"].errors['required'])
+  {
+    this.emailErr = this.translate.instant("enterEmail");
+  }else if(this.patientRegisterForm.controls["email"].errors['invalidChars']) {
+    this.emailErr = this.translate.instant("invalidEmailAddress");
+  }else{
+    console.log("phone errors:",this.patientRegisterForm.controls["email"].errors);
+  }
+}
 
-    }
+
+
+
+}
     else{
       if(this.termsStatus == false){
         this.presentToast(this.translate.instant('checkAgreement'))
@@ -355,8 +371,42 @@ y;
       //this.presentToast("token: "+data.access_token);
       console.log("refresh token: ",data.refresh_token);
       this.storage.set("access_token",data.access_token);
+
+
       this.storage.set("refresh_token",data.refresh_token);
       this.storage.set("verification_page",1);
+      
+
+      this.loginservice.registerFirebase(this.helper.registration,data.access_token).subscribe(
+        resp=>{
+          console.log("from registerFirebase resp: ",resp);
+          var jsonUserData  = JSON.parse(JSON.stringify(resp)).user;
+          console.log("json ",jsonUserData);
+          
+          this.storage.set("user_info",{
+                  "id":jsonUserData.id,
+                  "name":jsonUserData.name,
+                  "email":jsonUserData.email,
+                  "phone":jsonUserData.phone,
+                  "dob":jsonUserData.user_info.birth_date,
+                  "add":jsonUserData.extraInfo.address,
+                  "profile_pic":jsonUserData.profile_pic
+                }).then(data=>{
+                  console.log("set data to storage from login ",data);
+                  this.navCtrl.setRoot(TabsPage);
+                }).catch(data=>{
+                  console.log("catch data from login",data);
+                });
+                   
+  
+        },
+        err=>{
+          
+            console.log("from registerFirebase err: ",err);
+              
+         
+        }
+      );
       
       // this.navCtrl.setRoot(TabsPage);
       this.navCtrl.setRoot('verification-code',{data:0});

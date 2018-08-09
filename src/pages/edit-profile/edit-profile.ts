@@ -5,7 +5,8 @@ import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
-import { debugOutputAstAsTypeScript } from '@angular/compiler';
+//import { debugOutputAstAsTypeScript } from '@angular/compiler';
+import { emailValidator } from '../../validators/passwordValidator';
 
 
 @IonicPage({
@@ -48,7 +49,8 @@ export class EditProfilePage {
   regAccessToken;
   //phoneErrMsg="";
   tostClass;
-  
+  emailErr="";
+
 
   constructor(public toastCtrl: ToastController,
     public storage: Storage, public translate: TranslateService,
@@ -66,7 +68,8 @@ export class EditProfilePage {
       firstname: ['', Validators.required],
       secondname: ['', Validators.required],
       surname: ['', Validators.required],
-      email: ['', Validators.compose([Validators.required,Validators.email])],
+      //email: ['', Validators.compose([Validators.required,Validators.email])],
+      email: ['', Validators.compose([Validators.required,emailValidator.isValid])],
       // phone: ['', Validators.required],
     //  phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
       address: ['', Validators.required],
@@ -205,7 +208,22 @@ addArr;
       if(! this.patientRegisterForm.valid ){
       this.submitAttempt=true;
 
+      if(this.patientRegisterForm.controls["email"].errors){
+        if(this.patientRegisterForm.controls["email"].errors['required'])
+        {
+          this.emailErr = this.translate.instant("enterEmail");
+        }else if(this.patientRegisterForm.controls["email"].errors['invalidChars']) {
+          this.emailErr = this.translate.instant("invalidEmailAddress");
+        }else{
+          console.log("phone errors:",this.patientRegisterForm.controls["email"].errors);
+        }
+      }
+
+      
+      
       this.content.scrollToTop(3000); 
+
+
 
       // if(this.patientRegisterForm.controls["phone"].errors){
       //   if(this.patientRegisterForm.controls["phone"].errors['required'])

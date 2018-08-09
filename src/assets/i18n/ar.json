@@ -254,6 +254,6 @@
       "phoneAlreadyExist":"رقم الهاتف موجود",
       "codeErr":"كود التفعيل يجب أن يكون 5 أرقام",
       "fromGreaterThanTo":"الفتره من تسبق الفتره الى  ",
-      "invalidEmailAddress":"البريد الالكترونى غير صحيح"
-
+      "invalidEmailAddress":"البريد الالكترونى غير صحيح",
+      "centers":"مراكز الاشعه"
 }

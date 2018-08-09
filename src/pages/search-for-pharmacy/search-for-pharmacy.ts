@@ -327,12 +327,13 @@ export class SearchForPharmacyPage {
         break;
       }
       case  this.translate.instant("SearchByNearestCenter"):{
-        console.log("in case nearest center")
-        this.navCtrl.push('order-service',{data:{
-          type_id:3,
-          lat:this.lat,
-          lng:this.lng
-        }});
+        console.log("in case nearest center");
+        this.navCtrl.push('centers');
+        // this.navCtrl.push('order-service',{data:{
+        //   type_id:3,
+        //   lat:this.lat,
+        //   lng:this.lng
+        // }});
         break;
       }
       

@@ -8,7 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 //import { ImagePicker } from '@ionic-native/image-picker';
 //import { Base64 } from '@ionic-native/base64';
-import { Jsonp } from '@angular/http/src/http';
+// import { Jsonp } from '@angular/http/src/http';
 
 //import { ImageLoaderConfig } from 'ionic-image-loader';
 

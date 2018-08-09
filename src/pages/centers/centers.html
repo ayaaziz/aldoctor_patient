@@ -1,10 +1,4 @@
-<!--
-  Generated template for the CentersPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
+<!-- <ion-header>
 
   <ion-navbar>
     <ion-title>centers</ion-title>
@@ -12,7 +6,84 @@
 
 </ion-header>
 
+<ion-header> -->
+<ion-header>
+<ion-navbar hideBackButton>
+  <ion-row>
+    <ion-col col-7>
+          <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"centers" | translate}}</ion-title>
+          <ion-title *ngIf="langDirection != 'rtl'">{{"centers" | translate}}</ion-title>
+    </ion-col>
+    <ion-col col-3 >
+      <ion-buttons  left>
+        <button ion-button>
+          <img src="assets/imgs/dlogo.png" style="width:40px;" >         
+        </button>
+      </ion-buttons>
+    </ion-col>
+    <ion-col col-2>
+      <ion-buttons *ngIf="langDirection == 'rtl'"  left>
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+        </button>
+    </ion-buttons>
+      <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+        <button ion-button  (click)="dismiss()">
+          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+        </button>
+      </ion-buttons>
+    </ion-col>
+  </ion-row>
+
+  </ion-navbar>
+
+</ion-header>
+
+
 
 <ion-content padding>
+
+  <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
+
+    <ion-col style="background-color: #e8f1ed" col-11>
+      <ion-searchbar [dir]="langDirection" *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="search for radiology center" style="color: red;width:100%;"> </ion-searchbar>
+      <ion-searchbar [dir]="langDirection" *ngIf="langDirection == 'rtl'"  (ionInput)="getItems($event)" placeholder="ابحث عن مركز اشعه" class="right" style="color: red;width:100%;" > </ion-searchbar>
+    </ion-col>
+    
+    <ion-col style="background-color: #e8f1ed" col-1 (click)="searchIcon()">
+      <img src="assets/icon/search.png" style="margin-top:15px;width:20px;height:20px;">
+    </ion-col>
+</ion-row>
+
+<br>
+
+<ion-row [hidden]="showLoading" style="text-align: center;">
+  <ion-col col-5></ion-col>
+  <ion-col col-2> 
+    <ion-spinner name="circles" [hidden]="showLoading" ></ion-spinner>
+  </ion-col>
+  <ion-col col-5></ion-col>
+</ion-row>
+
+<ion-row style="width:100%;margin-right:0px;margin-left:0px;">
+<ion-col col-6  *ngFor="let item of specializations1; let i= index" >
+<div class="divStyle x" [ngClass]="item.spClass" (click)="chooseSp($event,i,item)">
+  <img  [src]="item.image"  *ngIf="item.status =='0'" style="width:60px;height:60px;" class="customPosition" >
+  <img  [src]="item.image_selected" *ngIf="item.status =='1'"  style="width:60px;height:60px;" class="customPosition" >
+  
+  <ion-label  class="labelStyle">{{item.value}}</ion-label>
+</div>
+</ion-col>
+<ion-col col-6  *ngFor="let item2 of specializations2; let j= index">
+  <div class= "divStyle x" [ngClass]="item2.spClass" (click)="chooseSp($event,j,item2)">
+      <img  [src]="item2.image"  *ngIf="item2.status =='0'" style="width:60px;height:60px;" class="customPosition" >
+      <img  [src]="item2.image_selected" *ngIf="item2.status =='1'"  style="width:60px;height:60px;" class="customPosition" >
+     
+      <ion-label  class="labelStyle">{{item2.value}}</ion-label>
+    </div>
+
+</ion-col>
+</ion-row>
+
 
 </ion-content>

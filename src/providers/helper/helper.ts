@@ -36,8 +36,10 @@ export class HelperProvider {
   // public lat;
 
   //google maps api key
-   public key = "AIzaSyB73L1RyzXHkT9fZMlnitShWfEkF3bzrVk";
-  //public key = "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo";
+  //  public key = "AIzaSyB73L1RyzXHkT9fZMlnitShWfEkF3bzrVk";
+  public key =  "AIzaSyCqLKTRbSzlXV86rXciYGUPF7fNdVPsgnA";
+
+   //public key = "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo";
 
   public userId ;
   public trackInterval;
