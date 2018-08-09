@@ -50,14 +50,31 @@ page-specializations {
     
   }
  
-  .x:hover{
+  // .x:hover{
+  //     background-color: #016a38;
+  //     box-shadow: 0 0 20px lightgray;
+  //     border-color: #016a38;
+  //     ion-label{
+  //       color: white;
+  //     }
+      
+  // }
+  .spSelected{
       background-color: #016a38;
       box-shadow: 0 0 20px lightgray;
+      
       border-color: #016a38;
       ion-label{
         color: white;
       }
+  }
+  .spUnselceted{
+      background-color: white;
       
+      border-color: lightgray;
+      ion-label{
+        color: grey;
+      }
   }
   .row{
     margin: 0px;

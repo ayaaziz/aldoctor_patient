@@ -34,7 +34,7 @@ export class SpecializationsPage {
   searchValue;
   showLoading=true;
 
-
+  
   constructor(public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public storage: Storage,
      public service:LoginserviceProvider,public toastCtrl: ToastController,
@@ -62,10 +62,14 @@ export class SpecializationsPage {
   ionViewWillEnter(){
     console.log("will enter");
     for(var j=0;j<this.specializations1.length;j++){
+      this.specializations1[j].spClass = "spUnselceted";
       this.specializations1[j].status = '0';
+      
     }
     for(var j=0;j<this.specializations2.length;j++){
+      this.specializations2[j].spClass = "spUnselceted";
       this.specializations2[j].status = '0';
+      
     }
   }
   initializeSpecializations() {
@@ -114,12 +118,14 @@ export class SpecializationsPage {
           this.specializations2 = [];
           for(var i=0;i<(specializationData.length/2);i++){
             // console.log("sp1",specializationData[i]);
+            specializationData[i].spClass ="spUnselceted";
             this.specializations1.push(specializationData[i]);
           }
           // console.log("sp..",specializationData);
           for(var j=Math.ceil(specializationData.length/2);j<specializationData.length;j++){
             // console.log("j ",j);
             // console.log("sp2",specializationData[j]);
+            specializationData[j].spClass ="spUnselceted";
             this.specializations2.push(specializationData[j]);
             
           }
@@ -194,6 +200,7 @@ console.log("sp item search val ",val);
       
       
     }
+    item.spClass = "spSelected";
     console.log("item",item);
     console.log("event: ",ev);
     this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});

@@ -115,10 +115,11 @@ type="tel" [dir]="langDirection"></ion-input>
     <ion-input *ngIf="langDirection != 'rtl'" placeholder="Email"    style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
     type="email" [dir]="langDirection"></ion-input>
 </ion-item>
-<!-- <ion-item *ngIf="!patientRegisterForm.controls.email.valid && submitAttempt" no-lines> -->
+<ion-item *ngIf="!patientRegisterForm.controls.email.valid && submitAttempt" no-lines> 
 <!-- <p> {{"enterEmail" | translate}} </p> -->
-<!-- <p> {{"invalidEmail" | translate}} </p>
-</ion-item> -->
+ <!-- <p> {{"invalidEmail" | translate}} </p> -->
+ <p> {{"invalidEmailAddress" | translate}} </p>
+</ion-item>
 
 
 <ion-item [class.invalid]="!patientRegisterForm.controls.password.valid && submitAttempt">

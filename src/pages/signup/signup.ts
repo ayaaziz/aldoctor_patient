@@ -6,7 +6,7 @@ import { Platform, IonicPage, NavController, NavParams, ToastController, ActionS
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
-import { passwordValidator, matchOtherValidator } from '../../validators/passwordValidator';
+import { passwordValidator, matchOtherValidator,emailValidator } from '../../validators/passwordValidator';
 import { LoginPage } from '../login/login';
 import { PatientData } from '../../models/patientData';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -85,7 +85,9 @@ export class SignupPage {
       secondname: ['', Validators.required],
       surname: ['', Validators.required],
       //email: ['', Validators.compose([Validators.required,Validators.email])],
-      email:[],
+      // email:[],
+      // email:['',Validators.email],
+      email: ['', Validators.compose([emailValidator.isValid])],
       //phone: ['', Validators.required],
       phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
       address: ['', Validators.required],
@@ -256,8 +258,8 @@ y;
       this.patient.country=this.patientRegisterForm.controls.country.value;
       this.patient.gender=this.patientRegisterForm.controls.gender.value;
       this.patient.terms=this.termsStatus;   
-     // this.patient.email=this.patientRegisterForm.controls.email.value;
-     this.patient.email = this.email;
+     this.patient.email=this.patientRegisterForm.controls.email.value;
+    //  this.patient.email = this.email;
       this.patient.img=this.profileImg;
       console.log(this.patient);
       //this.presentToast("patient data from get data: "+JSON.stringify(this.patient));

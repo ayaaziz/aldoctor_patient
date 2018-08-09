@@ -50,3 +50,18 @@ export function matchOtherValidator (otherControlName: string) {
   }
 
 }
+export class emailValidator {
+ 
+  static isValid(control: FormControl): any {
+    if(!control.value){
+      return null
+    }
+      if (/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(String(control.value)) == true){
+          return null;
+      }
+      else{
+          return {invalidChars: true};;
+      }
+  }
+
+}
