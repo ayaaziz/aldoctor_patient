@@ -71,7 +71,8 @@ export class HomePage {
     // this.helper.createOrder(3);
     //this.helper.orderStatusChanged(313);
     //this.helper.updateCancelOrderStatus(313);
-    // for(var i=2;i<60;i++)
+    
+    // for(var i=311;i<320;i++)
     //   this.helper.removeOrder(i);
 
     console.log("date", new Date().toISOString().split('T')[0]);

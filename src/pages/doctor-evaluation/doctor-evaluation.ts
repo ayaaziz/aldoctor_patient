@@ -51,6 +51,7 @@ export class DoctorEvaluationPage {
         console.log("data",notificationdata);
         this.doctorId = notificationdata.doctorId;
         this.orderId = notificationdata.orderId;
+        this.helper.removeOrder(this.orderId);
 
         this.storage.set("rate_doctor",{
           "doctorId":this.doctorId,
@@ -72,6 +73,7 @@ export class DoctorEvaluationPage {
         console.log("data2",notificationdata2);
         this.doctorId = notificationdata2.doctorId;
         this.orderId = notificationdata2.orderId;
+        this.helper.removeOrder(this.orderId);
       }
 
       // this.storage.get("rate_doctor").then(data=>{

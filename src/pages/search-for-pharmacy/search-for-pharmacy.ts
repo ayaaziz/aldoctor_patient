@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController,Platform,AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController,Platform,AlertController,Events} from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 
 
@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 import { HelperProvider } from '../../providers/helper/helper';
 import { Storage } from '@ionic/storage';
-
+import 'rxjs/add/operator/timeout';
 
 
 @IonicPage({
@@ -27,7 +27,8 @@ export class SearchForPharmacyPage {
   map: any;
   lat=31.037933; 
   lng=31.381523;
-  doctorsLoc=[{lat:31.205753,lng:29.924526},{lat:29.952654,lng:30.921919}];
+  doctorsLoc=[{id:1,lat:31.205753,lng:29.924526},{id:2,lat:29.952654,lng:30.921919}];
+  //doctorsLoc=[];
   langDirection;
   type_id;
 
@@ -36,13 +37,16 @@ export class SearchForPharmacyPage {
   btn1;
   btn2;
   tostClass ;
+  // locFlag= 0;
+  locFlag= 1;
 
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
     public alertCtrl: AlertController,public platform: Platform,
     public diagnostic: Diagnostic, public translate: TranslateService,
      private geolocation: Geolocation, public toastCtrl: ToastController,
-     public navCtrl: NavController, public navParams: NavParams) {
+     public navCtrl: NavController, public navParams: NavParams,
+     public events: Events) {
 
       this.langDirection = this.helper.lang_direction;
       
@@ -77,8 +81,38 @@ export class SearchForPharmacyPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchForPharmacyPage');
-    this.test();
+    // this.test();
+    // this.initMap();
+
+
+    this.events.subscribe('location', (data) => {
+      console.log(" event location ",data);
+      
+      if(data.location){
+      for(var k=0;k<this.doctorsLoc.length;k++)
+      {   
+        if(this.doctorsLoc[k].id == data.id)
+        {
+          this.doctorsLoc[k].lat = data.location.split(',')[0];
+          this.doctorsLoc[k].lng = data.location.split(',')[1];
+          
+          
+        }
+              
+      }
+      }
+       this.initMapWithDoctorsLocation();
+  
+      
+  
+  
+      });
+
+
     this.initMap();
+
+    this.test();
+    
   }
   dismiss(){
     console.log("dismiss");
@@ -92,7 +126,20 @@ export class SearchForPharmacyPage {
         if(a)
         {
          
-        this.getUserLocation();
+        // this.getUserLocation();
+        if(this.helper.detectLocation == false)
+       {
+          this.getUserLocation();
+       }
+      else
+        {
+          this.lat = this.helper.lat;
+          this.lng = this.helper.lon;
+          this.locFlag = 1;
+          this.handleuserLocattion();
+        }
+
+
         }
         else
         {
@@ -141,8 +188,14 @@ export class SearchForPharmacyPage {
   
         this.lat = resp.coords.latitude;
         this.lng = resp.coords.longitude;
+        this.helper.lat= this.lat;
+        this.helper.lon = this.lng;
+
+        this.locFlag = 1;
+        this.helper.detectLocation = true;
+
         console.log("resp: ", resp);
-        this.initMapwithUserLocation();
+        this.initMapwithUserLocations();
         this.storage.get("access_token").then(data=>{
           this.accessToken = data;
           this.helper.accessToken = this.accessToken;
@@ -154,12 +207,13 @@ export class SearchForPharmacyPage {
               this.doctorsLoc = [];
               for (let element in docsData) {
                 console.log("element ",docsData[element]);
-                if(docsData[element].location != null)
-                  this.doctorsLoc.push( docsData[element].location);
+               
+                  this.doctorsLoc.push( docsData[element]);
+                  this.helper.getDoctorlocation(docsData[element].id);
   
                }
                console.log("doctorsLoc",this.doctorsLoc);
-               this.initMapWithDoctorsLocation();
+              //  this.initMapWithDoctorsLocation();
              
   
             },err=>{
@@ -172,7 +226,9 @@ export class SearchForPharmacyPage {
         
       }).catch((error) => {
         console.log('Error getting location', error);
-        this.initMap();
+        // this.initMap();
+        this.presentToast(this.translate.instant("AccessLocationFailed"));
+        this.allowUserToChooseHisLocation();
       
         
       });
@@ -190,7 +246,72 @@ export class SearchForPharmacyPage {
     this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
     
   }
-  initMapwithUserLocation(){
+  allowUserToChooseHisLocation(){
+    console.log("allowUserToChooseHisLocation");
+  
+    this.map.addListener('click',(ev) => {
+      
+      console.log("lat clicked",ev.latLng.lat());
+      console.log("lon clicked",ev.latLng.lng());
+      console.log("lat .. ",this.lat);
+  
+      this.lat = ev.latLng.lat();
+      this.lng = ev.latLng.lng();
+      this.helper.lon = this.lng;
+      this.helper.lat = this.lat;
+    
+      this.locFlag = 1;
+      this.helper.detectLocation = true;
+      console.log("loc flag form err ",this.locFlag , "flag from helper",this.helper.detectLocation);
+  
+      this.handleuserLocattion();
+  
+      console.log("lat",this.lat);
+      console.log("lon",this.lng);
+
+      
+      
+    });
+    
+       
+  
+  }
+  handleuserLocattion(){
+    
+  
+    this.initMapwithUserLocations();
+  
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+      this.service.nearbyservices(this.type_id,this.lat,this.lng,this.accessToken).subscribe(
+        resp =>{
+          console.log("resp from nearby doctors: ",resp);
+          var docsData = JSON.parse(JSON.stringify(resp)).result;
+          console.log("res ",docsData,"lenght: ",docsData.lenght);
+          this.doctorsLoc = [];
+          for (let element in docsData) {
+            console.log("element ",docsData[element]);
+  
+            this.doctorsLoc.push( docsData[element]);
+  
+              this.helper.getDoctorlocation(docsData[element].id);
+  
+           }
+           console.log("doctorsLoc",this.doctorsLoc);
+  
+          
+  
+        },err=>{
+          console.log("err from nearby doctors: ",err);
+        }
+      );
+   
+    });
+  
+  
+  }
+
+  initMapwithUserLocations(){
   
     let latlng = new google.maps.LatLng(this.lat,this.lng);
     var mapOptions={
@@ -205,9 +326,9 @@ export class SearchForPharmacyPage {
       animation: google.maps.Animation.DROP,
       position: latlng,
       icon: { 
-        url : 'assets/icon/location.png',
+        url : 'assets/icon/user_locations.png',
         size: new google.maps.Size(71, 71),
-        scaledSize: new google.maps.Size(25, 25) 
+        scaledSize: new google.maps.Size(20, 25) 
       }
   
      
@@ -230,9 +351,9 @@ export class SearchForPharmacyPage {
       animation: google.maps.Animation.DROP,
       position: latlng,
       icon: { 
-        url : 'assets/icon/location.png',
+        url : 'assets/icon/user_locations.png',
         size: new google.maps.Size(71, 71),
-        scaledSize: new google.maps.Size(25, 25) 
+        scaledSize: new google.maps.Size(20, 25) 
       }
   
      
@@ -257,7 +378,7 @@ export class SearchForPharmacyPage {
     
     }
     
-    
+    this.allowUserToChooseHisLocation();
   
   }
   
@@ -265,6 +386,9 @@ export class SearchForPharmacyPage {
   SearchBySpecificService(event){
     console.log("event from SearchBySpecificPharmacy",event);
     console.log("event from SearchBySpecificPharmacy",event.target.innerText);
+    if(this.locFlag == 1)
+    {
+
     switch(event.target.innerText){
       case  this.translate.instant("SearchBySpecificPharmacy"):{
         this.navCtrl.push('order-specific-service',{
@@ -302,6 +426,8 @@ export class SearchForPharmacyPage {
 
     }
     
+  } else
+    this.presentToast(this.translate.instant("chooseYourLocation"));
       
   
   }
@@ -309,6 +435,7 @@ export class SearchForPharmacyPage {
     console.log("event from SearchByNearestPharmacies",event);
     console.log("event from SearchByNearestPharmacies",event.target.innerText);
     console.log("center translate",this.translate.instant("SearchByNearestCenter"))
+    if(this.locFlag == 1){
     switch(event.target.innerText){
       case  this.translate.instant("SearchByNearestPharmacies"):{
         this.navCtrl.push('order-service',{data:{
@@ -339,7 +466,8 @@ export class SearchForPharmacyPage {
       
 
     }  
-    
+  }else
+  this.presentToast(this.translate.instant("chooseYourLocation"));
   
   }
 

@@ -14,9 +14,9 @@ export class HelperProvider {
   public lang_direction ='rtl';
   public currentLang ='ar';
   //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
-  public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
+  //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
   
-  // public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+   public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
 
   public registration;
   public device_type="1";
@@ -208,11 +208,17 @@ orderStatusChanged(orderId){
     console.log("order status changed",snap.val(),"order id: ",orderId)
    
     if(snap.val() == "10" ) //cancelled by doctor 0 || snap.val() == "0"
+    {
+      this.removeOrder(orderId);
       this.events.publish('status0');
+    } 
     else if (snap.val() == "2") //accepted by doctor
       this.getServiceProfileIdToFollowOrder(orderId);
     else if (snap.val() == "3") //no respond
+    {
+      this.removeOrder(orderId);
       this.events.publish('status0');
+    } 
     else if (snap.val() == "5" || snap.val() == "6") //5->finished , 6->finished with reorder
       this.getServiceProfileIdToRate(orderId);        
     else if (snap.val() == "7") //start detection

@@ -169,6 +169,15 @@ page-order-service {
           margin: 0px;
           padding: 0px;
         }
+        .deleteIcon {
+          position: absolute !important;
+          color: #016a38 !important;
+          margin-left: 80% !important;
+        }
+        .deleteIcon:before {
+          font-size: 25px !important;
+        }
+        
 
 }
 .toastRight{

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  ToastController, ActionSheetController , IonicPage, NavController, NavParams } from 'ionic-angular';
+import {  ToastController, ActionSheetController , IonicPage, NavController, NavParams ,Events} from 'ionic-angular';
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -36,23 +36,32 @@ export class OrderSpecificServicePage {
   third;
   fourth
   last;
-  photos = [];
+  // photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
+ photos = [];
   photosForApi=[];
-  //DoctorsArray = [];
+  //doctors = [];
 
-  DoctorsArray=[{"name":"pharmacy 1","place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
-  {"name":"pharmacy 2","place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
-  {"name":"pharmacy 3","place":"mansoura","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
-
+  
+  doctors=[{"id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
+  {"id":2,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 2","color":"grey","offline":true,"place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
+  {"id":3,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 3","color":"grey","offline":true,"place":"mansoura","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
 
 
   cost:number=0;
   choosenDoctors=[];
-
   tostClass ;
+  spText;
+  rate;
+  scrollHeight="0px";
+  index;
+  offline=false;
+  searchValue;
+  showLoading=true;
+  orderBTn = false;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public translate: TranslateService, 
+    public translate: TranslateService,  public events: Events,
     public helper:HelperProvider, public toastCtrl: ToastController, 
     public storage: Storage,public camera: Camera, 
     public srv:ProvidedServicesProvider,public service:LoginserviceProvider,
@@ -93,7 +102,170 @@ export class OrderSpecificServicePage {
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
       }
 
+
+      this.spText=this.translate.instant("chooseSpecialization");
+
+      this.events.subscribe('statusChanged', (data) => {
+        console.log(" event status changed ",data);
+    
+        for(var k=0;k<this.doctors.length;k++)
+        {
+          
+          if(this.doctors[k].id == data.id)
+          {
+            if(data.status == "1")
+            {
+              this.doctors[k].color="green";
+              this.doctors[k].offline=false;
+              console.log("call sort function from status changed");
+              this.sortDoctors();
+
+            }else if (data.status == "0")
+            {
+              this.doctors[k].color="grey";
+              this.doctors[k].offline=true;
+              console.log("call sort function from status changed");
+                this.sortDoctors();
+            }
+          }
+          
+        }
+
+
+      });
+      this.events.subscribe('status', (data) => {
+        console.log(" event status ",data);
+    
+        for(var k=0;k<this.doctors.length;k++)
+        {
+          
+          if(this.doctors[k].id == data.id)
+          {
+            if(data.status == "1")
+            {
+              this.doctors[k].color="green";
+              this.doctors[k].offline=false;
+              console.log("call sort function from status");
+                this.sortDoctors();
+
+            }else if (data.status == "0")
+            {
+              this.doctors[k].color="grey";
+              this.doctors[k].offline=true;
+              console.log("call sort function from status");
+                this.sortDoctors();
+            }
+          } 
+        }
+      });
+
+      this.events.subscribe('locationChanged', (data) => {
+        console.log("location changed event",data);
+        if(data.location){
+          for(var k=0;k<this.doctors.length;k++)
+          {   
+            if(this.doctors[k].id == data.id)
+            {
+              this.doctors[k].lat = data.location.split(',')[0];
+              this.doctors[k].lng = data.location.split(',')[1];
+              if(this.doctors[k].offline == false)
+              {
+                this.getDistanceAndDuration(k);
+                this.sortDoctors();
+              }
+              
+            }
+                  
+          }
+          }
+
+
+      });
+this.events.subscribe('location', (data) => {
+  console.log(" event location ",data);
+  if(data.location){
+  for(var k=0;k<this.doctors.length;k++)
+  {   
+    if(this.doctors[k].id == data.id)
+    {
+      this.doctors[k].lat = data.location.split(',')[0];
+      this.doctors[k].lng = data.location.split(',')[1];
+      if(this.doctors[k].offline == false){
+        this.getDistanceAndDuration(k);
+      }
+      
+    
+
+    }
+          
   }
+  }
+
+
+
+  });
+
+  this.events.subscribe('getBusyDoctor', (data) => {
+    console.log(" event getBusyDoctor ",data);
+    
+    for(var k=0;k<this.doctors.length;k++)
+    {
+      
+      if(this.doctors[k].id == data.id)
+      {
+        if(data.status == "1")
+        {
+          this.doctors[k].color="red";
+          this.doctors[k].offline=true;
+          console.log("call sort function from get busy");
+                this.sortDoctors();
+
+        }else if (data.status == "0")
+        {
+          this.doctors[k].color="green";
+          this.doctors[k].offline=false;
+          this.helper.getDoctorStatus(data.id);
+          console.log("call sort function from get busy");
+                this.sortDoctors();
+        }
+
+    
+      } 
+    }
+  });
+
+  this.events.subscribe('busyDoctorChanged', (data) => {
+    console.log(" event busyDoctorChanged ",data);
+    
+    for(var k=0;k<this.doctors.length;k++)
+    {
+      
+      if(this.doctors[k].id == data.id)
+      {
+        if(data.status == "1")
+        {
+          this.doctors[k].color="red";
+          this.doctors[k].offline=true;
+          console.log("call sort function from busy changed");
+                this.sortDoctors();
+
+        }else if (data.status == "0")
+        {
+          this.doctors[k].color="green";
+          this.doctors[k].offline=false;
+          this.helper.getDoctorStatus(data.id);
+          console.log("call sort function from busy changed");
+                this.sortDoctors();
+        }
+
+
+      } 
+    }
+  });
+
+  
+
+    }
 
   colclicked(){
     // console.log("s element: ",this.sElement);
@@ -102,16 +274,17 @@ export class OrderSpecificServicePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderSpecificServicePage');
-
+    //this.showLoading = false;
     this.srv.nearbyservices(this.type_id,this.lat,this.lng,this.accessToken).subscribe(
       resp=>{
-        
+        //this.showLoading = true;
         console.log("nearbyservice resp: ",resp);
         
        
 
       },
       err=>{
+        // this.showLoading = true;
         console.log("nearbyservice error: ",err);
       }
     );
@@ -134,6 +307,70 @@ export class OrderSpecificServicePage {
 
   
   }
+  getDistanceAndDuration(i){
+
+    if(this.doctors[i].offline == false){
+
+      console.log("online doctor i",this.doctors[i]);
+      console.log("online doctor index",this.doctors[this.index]);
+
+    console.log("doctors from array",this.doctors[i]);
+    console.log("lat from helper",this.helper.lat);
+    console.log("lon from helper",this.helper.lon);
+    var docLat = this.doctors[i].lat;
+    var docLon = this.doctors[i].lng;
+    console.log("doctor lat :",docLat);
+    console.log("doctor lng: ",docLon);
+    console.log("doctor before duration",this.doctors[i]);
+    this.index = i;
+    
+      
+    this.service.getDurationAndDistance(this.helper.lat,this.helper.lon,docLat,docLon).subscribe(
+      resp=>{
+        console.log("doctors",this.doctors);
+        console.log("doctor ",this.doctors[this.index]);
+        console.log("get data from google api",resp);
+        var respObj = JSON.parse(JSON.stringify(resp));
+        if(respObj.routes[0])
+        {
+        console.log("duration : ",respObj.routes[0].legs[0].duration.text);
+        console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+        console.log("doctor from array in get duration ",this.doctors[i]);
+        this.doctors[i].distance = respObj.routes[0].legs[0].distance.text;
+        this.doctors[i].distanceVal = respObj.routes[0].legs[0].distance.value;
+        this.doctors[i].timefordelivery = respObj.routes[0].legs[0].duration.text;
+        console.log("distance from array ",this.doctors[i].distance);
+        }
+
+        if(i == (this.doctors.length -1))
+        {
+          console.log("call sort function");
+          this.sortDoctors();
+        }
+
+  
+      },
+      err=>{
+        console.log("get err from google api",err);
+      }
+    );
+  }
+
+  }
+  sortDoctors(){
+    console.log("doc before sort ",this.doctors);
+  
+    //sort by nearest & online
+    this.doctors.sort((a,b)=>{
+      if(a.offline == false || b.offline == false)
+        return a.distanceVal-b.distanceVal;
+  
+    });
+    
+    console.log("doc after sort ",this.doctors);
+  }
+
+
   sendOrder(){
     console.log("first: ",this.first);
     console.log("second: ",this.second);
@@ -154,9 +391,25 @@ export class OrderSpecificServicePage {
       this.srv.saveOrder(doctorsId,this.photosForApi,this.accessToken).subscribe(
         resp => {
           console.log("saveOrder resp: ",resp);
-          this.presentToast(this.translate.instant("ordersent"));
+          // this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
-          this.navCtrl.push('remaining-time-to-accept');
+          // this.navCtrl.push('remaining-time-to-accept');
+
+          if(JSON.parse(JSON.stringify(resp)).success ){
+            console.log("saveOrder resp: ",resp);
+            var newOrder = JSON.parse(JSON.stringify(resp));
+            
+  
+            this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+            this.helper.orderStatusChanged(newOrder.order.id);
+  
+            this.presentToast(this.translate.instant("ordersent"));
+            
+            this.navCtrl.push('remaining-time-to-accept');
+            }else{
+              this.presentToast(this.translate.instant("serverError"));
+            }
+
         },
         err=>{
           console.log("saveOrder error: ",err);
@@ -171,6 +424,7 @@ export class OrderSpecificServicePage {
     console.log("card item ",item);
     // item.specialization = this.Specialization;
     // console.log("item after add specialization: ",item);
+    item.type_id = this.type_id;
     this.navCtrl.push('service-profile',{
       data:item
     });
@@ -261,8 +515,11 @@ export class OrderSpecificServicePage {
       this.image = 'data:image/jpeg;base64,' + imageData;
       
       console.log("image ",this.image);
-      this.photos.push(imageData);
-      this.photosForApi.push(imageData.replace(/\+/g,","));
+      this.photos.push(this.image);
+      // this.photosForApi.push(imageData.replace(/\+/g,","));
+      
+      this.photosForApi.push(encodeURIComponent(imageData));
+      
       
       console.log("all photos ",this.photos,"length",this.photos.length);
       console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);
@@ -279,6 +536,8 @@ export class OrderSpecificServicePage {
     var searchVal = ev.target.value;
     var id ;
     console.log("search value ",searchVal);
+    this.showLoading = false;
+
       this.srv.searchServiceByName(searchVal,this.type_id,this.accessToken).subscribe(
         resp=>{
           console.log("searchServiceByName resp: ",resp);
@@ -291,10 +550,68 @@ export class OrderSpecificServicePage {
           //   console.log("doctor: ",doctorData["results"][i]);  
           //   this.doctors.push(doctorData["results"][i]);
           // }
+          this.showLoading = true;
+          this.choosenDoctors=[];
+          console.log("getDoctorsByName resp: ",resp);
+          let doctorData =JSON.parse(JSON.stringify(resp));
+          console.log(doctorData["result"].length);
+          this.doctors=[];  
+          for(var i=0;i<doctorData["result"].length;i++){
+            console.log("doctor: ",doctorData["result"][i]);  
+            if(doctorData["result"][i].nickname)
+            doctorData["result"][i].doctorName = doctorData["result"][i].nickname;
+            else 
+            doctorData["result"][i].doctorName = doctorData["result"][i].name;
+
+            if(doctorData["result"][i].busy == "1")
+            {
+              doctorData["result"][i].color="red";
+              doctorData["result"][i].offline=true;
+            }else if (doctorData["result"][i].busy == "0")
+            {
+              if(doctorData["result"][i].online  == "1")
+                {
+                  doctorData["result"][i].color="green";
+                  doctorData["result"][i].offline=false;
+                
+  
+                }else if (doctorData["result"][i].online  == "0")
+                {
+                  doctorData["result"][i].color="grey";
+                  doctorData["result"][i].offline=true;
+                  
+                }
+             
+            }
+
+            this.doctors.push(doctorData["result"][i]);
+          }
+          if(this.doctors.length >= 3)
+          {
+            this.scrollHeight = "385px";
+          
+          }else{
+            this.scrollHeight = "260px";
+          }
+          for(i=0;i<this.doctors.length;i++)
+          {
+            this.helper.getDoctorStatus(this.doctors[i].id);
+            this.helper.getBusyDoctor(this.doctors[i].id);
+          }
+          
+
+          if(this.doctors.length == 0)
+          {
+            this.presentToast(this.translate.instant("noSearchResult"));
+          }
+         
+
 
         },
         err=>{
           console.log("getDoctorsByName error: ",err);
+          this.showLoading = true;
+          this.presentToast(this.translate.instant("serverError"));
         }
       );
     

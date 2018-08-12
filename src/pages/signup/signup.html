@@ -123,18 +123,56 @@ type="tel" [dir]="langDirection"></ion-input>
 </ion-item>
 
 
+<ion-row [class.invalid]="!patientRegisterForm.controls.password.valid && submitAttempt" >
+    <ion-col col-11>
+            <ion-item >
+            
+                    <ion-label><img src="assets/icon/pass.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+                        
+                        <ion-input  class="right" *ngIf="langDirection == 'rtl'" placeholder="كلمة المرور"   style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="passwrodTxt"
+                        type="password" [dir]="langDirection"></ion-input>
+                        
+                        
+                        <ion-input *ngIf="langDirection != 'rtl'" placeholder="Password"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="passwrodTxt"
+                        type="password" [dir]="langDirection"></ion-input>
+                 
+                
+                    
+            
+            
+                           
+                    </ion-item>
+                
+    </ion-col>
+    <ion-col col-1>
+            <ion-icon  name="information-circle" style="color:#016a38; font-size:20px;margin-top:15px;" (click)="presentHintAlert()"></ion-icon>       
+    </ion-col>
+</ion-row>
+    
+        <ion-item *ngIf="!patientRegisterForm.controls.password.valid && submitAttempt" no-lines>
+            <!-- <p> {{"enterPassword" | translate}} </p> -->
+            <p>{{passErrMsg}}</p>
+        </ion-item> 
+            
+    
+    
+
+<!-- 
 <ion-item [class.invalid]="!patientRegisterForm.controls.password.valid && submitAttempt">
 <ion-label><img src="assets/icon/pass.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+
 <ion-input  class="right" *ngIf="langDirection == 'rtl'" placeholder="كلمة المرور"   style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="passwrodTxt"
 type="password" [dir]="langDirection"></ion-input>
+
+
 <ion-input *ngIf="langDirection != 'rtl'" placeholder="Password"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="passwrodTxt"
 type="password" [dir]="langDirection"></ion-input>
 </ion-item>
 <ion-item *ngIf="!patientRegisterForm.controls.password.valid && submitAttempt" no-lines>
-<!-- <p> {{"enterPassword" | translate}} </p> -->
-<p>{{passErrMsg}}</p>
-</ion-item> 
 
+<p>{{passErrMsg}}</p>
+</ion-item>  -->
+<!-- <p> {{"enterPassword" | translate}} </p> -->
 <ion-item [class.invalid]="!patientRegisterForm.controls.confirmpassword.valid && submitAttempt">
 <ion-label><img src="assets/icon/pass.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
 <ion-input class="right" *ngIf="langDirection == 'rtl'" placeholder="تأكيد كلمة المرور"   style="border-radius: 2px;padding: 0px;" formControlName="confirmpassword" [(ngModel)]="confirmpassword"
@@ -189,7 +227,7 @@ type="password" [dir]="langDirection"></ion-input>
             <ion-item [class.invalid]="!patientRegisterForm.controls.birthdate.valid && submitAttempt" >
                 <ion-label floating style="transform-origin: right top;"><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
                 
-                <ion-datetime  formControlName="birthdate" displayFormat="MM/DD/YYYY"
+                <ion-datetime  formControlName="birthdate" displayFormat="DD/MM/YYYY"
                         [(ngModel)]="birthdate" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}"></ion-datetime>
                 </ion-item>
                 <ion-item *ngIf="!patientRegisterForm.controls.birthdate.valid && submitAttempt" no-lines>

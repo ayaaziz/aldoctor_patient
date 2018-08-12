@@ -143,13 +143,17 @@ export class OrderhistoryPage {
           
               // this.orderobject.name = serviceProfile.name;
               this.orderobject.profile_pic = serviceProfile.profile_pic;
-              this.orderobject.rate = serviceProfile.rate;
+              // this.orderobject.rate = serviceProfile.rate;
+              this.orderobject.rated = ordersData[j].ratedvalue;
+              
               this.orderobject.specialization = serviceProfile.speciality;
               this.orderobject.doctor_id = serviceProfile.id;
               this.orderobject.color = ordersData[j].color;
               // this.orderobject.reorder = ordersData[j].reorder;
               this.orderobject.reorder = ordersData[j].is_reorder;
               this.orderobject.rated = ordersData[j].rated;
+              
+              
               this.orderobject.orderId = ordersData[j].id;
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;

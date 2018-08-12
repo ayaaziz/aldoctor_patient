@@ -205,19 +205,26 @@ page-order-specific-service {
       }
 
 
-.block {
-  position: relative;
+// .block {
+//   position: relative;
 
-  .deleteIcon {
-    position: absolute !important;
-    color: red !important;
-    margin-left: 80% !important;
-  }
-  .deleteIcon:before {
-    font-size: 30px !important;
-  }
+//   .deleteIcon {
+//     position: absolute !important;
+//     color: #016a38 !important;
+//     margin-left: 80% !important;
+//   }
+//   .deleteIcon:before {
+//     font-size: 25px !important;
+//   }
+// }
+.deleteIcon {
+  position: absolute !important;
+  color: #016a38 !important;
+  margin-left: 80% !important;
 }
-
+.deleteIcon:before {
+  font-size: 25px !important;
+}
     
 }
 .toastRight{

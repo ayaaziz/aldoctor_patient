@@ -1,7 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { Content } from 'ionic-angular';
 
-import { Platform, IonicPage, NavController, NavParams, ToastController, ActionSheetController } from 'ionic-angular';
+import { Platform, IonicPage, NavController, NavParams, ToastController, ActionSheetController ,AlertController} from 'ionic-angular';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -69,7 +69,7 @@ export class SignupPage {
   tostClass;
   xxx;
 
-  constructor(private platform: Platform,
+  constructor(private platform: Platform,public alerCtrl: AlertController,
      //private imagePicker: ImagePicker,private base64: Base64,
     public camera: Camera,
     public actionSheetCtrl: ActionSheetController, public storage: Storage,public loginservice:LoginserviceProvider, public toastCtrl: ToastController, public translate: TranslateService,public helper: HelperProvider, public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder) {
@@ -367,9 +367,13 @@ if(this.patientRegisterForm.controls["email"].errors){
     }
     else{
     // else if(JSON.parse(JSON.stringify(data))){ //.success
+
       console.log("access token: ",data.access_token);
       //this.presentToast("token: "+data.access_token);
       console.log("refresh token: ",data.refresh_token);
+      this.storage.set("language",{"lang":this.helper.currentLang,
+      "langdir":this.helper.lang_direction} );
+
       this.storage.set("access_token",data.access_token);
 
 
@@ -392,8 +396,10 @@ if(this.patientRegisterForm.controls["email"].errors){
                   "add":jsonUserData.extraInfo.address,
                   "profile_pic":jsonUserData.profile_pic
                 }).then(data=>{
-                  console.log("set data to storage from login ",data);
-                  this.navCtrl.setRoot(TabsPage);
+                  console.log("set data to storage from signup ",data);
+                  // this.navCtrl.setRoot(TabsPage);
+
+                  this.navCtrl.setRoot('verification-code',{data:0});
                 }).catch(data=>{
                   console.log("catch data from login",data);
                 });
@@ -409,7 +415,8 @@ if(this.patientRegisterForm.controls["email"].errors){
       );
       
       // this.navCtrl.setRoot(TabsPage);
-      this.navCtrl.setRoot('verification-code',{data:0});
+      
+      //this.navCtrl.setRoot('verification-code',{data:0});
     }
    
   }
@@ -504,5 +511,14 @@ if(this.patientRegisterForm.controls["email"].errors){
     this.navCtrl.push('conditions');
   }
   
+  presentHintAlert() {
+    let alert = this.alerCtrl.create({
+      title: this.translate.instant("passHintTitle"),
+      message:  this.translate.instant("passHintMsg"),
+      buttons: [ this.translate.instant("passHintBtn")]
+    });
+    alert.present()
+  }
+
 }
 

@@ -251,7 +251,10 @@
       "invalidData":"Invalid data",
       "passNotCorrect":"Current password isn't correct",
       "phoneAlreadyExist":"Phone already Exist",
-      "codeErr":"Activation code must be 5 numbers"
+      "codeErr":"Activation code must be 5 numbers",
+      "passHintTitle":"Password Hint",
+      "passHintMsg":"Password must be 8 numbers and chars",
+      "passHintBtn":"Ok"
       
 
       

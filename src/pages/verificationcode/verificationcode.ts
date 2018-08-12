@@ -53,6 +53,10 @@ phone="";
     });
     
     console.log("activation code lang dir :",this.langDirection);
+
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+    });
     
   }
 
@@ -200,20 +204,42 @@ phone="";
     
   }
   resendActivationCode(){
-    this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
-      resp=>{
-        console.log("resp from resend activation code",resp);
-        if(JSON.parse(JSON.stringify(resp)).success)
-          this.presentToast(this.translate.instant("activationCodeTxt"));
-        else
-        this.presentToast(this.translate.instant("serverError"));
-      },
-      err=>{
-        console.log("err from resend activation code",err);
-        this.presentToast(this.translate.instant("serverError"));
-      }
-    );
+    
+    if(this.from)
+    {
+      this.phone = '2'+this.phone;
+      this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
+        resp=>{
+          console.log("resp from resend activation code",resp);
+          if(JSON.parse(JSON.stringify(resp)).success)
+            this.presentToast(this.translate.instant("activationCodeTxt"));
+          else
+          this.presentToast(this.translate.instant("serverError"));
+        },
+        err=>{
+          console.log("err from resend activation code",err);
+          this.presentToast(this.translate.instant("serverError"));
+        }
+      );
 
+    }
+else{
+  this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
+    resp=>{
+      console.log("resp from resend activation code",resp);
+      if(JSON.parse(JSON.stringify(resp)).success)
+        this.presentToast(this.translate.instant("activationCodeTxt"));
+      else
+      this.presentToast(this.translate.instant("serverError"));
+    },
+    err=>{
+      console.log("err from resend activation code",err);
+      this.presentToast(this.translate.instant("serverError"));
+    }
+  );
+
+}
+  
   }
 
 }

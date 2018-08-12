@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController ,ActionSheetController} from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
+import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 @IonicPage({
   name:'service-profile'
@@ -27,12 +29,21 @@ export class ServiceProfilePage {
   services=["any thing","any thing","any thing"];
   accessToken;
   tostClass;
-  
+
+  photosForApi=[];
+  photos= [];
+
+  offline;
+  medicalprescriptionImage;
+  type_id;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
     public storage: Storage, 
-    public service:LoginserviceProvider,
-    public helper: HelperProvider,public translate: TranslateService) {
+    public service:LoginserviceProvider,public srv:ProvidedServicesProvider,
+    public helper: HelperProvider,public translate: TranslateService,
+    public camera: Camera,
+    public actionSheetCtrl: ActionSheetController) {
     var data = this.navParams.get('data');
     console.log("data from service-profile ", data);
     this.langDirection = this.helper.lang_direction;
@@ -49,36 +60,92 @@ export class ServiceProfilePage {
     this.address="address";
     // this.services = this.doctorProfile.SpecialityServices;
     this.services = ["any thing","any thing","any thing"];
+
+    this.doctorProfile = navParams.get('data');
+    console.log("from doctor profile: ",this.doctorProfile);
+    this.image = this.doctorProfile.profile_pic;
+    this.name = this.doctorProfile.doctorName;
+    // this.specialization = this.doctorProfile.specialization;
+    this.rate = this.doctorProfile.rate;
+    this.phone = this.doctorProfile.phone;
+    this.address = this.doctorProfile.extraInfo.address;
+    // this.services = this.doctorProfile.speciality_services;
+    this.type_id = this.doctorProfile.type_id;
+    
+    if(this.doctorProfile.offline == true)
+      this.offline = "1";
+    else
+      this.offline = "0";
+
+      if(this.type_id == "1")
+      {
+        // this.title = this.translate.instant("pharmacy");
+        // this.serviceTitle = this.translate.instant("nearbyPharmacy");
+        this.medicalprescriptionImage = this.translate.instant("medicalprescription");
+      }else if(this.type_id == "2")
+      {
+        // this.title = this.translate.instant("lap");
+        // this.serviceTitle = this.translate.instant("nearbyLab");
+        this.medicalprescriptionImage = this.translate.instant("requiredTests");
+      }else if(this.type_id == "3")
+      {
+        // this.title = this.translate.instant("center");
+        // this.serviceTitle = this.translate.instant("nearbyCenter");
+        this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
+      }
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ServiceProfilePage');
+    if(!navigator.onLine)
+      this.presentToast(this.translate.instant("checkNetwork"));
   }
   dismiss(){
     this.navCtrl.pop();
   }
   
   sendOrder(){
+    if(this.offline == "1")
+    {
+      this.presentToast(this.translate.instant("doctoroffline"));
+    }else{
 
-   // console.log("orderId from doctorProfile: ",this.doctorProfile.id);
-  //   this.storage.get("access_token").then(data=>{
-  //     this.accessToken = data;
+    
 
-  //   this.service.saveOrder(this.doctorProfile.id,this.accessToken).subscribe(
-  //     resp => {
-  //       console.log("saveOrder resp: ",resp);
-  //       this.presentToast(this.translate.instant("ordersent"));
-  //       // this.navCtrl.pop();
-  //       this.navCtrl.push('remaining-time-to-accept');
-  //     },
-  //     err=>{
-  //       console.log("saveOrder error: ",err);
-  //       this.presentToast(this.translate.instant("serverError"));
-  //     }
-  //   ); 
+    console.log("orderId from doctorProfile: ",this.doctorProfile.id);
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
+      this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.accessToken).subscribe(
+        resp => {
+          // this.showLoading=true;
+          if(JSON.parse(JSON.stringify(resp)).success ){
+          console.log("saveOrder resp: ",resp);
+          var newOrder = JSON.parse(JSON.stringify(resp));
+          
+console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.service_profile_id)
+          this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
+          this.helper.orderStatusChanged(newOrder.order.id);
 
-  // });
+          
+          this.presentToast(this.translate.instant("ordersent"));
+          // this.navCtrl.pop();
+          this.navCtrl.push('remaining-time-to-accept');
+          }else{
+            this.presentToast(this.translate.instant("serverError"));
+          }
+        },
+        err=>{
+          // this.showLoading=true;
+          console.log("saveOrder error: ",err);
+          this.presentToast(this.translate.instant("serverError"));
+        }
+      );  
 
+  });
+
+}
+  
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({
@@ -90,5 +157,55 @@ export class ServiceProfilePage {
     toast.present();
   }
 
+  presentActionSheet() { 
+    
+    let actionSheet = this.actionSheetCtrl.create({
+      title: this.translate.instant("SelectImageSource"),
+      buttons: [
+        {
+          text: this.translate.instant("LoadfromLibrary"),
+          handler: () => {
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+  
+          }
+        },
+        {
+          text: this.translate.instant("UseCamera"),
+          handler: () => {
+            this.takePicture(this.camera.PictureSourceType.CAMERA);
+          }
+        },
+       
+      ]
+    });
+    actionSheet.present();
+  }
+  public takePicture(sourceType) {
+    
+    var options = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType: sourceType,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
+    };
+//  this.photos = [];
+    this.camera.getPicture(options).then((imageData) => {
+   
+      this.image = 'data:image/jpeg;base64,' + imageData;
+
+      this.photos.push(this.image);
+      this.photosForApi.push(encodeURIComponent(imageData));
+    
+      console.log("all photos ",this.photos,"length",this.photos.length);
+      console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);
+    
+
+    }, (err) => {
+     
+     });
+  }
 
 }
