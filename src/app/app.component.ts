@@ -253,7 +253,7 @@ export class MyApp {
     }
       
     console.log("share app");
-    this.socialSharing.share(" الدكتور" , null , null ,"http://itrootsdemos.com/aldoctor").then(() => {
+    this.socialSharing.share( "الدكتور", " share subject" , "" ,"https://play.google.com/store/apps/details?id=net.ITRoots.Patient").then(() => {
       console.log("success")
       this.menu.close();
      
