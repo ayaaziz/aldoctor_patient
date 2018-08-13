@@ -222,7 +222,7 @@ this.storage.get("rate_doctor").then(data=>{
 
   rate(){
     
-    this.navCtrl.setRoot('rate-doctor',
+    this.navCtrl.push('rate-doctor',
   {data:
     {"doctorId":3, 
       "orderId":177
@@ -235,6 +235,16 @@ this.storage.get("rate_doctor").then(data=>{
   {data:
     {"orderId":201, 
       "doctorId":27
+    }
+  });
+
+  }
+  followOrderForPlc(){
+    this.helper.type_id="3";
+    this.navCtrl.setRoot('follow-order-for-plc',
+  {data:
+    {"orderId":201, 
+      "doctorId":61
     }
   });
 

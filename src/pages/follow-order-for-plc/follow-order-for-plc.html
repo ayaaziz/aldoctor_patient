@@ -1,0 +1,88 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-row>
+      <ion-col col-9>
+          <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;padding-right:5px;">{{"followOrder" | translate}}</ion-title>
+          <ion-title *ngIf="langDirection != 'rtl'" style="padding:5px;">{{"followOrder" | translate}}</ion-title>
+      </ion-col>
+      <ion-col col-3 style="text-align:center">
+          <ion-buttons  left>
+                <button ion-button>
+                    <img src="assets/imgs/dlogo.png" style="width:40px;" >
+                </button>
+            </ion-buttons>
+        </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;margin-top:15px;">{{serviceName}} {{doctorName}} </h5>
+  <h5 style="color:grey;" *ngIf="langDirection != 'rtl'" >{{serviceName}} {{doctorName}} </h5>
+
+  <h5  *ngIf="langDirection == 'rtl'" [dir]="langDirection" style="text-align: right;color:grey;">
+    {{serviceTxt}} {{duration}} {{completeServiceTxt}} 
+    <span style="color:#026938">{{hint}}</span>
+  </h5>
+ 
+  <ion-item class="form-group" no-lines>
+      <button type="button" (click)="presentActionSheet()" class="btn btn-primary btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725);margin:10px auto;" >  <img src="assets/icon/cam.png" height="25" width="25">   {{medicalprescriptionImage}} <ion-icon name="checkmark-circle" style="color: darkgreen;vertical-align: middle;" *ngIf="imageAdded" ></ion-icon> </button> 
+      
+    </ion-item>
+
+  <ion-row>
+      <ion-col col-6 col-sm-4 col-md-4>
+        <ion-item no-lines (click)="presentActionSheet()">{{medicalprescriptionImage}}
+            <!-- <ion-icon name="images" ></ion-icon> -->
+        </ion-item>
+        
+
+      </ion-col>
+      
+    <ion-col col-3 *ngFor="let photo of photos; let id = index" style="text-align:right">
+
+        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+        <img [src]="photo" *ngIf="photo" style="width:80px;height:80px" />
+
+    </ion-col>
+  </ion-row>
+
+
+
+    <ion-fab left bottom>
+            <button ion-fab style="background-color:#026938;font-size:9px;">
+            {{callService}}
+            </button>
+            <ion-fab-list side="right">        
+                <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
+                    <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
+           
+                    <a button ion-fab  href="tel:{{phone}}" >
+                        <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
+                </ion-fab-list>
+          </ion-fab>
+          
+        
+            
+          <ion-item style="text-align:center;" no-lines>
+              <button type="button"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendprescriptionImages()"> {{sendprescription}}</button>  
+            </ion-item> 
+
+            <ion-item style="text-align:center;" no-lines>
+                <button type="button"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="serviceRate()"> تم تنفيذ الخدمه</button>  
+              </ion-item>
+
+              
+  <ion-item style="text-align:center;" no-lines>
+  <button type="button"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="cancelOrder()"> {{"cancelOrder" | translate}}</button>  
+</ion-item>
+  
+<ion-item no-lines>
+
+</ion-item>
+    
+
+</ion-content>
+

@@ -58,6 +58,7 @@ export class OrderSpecificServicePage {
   searchValue;
   showLoading=true;
   orderBTn = false;
+  imageFlag = true;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -82,6 +83,9 @@ export class OrderSpecificServicePage {
       this.type_id = recievedData.type_id;
       this.lat = recievedData.lat;
       this.lng = recievedData.lng;
+
+      this.helper.type_id = this.type_id;
+      
       console.log("order service recievedData: ",recievedData);
       console.log("type id: ",this.type_id);
 
@@ -376,12 +380,29 @@ this.events.subscribe('location', (data) => {
     console.log("second: ",this.second);
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
-    if(this.choosenDoctors.length > 3 )
+    // if(this.choosenDoctors.length > 3 )
+    // {
+    //   this.presentToast(this.translate.instant("check3doctors"));
+    // }else if (this.choosenDoctors.length<1){
+    //   this.presentToast(this.translate.instant("checkAtleastone"));
+    // }
+    if(this.choosenDoctors.length > 3 && this.type_id == 2)
     {
-      this.presentToast(this.translate.instant("check3doctors"));
-    }else if (this.choosenDoctors.length<1){
-      this.presentToast(this.translate.instant("checkAtleastone"));
-    }else{
+      this.presentToast(this.translate.instant("check3labs"));
+    }else if (this.choosenDoctors.length<1 && this.type_id == 2){
+      this.presentToast(this.translate.instant("checkAtleastonelab"));
+    }else if(this.choosenDoctors.length > 3 && this.type_id == 3)
+    {
+      this.presentToast(this.translate.instant("check3centers"));
+    }else if (this.choosenDoctors.length<1 && this.type_id == 3){
+      this.presentToast(this.translate.instant("checkAtleastonecenter"));
+    }else if(this.choosenDoctors.length > 5 && this.type_id == 1)
+    {
+      this.presentToast(this.translate.instant("check5pharmacies"));
+    }else if (this.choosenDoctors.length<1 && this.type_id == 1){
+      this.presentToast(this.translate.instant("checkAtleastonepharmacy"));
+    }
+    else{
       var doctorsId="";
       for(var j=0;j<this.choosenDoctors.length;j++)
       {
@@ -405,7 +426,12 @@ this.events.subscribe('location', (data) => {
   
             this.presentToast(this.translate.instant("ordersent"));
             
-            this.navCtrl.push('remaining-time-to-accept');
+            // this.navCtrl.push('remaining-time-to-accept');
+            if(this.photosForApi.length == 0)
+              this.navCtrl.push('remaining-time-for-plc',{data:0});
+            else 
+              this.navCtrl.push('remaining-time-for-plc',{data:1});
+
             }else{
               this.presentToast(this.translate.instant("serverError"));
             }
@@ -475,7 +501,8 @@ this.events.subscribe('location', (data) => {
   }
 
   presentActionSheet() { 
-    
+    if(this.imageFlag == true)
+    {
     let actionSheet = this.actionSheetCtrl.create({
       title: this.translate.instant("SelectImageSource"),
       buttons: [
@@ -496,7 +523,12 @@ this.events.subscribe('location', (data) => {
       ]
     });
     actionSheet.present();
+  }else{
+    this.presentToast(this.translate.instant("maxNumberOFIMages"));
   }
+
+
+}
   public takePicture(sourceType) {
     
     var options = {
@@ -521,6 +553,9 @@ this.events.subscribe('location', (data) => {
       this.photosForApi.push(encodeURIComponent(imageData));
       
       
+      if(this.photosForApi.length == 2)
+        this.imageFlag = false;
+
       console.log("all photos ",this.photos,"length",this.photos.length);
       console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);
     
@@ -531,6 +566,7 @@ this.events.subscribe('location', (data) => {
   deletePhoto(index){
     console.log("photo index",index);
     this.photos.splice(index, 1);
+    this.photosForApi.splice(index,1);
   }
   getItems(ev) {
     var searchVal = ev.target.value;

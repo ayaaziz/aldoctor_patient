@@ -1,4 +1,4 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component ,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -6,21 +6,19 @@ import { LoginserviceProvider } from '../../providers/loginservice/loginservice'
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
 
-
 @IonicPage({
-  name:'rate-doctor'
+  name:'rate-service'
 })
 @Component({
-  selector: 'page-doctor-evaluation',
-  templateUrl: 'doctor-evaluation.html',
+  selector: 'page-rate-service',
+  templateUrl: 'rate-service.html',
 })
-export class DoctorEvaluationPage {
+export class RateServicePage {
 
   review="";
   moreReview= "";
   reviewArray = [];
   doctorName;
-  //"assets/imgs/avatar-ts-jessie.png"
   image;
   rate;
   note=this.translate.instant("notes");
@@ -34,12 +32,12 @@ export class DoctorEvaluationPage {
   tostClass ;
   rateWordsWithId=[];
   
-  constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
-    public helper:HelperProvider,public translate: TranslateService,
-    public navCtrl: NavController, public navParams: NavParams) {
-      this.langDirection = this.helper.lang_direction;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public toastCtrl: ToastController,public service: LoginserviceProvider,
+    public storage: Storage,
+    public helper:HelperProvider,public translate: TranslateService) {
 
-      
+      this.langDirection = this.helper.lang_direction;
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
       else
@@ -76,12 +74,6 @@ export class DoctorEvaluationPage {
         this.helper.removeOrder(this.orderId);
       }
 
-      // this.storage.get("rate_doctor").then(data=>{
-      //   if(data){
-      //     this.doctorId = data.doctorId;
-      //     this.orderId = data.orderId;
-      //   }
-      // });
 
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;
@@ -95,11 +87,7 @@ export class DoctorEvaluationPage {
             else 
               this.doctorName = tempData.name;
 
-
-            //this.rate = tempData.rate;
             this.image = tempData.profile_pic;
-            //this.doctorSpecialization = tempData.speciality; 
-            //this.doctorLocation = tempData.location;
 
           },err=>{
             console.log("error from getserviceprofile in doctor rate:",err);
@@ -132,10 +120,11 @@ export class DoctorEvaluationPage {
         }
       );
     });
-    }
+
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DoctorEvaluationPage');
+    console.log('ionViewDidLoad RateServicePage');
     if(!navigator.onLine)
       this.presentToast(this.translate.instant("checkNetwork"));
   }
@@ -172,7 +161,7 @@ export class DoctorEvaluationPage {
             console.log("res from rate ",resp);
             var rateCriteriea = JSON.parse(JSON.stringify(resp));
             console.log(rateCriteriea.length);
-            //this.rateArray=[];
+            
             for(var i=0;i<rateCriteriea.length;i++){
               this.rateArray.push({value:rateCriteriea[i].translation.value,status:0});
             }
@@ -190,109 +179,19 @@ export class DoctorEvaluationPage {
     console.log("rate :",this.rate);
     if(this.rate == "5"){
       this.note=this.translate.instant("thanks");
-      
-      //this.rateWord=this.translate.instant("excellent");
       this.rateWordsFromApi(4);
-
-/*
-      this.service.rateCriteriea(5,this.accessToken).subscribe(
-        resp=>{
-          console.log("res from rate ",resp);
-          var rateCriteriea = JSON.parse(JSON.stringify(resp));
-          console.log(rateCriteriea.length);
-          this.rateArray=[];
-          for(var i=0;i<rateCriteriea.length;i++){
-            this.rateArray.push({value:rateCriteriea[i].value,status:0});
-          }
-        },
-        err=>{
-          console.log("err from rate ",err);
-        }
-      );*/
     }else if(this.rate == "4"){
-      //this.rateWord=this.translate.instant("good");
       this.rateWordsFromApi(3);
-
       this.note = this.translate.instant("notes");
-  
-  /*    this.service.rateCriteriea(4,this.accessToken).subscribe(
-        resp=>{
-          console.log("res from rate ",resp);
-          var rateCriteriea = JSON.parse(JSON.stringify(resp));
-          console.log(rateCriteriea.length);
-          this.rateArray=[];
-          for(var i=0;i<rateCriteriea.length;i++){
-            // this.rateArray.push(rateCriteriea[i].value);
-            this.rateArray.push({value:rateCriteriea[i].value,status:0});
-          }
-        },
-        err=>{
-          console.log("err from rate ",err);
-        }
-      );
-*/
     }else if(this.rate == "3"){
-      //this.rateWord=this.translate.instant("fine");
       this.rateWordsFromApi(2);
-
       this.note = this.translate.instant("notes");
-  /*    this.service.rateCriteriea(3,this.accessToken).subscribe(
-        resp=>{
-          console.log("res from rate ",resp);
-          var rateCriteriea = JSON.parse(JSON.stringify(resp));
-          console.log(rateCriteriea.length);
-          this.rateArray=[];
-          for(var i=0;i<rateCriteriea.length;i++){
-            this.rateArray.push({value:rateCriteriea[i].value,status:0});
-          }
-        },
-        err=>{
-          console.log("err from rate ",err);
-        }
-      );
-*/
     }else if(this.rate == "2"){
-      //this.rateWord=this.translate.instant("bad");
       this.rateWordsFromApi(1);
       this.note = this.translate.instant("notes");
-/*
-      this.service.rateCriteriea(2,this.accessToken).subscribe(
-        resp=>{
-          console.log("res from rate ",resp);
-          var rateCriteriea = JSON.parse(JSON.stringify(resp));
-          console.log(rateCriteriea.length);
-          this.rateArray=[];
-          for(var i=0;i<rateCriteriea.length;i++){
-            this.rateArray.push({value:rateCriteriea[i].value,status:0});
-          }
-        },
-        err=>{
-          console.log("err from rate ",err);
-        }
-      );*/
-
     }else if(this.rate == "1"){
-      //this.rateWord=this.translate.instant("vbad");
       this.rateWordsFromApi(0);
-
       this.note = this.translate.instant("notes");
-      /*
-      this.service.rateCriteriea(1,this.accessToken).subscribe(
-        resp=>{
-          console.log("res from rate ",resp);
-          var rateCriteriea = JSON.parse(JSON.stringify(resp));
-          console.log(rateCriteriea.length);
-          this.rateArray=[];
-          for(var i=0;i<rateCriteriea.length;i++){
-            this.rateArray.push({value:rateCriteriea[i].value,status:0});
-          }
-        },
-        err=>{
-          console.log("err from rate ",err);
-        }
-      );
-*/
-
     }
    
 
@@ -302,7 +201,7 @@ export class DoctorEvaluationPage {
     console.log(event.target.innerText  );
     this.review += " ";
     this.review += event.target.innerText;
-    // this.reviewArray.push(event.target.innerText);
+
     if(item.status == "0")
     {
       event.target.classList.remove('unselected');
@@ -346,5 +245,6 @@ export class DoctorEvaluationPage {
     });
     toast.present();
   }
+
 
 }

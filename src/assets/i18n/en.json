@@ -224,6 +224,7 @@
       "specificcenter":"Order specific radiology center",
       "labName":"Laboratory",
       "centerName":" Radiology center",
+      "centerName2":"center",
       "chooseSpecialization":"choose Specialization",
       "doctoroffline":"Doctor offline",
       "second":"Second",
@@ -254,8 +255,26 @@
       "codeErr":"Activation code must be 5 numbers",
       "passHintTitle":"Password Hint",
       "passHintMsg":"Password must be 8 numbers and chars",
-      "passHintBtn":"Ok"
-      
+      "passHintBtn":"Ok",
+      "check3labs":"check3labs",
+      "check3centers":"check3centers",
+      "check5pharmacies":"check5pharmacies",
+      "checkAtleastonelab":"checkAtleastonelab",
+      "checkAtleastonecenter":"checkAtleastonecenter",
+      "checkAtleastonepharmacy":"checkAtleastonepharmacy",
+      "callPharmacy":"callPharmacy",
+      "calllab":"calllab",
+      "callcenter":"callcenter",
+      "pharmacyServiceTxt":"pharmacyServiceTxt",
+      "pharmacycmpServiceTxt":"pharmacycmpServiceTxt",
+      "labServiceTxt":"labServiceTxt",
+      "labHint":"labHint",
+      "atleastOneimageforLab":"atleastOneimageforLab",
+      "atleastOneimageforcenter":"atleastOneimageforcenter",
+      "atleastOneimageforpharmacy":"atleastOneimageforpharmacy",
+      "maxNumberOFIMages":"Choose only 2 images",
+      "serviceRate":"rate service"
+
 
       
       

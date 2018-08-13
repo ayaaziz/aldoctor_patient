@@ -155,9 +155,9 @@
  -->
 
  <ion-row>
-    <ion-col col-6 col-sm-3 col-md-2 >
-      <ion-item no-lines>{{medicalprescriptionImage}}
-          <ion-icon name="images"  (click)="presentActionSheet()"></ion-icon>
+    <ion-col col-6 col-sm-3 col-md-3 >
+      <ion-item no-lines (click)="presentActionSheet()">{{medicalprescriptionImage}}
+          <!-- <ion-icon name="images"  ></ion-icon> -->
       </ion-item>
       
 
@@ -173,11 +173,11 @@
 
       <ion-row style="width:100%;">
         <!-- fixed class="customItem6"   -->
-      <ion-col col-6 col-sm-3 col-md-2 >
+      <ion-col col-6 col-sm-3 col-md-3 >
           <ion-item no-lines>{{"Discount code"| translate}}</ion-item>
         </ion-col>
         
-        <ion-col col-6 col-sm-9 col-md-10 *ngIf="langDirection == 'rtl'"  style="text-align:right;padding-top:15px;" >
+        <ion-col col-6 col-sm-9 col-md-9 *ngIf="langDirection == 'rtl'"  style="text-align:right;padding-top:15px;" >
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first" >
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third">
@@ -185,7 +185,7 @@
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="last" (change)="validate()" >
       
         </ion-col>
-        <ion-col col-6 col-sm-9 col-md-10 *ngIf="langDirection != 'rtl'" style="text-align:left;padding-top:15px;" >
+        <ion-col col-6 col-sm-9 col-md-9 *ngIf="langDirection != 'rtl'" style="text-align:left;padding-top:15px;" >
           <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first">
           <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
           <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third" >

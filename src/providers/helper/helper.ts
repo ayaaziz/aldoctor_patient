@@ -46,6 +46,8 @@ export class HelperProvider {
   public changePhoneNumber;
   public orderRated=0;
 
+  public type_id;
+  
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
     public events: Events) {

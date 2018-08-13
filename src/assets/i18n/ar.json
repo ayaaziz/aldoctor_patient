@@ -225,6 +225,7 @@
       "specificcenter":"اطلب مركز معين",
       "labName":"معمل ",
       "centerName":" مركز اشعه",
+      "centerName2":"مركز",
       "chooseSpecialization":"اختر تخصص",
       "doctoroffline":"الطبيب غير متاح الان",
       "second":"ثانية",
@@ -258,5 +259,24 @@
       "centers":"مراكز الاشعه",
       "passHintTitle":"كلمه المرور",
       "passHintMsg":"كلمه المرور يجب ان تكون 8 حروف وارقام",
-      "passHintBtn":"موافق"
+      "passHintBtn":"موافق",
+      "check3labs":"الرجاء اختيار 3 معامل فقط",
+      "check3centers":"الرجاء اختيار 3 مراكز فقط",
+      "check5pharmacies":"الرجاء اختيار 5 صيدليات فقط",
+      "checkAtleastonelab":"الرجاء اختيار معمل واحد على الاقل",
+      "checkAtleastonecenter":"الرجاء اختيار مركز واحد على الاقل",
+      "checkAtleastonepharmacy":"الرجاء اختيار صيدليه واحده على الاقل",
+      "callPharmacy":"اتصل بالصيدليه",
+      "calllab":"اتصل بالمعمل",
+      "callcenter":"اتصل بالمركز",
+      "pharmacyServiceTxt":"جاهزه لخدمتكم وسيكون التوصيل فى خلال",
+      "pharmacycmpServiceTxt":"بعد استقبال طلبكم",
+      "labServiceTxt":"جاهز لخدمتكم و سيكون المتخصص متواجد فى خلال ",
+      "labHint":" اذا لم يتحدد موعد اخر ",
+      "atleastOneimageforLab":"ادخل صوره التحاليل المطلوبه",
+      "atleastOneimageforcenter":"ادخل صوره الاشعه المطلوبه",
+      "atleastOneimageforpharmacy":"ادخل صوره الروشته",
+      "maxNumberOFIMages":"اختر صورتين فقط",
+      "serviceRate":"تقييم الخدمه"
+    
 }

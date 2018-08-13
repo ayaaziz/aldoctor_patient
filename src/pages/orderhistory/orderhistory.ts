@@ -143,8 +143,8 @@ export class OrderhistoryPage {
           
               // this.orderobject.name = serviceProfile.name;
               this.orderobject.profile_pic = serviceProfile.profile_pic;
-              // this.orderobject.rate = serviceProfile.rate;
-              this.orderobject.rated = ordersData[j].ratedvalue;
+              this.orderobject.rate = serviceProfile.rate;
+              // this.orderobject.rate = ordersData[j].ratedvalue;
               
               this.orderobject.specialization = serviceProfile.speciality;
               this.orderobject.doctor_id = serviceProfile.id;

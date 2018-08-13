@@ -143,12 +143,35 @@ export class FollowOrderPage {
       console.log("markers ",markers);
       this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
         resp=>{
-          console.log("resp from getDurationAndDistance: ", resp);
+          // console.log("resp from getDurationAndDistance: ", resp);
+          // var respObj = JSON.parse(JSON.stringify(resp));
+          
+          // console.log("duration",respObj.routes[0].legs[0].duration.text);
+          // this.duration = respObj.routes[0].legs[0].duration.text;
+          // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+          console.log("resp from getDurationAndDistance -> doctor map: ", resp);
           var respObj = JSON.parse(JSON.stringify(resp));
           
+          
+      
           console.log("duration",respObj.routes[0].legs[0].duration.text);
-          this.duration = respObj.routes[0].legs[0].duration.text;
+          var dur = respObj.routes[0].legs[0].duration.text;
           console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+      
+      if(dur.includes("hours"))
+          dur = dur.replace("hours","س");
+      
+      if(dur.includes("mins"))
+          dur = dur.replace("mins","د");
+      
+      if(dur.includes("min"))
+          dur = dur.replace("min","د");
+          
+      if (dur.includes("hour"))
+          dur = dur.replace("hour","س");
+      
+          this.duration = dur;
+          
         },
         err=>{
           console.log("err from getDurationAndDistance: ",err);
@@ -550,23 +573,36 @@ for(var j=0;j<this.allMarkers.length;j++)
       console.log("markers ",markers);
       this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
         resp=>{
-          console.log("resp from getDurationAndDistance: ", resp);
-          var respObj = JSON.parse(JSON.stringify(resp));
-          console.log("duration",respObj.routes[0].legs[0].duration.text);
+          // console.log("resp from getDurationAndDistance: ", resp);
+          // var respObj = JSON.parse(JSON.stringify(resp));
+          // console.log("duration",respObj.routes[0].legs[0].duration.text);
           
-        //   var dur = respObj.routes[0].legs[0].duration.text;
-        // var durarr = dur.split(" ");
-        // if(durarr[1] == "mins" || durarr[1] == "min"  )
-        // {
-        //   durarr[1]="د";
-        //   dur = durarr.join(" ");
-        // }else if(durarr[1] == "hours"){
-        //   durarr[1]="س";
-        //   dur = durarr.join(" ");
-        // }
 
-          this.duration = respObj.routes[0].legs[0].duration.text;
+          // this.duration = respObj.routes[0].legs[0].duration.text;
+          // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+          console.log("resp from getDurationAndDistance -> doctor map: ", resp);
+          var respObj = JSON.parse(JSON.stringify(resp));
+          
+          
+      
+          console.log("duration",respObj.routes[0].legs[0].duration.text);
+          var dur = respObj.routes[0].legs[0].duration.text;
           console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+      
+      if(dur.includes("hours"))
+          dur = dur.replace("hours","س");
+      
+      if(dur.includes("mins"))
+          dur = dur.replace("mins","د");
+      
+      if(dur.includes("min"))
+          dur = dur.replace("min","د");
+          
+      if (dur.includes("hour"))
+          dur = dur.replace("hour","س");
+      
+          this.duration = dur;
+
         },
         err=>{
           console.log("err from getDurationAndDistance: ",err);

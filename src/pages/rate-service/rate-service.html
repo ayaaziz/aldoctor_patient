@@ -1,0 +1,89 @@
+<ion-header>    
+  <ion-navbar hideBackButton>
+        <ion-row>
+          <ion-col col-7>
+              <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"serviceRate" | translate}}</ion-title>
+              <ion-title *ngIf="langDirection != 'rtl'">{{"serviceRate" | translate}}</ion-title>
+          </ion-col>
+          <ion-col col-3 >
+
+              <ion-buttons  left>
+                    <button ion-button>
+                        <img src="assets/imgs/dlogo.png" style="width:40px;" >
+                       
+                    </button>
+                </ion-buttons>
+            </ion-col>
+        
+      
+        <ion-col col-2>
+          <ion-buttons *ngIf="langDirection == 'rtl'"  left>
+            <button ion-button  (click)="dismiss()">
+                <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+               
+            </button>
+        </ion-buttons>
+      
+        <ion-buttons *ngIf="langDirection != 'rtl'"  left>
+          <button ion-button  (click)="dismiss()">
+              <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+          </button>
+      </ion-buttons>
+        </ion-col>
+      </ion-row>
+      </ion-navbar>
+      
+    
+    </ion-header>
+    
+    
+    
+    
+    <ion-content padding>
+
+          <div class="center">
+            <img [src]="image" id="profileImg" >  
+        
+        <ion-label>{{doctorName}}</ion-label> 
+        <ion-label>{{rateWord}}</ion-label>
+        <rating [(ngModel)]="rate" 
+          readOnly="false" 
+          max="5" 
+          emptyStarIconName="star-outline"
+          halfStarIconName="star-half" 
+          starIconName="star" 
+          nullable="false" 
+          (ngModelChange)="onModelChange($event)" 
+          ></rating>
+        </div>
+
+    
+
+    <p style="text-align:center">مقترحات لتحسين الخدمه </p>
+        <ion-row  style="text-align:center;" >
+           
+           <ion-col  col-6 *ngFor="let item of rateArray"  style="display: table;">
+
+               <p class="unselected"  (click)="rateClicked($event,item)" style="height:45px;display: table-cell;vertical-align: middle; border-radius: 8px;">{{item.value}}</p>
+            </ion-col>
+
+         </ion-row>
+          
+        
+         <br>
+         <ion-label *ngIf="langDirection == 'rtl'" style="text-align:right">{{note}}</ion-label>
+         <ion-label *ngIf="langDirection != 'rtl'" >{{note}}</ion-label>
+        
+    
+        <div class="form-group">
+            <textarea class="form-control" [(ngModel)]="moreReview" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>
+          </div>
+          
+          <ion-item style="text-align:center;" no-lines>
+              <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="rateDoctor()"> {{"ok" | translate}}</button>  
+            </ion-item>
+    
+      
+    
+    </ion-content>
+    
