@@ -37,6 +37,9 @@ export class ServiceProfilePage {
   medicalprescriptionImage;
   type_id;
 
+  imageFlag = true;
+  image2;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
     public storage: Storage, 
@@ -158,7 +161,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
   }
 
   presentActionSheet() { 
-    
+    if(this.imageFlag == true)
+    {
     let actionSheet = this.actionSheetCtrl.create({
       title: this.translate.instant("SelectImageSource"),
       buttons: [
@@ -179,6 +183,10 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
       ]
     });
     actionSheet.present();
+  }else{
+    this.presentToast(this.translate.instant("maxNumberOFIMages"));
+  }
+
   }
   public takePicture(sourceType) {
     
@@ -194,11 +202,14 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
 //  this.photos = [];
     this.camera.getPicture(options).then((imageData) => {
    
-      this.image = 'data:image/jpeg;base64,' + imageData;
+      this.image2 = 'data:image/jpeg;base64,' + imageData;
 
-      this.photos.push(this.image);
+      this.photos.push(this.image2);
       this.photosForApi.push(encodeURIComponent(imageData));
-    
+      
+      if(this.photosForApi.length == 2)
+        this.imageFlag = false;
+
       console.log("all photos ",this.photos,"length",this.photos.length);
       console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);
     
@@ -207,5 +218,10 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
      
      });
   }
-
+  deletePhoto(index){
+    console.log("photo index",index);
+    this.photos.splice(index, 1);
+    this.photosForApi.splice(index,1);
+    this.imageFlag = true;
+  }
 }

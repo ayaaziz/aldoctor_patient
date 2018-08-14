@@ -330,8 +330,8 @@ this.events.subscribe('location', (data) => {
         for(var i=0;i<doctorData["result"].length;i++){
             console.log("doctor: ",doctorData["result"][i]); 
             
-            doctorData["result"][i].color="green";
-            doctorData["result"][i].offline = false;
+            // doctorData["result"][i].color="green";
+            // doctorData["result"][i].offline = false;
             doctorData["result"][i].timefordelivery = "2د";
             doctorData["result"][i].distance = "2كم";
             
@@ -693,6 +693,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     console.log("photo index",index);
     this.photos.splice(index, 1);
     this.photosForApi.splice(index,1);
+    this.imageFlag = true;
   }
 
 }

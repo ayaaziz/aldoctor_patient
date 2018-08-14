@@ -58,7 +58,10 @@ page-service-profile {
         background-color: #016a38 !important;
         border-color: #016a38 !important;
     }
-    
+    .btn:disabled {
+        background-color: #dddddd !important ;
+        border-color: #dddddd  !important;
+    }
     .item-block{
         min-height:4rem;
     }
@@ -67,6 +70,15 @@ page-service-profile {
         margin: 0px;
         padding: 0px;
       }
+      .deleteIcon {
+        position: absolute !important;
+        color: #016a38 !important;
+        margin-left: 80% !important;
+      }
+      .deleteIcon:before {
+        font-size: 25px !important;
+      }
+      
 }
 .toastRight{
     text-align: right;

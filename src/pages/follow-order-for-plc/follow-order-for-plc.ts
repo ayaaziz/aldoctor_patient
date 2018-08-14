@@ -473,6 +473,7 @@ private presentToast(text) {
     console.log("photo index",index);
     this.photos.splice(index, 1);
     this.photosForApi.splice(index,1);
+    this.imageFlag = true;
   }
   serviceRate(){
     this.navCtrl.push('rate-service',

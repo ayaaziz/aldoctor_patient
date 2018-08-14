@@ -109,8 +109,8 @@
     <ion-col col-5></ion-col>
 </ion-row>
 
-    <ion-scroll scrollY="true"  style="height: 300px" >
-       <ion-card *ngFor="let item of DoctorsArray" style="height:80px;" (click)="showseviceProfile(item)" >          
+    <ion-scroll scrollY="true"  [ngStyle]="{'height': scrollHeight }"  >
+       <ion-card *ngFor="let item of DoctorsArray" [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" style="height:80px;" (click)="showseviceProfile(item)" >          
           <ion-row style="width: calc(100% - 5px);margin: 2px;height:80px;" >
               <!-- fixed class="customItem3" -->
               <ion-col col-2  col-sm-2 style="padding-top:5px;text-align: center;" >
@@ -138,7 +138,7 @@
             </ion-col>
             <!-- fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->
             <ion-col col-3 col-sm-2 style="text-align: center;padding-top: 5px;" >
-              <ion-checkbox [(ngModel)]="item.checked" (click)="doctorChecked(item ,$event)" ></ion-checkbox>     
+              <ion-checkbox [(ngModel)]="item.checked" (click)="doctorChecked(item ,$event)" [disabled]="item.offline" ></ion-checkbox>     
               <ion-label style="text-align: center;">{{item.distance}}</ion-label>
                 <ion-label style="text-align: center;">{{item.timefordelivery}}</ion-label>
             </ion-col>

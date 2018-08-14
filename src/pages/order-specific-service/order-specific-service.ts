@@ -567,6 +567,7 @@ this.events.subscribe('location', (data) => {
     console.log("photo index",index);
     this.photos.splice(index, 1);
     this.photosForApi.splice(index,1);
+    this.imageFlag = true;
   }
   getItems(ev) {
     var searchVal = ev.target.value;
