@@ -18,8 +18,7 @@ import { OrderDoctorPage } from '../pages/order-doctor/order-doctor';
 import { HelperProvider } from '../providers/helper/helper';
 //import { VerifycodePage } from '../pages/verifycode/verifycode';
 import { SocialSharing } from '@ionic-native/social-sharing';
-
-// import { AppRate } from '@ionic-native/app-rate';
+import { AppRate } from '@ionic-native/app-rate';
 //import { AboutAppPage } from '../pages/about-app/about-app';
 //import { ConditionsPage } from '../pages/conditions/conditions';
 //import { ContactusPage } from '../pages/contactus/contactus';
@@ -61,7 +60,13 @@ export class MyApp {
   app_contact = "item_unselected";
   app_conditions = "item_unselected";
 
-  constructor(public events: Events,public service:LoginserviceProvider, private alertCtrl: AlertController, private push: Push,public storage:Storage,public socialSharing:SocialSharing,public helper:HelperProvider,public menu:MenuController,public platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public translate: TranslateService) {
+  constructor(public events: Events,public service:LoginserviceProvider, 
+    private alertCtrl: AlertController, private push: Push,
+    public storage:Storage,public socialSharing:SocialSharing,
+    public helper:HelperProvider,public menu:MenuController,
+    public platform: Platform, private appRate: AppRate,
+    statusBar: StatusBar, splashScreen: SplashScreen,
+    public translate: TranslateService) {
     console.log("current lang: ",this.helper.currentLang);
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
@@ -253,7 +258,8 @@ export class MyApp {
     }
       
     console.log("share app");
-    this.socialSharing.share( "الدكتور", " share subject" , "" ,"https://play.google.com/store/apps/details?id=net.ITRoots.Patient").then(() => {
+    //share msg , share subject,files,link
+    this.socialSharing.share( "الدكتور", "" , "" ,"https://play.google.com/store/apps/details?id=net.ITRoots.Patient").then(() => {
       console.log("success")
       this.menu.close();
      
@@ -286,10 +292,40 @@ export class MyApp {
       this.app_share = "item_unselected";
     }
 
+    this.appRate.preferences = {
+      // openStoreInApp: false,
+      displayAppName: 'Simons App',
+      usesUntilPrompt: 2,
+      promptAgainForEachNewVersion: false,
+      storeAppURL: {
+        ios: '1216856883',
+        android: 'market://details?id=net.ITRoots.Patient'
+      },
+      customLocale: {
+        title: 'Do you enjoy %@?',
+        message: 'If you enjoy using %@, would you mind taking a moment to rate it? Thanks so much!',
+        cancelButtonLabel: 'No, Thanks',
+        laterButtonLabel: 'Remind Me Later',
+        rateButtonLabel: 'Rate It Now'
+      },
+      callbacks: {
+        onRateDialogShow: function(callback){
+          console.log('rate dialog shown!');
+        },
+        onButtonClicked: function(buttonIndex){
+          console.log('Selected index: -> ' + buttonIndex);
+        }
+      }
+    };
+
+    // Opens the rating immediately no matter what preferences you set
+    this.appRate.promptForRating(true);
+
+
     // this.platform.ready().then(()=>{
     //   this.appRate.preferences.storeAppURL = {
     //     ios: 'ca-app-pub-8649488555231154/7752535828',
-    //     android: 'market://details?id=com.itroots.eldahayan',
+    //     android: 'market://details?id=net.ITRoots.Patient',
     //   },
       
       

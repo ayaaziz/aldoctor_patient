@@ -11,7 +11,7 @@ import { LocationAccuracy } from '@ionic-native/location-accuracy';
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { TabsPage } from '../tabs/tabs';
-
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 @IonicPage({
@@ -20,7 +20,7 @@ import { TabsPage } from '../tabs/tabs';
 @Component({
   selector: 'page-follow-order',
   templateUrl: 'follow-order.html',
-  providers: [Diagnostic, LocationAccuracy]
+  providers: [Diagnostic, LocationAccuracy,LocalNotifications]
 })
 export class FollowOrderPage {
   @ViewChild('map') mapElement;
@@ -46,13 +46,14 @@ export class FollowOrderPage {
 
   allMarkers = [] ;
 
+  notificationFlag=false;
 
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
     private geolocation: Geolocation,public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public translate: TranslateService,
      public toastCtrl: ToastController, public alertCtrl: AlertController,
-     public events: Events) {
+     public events: Events,private localNotifications: LocalNotifications) {
        console.log("follow order");
     this.langDirection = this.helper.lang_direction;
     
@@ -156,6 +157,7 @@ export class FollowOrderPage {
       
           console.log("duration",respObj.routes[0].legs[0].duration.text);
           var dur = respObj.routes[0].legs[0].duration.text;
+          var durVal = respObj.routes[0].legs[0].duration.value;
           console.log("distance : ",respObj.routes[0].legs[0].distance.text);
       
       if(dur.includes("hours"))
@@ -171,7 +173,8 @@ export class FollowOrderPage {
           dur = dur.replace("hour","س");
       
           this.duration = dur;
-          
+          if(this.notificationFlag == false && durVal <= (2*60))
+            this.scheduleNotification();
         },
         err=>{
           console.log("err from getDurationAndDistance: ",err);
@@ -410,6 +413,7 @@ this.service.getDurationAndDistance(this.lat,this.lng,xlat,xlon).subscribe(
 
     console.log("duration",respObj.routes[0].legs[0].duration.text);
     var dur = respObj.routes[0].legs[0].duration.text;
+    var durVal = respObj.routes[0].legs[0].duration.value;
     console.log("distance : ",respObj.routes[0].legs[0].distance.text);
 
 if(dur.includes("hours"))
@@ -425,7 +429,8 @@ if (dur.includes("hour"))
     dur = dur.replace("hour","س");
 
     this.duration = dur;
-
+    if(this.notificationFlag == false && durVal <= (2*60))
+      this.scheduleNotification();
   },
   err=>{
     console.log("err from getDurationAndDistance: ",err);
@@ -587,6 +592,7 @@ for(var j=0;j<this.allMarkers.length;j++)
       
           console.log("duration",respObj.routes[0].legs[0].duration.text);
           var dur = respObj.routes[0].legs[0].duration.text;
+          var durVal = respObj.routes[0].legs[0].duration.value;
           console.log("distance : ",respObj.routes[0].legs[0].distance.text);
       
       if(dur.includes("hours"))
@@ -602,6 +608,9 @@ for(var j=0;j<this.allMarkers.length;j++)
           dur = dur.replace("hour","س");
       
           this.duration = dur;
+
+      if(this.notificationFlag == false && durVal <= (2*60))
+        this.scheduleNotification();
 
         },
         err=>{
@@ -641,5 +650,17 @@ private presentToast(text) {
     this.navCtrl.pop();
   }
   
+  scheduleNotification() {
+    
+    this.notificationFlag = true;
+    this.localNotifications.schedule({
+      id: 1,
+      title: "تطبيق الدكتور",
+      text:"سوف يصل الطبيب ف خلال دقيقتين",
+      data: { mydata: 'My hidden message this is' },
+      trigger:{ at: new Date(new Date().getTime())}
+    });
+  }
+
   
 }

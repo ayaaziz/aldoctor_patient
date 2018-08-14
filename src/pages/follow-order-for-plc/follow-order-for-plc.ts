@@ -9,6 +9,7 @@ import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { TabsPage } from '../tabs/tabs';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 
@@ -18,7 +19,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 @Component({
   selector: 'page-follow-order-for-plc',
   templateUrl: 'follow-order-for-plc.html',
-  providers: [Diagnostic, LocationAccuracy]
+  providers: [Diagnostic, LocationAccuracy,LocalNotifications]
 })
 export class FollowOrderForPlcPage {
 
@@ -55,6 +56,7 @@ export class FollowOrderForPlcPage {
   
   imageFlag = true;
   image;
+  notificationFlag=false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -63,7 +65,8 @@ export class FollowOrderForPlcPage {
     public translate: TranslateService,
     public toastCtrl: ToastController, public alertCtrl: AlertController,
     public events: Events,public camera: Camera,
-    public actionSheetCtrl: ActionSheetController)
+    public actionSheetCtrl: ActionSheetController,
+    private localNotifications: LocalNotifications)
     {  
       this.langDirection = this.helper.lang_direction;
     
@@ -188,6 +191,8 @@ export class FollowOrderForPlcPage {
 
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
+              if(this.notificationFlag == false && h == 0 && m == 20 || m == 30)
+                this.scheduleNotification();
 
             },
             err=>{
@@ -244,6 +249,9 @@ export class FollowOrderForPlcPage {
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
 
+              if(this.notificationFlag == false && h == 0 && m == 20 || m == 30)
+                this.scheduleNotification();
+              
 
         },
         err=>{
@@ -486,4 +494,23 @@ private presentToast(text) {
   }
 
   
+
+  scheduleNotification() {
+    this.notificationFlag = true;
+    var txt = "";
+    if(this.type_id == "1")
+      txt = "سوف يصلك الطلب ف خلال 20 دقيقه";
+    else if (this.type_id == "2" || this.type_id == "3")
+      txt = "سوف يصلك الطلب ف خلال 30 دقيقه";
+
+//+ 1 * 1000
+
+    this.localNotifications.schedule({
+      id: 1,
+      title: "تطبيق الدكتور",
+      text:txt,
+      data: { mydata: 'My hidden message this is' },
+      trigger:{ at: new Date(new Date().getTime())}
+    });
+  }
 }
