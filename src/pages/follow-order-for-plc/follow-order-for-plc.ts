@@ -34,7 +34,7 @@ export class FollowOrderForPlcPage {
   accessToken;
   notification;
   orderStatus;
-  duration=0;
+  duration="0";
 
   lat=31.037933; 
   lng=31.381523;
@@ -148,23 +148,46 @@ export class FollowOrderForPlcPage {
             resp=>{
   
               var respObj = JSON.parse(JSON.stringify(resp));  
-              console.log("duration",respObj.routes[0].legs[0].duration.text);
-              var dur = respObj.routes[0].legs[0].duration.text;
-              console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+              console.log("duration txt",respObj.routes[0].legs[0].duration.text);
+              // var dur = respObj.routes[0].legs[0].duration.text;
+              // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
 
-              if(dur.includes("hours"))
-                dur = dur.replace("hours","س");
+              // if(dur.includes("hours"))
+              //   dur = dur.replace("hours","س");
 
-              if(dur.includes("mins"))
-                dur = dur.replace("mins","د");
+              // if(dur.includes("mins"))
+              //   dur = dur.replace("mins","د");
 
-              if(dur.includes("min"))
-                dur = dur.replace("min","د");
+              // if(dur.includes("min"))
+              //   dur = dur.replace("min","د");
     
-              if (dur.includes("hour"))
-                dur = dur.replace("hour","س");
+              // if (dur.includes("hour"))
+              //   dur = dur.replace("hour","س");
 
-              this.duration = dur;
+              // this.duration = dur;
+              var number = 0;
+              if(this.type_id == "1")
+                number = 20*60;
+              else if (this.type_id == "2" || this.type_id == "3")
+                number = 30*60;
+              
+              console.log("duration value",respObj.routes[0].legs[0].duration.value);
+              var dur = respObj.routes[0].legs[0].duration.value;
+              
+              var d = Number(dur+number);
+              var h = Math.floor(d/3600);
+              var m = Math.floor(d % 3600 /60);
+              var s = Math.floor(d % 3600 % 60);
+              console.log("h ", h,"m: ",m,"s: ",s);  
+              // var hdisplay = h > 0 ? h + (h == 1 ? "hour, ":"hours, "):"";
+              // var mdisplay = m > 0 ? m + (m == 1 ? "minute, ":"minutes, "):"";
+              // var sdisplay = s > 0 ? s + (s == 1 ? "second, ":"seconds, "):"";
+
+              var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+              var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+              console.log(" time : ",hdisplay+mdisplay);
+              this.duration  = hdisplay+mdisplay;
 
             },
             err=>{
@@ -185,21 +208,42 @@ export class FollowOrderForPlcPage {
               var respObj = JSON.parse(JSON.stringify(resp));
               console.log("duration",respObj.routes[0].legs[0].duration.text);
               var dur = respObj.routes[0].legs[0].duration.text;
-              console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+              console.log("distance txt: ",respObj.routes[0].legs[0].distance.text);
 
-              if(dur.includes("hours"))
-                dur = dur.replace("hours","س");
+              // if(dur.includes("hours"))
+              //   dur = dur.replace("hours","س");
 
-              if(dur.includes("mins"))
-                dur = dur.replace("mins","د");
+              // if(dur.includes("mins"))
+              //   dur = dur.replace("mins","د");
 
-              if(dur.includes("min"))
-                dur = dur.replace("min","د");
+              // if(dur.includes("min"))
+              //   dur = dur.replace("min","د");
     
-              if (dur.includes("hour"))
-                dur = dur.replace("hour","س");
+              // if (dur.includes("hour"))
+              //   dur = dur.replace("hour","س");
 
-              this.duration = dur;
+              // this.duration = dur;
+              var number = 0;
+              if(this.type_id == "1")
+                number = 20*60;
+              else if (this.type_id == "2" || this.type_id == "3")
+                number = 30*60;
+              
+              console.log("duration value",respObj.routes[0].legs[0].duration.value);
+              var dur = respObj.routes[0].legs[0].duration.value;
+              
+              var d = Number(dur+number);
+              var h = Math.floor(d/3600);
+              var m = Math.floor(d % 3600 /60);
+              var s = Math.floor(d % 3600 % 60);
+              console.log("h ", h,"m: ",m,"s: ",s);  
+              
+              var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+              var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+              console.log(" time : ",hdisplay+mdisplay);
+              this.duration  = hdisplay+mdisplay;
+
 
         },
         err=>{

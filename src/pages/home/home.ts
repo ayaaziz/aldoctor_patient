@@ -31,6 +31,17 @@ export class HomePage {
     // this.helper.userId=114;
     // this.helper.intializeFirebase();
     this.sortDoctors();
+
+//     var d = Number(13376+(30*60));
+//     var h = Math.floor(d/3600);
+//     var m = Math.floor(d % 3600 /60);
+//     var s = Math.floor(d % 3600 % 60);
+//     console.log("h ", h,"m: ",m,"s: ",s);  
+// var hdisplay = h > 0 ? h + (h == 1 ? "hour, ":"hours, "):"";
+// var mdisplay = m > 0 ? m + (m == 1 ? "minute, ":"minutes, "):"";
+// var sdisplay = s > 0 ? s + (s == 1 ? "second, ":"seconds, "):"";
+// console.log(" time : ",hdisplay+mdisplay);
+
 // console.log("google time",this.toHHMMSS(3283));
 // var dis ="100 km";
 // var disarr = dis.split(" ");
@@ -240,7 +251,7 @@ this.storage.get("rate_doctor").then(data=>{
 
   }
   followOrderForPlc(){
-    this.helper.type_id="3";
+    this.helper.type_id="1";
     this.navCtrl.setRoot('follow-order-for-plc',
   {data:
     {"orderId":201, 
