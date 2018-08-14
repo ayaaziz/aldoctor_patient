@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {Nav, Platform, NavController, MenuController ,AlertController,Events} from 'ionic-angular';
+import {Nav, Platform, NavController, MenuController ,AlertController,ActionSheetController,Events} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -65,6 +65,7 @@ export class MyApp {
     public storage:Storage,public socialSharing:SocialSharing,
     public helper:HelperProvider,public menu:MenuController,
     public platform: Platform, private appRate: AppRate,
+    public actionSheetCtrl: ActionSheetController,
     statusBar: StatusBar, splashScreen: SplashScreen,
     public translate: TranslateService) {
     console.log("current lang: ",this.helper.currentLang);
@@ -258,15 +259,20 @@ export class MyApp {
     }
       
     console.log("share app");
+    // this.presentActionSheet();
+    this.navctrl.push('share-app');
+    this.menu.close();
+
     //share msg , share subject,files,link
-    this.socialSharing.share( "الدكتور", "" , "" ,"https://play.google.com/store/apps/details?id=net.ITRoots.Patient").then(() => {
-      console.log("success")
-      this.menu.close();
+    //http://aldoctor-app.com/aldoctortest/public/uploads/1533654003.png
+    // this.socialSharing.share( "الدكتور", "" , "" ,"https://play.google.com/store/apps/details?id=net.ITRoots.Patient").then(() => {
+    //   console.log("success")
+    //   this.menu.close();
      
-    }).catch(() => {
-      console.log("not available");
+    // }).catch(() => {
+    //   console.log("not available");
       
-    });
+    // });
   }
   
   // cancel()
@@ -294,19 +300,21 @@ export class MyApp {
 
     this.appRate.preferences = {
       // openStoreInApp: false,
-      displayAppName: 'Simons App',
-      usesUntilPrompt: 2,
-      promptAgainForEachNewVersion: false,
+      useLanguage:'ar',
+      displayAppName: 'الدكتور',
+      // usesUntilPrompt: 2,
+//      promptAgainForEachNewVersion: false,
+      simpleMode:true,
       storeAppURL: {
-        ios: '1216856883',
+        // ios: '1216856883',
         android: 'market://details?id=net.ITRoots.Patient'
       },
       customLocale: {
-        title: 'Do you enjoy %@?',
-        message: 'If you enjoy using %@, would you mind taking a moment to rate it? Thanks so much!',
-        cancelButtonLabel: 'No, Thanks',
-        laterButtonLabel: 'Remind Me Later',
-        rateButtonLabel: 'Rate It Now'
+        title: 'هل يعجبك تطبيق الدكتور؟',
+        message: 'اذا اعجبك تطبيق الدكتور , هل تمانع من اخذ دقيقه لتقيمه؟ شكرا لدعمك',
+        cancelButtonLabel: 'الغاء',
+        laterButtonLabel:" ",
+        rateButtonLabel: 'قيم الآن'
       },
       callbacks: {
         onRateDialogShow: function(callback){
@@ -314,6 +322,7 @@ export class MyApp {
         },
         onButtonClicked: function(buttonIndex){
           console.log('Selected index: -> ' + buttonIndex);
+          //in order
         }
       }
     };
@@ -324,15 +333,15 @@ export class MyApp {
 
     // this.platform.ready().then(()=>{
     //   this.appRate.preferences.storeAppURL = {
-    //     ios: 'ca-app-pub-8649488555231154/7752535828',
+    //     ios: 'app id',
     //     android: 'market://details?id=net.ITRoots.Patient',
     //   },
       
       
     //   this.appRate.preferences.customLocale={
-    //     title: 'قيم تطبيق المريض ',
-    //      message: 'اذا اعجبك تطبيق  المريض , هل تمانع من اخذ دقيقه لتقيمه؟ شكرا لدعمك ',
-    //       rateButtonLabel: 'قيم البرنامج الان',
+    //     title:  'هل يعجبك تطبيق الدكتور؟',
+    //      message: 'اذا اعجبك تطبيق  الدكتور , هل تمانع من اخذ دقيقه لتقيمه؟ شكرا لدعمك ',
+    //       rateButtonLabel: 'قيم الان',
     //      cancelButtonLabel:'الغاء',
     //        laterButtonLabel:'ذكرني لاحقا'
          
@@ -386,13 +395,14 @@ export class MyApp {
     //          var today = Moment();
     //          var afterMonth = today.add(7, 'days').format('DD-MM-YYYY');
     //          this.storage.set("Rate", afterMonth);
-             
-    //        }
+    //         }     
+    //     }
     
     // }).catch((err)=>{
     //   console.log(err)
     // });
-    }
+
+  }
     openAboutapppage()
     {
       if(this.app_about == "item_unselected")
@@ -666,6 +676,33 @@ export class MyApp {
         }
       });
   
+    }
+  
+    presentActionSheet() { 
+    
+      let actionSheet = this.actionSheetCtrl.create({
+        title: this.translate.instant("SelectImageSource"),
+        buttons: [
+          {
+            text: `Share via Facebook <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>`,
+            handler: () => {
+             // this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+     //         this.getPhoto();
+            }
+          },
+          {
+            text: this.translate.instant("UseCamera"),
+            handler: () => {
+             // this.takePicture(this.camera.PictureSourceType.CAMERA);
+            }
+          },
+          // {
+          //   text: this.translate.instant("cancelTxt"),
+          //   role: 'cancel'
+          // }
+        ]
+      });
+      actionSheet.present();
     }
   
 }

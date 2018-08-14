@@ -1,0 +1,125 @@
+<!--
+  Generated template for the ShareAppPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>shareApp</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <img src="assets/images/mastering-ionic-2-book-cover-logos-snapshot.png">
+    <caption>
+       <h2>Mastering Ionic</h2>
+       <p>The Definitive Guide</p>
+    </caption>
+ </ion-item>
+
+
+
+ <ion-list>
+    <ion-item-group class="group">
+       <ion-item-divider color="light">Share through social media</ion-item-divider>
+       <ion-item>
+          <button
+             class="button"
+             ion-button
+             icon-right
+             block
+             padding-vertical
+             color="primary"
+             (click)="shareViaFacebook()">
+                Share this via Facebook
+                <ion-icon ios="logo-facebook" md="logo-facebook"></ion-icon>
+          </button>
+       </ion-item>
+
+
+       <ion-item>
+          <button
+             class="button"
+             ion-button
+             icon-right
+             block
+             padding-vertical
+             color="primary"
+             (click)="shareViaInstagram()">
+                Share this via Instagram
+                <ion-icon ios="logo-instagram" md="logo-instagram"></ion-icon>
+          </button>
+       </ion-item>
+
+
+       <ion-item>
+          <button
+             class="button"
+             ion-button
+             icon-right
+             block
+             padding-vertical
+             color="primary"
+             (click)="shareViaTwitter()">
+                Share this via Twitter
+                <ion-icon ios="logo-twitter" md="logo-twitter"></ion-icon>
+          </button>
+       </ion-item>
+
+
+       <ion-item>
+          <button
+             class="button"
+             ion-button
+             icon-right
+             block
+             padding-vertical
+             color="primary"
+             (click)="sharePicker()">
+                Share this via Share Sheet
+                <ion-icon ios="ios-share" md="md-share"></ion-icon>
+          </button>
+       </ion-item>
+    </ion-item-group>
+
+
+
+    <ion-item-group class="group">
+       <ion-item-divider color="light">Share via e-mail</ion-item-divider>
+       <ion-item>
+          <ion-label block>To: </ion-label>
+          <ion-input
+             block
+             type="text"
+             placeholder="E-mail address..."
+             [(ngModel)]="sendTo"></ion-input>
+       </ion-item>
+
+
+
+       <ion-item>
+          <button
+             class="button"
+             ion-button
+             icon-right
+             block
+             padding-vertical
+             color="primary"
+             (click)="shareViaEmail()">
+                Share this via Email
+                <ion-icon ios="ios-mail" md="md-mail"></ion-icon>
+          </button>
+       </ion-item>
+    </ion-item-group>
+
+ </ion-list>
+
+ 
+
+</ion-content>

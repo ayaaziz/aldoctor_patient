@@ -251,7 +251,7 @@ this.storage.get("rate_doctor").then(data=>{
 
   }
   followOrderForPlc(){
-    this.helper.type_id="2";
+    this.helper.type_id="1";
     this.navCtrl.setRoot('follow-order-for-plc',
   {data:
     {"orderId":201, 
