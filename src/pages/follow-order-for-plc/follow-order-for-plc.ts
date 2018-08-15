@@ -52,6 +52,7 @@ export class FollowOrderForPlcPage {
   sendprescription;
   hint;
   photos=[];
+  // photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
   photosForApi=[];
   
   imageFlag = true;

@@ -72,6 +72,7 @@ export class SpecificDoctorPage {
             {
               this.doctors[k].color="green";
               this.doctors[k].offline=false;
+              this.doctors[k].moreTxt = " متوافر";
               console.log("call sort function from status changed");
               this.sortDoctors();
 
@@ -79,6 +80,7 @@ export class SpecificDoctorPage {
             {
               this.doctors[k].color="grey";
               this.doctors[k].offline=true;
+              this.doctors[k].moreTxt = "غير متوافر";
               console.log("call sort function from status changed");
                 this.sortDoctors();
             }
@@ -102,6 +104,7 @@ export class SpecificDoctorPage {
             {
               this.doctors[k].color="green";
               this.doctors[k].offline=false;
+              this.doctors[k].moreTxt = " متوافر";
               console.log("call sort function from status");
                 this.sortDoctors();
 
@@ -109,6 +112,7 @@ export class SpecificDoctorPage {
             {
               this.doctors[k].color="grey";
               this.doctors[k].offline=true;
+              this.doctors[k].moreTxt = "غير متوافر";
               console.log("call sort function from status");
                 this.sortDoctors();
             }
@@ -186,6 +190,7 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="red";
           this.doctors[k].offline=true;
+          this.doctors[k].moreTxt = "غير متوافر";
           console.log("call sort function from get busy");
                 this.sortDoctors();
 
@@ -193,6 +198,7 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="green";
           this.doctors[k].offline=false;
+          this.doctors[k].moreTxt = " متوافر";
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from get busy");
                 this.sortDoctors();
@@ -220,6 +226,7 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="red";
           this.doctors[k].offline=true;
+          this.doctors[k].moreTxt = "غير متوافر";
           console.log("call sort function from busy changed");
                 this.sortDoctors();
 
@@ -227,6 +234,7 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="green";
           this.doctors[k].offline=false;
+          this.doctors[k].moreTxt = " متوافر";
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from busy changed");
                 this.sortDoctors();
@@ -315,18 +323,22 @@ this.events.subscribe('location', (data) => {
             {
               doctorData["results"][i].color="red";
               doctorData["results"][i].offline=true;
+              doctorData["results"][i].moreTxt = "غير متوافر";
+
             }else if (doctorData["results"][i].busy == "0")
             {
               if(doctorData["results"][i].online  == "1")
                 {
                   doctorData["results"][i].color="green";
                   doctorData["results"][i].offline=false;
+                  doctorData["results"][i].moreTxt = " متوافر";
                 
   
                 }else if (doctorData["results"][i].online  == "0")
                 {
                   doctorData["results"][i].color="grey";
                   doctorData["results"][i].offline=true;
+                  doctorData["results"][i].moreTxt = "غير متوافر";
                   
                 }
              
@@ -522,18 +534,20 @@ this.events.subscribe('location', (data) => {
             {
               doctorData["results"][i].color="red";
               doctorData["results"][i].offline=true;
+              doctorData["results"][i].moreTxt = "غير متوافر";
             }else if (doctorData["results"][i].busy == "0")
             {
               if(doctorData["results"][i].online  == "1")
                 {
                   doctorData["results"][i].color="green";
                   doctorData["results"][i].offline=false;
-                
+                  doctorData["results"][i].moreTxt = "متوافر";
   
                 }else if (doctorData["results"][i].online  == "0")
                 {
                   doctorData["results"][i].color="grey";
                   doctorData["results"][i].offline=true;
+                  doctorData["results"][i].moreTxt = "غير متوافر";
                   
                 }
              

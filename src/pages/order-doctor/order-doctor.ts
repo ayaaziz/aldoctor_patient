@@ -92,6 +92,7 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
+                this.DoctorsArray[k].moreTxt = "متوافر";
                 console.log("offline false ",this.DoctorsArray[k]);
                 console.log("call sort function from status changed");
                 this.sortDoctors();
@@ -100,6 +101,7 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="grey";
                 this.DoctorsArray[k].offline=true;
+                this.DoctorsArray[k].moreTxt = "غير متوافر";
                 console.log("call sort function from status changed");
                 this.sortDoctors();
               }
@@ -123,6 +125,7 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
+                this.DoctorsArray[k].moreTxt="متوافر";
                 console.log("offline false ",this.DoctorsArray[k]);
                 console.log("call sort function from status");
                 this.sortDoctors();
@@ -131,6 +134,7 @@ export class OrderDoctorPage {
               {
                 this.DoctorsArray[k].color="grey";
                 this.DoctorsArray[k].offline=true;
+                this.DoctorsArray[k].moreTxt="غير متوافر";
                 console.log("call sort function whenfrom status");
                 this.sortDoctors();
               }
@@ -218,6 +222,7 @@ export class OrderDoctorPage {
           {
             this.DoctorsArray[k].color="red";
             this.DoctorsArray[k].offline=true;
+            this.DoctorsArray[k].moreTxt = "غير متوافر";
             console.log("call sort function from get busy red");
                 this.sortDoctors();
 
@@ -225,6 +230,7 @@ export class OrderDoctorPage {
           {
             this.DoctorsArray[k].color="green";
             this.DoctorsArray[k].offline=false;
+            this.DoctorsArray[k].moreTxt = "متوافر";
             console.log("doctor :(",this.DoctorsArray[k]);
             console.log("offline false ",this.DoctorsArray[k]);
             this.helper.getDoctorStatus(data.id);
@@ -253,6 +259,8 @@ export class OrderDoctorPage {
           {
             this.DoctorsArray[k].color="red";
             this.DoctorsArray[k].offline=true;
+            this.DoctorsArray[k].moreTxt = "غير متوافر";
+
             
             console.log("call sort function from get busy changed");
                 this.sortDoctors();
@@ -261,6 +269,7 @@ export class OrderDoctorPage {
           {
             this.DoctorsArray[k].color="green";
             this.DoctorsArray[k].offline=false;
+            this.DoctorsArray[k].moreTxt = "متوافر";
             console.log("offline false ",this.DoctorsArray[k]);
             this.helper.getDoctorStatus(data.id);
             console.log("call sort function from get busy changed");
@@ -375,18 +384,20 @@ export class OrderDoctorPage {
           {
             doctorData["results"][i].color="red";
             doctorData["results"][i].offline=true;
+            doctorData["results"][i].moreTxt = "غير متوافر";
           }else if (doctorData["results"][i].busy == "0")
           {
             if(doctorData["results"][i].online  == "1")
               {
                 doctorData["results"][i].color="green";
                 doctorData["results"][i].offline=false;
-              
+                doctorData["results"][i].moreTxt = "متوافر";
 
               }else if (doctorData["results"][i].online  == "0")
               {
                 doctorData["results"][i].color="grey";
                 doctorData["results"][i].offline=true;
+                doctorData["results"][i].moreTxt = "غير متوافر";
                 
               }
            

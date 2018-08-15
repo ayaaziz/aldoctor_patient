@@ -88,10 +88,10 @@
 
   <ion-row style="width:100%;">
     <!-- fixed class="customItem" col-4 col-sm-2 col-md-2 -->
-    <ion-col   col-6 col-sm-3 col-md-3>
+    <ion-col   col-4 col-sm-2 col-md-2>
       <ion-item no-lines >{{servicetitle}}</ion-item>
     </ion-col>
-    <ion-col style="background-color: #e8f1ed" col-5 col-sm-8 col-md-8 >
+    <ion-col style="background-color: #e8f1ed" col-7 col-sm-9 col-md-9 >
       <ion-searchbar *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="{{servicetitle}}" style="color: red;width:100%;"> </ion-searchbar>
       <ion-searchbar *ngIf="langDirection == 'rtl'" (ionInput)="getItems($event)" placeholder="{{servicetitle}}" class="right" style="color: red;width:100%;"> </ion-searchbar>
     </ion-col>
@@ -163,30 +163,45 @@
         
         </ion-row> -->
 
-        <ion-row>
+        <!-- <ion-row>
           <ion-col col-6 col-sm-3 col-md-3 >
             <ion-item no-lines (click)="presentActionSheet()">{{medicalprescriptionImage}}
-                <!-- <ion-icon name="images" ></ion-icon> -->
+
             </ion-item>
             
 
           </ion-col>
           
         <ion-col col-3 *ngFor="let photo of photos; let id = index" style="text-align:right">
-          <!-- <ion-card class="block" style="width:80px;height:80px"> -->
+
             <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
             <img [src]="photo" *ngIf="photo" style="width:80px;height:80px" />
-          <!-- </ion-card> -->
+
         </ion-col>
-      </ion-row>
+      </ion-row> -->
+
+      <ion-item class="form-group" no-lines>
+          <button type="button" (click)="presentActionSheet()" class="btn btn-primary btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725);margin:10px auto;" >  <img src="assets/icon/cam.png" height="25" width="25">   {{medicalprescriptionImage}} <ion-icon name="checkmark-circle" style="color: darkgreen;vertical-align: middle;" *ngIf="imageAdded" ></ion-icon> </button> 
+          
+        </ion-item>
+        <ion-row>
+            <ion-col col-3></ion-col>
+            <ion-col col-3 *ngFor="let photo of photos; let id = index" style="text-align:right">
+    
+                <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
+                <img [src]="photo" *ngIf="photo" style="width:80px;height:80px" />
+        
+            </ion-col>
+        
+        </ion-row>
 
       <ion-row style="width:100%;">
         <!-- fixed class="customItem6"   -->
-      <ion-col  col-6 col-sm-3 col-md-3>
+      <ion-col  col-4 col-sm-2 col-md-2>
           <ion-item no-lines>{{"Discount code"| translate}}</ion-item>
         </ion-col>
         
-        <ion-col col-6 col-sm-9 col-md-9 *ngIf="langDirection == 'rtl'"  style="text-align:right;padding-top:15px;" >
+        <ion-col col-8 col-sm-10 col-md-10 *ngIf="langDirection == 'rtl'"  style="text-align:right;padding-top:15px;" >
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first" >
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third">
@@ -194,7 +209,7 @@
             <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="last" (change)="validate()" >
       
         </ion-col>
-        <ion-col col-6 col-sm-9 col-md-9 *ngIf="langDirection != 'rtl'" style="text-align:left;padding-top:15px;" >
+        <ion-col col-8 col-sm-10 col-md-10 *ngIf="langDirection != 'rtl'" style="text-align:left;padding-top:15px;" >
           <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="first">
           <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="second">
           <input type="text" maxlength="1" style="width:20px;" [(ngModel)]="third" >

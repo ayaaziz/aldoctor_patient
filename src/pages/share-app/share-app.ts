@@ -35,6 +35,8 @@ export class ShareAppPage {
 
    shareViaEmail()
    {
+     console.log("share via email");
+
       this.platform.ready()
       .then(() =>
       {
@@ -62,6 +64,7 @@ export class ShareAppPage {
 
    shareViaFacebook()
    {
+     console.log("share via facebook");
       this.platform.ready()
       .then(() =>
       {
@@ -93,6 +96,7 @@ export class ShareAppPage {
 
    shareViaInstagram()
    {
+     console.log("share via insta");
       this.platform.ready()
       .then(() =>
       {
@@ -114,7 +118,7 @@ export class ShareAppPage {
 
 
    sharePicker()
-   {
+   {console.log('Shared via SharePicker');
       this.platform.ready()
       .then(() =>
       {
@@ -137,6 +141,7 @@ export class ShareAppPage {
 
    shareViaTwitter()
    {
+    console.log('Shared via twitter');
       this.platform.ready()
       .then(() =>
       {
