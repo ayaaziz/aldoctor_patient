@@ -120,6 +120,10 @@ export class LoginPage {
     // this.storage.set("lang-dir",this.helper.lang_direction);
     this.storage.set("access_token",data.access_token);
     this.storage.set("refresh_token",data.refresh_token);
+    if(data.success == false    )
+    {
+      this.presentToast(this.translate.instant("invalidData"));
+    }else{
     this.loginservice.registerFirebase(this.helper.registration,data.access_token).subscribe(
       resp=>{
         console.log("from registerFirebase resp: ",resp);
@@ -175,7 +179,7 @@ export class LoginPage {
     // );
 
     this.navCtrl.setRoot(TabsPage);
-    
+  }
   }
   loginFailureCallback(data) {
     this.presentToast(this.translate.instant("invalidData"));
