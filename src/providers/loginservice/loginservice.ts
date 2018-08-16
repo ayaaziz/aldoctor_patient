@@ -99,7 +99,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       //   'password' :password
       // }
       
-      let parameter = new HttpParams().set('email','2'+email).set('password',password)
+      let parameter = new HttpParams().set('email','2'+email).set('password',password).set('app_type','0');
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/login';
       this.http.post(serviceUrl,parameter,{headers: headers })

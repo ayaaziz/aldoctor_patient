@@ -330,7 +330,7 @@ xxx;
             //console.log("resp fro.m change photo: "+JSON.stringify(resp));
           }
           ,err=>{
-            this.presentToast("err from change photo: "+ JSON.stringify(err));
+            console.log("err from change photo: "+ JSON.stringify(err));
           }
         );
       })
