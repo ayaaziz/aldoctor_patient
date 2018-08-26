@@ -42,10 +42,10 @@
     
     </ion-row>
     
-  <ion-row>
+  <!-- <ion-row>
       <ion-col col-6 col-sm-4 col-md-4>
         <ion-item no-lines (click)="presentActionSheet()">{{medicalprescriptionImage}}
-            <!-- <ion-icon name="images" ></ion-icon> -->
+            
         </ion-item>
         
 
@@ -57,7 +57,7 @@
         <img [src]="photo" *ngIf="photo" style="width:80px;height:80px" />
 
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
 
 
@@ -69,7 +69,7 @@
                 <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
                     <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
            
-                    <a button ion-fab  href="tel:{{phone}}" >
+                    <a button ion-fab  href="tel:+{{phone}}" >
                         <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
                 </ion-fab-list>
           </ion-fab>

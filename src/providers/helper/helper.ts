@@ -204,6 +204,13 @@ createOrder(orderId,serviceId,doctorsNumber){
   orderData.child(orderId).set({orderStatus:{status:1},serviceProfileId:serviceId,doctorsNo:doctorsNumber});
 
 }
+createOrderForPLC(typeId, orderId, serviceId, doctorsNumber){
+  //firebase.database().ref('orders/'+orderId).push({status:1});
+  console.log("create order",orderId,"service id",serviceId);
+  var orderData = firebase.database().ref('orders/');
+  orderData.child(orderId).set({orderStatus:{status:1},serviceProfileId:serviceId,doctorsNo:doctorsNumber,typeID:typeId});
+
+}
 orderStatusChanged(orderId){
   firebase.database().ref(`orders/${orderId}/orderStatus`).on('child_changed',(snap)=>{
    
@@ -233,6 +240,39 @@ orderStatusChanged(orderId){
 
   });
 }
+
+orderStatusChangedForPLC(orderId){
+  firebase.database().ref(`orders/${orderId}/orderStatus`).on('child_changed',(snap)=>{
+   
+    console.log("order status changed",snap.val(),"order id: ",orderId)
+
+    
+    
+    if(snap.val() == "10" ) //cancelled by doctor 0 || snap.val() == "0"
+    {
+      this.removeOrder(orderId);
+      this.events.publish('status0ForPLC');
+    } 
+    else if (snap.val() == "2") //accepted by doctor
+      this.getServiceProfileIdToFollowOrder(orderId);
+    else if (snap.val() == "3") //no respond
+    {
+      this.removeOrder(orderId);
+      this.events.publish('status0ForPLC');
+    } 
+    // else if (snap.val() == "5" || snap.val() == "6") //5->finished , 6->finished with reorder
+    //   this.getServiceProfileIdToRate(orderId);        
+    // else if (snap.val() == "7") //start detection
+    //   this.events.publish('status7');
+    // else if (snap.val() == "8") // move to patient
+    //   this.events.publish('status8'); 
+
+   
+ 
+
+  });
+}
+
 getServiceProfileIdToRate(orderid){
 
   firebase.database().ref(`orders/${orderid}/serviceProfileId`).on('value',(snap)=>{
@@ -258,6 +298,21 @@ getServiceProfileIdToFollowOrder(orderid){
 
 
 }
+getServiceProfileIdToFollowOrderForPLC(orderid){
+
+  firebase.database().ref(`orders/${orderid}/serviceProfileId`).on('value',(snap)=>{
+    
+    console.log("getServiceProfileIdToFollowOrderForPLC "+snap.val(),"id: ",orderid);
+    var data = {orderId:orderid, doctorId:snap.val()};
+    this.events.publish('status2ForPLC',data);
+    
+
+  });
+  
+
+
+}
+
 updateCancelOrderStatus(orderId){
 
   firebase.database().ref().child(`orders/${orderId}/orderStatus`)

@@ -24,7 +24,8 @@ export class DoctorEvaluationPage {
   image;
   rate;
   note=this.translate.instant("notes");
-  rateWord=this.translate.instant("vbad");
+  // rateWord=this.translate.instant("vbad");
+  rateWord="";
   langDirection;
   doctorId;
   orderId;
@@ -123,8 +124,8 @@ export class DoctorEvaluationPage {
           console.log(reteWordsResp[0].translation.value);
           this.rateWordsWithId = [];
           this.rateWordsWithId=reteWordsResp;
-            this.rateWord = reteWordsResp[0].translation.value;
-            this.rateCommentsFromApi();    
+            // this.rateWord = reteWordsResp[0].translation.value;
+            // this.rateCommentsFromApi();    
           
 
         },err=>{

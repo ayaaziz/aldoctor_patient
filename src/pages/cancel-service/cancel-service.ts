@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { OrderhistoryPage } from '../orderhistory/orderhistory';
 import 'rxjs/add/operator/timeout';
 
+import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
+
 
 @IonicPage({
   name:'cancel-service'
@@ -29,6 +31,7 @@ export class CancelServicePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public helper:HelperProvider, 
+    public srv : ProvidedServicesProvider,
     public service:LoginserviceProvider,public translate: TranslateService,
     public toastCtrl: ToastController) {
 
@@ -51,7 +54,7 @@ export class CancelServicePage {
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
       if (navigator.onLine) {
-      this.service.cancelreasons(this.accessToken).timeout(10000).subscribe(
+      this.srv.cancelreasons(this.helper.type_id, this.accessToken).timeout(10000).subscribe(
         resp=>{
 
           console.log("resp from cancelreasons: ", resp);

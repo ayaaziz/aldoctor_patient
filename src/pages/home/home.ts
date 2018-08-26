@@ -235,7 +235,7 @@ this.storage.get("rate_doctor").then(data=>{
     
     this.navCtrl.push('rate-doctor',
   {data:
-    {"doctorId":3, 
+    {"doctorId":22, 
       "orderId":177
     }
   });

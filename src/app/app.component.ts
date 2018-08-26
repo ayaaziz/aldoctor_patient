@@ -497,10 +497,10 @@ export class MyApp {
           android: {
             //senderID: "403805018537",
      //      icon: "drawable-ldpi-icon", //icon
-           iconColor: "#64B5F6",
-           forceShow: true,
-           clearNotifications: false
-           //sound: true
+          //  iconColor: "#64B5F6",
+          //  forceShow: false,
+          //  clearNotifications: false
+           sound: true
           },
           ios: {
             alert: 'true',
@@ -574,8 +574,35 @@ export class MyApp {
         }
   //android
         else {
-          console.log("notification from android",notification);
+
           console.log("android");
+          console.log("notification from android",notification);
+          
+          if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3"){
+
+            this.helper.type_id = notification.additionalData.type_id;
+
+            var orderStatus = notification.additionalData.order_status;
+            if(orderStatus == "0" || orderStatus == "3")
+              this.events.publish('status0ForPLC');
+         
+            if(orderStatus == "2")
+              this.events.publish('status2ForPLC');
+            if(orderStatus == "5" )
+            { 
+              if(this.helper.orderRated == 0)
+              {
+                this.events.publish('status5'); 
+                this.nav.push('rate-service',{
+                  data:{
+                    doctorId:notification.additionalData.doctorId,
+                    orderId:notification.additionalData.orderId
+                  }
+                });
+              }
+          }  
+          }
+          else{
           this.helper.notification=notification;
           var orderStatus = notification.additionalData.order_status;
           if(orderStatus == "8")
@@ -608,6 +635,9 @@ export class MyApp {
              // }
             //})
           }
+
+
+        }
         }
         //returns view controller obj 
   

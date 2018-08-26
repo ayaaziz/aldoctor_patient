@@ -37,9 +37,10 @@ export class SearchForPharmacyPage {
   btn1;
   btn2;
   tostClass ;
-  locFlag= 0;
-  // locFlag= 1;
+  // locFlag= 0;
+  locFlag= 1;
 
+  center_id = "";
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
     public alertCtrl: AlertController,public platform: Platform,
@@ -199,7 +200,7 @@ export class SearchForPharmacyPage {
         this.storage.get("access_token").then(data=>{
           this.accessToken = data;
           this.helper.accessToken = this.accessToken;
-          this.service.nearbyservices(this.type_id,this.lat,this.lng,this.accessToken).subscribe(
+          this.service.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
             resp =>{
               console.log("resp from nearby services: ",resp);
               var docsData = JSON.parse(JSON.stringify(resp)).result;
@@ -283,7 +284,7 @@ export class SearchForPharmacyPage {
   
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
-      this.service.nearbyservices(this.type_id,this.lat,this.lng,this.accessToken).subscribe(
+      this.service.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp =>{
           console.log("resp from nearby doctors: ",resp);
           var docsData = JSON.parse(JSON.stringify(resp)).result;

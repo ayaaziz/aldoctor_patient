@@ -39,12 +39,12 @@ export class OrderSpecificServicePage {
   // photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
  photos = [];
   photosForApi=[];
-  //doctors = [];
+  doctors = [];
 
   
-  doctors=[{"id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
-  {"id":2,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 2","color":"grey","offline":true,"place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
-  {"id":3,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 3","color":"grey","offline":true,"place":"mansoura","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
+  // doctors=[{"id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
+  // {"id":2,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 2","color":"grey","offline":true,"place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
+  // {"id":3,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 3","color":"grey","offline":true,"place":"mansoura","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
 
 
   cost:number=0;
@@ -60,6 +60,7 @@ export class OrderSpecificServicePage {
   orderBTn = false;
   imageFlag = true;
 
+  center_id= "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public translate: TranslateService,  public events: Events,
@@ -121,6 +122,7 @@ export class OrderSpecificServicePage {
             {
               this.doctors[k].color="green";
               this.doctors[k].offline=false;
+              this.doctors[k].moreTxt = "متوافر";
               console.log("call sort function from status changed");
               this.sortDoctors();
 
@@ -128,6 +130,7 @@ export class OrderSpecificServicePage {
             {
               this.doctors[k].color="grey";
               this.doctors[k].offline=true;
+              this.doctors[k].moreTxt = "غير متوافر";
               console.log("call sort function from status changed");
                 this.sortDoctors();
             }
@@ -149,6 +152,8 @@ export class OrderSpecificServicePage {
             {
               this.doctors[k].color="green";
               this.doctors[k].offline=false;
+              this.doctors[k].moreTxt = "متوافر";
+
               console.log("call sort function from status");
                 this.sortDoctors();
 
@@ -156,6 +161,8 @@ export class OrderSpecificServicePage {
             {
               this.doctors[k].color="grey";
               this.doctors[k].offline=true;
+              this.doctors[k].moreTxt="غير متوافر";
+
               console.log("call sort function from status");
                 this.sortDoctors();
             }
@@ -221,6 +228,8 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="red";
           this.doctors[k].offline=true;
+          this.doctors[k].moreTxt = "غير متوافر";
+
           console.log("call sort function from get busy");
                 this.sortDoctors();
 
@@ -228,6 +237,7 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="green";
           this.doctors[k].offline=false;
+          this.doctors[k].moreTxt = "متوافر";
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from get busy");
                 this.sortDoctors();
@@ -250,6 +260,8 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="red";
           this.doctors[k].offline=true;
+          this.doctors[k].moreTxt = "غير متوافر";
+
           console.log("call sort function from busy changed");
                 this.sortDoctors();
 
@@ -257,6 +269,7 @@ this.events.subscribe('location', (data) => {
         {
           this.doctors[k].color="green";
           this.doctors[k].offline=false;
+          this.doctors[k].moreTxt = "متوافر";
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from busy changed");
                 this.sortDoctors();
@@ -279,7 +292,7 @@ this.events.subscribe('location', (data) => {
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderSpecificServicePage');
     //this.showLoading = false;
-    this.srv.nearbyservices(this.type_id,this.lat,this.lng,this.accessToken).subscribe(
+    this.srv.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
       resp=>{
         //this.showLoading = true;
         console.log("nearbyservice resp: ",resp);
@@ -421,9 +434,14 @@ this.events.subscribe('location', (data) => {
             var newOrder = JSON.parse(JSON.stringify(resp));
             
   
-            this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-            this.helper.orderStatusChanged(newOrder.order.id);
-  
+            // this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+            // this.helper.orderStatusChanged(newOrder.order.id);
+            
+            
+            this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+            this.helper.orderStatusChangedForPLC(newOrder.order.id);
+
+            
             this.presentToast(this.translate.instant("ordersent"));
             
             // this.navCtrl.push('remaining-time-to-accept');
@@ -578,72 +596,79 @@ this.events.subscribe('location', (data) => {
       this.srv.searchServiceByName(searchVal,this.type_id,this.accessToken).subscribe(
         resp=>{
           console.log("searchServiceByName resp: ",resp);
-          // this.choosenDoctors=[];
-          // console.log("getDoctorsByName resp: ",resp);
-          // let doctorData =JSON.parse(JSON.stringify(resp));
-          // console.log(doctorData["results"].length);
-          // this.doctors=[];  
-          // for(var i=0;i<doctorData["results"].length;i++){
-          //   console.log("doctor: ",doctorData["results"][i]);  
-          //   this.doctors.push(doctorData["results"][i]);
-          // }
-          this.showLoading = true;
-          this.choosenDoctors=[];
-          console.log("getDoctorsByName resp: ",resp);
+          this.showLoading=true;
+          console.log("nearbyservice resp: ",resp);
+          
           let doctorData =JSON.parse(JSON.stringify(resp));
-          console.log(doctorData["result"].length);
-          this.doctors=[];  
-          for(var i=0;i<doctorData["result"].length;i++){
-            console.log("doctor: ",doctorData["result"][i]);  
+          console.log("service data",doctorData);
+        console.log("doctors data",doctorData["result"]);
+        this.doctors=[];  
+        for(var i=0;i<doctorData["result"].length;i++){
+            console.log("doctor: ",doctorData["result"][i]); 
+            
+            // doctorData["result"][i].color="green";
+            // doctorData["result"][i].offline = false;
+            doctorData["result"][i].timefordelivery = "2د";
+            doctorData["result"][i].distance = "2كم";
+            
+            doctorData["result"][i].type_id = this.type_id;
             if(doctorData["result"][i].nickname)
             doctorData["result"][i].doctorName = doctorData["result"][i].nickname;
             else 
             doctorData["result"][i].doctorName = doctorData["result"][i].name;
 
-            if(doctorData["result"][i].busy == "1")
-            {
-              doctorData["result"][i].color="red";
-              doctorData["result"][i].offline=true;
-            }else if (doctorData["result"][i].busy == "0")
-            {
-              if(doctorData["result"][i].online  == "1")
-                {
-                  doctorData["result"][i].color="green";
-                  doctorData["result"][i].offline=false;
-                
-  
-                }else if (doctorData["result"][i].online  == "0")
-                {
-                  doctorData["result"][i].color="grey";
-                  doctorData["result"][i].offline=true;
-                  
-                }
-             
-            }
+      
+
+          if(doctorData["result"][i].busy == "1")
+          {
+            doctorData["result"][i].color="red";
+            doctorData["result"][i].offline=true;
+            doctorData["result"][i].moreTxt = "غير متوافر";
+            
+          }else if (doctorData["result"][i].busy == "0")
+          {
+            if(doctorData["result"][i].online  == "1")
+              {
+                doctorData["result"][i].color="green";
+                doctorData["result"][i].offline=false;
+                doctorData["result"][i].moreTxt = "متوافر";
+
+              }else if (doctorData["result"][i].online  == "0")
+              {
+                doctorData["result"][i].color="grey";
+                doctorData["result"][i].offline=true;
+                doctorData["result"][i].moreTxt = "غير متوافر";
+              }
+           
+          }
+
+          
+
 
             this.doctors.push(doctorData["result"][i]);
           }
-          if(this.doctors.length >= 3)
-          {
-            this.scrollHeight = "385px";
           
-          }else{
-            this.scrollHeight = "260px";
-          }
+        if(this.doctors.length >= 3)
+        {
+          this.scrollHeight = "385px";
+        
+        }else{
+          this.scrollHeight = "260px";
+        }
           for(i=0;i<this.doctors.length;i++)
           {
+            
             this.helper.getDoctorStatus(this.doctors[i].id);
             this.helper.getBusyDoctor(this.doctors[i].id);
+            
           }
           
-
           if(this.doctors.length == 0)
           {
+            console.log("if = 0");
             this.presentToast(this.translate.instant("noSearchResult"));
           }
-         
-
-
+          
         },
         err=>{
           console.log("getDoctorsByName error: ",err);

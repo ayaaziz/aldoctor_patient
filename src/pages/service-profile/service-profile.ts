@@ -26,7 +26,7 @@ export class ServiceProfilePage {
   phone;
   specialization;
   rate;
-  services=["any thing","any thing","any thing"];
+  services=[];
   accessToken;
   tostClass;
 
@@ -127,10 +127,13 @@ export class ServiceProfilePage {
           var newOrder = JSON.parse(JSON.stringify(resp));
           
 console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.service_profile_id)
-          this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
-          this.helper.orderStatusChanged(newOrder.order.id);
+          // this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
+          // this.helper.orderStatusChanged(newOrder.order.id);
 
-          
+          this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,1);
+          this.helper.orderStatusChangedForPLC(newOrder.order.id);
+
+
           this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
           this.navCtrl.push('remaining-time-to-accept');

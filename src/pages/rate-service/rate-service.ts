@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
+import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 
 @IonicPage({
   name:'rate-service'
@@ -22,7 +23,8 @@ export class RateServicePage {
   image;
   rate;
   note=this.translate.instant("notes");
-  rateWord=this.translate.instant("vbad");
+  // rateWord=this.translate.instant("vbad");
+  rateWord="";
   langDirection;
   doctorId;
   orderId;
@@ -32,9 +34,11 @@ export class RateServicePage {
   tostClass ;
   rateWordsWithId=[];
   
+  type_id = "";
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,public service: LoginserviceProvider,
-    public storage: Storage,
+    public storage: Storage, public srv: ProvidedServicesProvider,
     public helper:HelperProvider,public translate: TranslateService) {
 
       this.langDirection = this.helper.lang_direction;
@@ -43,6 +47,9 @@ export class RateServicePage {
       else
         this.tostClass="toastLeft";
 
+      this.type_id = this.helper.type_id;
+      
+      
       var notificationdata = this.navParams.get('data');
       if(notificationdata )
       {
@@ -103,16 +110,16 @@ export class RateServicePage {
       this.storage.get("access_token").then(data=>{
         this.accessToken = data;
       
-      this.service.rateWords(this.accessToken).subscribe(
+      this.srv.rateWords( this.type_id , this.accessToken).subscribe(
         resp=>{
           console.log("rateWords resp ",resp);
           var reteWordsResp = JSON.parse(JSON.stringify(resp));
           console.log("length ",reteWordsResp.length,"...");
-          console.log(reteWordsResp[0].translation.value);
+          console.log(reteWordsResp[0].value); //translation.value
           this.rateWordsWithId = [];
           this.rateWordsWithId=reteWordsResp;
-            this.rateWord = reteWordsResp[0].translation.value;
-            this.rateCommentsFromApi();    
+            // this.rateWord = reteWordsResp[0].value;//translation.value
+            // this.rateCommentsFromApi();    
           
 
         },err=>{
@@ -130,7 +137,7 @@ export class RateServicePage {
   }
 
   rateWordsFromApi(rateIndex){
-    this.service.rateWords(this.accessToken).subscribe(
+    this.srv.rateWords(this.type_id,this.accessToken).subscribe(
       resp=>{
         console.log("rateWords resp ",resp);
         var reteWordsResp = JSON.parse(JSON.stringify(resp));
@@ -139,7 +146,7 @@ export class RateServicePage {
         this.rateWordsWithId = [];
         this.rateWordsWithId=reteWordsResp;
 
-          this.rateWord = reteWordsResp[rateIndex].translation.value;
+          this.rateWord = reteWordsResp[rateIndex].value;//translation.value
         
         this.rateCommentsFromApi();
 
@@ -152,10 +159,10 @@ export class RateServicePage {
   rateCommentsFromApi(){
     this.rateArray=[];
     for(var h=0;h<this.rateWordsWithId.length;h++){
-      if(this.rateWord == this.rateWordsWithId[h].translation.value)
+      if(this.rateWord == this.rateWordsWithId[h].value)//translation.value
       {
 
-        this.service.reteWordsComments(this.rateWordsWithId[h].id,this.accessToken).subscribe(
+        this.srv.reteWordsComments(this.rateWordsWithId[h].id,this.type_id,this.accessToken).subscribe(
           resp=>{
             console.log("comments from api",resp);
             console.log("res from rate ",resp);
@@ -163,7 +170,7 @@ export class RateServicePage {
             console.log(rateCriteriea.length);
             
             for(var i=0;i<rateCriteriea.length;i++){
-              this.rateArray.push({value:rateCriteriea[i].translation.value,status:0});
+              this.rateArray.push({value:rateCriteriea[i].value,status:0}); //translation.value
             }
 
           },err=>{

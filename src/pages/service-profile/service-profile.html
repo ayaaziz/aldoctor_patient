@@ -123,22 +123,23 @@
     <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
   </ion-item> -->
 
-  <ion-row>
+              
+  <!-- <ion-row>
       <ion-col col-6 col-sm-3 col-md-2 >
         <ion-item no-lines  (click)="presentActionSheet()">{{medicalprescriptionImage}}
-            <!-- <ion-icon name="images"  (click)="presentActionSheet()"></ion-icon> -->
+
         </ion-item>
         
   
       </ion-col>
       
     <ion-col col-3 *ngFor="let photo of photos; let id = index" style="text-align:right">
-      <!-- <ion-card class="block" style="width:80px;height:80px"> -->
+
         <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
         <img [src]="photo" *ngIf="photo" style="width:80px;height:80px" />
-      <!-- </ion-card> -->
+
     </ion-col>
-  </ion-row>
+  </ion-row> -->
 
   <ion-item class="form-group" no-lines>
       <button type="button" (click)="presentActionSheet()" class="btn btn-primary btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725);margin:10px auto;" >  <img src="assets/icon/cam.png" height="25" width="25">   {{medicalprescriptionImage}} <ion-icon name="checkmark-circle" style="color: darkgreen;vertical-align: middle;" *ngIf="imageAdded" ></ion-icon> </button> 

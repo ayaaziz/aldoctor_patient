@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { TranslateService } from '@ngx-translate/core';
-
+import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 
 
 @IonicPage({
@@ -33,7 +33,7 @@ export class CentersPage {
 
   constructor(public helper: HelperProvider,
     public navCtrl: NavController, public navParams: NavParams,
-    public storage: Storage,
+    public storage: Storage, public srv : ProvidedServicesProvider,
     public service:LoginserviceProvider,public toastCtrl: ToastController,
     public translate: TranslateService) {
 
@@ -67,72 +67,73 @@ export class CentersPage {
     }
   }
   initializeSpecializations() {
-    this.specializations = [
-    {"name":"specialization1","image":""},
-    {"name":"specialization2","image":""},
-    {"name":"specialization3","image":""},
-    {"name":"specialization4","image":""},
-    {"name":"specialization5","image":""},
-    {"name":"specialization6","image":""}];
-    this.specializations1=[   
-       {"value":"دوبلر","status":'0',"image":"assets/icon/baby.png","image_selected":"assets/icon/baby2.png"},
-    {"value":"اكس راي","status":'0',"image":"assets/icon/premolar1.png","image_selected":"assets/icon/premolar2.png"},
-    {"value":"ايكو","status":'0',"image":"assets/icon/brain.png","image_selected":"assets/icon/brain2.png"}
-    //,{"value":"باطنه وقلب","status":'0',"image":"assets/icon/heart.png","image_selected":"assets/icon/heart2.png"}
-  ];
-    this.specializations2=[{"value":"سونار","status":'0',"image":"assets/icon/ear1.png","image_selected":"assets/icon/ear2.png"},
-    {"value":"رسم مخ","status":'0',"image":"assets/icon/pregnancy1.png","image_selected":"assets/icon/pregnancy2.png"},
-    {"value":"الكل","status":'0',"image":"assets/icon/science1.png","image_selected":"assets/icon/science2.png"}
-    //,{"name":"كلى","status":'0',"image":"assets/icon/kidneys1.png","image_selected":"assets/icon/kidneys2.png"}
-  ];
+  //   this.specializations = [
+  //   {"name":"specialization1","image":""},
+  //   {"name":"specialization2","image":""},
+  //   {"name":"specialization3","image":""},
+  //   {"name":"specialization4","image":""},
+  //   {"name":"specialization5","image":""},
+  //   {"name":"specialization6","image":""}];
+  //   this.specializations1=[   
+  //      {"value":"دوبلر","status":'0',"image":"assets/icon/baby.png","image_selected":"assets/icon/baby2.png"},
+  //   {"value":"اكس راي","status":'0',"image":"assets/icon/premolar1.png","image_selected":"assets/icon/premolar2.png"},
+  //   {"value":"ايكو","status":'0',"image":"assets/icon/brain.png","image_selected":"assets/icon/brain2.png"}
+  //   //,{"value":"باطنه وقلب","status":'0',"image":"assets/icon/heart.png","image_selected":"assets/icon/heart2.png"}
+  // ];
+  //   this.specializations2=[{"value":"سونار","status":'0',"image":"assets/icon/ear1.png","image_selected":"assets/icon/ear2.png"},
+  //   {"value":"رسم مخ","status":'0',"image":"assets/icon/pregnancy1.png","image_selected":"assets/icon/pregnancy2.png"},
+  //   {"value":"الكل","status":'0',"image":"assets/icon/science1.png","image_selected":"assets/icon/science2.png"}
+  //   //,{"name":"كلى","status":'0',"image":"assets/icon/kidneys1.png","image_selected":"assets/icon/kidneys2.png"}
+  // ];
    
+  
 
     
-    // this.storage.get("access_token").then(data=>{
-    //   this.accessToken = data;
+    this.storage.get("access_token").then(data=>{
+      this.accessToken = data;
 
-    //   this.showLoading = false;
+      this.showLoading = false;
       
-    //   this.service.getSpecializations(this.accessToken).subscribe(
-    //     resp=>{
+      this.srv.getXrayCenters(this.accessToken).subscribe(
+        resp=>{
       
-    //       this.showLoading = true;
+          this.showLoading = true;
       
-    //       console.log("getSpecializations resp: ",resp);
-    //       var specializationData = JSON.parse(JSON.stringify(resp));
-    //       this.specializations1 = [];
-    //       this.specializations2 = [];
-    //       for(var i=0;i<(specializationData.length/2);i++){
+          console.log("getXrayCenters resp: ",resp);
+          var specializationData = JSON.parse(JSON.stringify(resp));
+          this.specializations1 = [];
+          this.specializations2 = [];
+          for(var i=0;i<(specializationData.length/2);i++){
     
-    //         specializationData[i].spClass ="spUnselceted";
-    //         this.specializations1.push(specializationData[i]);
-    //       }
+            specializationData[i].spClass ="spUnselceted";
+            this.specializations1.push(specializationData[i]);
+          }
     
-    //       for(var j=Math.ceil(specializationData.length/2);j<specializationData.length;j++){
+          for(var j=Math.ceil(specializationData.length/2);j<specializationData.length;j++){
     
-    //         specializationData[j].spClass ="spUnselceted";
-    //         this.specializations2.push(specializationData[j]);
+            specializationData[j].spClass ="spUnselceted";
+            this.specializations2.push(specializationData[j]);
             
-    //       }
+          }
          
-    //       console.log("sp1 ",this.specializations1);
-    //       console.log("sp2 ",this.specializations2);
+          // console.log("sp1 ",this.specializations1);
+          // console.log("sp2 ",this.specializations2);
 
-    //       for(var j=0;j<this.specializations1.length;j++){
-    //         this.specializations1[j].status = '0';
-    //       }
-    //       for(var j=0;j<this.specializations2.length;j++){
-    //         this.specializations2[j].status = '0';
-    //       }
+          for(var j=0;j<this.specializations1.length;j++){
+            this.specializations1[j].status = '0';
+          }
+          for(var j=0;j<this.specializations2.length;j++){
+            this.specializations2[j].status = '0';
+          }
 
-    //     },
-    //     err=>{
-    //       this.showLoading = true;
-    //       console.log("getSpecializations error: ",err);
-    //       this.presentToast(this.translate.instant("serverError"));
-    //     }
-    //   );
-    // });
+        },
+        err=>{
+          this.showLoading = true;
+          console.log("getSpecializations error: ",err);
+          this.presentToast(this.translate.instant("serverError"));
+        }
+      );
+    });
 
    
   }
@@ -192,7 +193,8 @@ console.log("sp item search val ",val);
     this.navCtrl.push('order-service',{data:{
           type_id:3,
           lat:this.helper.lat,
-          lng:this.helper.lon
+          lng:this.helper.lon,
+          center_id : item.id
         }});
   }
   private presentToast(text) {

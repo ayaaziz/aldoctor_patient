@@ -49,17 +49,17 @@ export class RemaingTimeForPlcPage {
   },1000);
 
 
-  this.events.subscribe('status0', (data) => {
-    console.log("status0",data);
+  this.events.subscribe('status0ForPLC', (data) => {
+    console.log("status0ForPLC",data);
     clearTimeout(this.timer);
     
     this.navCtrl.setRoot('order-not-accepted');
   });
 
-  this.events.subscribe('status2', (data) => {
-    console.log("status2",data);
+  this.events.subscribe('status2ForPLC', (data) => {
+    console.log("status2ForPLC",data);
     clearTimeout(this.timer);
-    this.navCtrl.setRoot('follow-order',
+    this.navCtrl.setRoot('follow-order-for-plc',
     {data:
       { "orderId":data.orderId, 
         "doctorId":data.doctorId
