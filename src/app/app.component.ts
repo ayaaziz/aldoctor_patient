@@ -202,7 +202,13 @@ export class MyApp {
       //splashScreen.show();
     });
    
- 
+    if(platform.is('ios'))
+    {
+      this.helper.device_type="0";
+    }else{
+      this.helper.device_type="1";
+    }
+    
  
   }
   defaultLang(){
