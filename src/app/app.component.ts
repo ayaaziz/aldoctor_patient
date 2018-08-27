@@ -583,23 +583,30 @@ export class MyApp {
             this.helper.type_id = notification.additionalData.type_id;
 
             var orderStatus = notification.additionalData.order_status;
-            if(orderStatus == "0" || orderStatus == "3")
+            
+            var data = {
+              doctorId:notification.additionalData.doctorId,
+              orderId:notification.additionalData.orderId
+            };
+
+            if(orderStatus == "10" || orderStatus == "3") 
               this.events.publish('status0ForPLC');
          
             if(orderStatus == "2")
-              this.events.publish('status2ForPLC');
+              this.events.publish('status2ForPLC',data );
+
             if(orderStatus == "5" )
             { 
-              if(this.helper.orderRated == 0)
-              {
-                this.events.publish('status5'); 
+              // if(this.helper.orderRated == 0)
+              // {
+               // this.events.publish('status5'); 
                 this.nav.push('rate-service',{
                   data:{
                     doctorId:notification.additionalData.doctorId,
                     orderId:notification.additionalData.orderId
                   }
                 });
-              }
+              //}
           }  
           }
           else{
@@ -616,25 +623,25 @@ export class MyApp {
             if(this.helper.orderRated == 0)
             {
             this.events.publish('status5'); //
-            this.nav.push('rate-doctor',{
-              data:{
-                doctorId:notification.additionalData.doctorId,
-                orderId:notification.additionalData.orderId}
-            });
+            // this.nav.push('rate-doctor',{
+            //   data:{
+            //     doctorId:notification.additionalData.doctorId,
+            //     orderId:notification.additionalData.orderId}
+            // });
             }
           } //
-          if (notification.additionalData.type == "0" || notification.additionalData.type == "1" || notification.additionalData.type == "3") {
-            // this.storage.get('access_token').then((val) => {
+          // if (notification.additionalData.type == "0" || notification.additionalData.type == "1" || notification.additionalData.type == "3") {
+          //   // this.storage.get('access_token').then((val) => {
   
-              // if (!(val == null)) {
-              //   this.helper.appAccess = val
-                this.nav.setRoot(TabsPage).then(() => {
+          //     // if (!(val == null)) {
+          //     //   this.helper.appAccess = val
+          //       this.nav.setRoot(TabsPage).then(() => {
                   
-                  this.nav.push('OfferModelPage', { TypeName: notification.additionalData.type, NameItem: notification.additionalData.ID, pageName: "notification",Sub_category_name_ar: notification.message})
-                })
-             // }
-            //})
-          }
+          //         this.nav.push('OfferModelPage', { TypeName: notification.additionalData.type, NameItem: notification.additionalData.ID, pageName: "notification",Sub_category_name_ar: notification.message})
+          //       })
+          //    // }
+          //   //})
+          // }
 
 
         }
