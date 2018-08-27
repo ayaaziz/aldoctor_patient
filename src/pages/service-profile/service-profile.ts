@@ -31,7 +31,8 @@ export class ServiceProfilePage {
   tostClass;
 
   photosForApi=[];
-  photos= [];
+  //photos= [];
+  photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
 
   offline;
   medicalprescriptionImage;

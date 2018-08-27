@@ -143,7 +143,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
       // let imgdata=profilePic.split(',')[1]; imgdata.replace(/\+/g,",")
       let parameter = new HttpParams().set('profile_pic',profilePic)
-      .set('profile_pic_ext','png');
+      .set('profile_pic_ext','jpeg');
       console.log("parameters from service: ",parameter);
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/change_profile_img';
