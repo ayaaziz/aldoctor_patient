@@ -61,6 +61,7 @@ export class OrderSpecificServicePage {
   imageFlag = true;
 
   center_id= "";
+  imageExt=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public translate: TranslateService,  public events: Events,
@@ -422,7 +423,7 @@ this.events.subscribe('location', (data) => {
         doctorsId += this.choosenDoctors[j].id+",";
       }
       console.log("doctors id: ",doctorsId);
-      this.srv.saveOrder(doctorsId,this.photosForApi,this.accessToken).subscribe(
+      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
         resp => {
           console.log("saveOrder resp: ",resp);
           // this.presentToast(this.translate.instant("ordersent"));
@@ -438,8 +439,8 @@ this.events.subscribe('location', (data) => {
             // this.helper.orderStatusChanged(newOrder.order.id);
             
             
-            this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-            this.helper.orderStatusChangedForPLC(newOrder.order.id);
+            // this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+            // this.helper.orderStatusChangedForPLC(newOrder.order.id);
 
             
             this.presentToast(this.translate.instant("ordersent"));
@@ -569,7 +570,8 @@ this.events.subscribe('location', (data) => {
       // this.photosForApi.push(imageData.replace(/\+/g,","));
       
       this.photosForApi.push(encodeURIComponent(imageData));
-      
+      this.imageExt.push("jpeg");
+
       
       if(this.photosForApi.length == 2)
         this.imageFlag = false;
@@ -585,6 +587,7 @@ this.events.subscribe('location', (data) => {
     console.log("photo index",index);
     this.photos.splice(index, 1);
     this.photosForApi.splice(index,1);
+    this.imageExt.pop();
     this.imageFlag = true;
   }
   getItems(ev) {

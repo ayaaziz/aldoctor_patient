@@ -23,7 +23,7 @@ export class DoctorProfilePage {
   name;
   specialization;
   rate;
-  services=["any thing","any thing","any thing"];
+  services=[];
   accessToken;
 
   tostClass ;

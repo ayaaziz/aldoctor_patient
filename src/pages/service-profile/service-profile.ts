@@ -39,6 +39,7 @@ export class ServiceProfilePage {
 
   imageFlag = true;
   image2;
+  imageExt=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
@@ -62,7 +63,7 @@ export class ServiceProfilePage {
     this.phone="0123456";
     this.address="address";
     // this.services = this.doctorProfile.SpecialityServices;
-    this.services = ["any thing","any thing","any thing"];
+    this.services = [];
 
     this.doctorProfile = navParams.get('data');
     console.log("from doctor profile: ",this.doctorProfile);
@@ -115,12 +116,14 @@ export class ServiceProfilePage {
     }else{
 
     
+      this.offline = "1";
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
     this.storage.get("access_token").then(data=>{
       this.accessToken = data;
-      this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.accessToken).subscribe(
+      this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
         resp => {
+          
           // this.showLoading=true;
           if(JSON.parse(JSON.stringify(resp)).success ){
           console.log("saveOrder resp: ",resp);
@@ -130,11 +133,12 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           // this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
           // this.helper.orderStatusChanged(newOrder.order.id);
 
-          this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,1);
-          this.helper.orderStatusChangedForPLC(newOrder.order.id);
+          // this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,1);
+          // this.helper.orderStatusChangedForPLC(newOrder.order.id);
 
 
           this.presentToast(this.translate.instant("ordersent"));
+          this.offline = "0";
           // this.navCtrl.pop();
           this.navCtrl.push('remaining-time-to-accept');
           }else{
@@ -143,6 +147,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
         },
         err=>{
           // this.showLoading=true;
+          this.offline = "0";
           console.log("saveOrder error: ",err);
           this.presentToast(this.translate.instant("serverError"));
         }
@@ -209,7 +214,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
 
       this.photos.push(this.image2);
       this.photosForApi.push(encodeURIComponent(imageData));
-      
+      this.imageExt.push("jpeg");
+
       if(this.photosForApi.length == 2)
         this.imageFlag = false;
 
@@ -225,6 +231,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     console.log("photo index",index);
     this.photos.splice(index, 1);
     this.photosForApi.splice(index,1);
+    this.imageExt.pop();
     this.imageFlag = true;
   }
 }

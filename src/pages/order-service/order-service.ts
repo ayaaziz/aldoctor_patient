@@ -71,6 +71,8 @@ export class OrderServicePage {
   imageFlag = true;
 
   center_id = "" ;
+  imageExt=[];
+
 
   constructor(public translate: TranslateService,  public events: Events,
     public navCtrl: NavController, public navParams: NavParams,
@@ -561,7 +563,7 @@ this.events.subscribe('location', (data) => {
       console.log("doctors id: ",doctorsId);
      this.orderBTn = true;
     //  this.showLoading=false;
-      this.srv.saveOrder(doctorsId,this.photosForApi,this.accessToken).subscribe(
+      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
         resp => {
           // this.showLoading=true;
           if(JSON.parse(JSON.stringify(resp)).success ){
@@ -572,8 +574,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
           // this.helper.orderStatusChanged(newOrder.order.id);
           
-            this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-            this.helper.orderStatusChangedForPLC(newOrder.order.id);
+            // this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+            // this.helper.orderStatusChangedForPLC(newOrder.order.id);
 
           this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
@@ -698,7 +700,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
 
       this.photos.push(this.image);
       this.photosForApi.push(encodeURIComponent(imageData));
-    
+      this.imageExt.push("jpeg");
+
 
       if(this.photosForApi.length == 2)
         this.imageFlag = false;
@@ -716,6 +719,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     console.log("photo index",index);
     this.photos.splice(index, 1);
     this.photosForApi.splice(index,1);
+    this.imageExt.pop();
     this.imageFlag = true;
   }
 
