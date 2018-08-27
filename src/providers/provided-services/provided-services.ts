@@ -43,6 +43,7 @@ export class ProvidedServicesProvider {
     .set('service_id','3').set('type_id',this.helper.type_id)
     .set('fiels_ext',files_ext);
     
+    
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/orders/create';
     return this.http.post(serviceUrl,parameter,{headers: headers });
