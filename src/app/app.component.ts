@@ -518,9 +518,9 @@ export class MyApp {
       pushObject.on('notification').subscribe((notification: any) => {
         console.log("notification " + JSON.stringify(notification))
         if (this.platform.is('ios')) {
-          console.log("notification1")
+          console.log("ios notification",notification);
           if (notification.additionalData.foreground == true) {
-            console.log("notification2" + notification.additionalData["title"] + " rr " + notification.additionalData["message"])
+            console.log("foreground ios notification" ,notification);
   
             let alert = this.alertCtrl.create({
               title: notification["title"],
@@ -536,20 +536,21 @@ export class MyApp {
                 {
                   text: 'عرض',
                   handler: () => {
-                    console.log('Buy clicked');
-                    if (notification.additionalData["gcm.notification.orderid"] == "0" || notification.additionalData["gcm.notification.type"] == "1" || notification.additionalData["gcm.notification.type"] == "3") {
-                      // this.storage.get('access_token').then((val) => {
+                    console.log('show notification clicked');
+                    this.handlenotifications(notification);
+                    // if (notification.additionalData["gcm.notification.orderid"] == "0" || notification.additionalData["gcm.notification.type"] == "1" || notification.additionalData["gcm.notification.type"] == "3") {
+                    //   // this.storage.get('access_token').then((val) => {
   
-                      //   if (!(val == null)) {
-                      //     this.helper.appAccess = val
-                          this.nav.setRoot(TabsPage).then(() => {
-                            this.nav.push('OfferModelPage', { TypeName: notification.additionalData["gcm.notification.type"], NameItem: notification.additionalData["gcm.notification.ID"], pageName: "notification",Sub_category_name_ar: notification["title"] })
-                            console.log("noti id type" + notification.additionalData["gcm.notification.ID"] + " " + notification.additionalData["gcm.notification.type"])
-                          })
-                      //   }
-                      // })
+                    //   //   if (!(val == null)) {
+                    //   //     this.helper.appAccess = val
+                    //       this.nav.setRoot(TabsPage).then(() => {
+                    //         this.nav.push('OfferModelPage', { TypeName: notification.additionalData["gcm.notification.type"], NameItem: notification.additionalData["gcm.notification.ID"], pageName: "notification",Sub_category_name_ar: notification["title"] })
+                    //         console.log("noti id type" + notification.additionalData["gcm.notification.ID"] + " " + notification.additionalData["gcm.notification.type"])
+                    //       })
+                    //   //   }
+                    //   // })
   
-                    }
+                    // }
                     
                   }
                 }
@@ -559,6 +560,7 @@ export class MyApp {
   
           }
           else {
+            this.handlenotifications(notification);
                       // this.storage.get('access_token').then((val) => {
                       //   if (!(val == null)) {
                       //     this.helper.appAccess = val
@@ -570,10 +572,10 @@ export class MyApp {
   //   data:orderobject
   // });
 
-                          this.nav.setRoot(TabsPage).then(() => {
-                          this.nav.push('OfferModelPage', { TypeName: notification.additionalData["gcm.notification.type"], NameItem: notification.additionalData["gcm.notification.ID"], pageName: "notification",Sub_category_name_ar: notification["title"] })
-                          })
-                          console.log("noti id type" + notification.additionalData["gcm.notification.ID"] + " " + notification.additionalData["gcm.notification.type"])
+                          // this.nav.setRoot(TabsPage).then(() => {
+                          // this.nav.push('OfferModelPage', { TypeName: notification.additionalData["gcm.notification.type"], NameItem: notification.additionalData["gcm.notification.ID"], pageName: "notification",Sub_category_name_ar: notification["title"] })
+                          // })
+                          // console.log("noti id type" + notification.additionalData["gcm.notification.ID"] + " " + notification.additionalData["gcm.notification.type"])
                       //   }
                       // })
                     }
@@ -666,7 +668,47 @@ export class MyApp {
       pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
     }
 
+    handlenotifications(notifications){
     
+      console.log("handle notifications",notifications);
+
+      this.helper.notification=notifications;      
+      var orderStatus = notifications.additionalData.order_status;
+        
+      var data = {
+        doctorId:notifications.additionalData.doctorId,
+        orderId:notifications.additionalData.orderId
+      };
+
+      if (notifications.additionalData.type_id == "1" || notifications.additionalData.type_id == "2" || notifications.additionalData.type_id == "3"){
+
+        this.helper.type_id = notifications.additionalData.type_id;
+
+        if(orderStatus == "10" || orderStatus == "3") 
+          this.events.publish('status0ForPLC');
+     
+        if(orderStatus == "2")
+          this.events.publish('status2ForPLC',data );
+
+        if(orderStatus == "5" )
+          this.nav.push('rate-service',data);  
+      }
+      else{
+
+        if(orderStatus == "8")
+          this.events.publish('status8');
+        if(orderStatus == "7")
+          this.events.publish('status7');
+        if(orderStatus == "5" || orderStatus == "6")
+        { 
+          if(this.helper.orderRated == 0)
+            this.events.publish('status5'); 
+        } 
+
+      }
+
+
+    }
     initializeApp() {
       //get app language from offline data.
       this.storage.get("LanguageApp").then((val) => {

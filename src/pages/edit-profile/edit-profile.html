@@ -167,7 +167,7 @@ type="text" [dir]="langDirection"></ion-input>
                     <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
                     <ion-label floating *ngIf="langDirection != 'rtl'"><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
                     
-                    <ion-datetime [class.invalid]="!patientRegisterForm.controls.birthdate.valid && submitAttempt" formControlName="birthdate" displayFormat="MM/DD/YYYY"
+                    <ion-datetime [class.invalid]="!patientRegisterForm.controls.birthdate.valid && submitAttempt" formControlName="birthdate" displayFormat="DD/MM/YYYY"
                             [(ngModel)]="birthdate" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}"></ion-datetime>
                     </ion-item>
                     <ion-item *ngIf="!patientRegisterForm.controls.birthdate.valid && submitAttempt" no-lines>
