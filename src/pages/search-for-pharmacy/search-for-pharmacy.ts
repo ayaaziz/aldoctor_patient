@@ -186,7 +186,8 @@ export class SearchForPharmacyPage {
   accessToken;
   getUserLocation(){
     
-      this.geolocation.getCurrentPosition().then((resp) => {
+      let GPSoptions = {timeout: 20000,enableHighAccuracy: true, maximumAge: 3600};
+      this.geolocation.getCurrentPosition(GPSoptions).then((resp) => {
   
         this.lat = resp.coords.latitude;
         this.lng = resp.coords.longitude;
