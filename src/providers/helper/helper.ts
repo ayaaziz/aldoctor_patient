@@ -14,9 +14,9 @@ export class HelperProvider {
   public lang_direction ='rtl';
   public currentLang ='ar';
   //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
-  public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
+  //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
   
-  // public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+  public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
 
   public registration;
   public device_type="1";

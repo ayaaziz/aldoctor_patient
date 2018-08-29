@@ -81,6 +81,7 @@ export class SearchForPharmacyPage {
 
 
   ionViewDidLoad() {
+    
     console.log('ionViewDidLoad SearchForPharmacyPage');
     // this.test();
     // this.initMap();
@@ -111,7 +112,7 @@ export class SearchForPharmacyPage {
 
 
     this.initMap();
-
+    // this.allowUserToChooseHisLocation();
     this.test();
     
   }
