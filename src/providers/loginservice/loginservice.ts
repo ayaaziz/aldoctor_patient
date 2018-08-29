@@ -221,7 +221,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let userLocation = this.helper.lat + "," + this.helper.lon;
 
     let parameter = new HttpParams().set('doctor_id',doctorsId).
-    set('extra',userLocation);
+    set('extra',userLocation).set('service_id','2');
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/orders/create';

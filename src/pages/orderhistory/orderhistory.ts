@@ -193,8 +193,10 @@ export class OrderhistoryPage {
                     
             }
             else{
+
               this.orderobject.diabledesign = true;
               this.orderobject.orderId = ordersData[j].id;
+              
               this.orderobject.name = "تم رفض الطلب ";
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
               this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
