@@ -91,6 +91,8 @@ export class DoctorProfilePage {
         console.log("saveOrder resp: ",resp);
         var newOrder = JSON.parse(JSON.stringify(resp));
           
+        this.helper.orderIdForUpdate = newOrder.order.id;
+        
         this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
         this.helper.orderStatusChanged(newOrder.order.id);
 

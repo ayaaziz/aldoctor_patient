@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,Events} from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
+import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 
+import { Storage } from '@ionic/storage';
 
 @IonicPage({
   name:'remaining-time-to-accept'
@@ -14,14 +16,16 @@ import { HelperProvider } from '../../providers/helper/helper';
 export class RemainingTimeToAcceptPage {
 
   constructor(public helper:HelperProvider,public navCtrl: NavController, 
-    public navParams: NavParams,
-    public events: Events) {
+    public navParams: NavParams,public storage: Storage,
+    public events: Events,public service:LoginserviceProvider) {
   }
 
   time=45;
   timer;
   notification;
   orderStatus;
+  accessToken;
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad RemainingTimeToAcceptPage');
     
@@ -32,8 +36,21 @@ export class RemainingTimeToAcceptPage {
         this.time--;
         if(this.time <= 0){
           console.log("timer off");
-         clearTimeout(this.timer);
-         this.navCtrl.setRoot('order-not-accepted');
+          clearTimeout(this.timer);
+          
+          this.storage.get("access_token").then(data=>{
+            this.accessToken = data;
+
+          this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
+            resp=>{
+              console.log("update status",resp);
+              this.helper.removeOrder(this.helper.orderIdForUpdate);
+            },err=>{
+              console.log("uppdate status",err);
+            }
+          );
+        });
+        this.navCtrl.setRoot('order-not-accepted');
          
         }
     //     console.log("time: ",this.time);
@@ -69,7 +86,6 @@ export class RemainingTimeToAcceptPage {
     this.events.subscribe('status0', (data) => {
       console.log("status0",data);
       clearTimeout(this.timer);
-      
       this.navCtrl.setRoot('order-not-accepted');
     });
 

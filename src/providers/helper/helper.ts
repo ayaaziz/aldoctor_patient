@@ -15,12 +15,15 @@ export class HelperProvider {
   public currentLang ='ar';
   //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
   
+  //production
   //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
   
+  //test
   public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
 
   public registration;
-  public device_type="1";
+  public device_type;
+  // public device_type="1";
   //if(platfrom==ios )
   //0 -> ios , 1-> android
   public notification;
@@ -48,7 +51,9 @@ export class HelperProvider {
   public orderRated=0;
 
   public type_id;
-  
+
+  public orderIdForUpdate;
+
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
     public events: Events) {
@@ -321,6 +326,7 @@ updateCancelOrderStatus(orderId){
 
 }
 removeOrder(orderId){
+  console.log("remove order",orderId);
   firebase.database().ref().child(`orders/${orderId}`)
    .remove();
 }

@@ -30,7 +30,8 @@ export class OrderhistoryPage {
 
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-"custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,"diabledesign":false};
+"custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
+"diabledesign":false,"addressSign":true,"type_id":"","diabledRate":false};
 
   tostClass ;
   refresher;
@@ -83,7 +84,7 @@ export class OrderhistoryPage {
 
           for(var j=0;j<ordersData.length;j++){
             
-            if(ordersData[j].status == "10" || ordersData[j].status == "3") //canceled by doctor 0
+            if(ordersData[j].status == "10" ) //canceled by doctor 0, || ordersData[j].status == "3"
             {  
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
@@ -97,7 +98,7 @@ export class OrderhistoryPage {
             if(ordersData[j].rated == "0")
               ordersData[j].color = "yellow";
 
-            if(ordersData[j].status == "0" || ordersData[j].status == "4")
+            if(ordersData[j].status == "4") //ordersData[j].status == "0" ||
             {
               ordersData[j].statusTxt = "ملغي" ;
               ordersData[j].color = "red";
@@ -146,7 +147,24 @@ export class OrderhistoryPage {
               this.orderobject.rate = serviceProfile.rate;
               // this.orderobject.rate = ordersData[j].ratedvalue;
               
-              this.orderobject.specialization = serviceProfile.speciality;
+              if(ordersData[j].service_id && ordersData[j].service_id == "3" )
+              {
+                this.orderobject.diabledesign = true;
+                this.orderobject.addressSign = false;
+                this.orderobject.diabledRate = false;
+                this.orderobject.specialization = serviceProfile.entity.address;
+                this.orderobject.type_id = serviceProfile.entity.type_id;
+
+              }  
+              else{
+                this.orderobject.diabledesign = false;
+                this.orderobject.addressSign = true;
+                this.orderobject.diabledRate = false;
+                this.orderobject.specialization = serviceProfile.speciality;
+
+              }
+                
+              
               this.orderobject.doctor_id = serviceProfile.id;
               this.orderobject.color = ordersData[j].color;
               // this.orderobject.reorder = ordersData[j].reorder;
@@ -158,7 +176,7 @@ export class OrderhistoryPage {
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
               this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
-              this.orderobject.diabledesign = false;
+              
               // console.log("ordersData[j].date ",ordersData[j].date);
 
               // if(ordersData[j].reorder == "1")
@@ -188,22 +206,32 @@ export class OrderhistoryPage {
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-                  "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,"diabledesign":false};
+                  "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
+                  "diabledesign":false,"addressSign":true,"type_id":"","diabledRate" :false};
           
                     
             }
             else{
 
               this.orderobject.diabledesign = true;
+              this.orderobject.addressSign = true;
+              this.orderobject.diabledRate = true;
+
               this.orderobject.orderId = ordersData[j].id;
               
-              this.orderobject.name = "تم رفض الطلب ";
+              if(ordersData[j].status == "3")
+                this.orderobject.name = "لا يوجد استجابه"; //تم رفض الطلب
+              else if (ordersData[j].status == "0")
+                this.orderobject.name = "تم ارسال الطلب";
+                
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
               this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
               this.data.push(this.orderobject);
+              console.log("ordres data",this.data);
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
               "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
-              "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,"diabledesign":false};
+              "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
+              "diabledesign":false ,"addressSign":true,"type_id":"","diabledRate":false};
       
            
             }
@@ -684,8 +712,23 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
   }
   rateagain(item){
     console.log("item from rate function ",item);
-    this.navCtrl.push("rate-doctor",{data:{doctorId:item.doctor_id,
-      orderId:item.orderId}});
+    if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3")
+    {
+      this.helper.type_id  = item.type_id;
+
+      this.navCtrl.push('rate-service',
+      {data:
+        {
+        "doctorId":item.doctor_id, 
+        "orderId":item.orderId
+        }
+      });
+
+    }else{
+      this.navCtrl.push("rate-doctor",{data:{doctorId:item.doctor_id,
+        orderId:item.orderId}});
+    }
+    
 
   }
   reorder(item){

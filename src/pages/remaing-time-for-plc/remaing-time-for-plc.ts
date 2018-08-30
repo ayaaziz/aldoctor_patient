@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
+import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
+
+import { Storage } from '@ionic/storage';
+
 
 @IonicPage({
   name:'remaining-time-for-plc'
@@ -16,9 +20,12 @@ export class RemaingTimeForPlcPage {
   timer;
   notification;
   orderStatus;
+  accessToken;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public helper:HelperProvider,public events: Events) {
+    public helper:HelperProvider,public events: Events,
+    public storage: Storage,public service:LoginserviceProvider) {
 
      var data =  this.navParams.get('data');
      console.log("data from remaing time for plc",data);
@@ -42,6 +49,20 @@ export class RemaingTimeForPlcPage {
       if(this.time <= 0){
         console.log("timer off");
        clearTimeout(this.timer);
+
+       this.storage.get("access_token").then(data=>{
+        this.accessToken = data;
+
+      this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
+        resp=>{
+          console.log("update status",resp);
+          // this.helper.removeOrder(this.helper.orderIdForUpdate);
+        },err=>{
+          console.log("uppdate status",err);
+        }
+      );
+    });
+
        this.navCtrl.setRoot('order-not-accepted');
        
       }   

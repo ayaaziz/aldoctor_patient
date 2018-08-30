@@ -140,9 +140,10 @@
               <!-- overflow-x: hidden; -->
             <h2 style="width:60px;margin-top:0px;">{{item.name}}</h2>
             <img src="assets/icon/doctor.png"  [hidden]="item.diabledesign" style="width:15px;height:15px;" >
+            <img src="assets/icon/location.png"  [hidden]="item.addressSign" style="width:15px;height:15px;" >
             <h3 style="font-size:12px">{{item.specialization}}</h3>
             <!-- <h4>{{"cost"|translate}} : {{item.price}} {{"pound"|translate}}</h4> -->
-            <rating [hidden]="item.diabledesign"
+            <rating [hidden]="item.diabledRate"
                   [(ngModel)]="item.rate" 
                   readOnly="true" 
                   max="5" 

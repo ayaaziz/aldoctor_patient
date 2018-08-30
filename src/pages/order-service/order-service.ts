@@ -576,7 +576,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           
             // this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
             // this.helper.orderStatusChangedForPLC(newOrder.order.id);
-
+            this.helper.orderIdForUpdate = newOrder.order.id;
+            
           this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
           // this.navCtrl.push('remaining-time-to-accept');

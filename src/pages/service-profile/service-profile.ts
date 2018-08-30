@@ -31,8 +31,8 @@ export class ServiceProfilePage {
   tostClass;
 
   photosForApi=[];
-  //photos= [];
-  photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
+  photos= [];
+  //photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
 
   offline;
   medicalprescriptionImage;
@@ -137,7 +137,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           // this.helper.createOrderForPLC(this.type_id,newOrder.order.id,newOrder.order.service_profile_id,1);
           // this.helper.orderStatusChangedForPLC(newOrder.order.id);
 
-
+          this.helper.orderIdForUpdate = newOrder.order.id;
+          
           this.presentToast(this.translate.instant("ordersent"));
           this.offline = "0";
           // this.navCtrl.pop();

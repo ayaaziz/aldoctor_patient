@@ -304,34 +304,35 @@ export class MyApp {
       this.app_share = "item_unselected";
     }
 
-//     this.appRate.preferences = {
-//       // openStoreInApp: false,
-//       useLanguage:'ar',
-//       displayAppName: 'الدكتور',
-//       // usesUntilPrompt: 2,
-// //      promptAgainForEachNewVersion: false,
-//       simpleMode:true,
-//       storeAppURL: {
-//         // ios: '1216856883',
-//         android: 'market://details?id=net.ITRoots.Patient'
-//       },
-//       customLocale: {
-//         title: 'هل يعجبك تطبيق الدكتور؟',
-//         message: 'اذا اعجبك تطبيق الدكتور , هل تمانع من اخذ دقيقه لتقيمه؟ شكرا لدعمك',
-//         cancelButtonLabel: 'الغاء',
-//         laterButtonLabel:" ",
-//         rateButtonLabel: 'قيم الآن'
-//       },
-//       callbacks: {
-//         onRateDialogShow: function(callback){
-//           console.log('rate dialog shown!');
-//         },
-//         onButtonClicked: function(buttonIndex){
-//           console.log('Selected index: -> ' + buttonIndex);
-//           //in order
-//         }
-//       }
-//     };
+    this.appRate.preferences = {
+      // openStoreInApp: false,
+      useLanguage:'ar',
+      displayAppName: 'الدكتور',
+      // usesUntilPrompt: 2,
+//      promptAgainForEachNewVersion: false,
+      simpleMode:true,
+      storeAppURL: {
+        // ios: '1216856883',
+        android: 'market://details?id=net.ITRoots.Patient'
+      }
+      ,
+      customLocale: {
+        title: 'هل يعجبك تطبيق الدكتور؟',
+        message: 'اذا اعجبك تطبيق الدكتور , هل تمانع من اخذ دقيقه لتقيمه؟ شكرا لدعمك',
+        cancelButtonLabel: 'الغاء',
+        laterButtonLabel:" ",
+        rateButtonLabel: 'قيم الآن'
+      },
+      callbacks: {
+        onRateDialogShow: function(callback){
+          console.log('rate dialog shown!');
+        },
+        onButtonClicked: function(buttonIndex){
+          console.log('Selected index: -> ' + buttonIndex);
+          //in order
+        }
+      }
+    };
 
     // Opens the rating immediately no matter what preferences you set
     this.appRate.promptForRating(true);
