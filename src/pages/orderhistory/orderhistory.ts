@@ -121,7 +121,7 @@ export class OrderhistoryPage {
               ordersData[j].statusTxt="تم التنفيذ";
               ordersData[j].color = "grey";
             }
-            else{
+            else if(ordersData[j].status == "2" || ordersData[j].status=="8" || ordersData[j].status=="7"){
               ordersData[j].statusTxt = "قيد التنفيذ";
               ordersData[j].color = "green";
             }
@@ -685,7 +685,18 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
   // this.navCtrl.setRoot('follow-order',{
   //   data:item
   // });
+if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
+{
+  this.helper.type_id  = item.type_id;
+  this.navCtrl.setRoot('follow-order-for-plc',
+  {data:
+    {"orderId":item.orderId, 
+      "doctorId":item.doctor_id
+    }
+  });
 
+
+}else{
   this.navCtrl.setRoot('follow-order',
         {data:
           {"orderId":item.orderId, 
@@ -693,6 +704,11 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
             "order_status":item.order_status
           }
         });
+
+}
+  
+
+        
 }
 }
   doRefresh(ev){
