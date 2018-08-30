@@ -95,8 +95,8 @@ export class OrderhistoryPage {
             if(ordersData[j].is_reorder == "1")
               ordersData[j].color = "green";
             
-            if(ordersData[j].rated == "0")
-              ordersData[j].color = "yellow";
+            // if(ordersData[j].rated == "0")
+            //   ordersData[j].color = "yellow";
 
             if(ordersData[j].status == "4") //ordersData[j].status == "0" ||
             {
