@@ -96,12 +96,12 @@ export class OrderSpecificServicePage {
         this.title = this.translate.instant("specificpharmacy");
         this.servicetitle = this.translate.instant("pharmacyName");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
-      }else  if(this.type_id == "2")
+      }else  if(this.type_id == "3")
       {
         this.title = this.translate.instant("specificlab");
         this.servicetitle = this.translate.instant("labName");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
-      } else  if(this.type_id == "3")
+      } else  if(this.type_id == "2")
       {
         this.title = this.translate.instant("specificcenter");
         this.servicetitle = this.translate.instant("centerName");
@@ -400,15 +400,15 @@ this.events.subscribe('location', (data) => {
     // }else if (this.choosenDoctors.length<1){
     //   this.presentToast(this.translate.instant("checkAtleastone"));
     // }
-    if(this.choosenDoctors.length > 3 && this.type_id == 2)
+    if(this.choosenDoctors.length > 3 && this.type_id == 3)
     {
       this.presentToast(this.translate.instant("check3labs"));
-    }else if (this.choosenDoctors.length<1 && this.type_id == 2){
+    }else if (this.choosenDoctors.length<1 && this.type_id == 3){
       this.presentToast(this.translate.instant("checkAtleastonelab"));
-    }else if(this.choosenDoctors.length > 3 && this.type_id == 3)
+    }else if(this.choosenDoctors.length > 3 && this.type_id == 2)
     {
       this.presentToast(this.translate.instant("check3centers"));
-    }else if (this.choosenDoctors.length<1 && this.type_id == 3){
+    }else if (this.choosenDoctors.length<1 && this.type_id == 2){
       this.presentToast(this.translate.instant("checkAtleastonecenter"));
     }else if(this.choosenDoctors.length > 5 && this.type_id == 1)
     {

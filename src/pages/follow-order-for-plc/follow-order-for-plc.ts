@@ -99,7 +99,7 @@ export class FollowOrderForPlcPage {
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
         this.sendprescription = " ارسال "+this.medicalprescriptionImage;
       }  
-      else if(this.type_id == "2"){
+      else if(this.type_id == "3"){
         this.callService = this.translate.instant("calllab");
         this.serviceName = this.translate.instant("labName");
         this.serviceTxt = this.translate.instant("labServiceTxt");
@@ -108,7 +108,7 @@ export class FollowOrderForPlcPage {
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
         this.sendprescription = " ارسال "+this.medicalprescriptionImage;
       }
-      else if(this.type_id == "3"){
+      else if(this.type_id == "2"){
         this.callService = this.translate.instant("callcenter");
         this.serviceName = this.translate.instant("centerName2");
         this.serviceTxt = this.translate.instant("labServiceTxt");
@@ -465,10 +465,10 @@ private presentToast(text) {
   sendprescriptionImages(){
     
 
-    if(this.photosForApi.length == 0 && this.type_id == 2)
+    if(this.photosForApi.length == 0 && this.type_id == 3)
     {
       this.presentToast(this.translate.instant("atleastOneimageforLab"));
-    }else if(this.photosForApi.length == 0 && this.type_id == 3)
+    }else if(this.photosForApi.length == 0 && this.type_id == 2)
     {
       this.presentToast(this.translate.instant("atleastOneimageforcenter"));
     }else if(this.photosForApi.length == 0 && this.type_id == 1)

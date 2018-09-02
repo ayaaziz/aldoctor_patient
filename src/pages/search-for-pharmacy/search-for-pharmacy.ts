@@ -68,11 +68,11 @@ export class SearchForPharmacyPage {
         this.title = this.translate.instant("searchForPharmacy");
         this.btn1 = this.translate.instant("SearchByNearestPharmacies");
         this.btn2 = this.translate.instant("SearchBySpecificPharmacy");
-      }else if(this.type_id == "2"){
+      }else if(this.type_id == "3"){
         this.title = this.translate.instant("searchForLab");
         this.btn1 = this.translate.instant("SearchByNearestLab");
         this.btn2 = this.translate.instant("SearchBySpecificLab");
-      }else if(this.type_id == "3"){
+      }else if(this.type_id == "2"){
         this.title = this.translate.instant("searchForCenter");
         this.btn1 = this.translate.instant("SearchByNearestCenter");
         this.btn2 = this.translate.instant("SearchBySpecificCenter");
@@ -406,7 +406,7 @@ export class SearchForPharmacyPage {
       case  this.translate.instant("SearchBySpecificLab"):{
         this.navCtrl.push('order-specific-service',{
           data:{
-            type_id:2,
+            type_id:3,
             lat:this.lat,
             lng:this.lng
           }
@@ -417,7 +417,7 @@ export class SearchForPharmacyPage {
         console.log("in case specific center")
         this.navCtrl.push('order-specific-service',{
           data:{
-            type_id:3,
+            type_id:2,
             lat:this.lat,
             lng:this.lng
           }
@@ -450,7 +450,7 @@ export class SearchForPharmacyPage {
       }
       case  this.translate.instant("SearchByNearestLab"):{
         this.navCtrl.push('order-service',{data:{
-          type_id:2,
+          type_id:3,
           lat:this.lat,
           lng:this.lng
         }});

@@ -123,12 +123,12 @@ export class OrderServicePage {
         this.title = this.translate.instant("pharmacy");
         this.serviceTitle = this.translate.instant("nearbyPharmacy");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
-      }else if(this.type_id == "2")
+      }else if(this.type_id == "3")
       {
         this.title = this.translate.instant("lap");
         this.serviceTitle = this.translate.instant("nearbyLab");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
-      }else if(this.type_id == "3")
+      }else if(this.type_id == "2")
       {
         this.title = this.translate.instant("center");
         this.serviceTitle = this.translate.instant("nearbyCenter");
@@ -538,15 +538,15 @@ this.events.subscribe('location', (data) => {
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
     
-    if(this.choosenDoctors.length > 3 && this.type_id == 2)
+    if(this.choosenDoctors.length > 3 && this.type_id == 3)
     {
       this.presentToast(this.translate.instant("check3labs"));
-    }else if (this.choosenDoctors.length<1 && this.type_id == 2){
+    }else if (this.choosenDoctors.length<1 && this.type_id == 3){
       this.presentToast(this.translate.instant("checkAtleastonelab"));
-    }else if(this.choosenDoctors.length > 3 && this.type_id == 3)
+    }else if(this.choosenDoctors.length > 3 && this.type_id == 2)
     {
       this.presentToast(this.translate.instant("check3centers"));
-    }else if (this.choosenDoctors.length<1 && this.type_id == 3){
+    }else if (this.choosenDoctors.length<1 && this.type_id == 2){
       this.presentToast(this.translate.instant("checkAtleastonecenter"));
     }else if(this.choosenDoctors.length > 5 && this.type_id == 1)
     {
