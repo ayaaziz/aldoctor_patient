@@ -243,6 +243,7 @@
       "phoneChanged":"Phone changed",
       "wrongCode":"Wrong code",
       "enterSearchVal":"Enter Specialization",
+      "enterSearchValForCenters":"Enter Center",
       "enterdoctor":"Choose doctor",
       "enterDoctorAndSpecilaization":"Choose doctor and specialization",
       "checkNetwork":"Check internet connection",

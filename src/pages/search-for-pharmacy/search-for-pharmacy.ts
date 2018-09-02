@@ -233,7 +233,9 @@ export class SearchForPharmacyPage {
         console.log('Error getting location', error);
         // this.initMap();
         this.presentToast(this.translate.instant("AccessLocationFailed"));
+        
         this.toastFlag=true;
+        console.log("set toast flag with true: ",this.toastFlag);
 
         this.allowUserToChooseHisLocation();
       
@@ -434,7 +436,15 @@ export class SearchForPharmacyPage {
     }
     
   } else
-    this.presentToast(this.translate.instant("chooseYourLocation"));
+  {
+    console.log("toast flag ",this.toastFlag);
+    if(this.toastFlag == true)
+      this.presentToast(this.translate.instant("chooseLocationB2a"));
+    else
+      this.presentToast(this.translate.instant("chooseYourLocation"));
+
+  }
+    //this.presentToast(this.translate.instant("chooseYourLocation"));
       
   
   }
@@ -475,7 +485,9 @@ export class SearchForPharmacyPage {
     }  
   }else
   {
-    if(this.toastFlag = true)
+    console.log("toast flag ",this.toastFlag);
+
+    if(this.toastFlag == true)
       this.presentToast(this.translate.instant("chooseLocationB2a"));
     else
       this.presentToast(this.translate.instant("chooseYourLocation"));

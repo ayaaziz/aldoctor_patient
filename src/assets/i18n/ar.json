@@ -244,6 +244,7 @@
       "phoneChanged":"تم تغيير رقم الهاتف ",
       "wrongCode":"كود التفعيل غير صحيح",
       "enterSearchVal":"اختر تخصص",
+      "enterSearchValForCenters":"اختر مركز اشعه",
       "enterdoctor":"اختر طبيب",
       "enterDoctorAndSpecilaization":"اختر تخصص أو طبيب ",
       "checkNetwork":"تأكد من اتصالك بالانترنت",

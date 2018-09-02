@@ -215,7 +215,7 @@ this.storage.get("rate_doctor").then(data=>{
       //  title:"searchForPharmacy",
       //  btn1:"SearchByNearestPharmacies",
       //  btn2:"SearchBySpecificPharmacy",
-       type_id:"2"  
+       type_id:"3"  
       },
     });
   }
@@ -225,7 +225,7 @@ this.storage.get("rate_doctor").then(data=>{
       //  title:"searchForPharmacy",
       //  btn1:"SearchByNearestPharmacies",
       //  btn2:"SearchBySpecificPharmacy",
-       type_id:"3"  
+       type_id:"2"  
       },
     });
     

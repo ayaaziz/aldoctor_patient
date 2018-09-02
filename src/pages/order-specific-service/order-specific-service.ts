@@ -423,6 +423,7 @@ this.events.subscribe('location', (data) => {
         doctorsId += this.choosenDoctors[j].id+",";
       }
       console.log("doctors id: ",doctorsId);
+      this.orderBTn = true;
       this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
         resp => {
           console.log("saveOrder resp: ",resp);

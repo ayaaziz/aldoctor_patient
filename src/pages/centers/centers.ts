@@ -191,7 +191,7 @@ console.log("sp item search val ",val);
     console.log("event: ",ev);
     //this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
     this.navCtrl.push('order-service',{data:{
-          type_id:3,
+          type_id:2,
           lat:this.helper.lat,
           lng:this.helper.lon,
           center_id : item.id
@@ -208,7 +208,7 @@ console.log("sp item search val ",val);
   }
   searchIcon(){
     if( !this.searchValue )
-      this.presentToast(this.translate.instant('enterSearchVal'));
+      this.presentToast(this.translate.instant('enterSearchValForCenters'));
   }
 
 

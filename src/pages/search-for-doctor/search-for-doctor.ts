@@ -291,6 +291,7 @@ getUserLocation(){
       console.log('Error getting location', error);
       this.presentToast(this.translate.instant("AccessLocationFailed"));
       // this.presentToast(this.translate.instant("chooseYourLocation"));
+      
       this.toastFlag = true;
 
       this.allowUserToChooseHisLocation();
@@ -561,7 +562,13 @@ initMapWithDoctorsLocation(){
     if(this.locFlag == 1)
       this.navCtrl.push('specializations-page');
     else
-      this.presentToast(this.translate.instant("chooseYourLocation"));
+    {
+      if(this.toastFlag == true)
+        this.presentToast(this.translate.instant("chooseLocationB2a"));
+      else
+        this.presentToast(this.translate.instant("chooseYourLocation"));
+    }
+      // this.presentToast(this.translate.instant("chooseYourLocation"));
     //this.navCtrl.push('order-doctor');
   }
 
