@@ -249,6 +249,7 @@
       "AccessLocationFailed":"Can't get your location,Specify your location on map",
       "noNOtification":"No notifications",
       "chooseYourLocation":"Specify your location on map",
+      "chooseLocationB2a":"specify your location on map",
       "invalidData":"Invalid data",
       "passNotCorrect":"Current password isn't correct",
       "phoneAlreadyExist":"Phone already Exist",

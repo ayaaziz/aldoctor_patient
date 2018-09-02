@@ -40,6 +40,8 @@ export class SearchForDoctorPage {
   locFlag= 0;
   //  locFlag= 1;
 
+  toastFlag= false;
+
   constructor(public service:LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
     public alertCtrl: AlertController,public platform: Platform,
@@ -289,7 +291,8 @@ getUserLocation(){
       console.log('Error getting location', error);
       this.presentToast(this.translate.instant("AccessLocationFailed"));
       // this.presentToast(this.translate.instant("chooseYourLocation"));
-     
+      this.toastFlag = true;
+
       this.allowUserToChooseHisLocation();
       
       //this.getUserLocation();
@@ -543,7 +546,14 @@ initMapWithDoctorsLocation(){
     if(this.locFlag == 1)
       this.navCtrl.push('specific-doctor');
     else
-      this.presentToast(this.translate.instant("chooseYourLocation"));
+    {
+      if(this.toastFlag == true)
+        this.presentToast(this.translate.instant("chooseLocationB2a"));
+      else
+        this.presentToast(this.translate.instant("chooseYourLocation"));
+        
+    }
+      
   }
   searchBySpecializations(){
     console.log("loc flag ",this.locFlag);

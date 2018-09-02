@@ -250,6 +250,7 @@
       "AccessLocationFailed":"غير قادر على تحديد موقعك,الرجاء تحديد موقعك على الخريطه",
       "noNOtification":"لا يوجد اشعارات",
       "chooseYourLocation":" انتظر لحين تحديد موقعك ",
+      "chooseLocationB2a":"الرجاء تحديد موقعك علي الخريطة",
       "invalidData":"رقم الهاتف أو كلمه المرور غير صحيحه",
       "passNotCorrect":"كلمه المرور الحاليه غير صحيحه",
       "phoneAlreadyExist":"رقم الهاتف موجود",

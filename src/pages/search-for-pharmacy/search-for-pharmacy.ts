@@ -41,6 +41,8 @@ export class SearchForPharmacyPage {
   // locFlag= 1;
 
   center_id = "";
+  toastFlag = false;
+
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
     public alertCtrl: AlertController,public platform: Platform,
@@ -231,6 +233,8 @@ export class SearchForPharmacyPage {
         console.log('Error getting location', error);
         // this.initMap();
         this.presentToast(this.translate.instant("AccessLocationFailed"));
+        this.toastFlag=true;
+
         this.allowUserToChooseHisLocation();
       
         
@@ -470,7 +474,16 @@ export class SearchForPharmacyPage {
 
     }  
   }else
-  this.presentToast(this.translate.instant("chooseYourLocation"));
+  {
+    if(this.toastFlag = true)
+      this.presentToast(this.translate.instant("chooseLocationB2a"));
+    else
+      this.presentToast(this.translate.instant("chooseYourLocation"));
+      
+    
+    
+  }
+  
   
   }
 
