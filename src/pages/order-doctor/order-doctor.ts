@@ -642,6 +642,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
         err=>{
           console.log("saveOrder error: ",err);
           this.presentToast(this.translate.instant("serverError"));
+          this.orderBTn = false;
         }
       );    
     }

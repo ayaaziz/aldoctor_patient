@@ -686,6 +686,7 @@ this.events.subscribe('location', (data) => {
         err=>{
           console.log("saveOrder error: ",err);
           this.presentToast(this.translate.instant("serverError"));
+          this.orderBTn = false;
         }
       );    
     }
