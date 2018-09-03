@@ -304,9 +304,10 @@ export class MyApp {
       this.app_share = "item_unselected";
     }
 
+    this.appRate.preferences.useLanguage = "ar";
     this.appRate.preferences = {
       // openStoreInApp: false,
-      useLanguage:'ar',
+      useLanguage:"ar",
       displayAppName: 'الدكتور',
       // usesUntilPrompt: 2,
 //      promptAgainForEachNewVersion: false,

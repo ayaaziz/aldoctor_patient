@@ -130,22 +130,34 @@ export class LoginPage {
         var jsonUserData  = JSON.parse(JSON.stringify(resp)).user;
         console.log("json ",jsonUserData);
         
-        this.storage.set("user_info",{
-                "id":jsonUserData.id,
-                "name":jsonUserData.name,
-                "email":jsonUserData.email,
-                "phone":jsonUserData.phone,
-                "dob":jsonUserData.user_info.birth_date,
-                "add":jsonUserData.extraInfo.address,
-                "profile_pic":jsonUserData.profile_pic
-              }).then(data=>{
-                console.log("set data to storage from login ",data);
-                this.navCtrl.setRoot(TabsPage);
-              }).catch(data=>{
-                console.log("catch data from login",data);
-              });
-                 
+        if (jsonUserData.status == "0")
+          this.navCtrl.setRoot('verification-code',{data:0});
+        else if (jsonUserData.status == "-1")
+          this.presentToast("الحساب غير مفعل");
+        else if(jsonUserData.status == "1")
+        {
 
+        this.storage.set("user_info",{
+          "id":jsonUserData.id,
+          "name":jsonUserData.name,
+          "email":jsonUserData.email,
+          "phone":jsonUserData.phone,
+          "dob":jsonUserData.user_info.birth_date,
+          "add":jsonUserData.extraInfo.address,
+          "profile_pic":jsonUserData.profile_pic
+        }).then(data=>{
+          console.log("set data to storage from login ",data);
+         this.navCtrl.setRoot(TabsPage);
+
+        }).catch(data=>{
+          console.log("catch data from login",data);
+        });
+
+
+        }
+            
+           
+    
       },
       err=>{
         
@@ -178,7 +190,7 @@ export class LoginPage {
     //   }
     // );
 
-    this.navCtrl.setRoot(TabsPage);
+    // this.navCtrl.setRoot(TabsPage);
   }
   }
   loginFailureCallback(data) {
