@@ -87,12 +87,12 @@ export class ServiceProfilePage {
         // this.title = this.translate.instant("pharmacy");
         // this.serviceTitle = this.translate.instant("nearbyPharmacy");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
-      }else if(this.type_id == "2")
+      }else if(this.type_id == "3")
       {
         // this.title = this.translate.instant("lap");
         // this.serviceTitle = this.translate.instant("nearbyLab");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
-      }else if(this.type_id == "3")
+      }else if(this.type_id == "2")
       {
         // this.title = this.translate.instant("center");
         // this.serviceTitle = this.translate.instant("nearbyCenter");
@@ -201,7 +201,9 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
   public takePicture(sourceType) {
     
     var options = {
-      quality: 100,
+      targetWidth: 600,
+      targetHeight: 600,
+      quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,

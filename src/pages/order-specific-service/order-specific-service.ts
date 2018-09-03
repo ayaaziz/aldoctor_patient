@@ -88,7 +88,7 @@ export class OrderSpecificServicePage {
         this.helper.accessToken = this.accessToken;
 
       });
-      
+
       var recievedData = this.navParams.get('data');
       this.type_id = recievedData.type_id;
       this.lat = recievedData.lat;
@@ -561,8 +561,13 @@ this.events.subscribe('location', (data) => {
 }
   public takePicture(sourceType) {
     
+    // targetWidth: 600,
+    //     targetHeight: 600,
+
     var options = {
-      quality: 100,
+      targetWidth: 600,
+      targetHeight: 600,
+      quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,

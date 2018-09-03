@@ -435,7 +435,9 @@ private presentToast(text) {
   public takePicture(sourceType) {
     
     var options = {
-      quality: 100,
+      targetWidth: 600,
+      targetHeight: 600,
+      quality: 20,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
