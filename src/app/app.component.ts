@@ -195,6 +195,13 @@ export class MyApp {
 
       //translate.setDefaultLang('en');
       // translate.use('en');
+      
+      //remove scroll in splash and change color to status bar
+      // statusBar.overlaysWebView(false);
+      // statusBar.backgroundColorByHexString("#418f6a");
+      // add this line in config.xml
+      // <preference name="ShowSplashScreenSpinner" value="false" />
+
       statusBar.styleDefault();
       splashScreen.hide();
       this.defaultLang();
