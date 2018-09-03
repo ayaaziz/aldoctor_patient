@@ -161,14 +161,14 @@ export class MyApp {
        // this.rootPage = TabsPage;
        storage.get("user_info").then((val) => {
         if (val){
-          console.log(" if get user info from storage",val);
+          console.log(" catch get user info from storage",val);
           this.image=val.profile_pic;
           this.name=val.name;
           this.rootPage = TabsPage;
           
          
         } else{
-          console.log("else get user info from storage",val);
+          console.log("catch get user info from storage",val);
           this.rootPage = LoginPage;
          
         }

@@ -118,7 +118,9 @@ export class LoginPage {
     this.storage.set("language",{"lang":this.helper.currentLang,
     "langdir":this.helper.lang_direction} );
     // this.storage.set("lang-dir",this.helper.lang_direction);
-    this.storage.set("access_token",data.access_token);
+    this.storage.set("access_token",data.access_token).then(val=>{
+      console.log("saved access token in stoorage ",val);
+    }).catch(err=>{console.log("err in saving access token",err);});
     this.storage.set("refresh_token",data.refresh_token);
     if(data.success == false    )
     {
