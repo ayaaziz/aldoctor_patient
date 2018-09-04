@@ -227,6 +227,29 @@ page-order-specific-service {
   font-size: 25px !important;
 }
     
+.btn-primaryx {
+  color: #fff;
+  background-color: #016a38;
+  border-color: #016a38;
+  width:70%;
+}
+.btn-primaryx:focus {
+  box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+  border-color: #016a38;
+  color: #fff;
+}
+.btn-primaryx:hover {
+  color: #fff;
+  background-color: rgba(1, 106, 56, 0.2313725);
+  border-color: #016a38;
+}
+.btn-primaryx:not(:disabled):not(.disabled):active{
+  color: #fff;
+  // background-color: #016a38 !important;
+  border-color: #016a38 !important;
+}
+
 }
 .toastRight{
   text-align: right;

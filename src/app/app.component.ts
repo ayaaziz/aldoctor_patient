@@ -278,7 +278,7 @@ export class MyApp {
 
     //share msg , share subject,files,link
     //http://aldoctor-app.com/aldoctortest/public/uploads/1533654003.png
-    this.socialSharing.share( "الدكتور", "" , "http://aldoctor-app.com/aldoctortest/public/uploads/1533654003.png" ,"https://play.google.com/store/apps/details?id=net.ITRoots.Patient").then(() => {
+    this.socialSharing.share( "الدكتور", "" , "http://aldoctor-app.com/aldoctor/public/uploads/1536061747.jpeg" ,"https://play.google.com/store/apps/details?id=net.ITRoots.Patient").then(() => {
       console.log("success")
       this.menu.close();
      
