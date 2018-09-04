@@ -678,7 +678,7 @@ this.events.subscribe('location', (data) => {
 
           this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
-          this.navCtrl.push('remaining-time-to-accept');
+          this.navCtrl.setRoot('remaining-time-to-accept');
           }else{
             this.presentToast(this.translate.instant("serverError"));
           }

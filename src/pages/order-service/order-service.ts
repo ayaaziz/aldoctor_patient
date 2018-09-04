@@ -583,9 +583,9 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           // this.navCtrl.push('remaining-time-to-accept');
           
           if(this.photosForApi.length == 0)
-            this.navCtrl.push('remaining-time-for-plc',{data:0});
+            this.navCtrl.setRoot('remaining-time-for-plc',{data:0});
           else 
-            this.navCtrl.push('remaining-time-for-plc',{data:1});
+            this.navCtrl.setRoot('remaining-time-for-plc',{data:1});
 
           }else{
             this.presentToast(this.translate.instant("serverError"));

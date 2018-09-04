@@ -192,8 +192,8 @@ export class FollowOrderForPlcPage {
 
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
-              if(this.notificationFlag == false && h == 0 && m == 20 || m == 30)
-                this.scheduleNotification();
+              if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
+                this.scheduleNotification(m);
 
             },
             err=>{
@@ -250,8 +250,8 @@ export class FollowOrderForPlcPage {
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
 
-              if(this.notificationFlag == false && h == 0 && m == 20 || m == 30)
-                this.scheduleNotification();
+              if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
+                this.scheduleNotification(m);
               
 
         },
@@ -498,13 +498,13 @@ private presentToast(text) {
 
   
 
-  scheduleNotification() {
+  scheduleNotification(m) {
     this.notificationFlag = true;
     var txt = "";
     if(this.type_id == "1")
-      txt = "سوف يصلك الطلب ف خلال 20 دقيقه";
+      txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
     else if (this.type_id == "2" || this.type_id == "3")
-      txt = "سوف يصلك الطلب ف خلال 30 دقيقه";
+      txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
 
 //+ 1 * 1000
 
@@ -512,7 +512,7 @@ private presentToast(text) {
       id: 1,
       title: "تطبيق الدكتور",
       text:txt,
-      data: { mydata: 'My hidden message this is' },
+      data: { mydata: 'My hidden message' },
       trigger:{ at: new Date(new Date().getTime())}
     });
   }
