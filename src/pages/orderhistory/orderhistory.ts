@@ -144,8 +144,8 @@ export class OrderhistoryPage {
           
               // this.orderobject.name = serviceProfile.name;
               this.orderobject.profile_pic = serviceProfile.profile_pic;
-              this.orderobject.rate = serviceProfile.rate;
-              // this.orderobject.rate = ordersData[j].ratedvalue;
+              //this.orderobject.rate = serviceProfile.rate;
+              this.orderobject.rate = ordersData[j].ratedvalue;
               
               if(ordersData[j].service_id && ordersData[j].service_id == "3" )
               {
