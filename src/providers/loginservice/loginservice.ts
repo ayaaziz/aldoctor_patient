@@ -240,8 +240,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     //4.8
     var lang = this.helper.currentLang;
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('page',page).
-    set('lang',lang);
+    let parameter = new HttpParams().set('page',page)
+    .set('lang',lang).set('status',"1");
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/users/my-orders';
     return this.http.post(serviceUrl,parameter,{headers: headers });
@@ -260,8 +260,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     // return this.http.get(serviceUrl,{headers: headers });
     var lang = this.helper.currentLang;
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('page',page).
-    set('lang',lang);
+    let parameter = new HttpParams().set('page',page)
+    .set('lang',lang).set('status',"1");
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +"api/users/my-orders?after="+after+"&before="+before;
     return this.http.post(serviceUrl,parameter,{headers: headers });
