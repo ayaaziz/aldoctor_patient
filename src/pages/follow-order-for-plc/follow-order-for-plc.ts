@@ -192,7 +192,10 @@ export class FollowOrderForPlcPage {
 
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
-              if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
+              if(this.notificationFlag == false && h == 0 && m <= 20 && this.type_id == "1") //|| m <= 30
+                this.scheduleNotification(m);
+
+              if(this.notificationFlag == false && h == 0 && m <= 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
                 this.scheduleNotification(m);
 
             },
@@ -250,9 +253,13 @@ export class FollowOrderForPlcPage {
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
 
-              if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
+              // if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
+              //   this.scheduleNotification(m);
+              if(this.notificationFlag == false && h == 0 && m <= 20 && this.type_id == "1") //|| m <= 30
                 this.scheduleNotification(m);
-              
+
+              if(this.notificationFlag == false && h == 0 && m <= 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
+                this.scheduleNotification(m);
 
         },
         err=>{
