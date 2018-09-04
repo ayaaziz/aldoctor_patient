@@ -244,6 +244,7 @@ addArr;
         this.loginservice.editUser(this.name,this.add,this.birthdate,this.email,this.accessToken).subscribe(
           resp =>{
             console.log("edit resp: ",resp);
+            this.presentToast("تم تعديل البيانات");
             this.storage.ready().then(() => {
               console.log("storage");
               console.log("user data before edit",this.userprofileData); 
