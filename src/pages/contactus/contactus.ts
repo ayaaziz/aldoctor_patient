@@ -37,6 +37,9 @@ export class ContactusPage {
     public storage:Storage,public navCtrl: NavController,
     public navParams: NavParams) {
     
+    
+    this.accessToken = localStorage.getItem('user_token');
+
     if (this.helper.currentLang == 'ar')
     {
      
@@ -62,8 +65,10 @@ export class ContactusPage {
     else
       this.tostClass="toastLeft";
 
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
       if(navigator.onLine){
       this.service.ContactUs(this.accessToken)
       .timeout(10000).subscribe(
@@ -81,7 +86,7 @@ export class ContactusPage {
     }else{
       this.presentToast(this.translate.instant("checkNetwork"));
     }
-    });
+    // });
   }
 
   ionViewDidLoad() {

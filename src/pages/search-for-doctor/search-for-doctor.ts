@@ -51,7 +51,7 @@ export class SearchForDoctorPage {
      public navCtrl: NavController, public navParams: NavParams,
      public events: Events) {
 
-     
+      this.accessToken = localStorage.getItem('user_token');
   
       this.langDirection = this.helper.lang_direction;
       if(this.langDirection == "rtl")
@@ -245,8 +245,11 @@ getUserLocation(){
       console.log("loc flag from get location",this.locFlag,"detectLocation ",this.helper.detectLocation);
       
       this.initMapwithUserLocations();
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+      
+      this.accessToken = localStorage.getItem('user_token');
+
         this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
           resp =>{
             console.log("resp from nearby doctors: ",resp);
@@ -284,7 +287,7 @@ getUserLocation(){
           }
         );
      
-      });
+      // });
 
       
     }).catch((error) => {
@@ -409,8 +412,10 @@ handleuserLocattion(){
   
   this.initMapwithUserLocations();
 
-  this.storage.get("access_token").then(data=>{
-    this.accessToken = data;
+  // this.storage.get("access_token").then(data=>{
+  //   this.accessToken = data;
+  this.accessToken = localStorage.getItem('user_token');
+
     this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
       resp =>{
         console.log("resp from nearby doctors: ",resp);
@@ -435,7 +440,7 @@ handleuserLocattion(){
       }
     );
  
-  });
+  // });
 
 
 }

@@ -82,12 +82,13 @@ export class OrderSpecificServicePage {
       
       // this.accessToken = this.helper.accessToken;
 
-      this.storage.get("access_token").then(data=>{
-        //this.accessToken = this.helper.accessToken;
-        this.accessToken = data;
+      // this.storage.get("access_token").then(data=>{
+      //   //this.accessToken = this.helper.accessToken;
+      //   this.accessToken = data;
+      this.accessToken = localStorage.getItem('user_token');
         this.helper.accessToken = this.accessToken;
 
-      });
+      // });
 
       var recievedData = this.navParams.get('data');
       this.type_id = recievedData.type_id;

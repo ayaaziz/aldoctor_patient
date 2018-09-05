@@ -49,6 +49,8 @@ export class SpecificDoctorPage {
     public service:LoginserviceProvider, public navCtrl: NavController,
      public navParams: NavParams, public translate: TranslateService) {
 
+      this.accessToken = localStorage.getItem('user_token');
+
       this.langDirection = this.helper.lang_direction;
       
       if(this.langDirection == "rtl")
@@ -257,8 +259,10 @@ this.events.subscribe('location', (data) => {
 
     
     console.log('ionViewDidLoad SpecificDoctorPage');
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+    
       this.showLoading=false;
       this.service.getSpecializations(this.accessToken).subscribe(
         resp=>{
@@ -283,7 +287,7 @@ this.events.subscribe('location', (data) => {
           this.presentToast(this.translate.instant("serverError"));
         }
       );
-    });
+    // });
 
     //this.initializeDoctors();
   }
@@ -512,8 +516,10 @@ this.events.subscribe('location', (data) => {
         
       }
     }
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
       this.showLoading = false;
       this.service.getDoctorsByName(searchVal,id,this.accessToken).subscribe(
         resp=>{
@@ -619,7 +625,7 @@ this.events.subscribe('location', (data) => {
           this.presentToast(this.translate.instant("serverError"));
         }
       );
-    });
+    // });
   }else{
     this.doctors = [];
     if(this.doctors.length >= 3)

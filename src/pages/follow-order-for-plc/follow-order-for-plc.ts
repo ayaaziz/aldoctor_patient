@@ -10,7 +10,7 @@ import { LoginserviceProvider } from '../../providers/loginservice/loginservice'
 import { TabsPage } from '../tabs/tabs';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LocalNotifications } from '@ionic-native/local-notifications';
-
+import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 
 
 @IonicPage({
@@ -58,17 +58,23 @@ export class FollowOrderForPlcPage {
   imageFlag = true;
   image;
   notificationFlag=false;
+  orderId;
+
+  imageExt=[];
+  UpdateorderBTn = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
     public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
     private geolocation: Geolocation,public helper:HelperProvider,
-    public translate: TranslateService,
+    public translate: TranslateService,public srv:ProvidedServicesProvider,
     public toastCtrl: ToastController, public alertCtrl: AlertController,
     public events: Events,public camera: Camera,
     public actionSheetCtrl: ActionSheetController,
     private localNotifications: LocalNotifications)
     {  
+      this.accessToken = localStorage.getItem('user_token');
+      
       this.langDirection = this.helper.lang_direction;
     
       if(this.langDirection == "rtl")
@@ -84,6 +90,8 @@ export class FollowOrderForPlcPage {
       console.log("data from follow order:",this.doctorData);
     
       this.doctorId = this.doctorData.doctorId;
+      this.orderId = this.doctorData.orderId;
+
       console.log("doctorid: ",this.doctorId," orderid: ",this.doctorData.orderId);
       // if(this.doctorData.order_status && this.doctorData.order_status == "7")
       //   this.disableCancelBtn = true;
@@ -118,8 +126,11 @@ export class FollowOrderForPlcPage {
         this.sendprescription = " ارسال "+this.medicalprescriptionImage;
       }
       
-        this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+        // this.storage.get("access_token").then(data=>{
+        // this.accessToken = data;
+        
+        this.accessToken = localStorage.getItem('user_token');
+
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in followorder: ",resp);
@@ -143,7 +154,7 @@ export class FollowOrderForPlcPage {
           }
   
         );
-      });
+      // });
       this.events.subscribe('location', (data) => {
         console.log(" event location ",data);
         if(data.location){
@@ -460,8 +471,13 @@ private presentToast(text) {
       this.photos.push(this.image);
       this.photosForApi.push(encodeURIComponent(imageData));
       
+      this.imageExt.push("jpeg");
+
+
       if(this.photosForApi.length == 2)
         this.imageFlag = false;
+
+      
 
       console.log("all photos ",this.photos,"length",this.photos.length);
       console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);
@@ -484,13 +500,35 @@ private presentToast(text) {
     {
       this.presentToast(this.translate.instant("atleastOneimageforpharmacy"));
     }else{
-
+      this.accessToken = localStorage.getItem('user_token');
+      this.UpdateorderBTn = true;
+      this.srv.editOrderToSendImages(this.orderId,this.photosForApi,this.imageExt,this.accessToken).subscribe(
+        resp=>{
+          console.log("resp from editOrderToSendImages",resp);
+          if(JSON.parse(JSON.stringify(resp)).success == true)
+          {
+            this.presentToast("تم الارسال");
+            this.photosForApi = [];
+            this.photos = [];
+            this.UpdateorderBTn = false;
+          }else{
+            this.UpdateorderBTn = false;
+          }  
+          
+        },err=>{
+          console.log("err from editOrderToSendImages",err);
+          this.presentToast(this.translate.instant("serverError"));
+          this.UpdateorderBTn = false;
+          
+        }
+      );
     }
   }
   deletePhoto(index){
     console.log("photo index",index);
     this.photos.splice(index, 1);
     this.photosForApi.splice(index,1);
+    this.imageExt.pop();
     this.imageFlag = true;
   }
   serviceRate(){

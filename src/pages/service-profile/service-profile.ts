@@ -49,6 +49,9 @@ export class ServiceProfilePage {
     public helper: HelperProvider,public translate: TranslateService,
     public camera: Camera,
     public actionSheetCtrl: ActionSheetController) {
+      
+      this.accessToken = localStorage.getItem('user_token');
+
     var data = this.navParams.get('data');
     console.log("data from service-profile ", data);
     this.langDirection = this.helper.lang_direction;
@@ -120,8 +123,10 @@ export class ServiceProfilePage {
       this.offline = "1";
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
       this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
         resp => {
           
@@ -160,7 +165,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
         }
       );  
 
-  });
+  // });
 
 }
   

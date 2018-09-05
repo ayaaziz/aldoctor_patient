@@ -58,6 +58,8 @@ export class EditProfilePage {
     this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);
      
+    this.accessToken = localStorage.getItem('user_token');
+    
     if(this.langDirection == "rtl")
       this.tostClass = "toastRight";
     else
@@ -239,8 +241,11 @@ addArr;
     else{
       this.name = this.firstname +" "+this.secondname+" "+this.surname;
       this.add = this.address +"-"+this.city +"-"+this.country;
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+      
+      this.accessToken = localStorage.getItem('user_token');
+
         this.loginservice.editUser(this.name,this.add,this.birthdate,this.email,this.accessToken).subscribe(
           resp =>{
             console.log("edit resp: ",resp);
@@ -277,7 +282,7 @@ addArr;
           }
   
         );
-      });
+      // });
       
     }
   }

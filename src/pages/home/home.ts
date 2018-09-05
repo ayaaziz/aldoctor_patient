@@ -14,6 +14,8 @@ import { LoginserviceProvider } from '../../providers/loginservice/loginservice'
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
+  
+
 })
 export class HomePage {
   
@@ -27,9 +29,12 @@ export class HomePage {
     public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
+    
+    this.accessToken = localStorage.getItem('user_token');
 
     // this.helper.userId=114;
     // this.helper.intializeFirebase();
+    console.log("acceeToken from localstorage", localStorage.getItem('user_token'));
     this.sortDoctors();
 
 //     var d = Number(13376+(30*60));
@@ -120,8 +125,11 @@ this.storage.get("rate_doctor").then(data=>{
       }
     });
 
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    
+    this.accessToken = localStorage.getItem('user_token');
+
     this.service.getCountOfNotifications(this.accessToken).subscribe(
       resp=>{
         console.log("resp count of notifications",resp);
@@ -131,7 +139,7 @@ this.storage.get("rate_doctor").then(data=>{
         console.log("err count of notifications",err);
       }
     );
-    });
+    // });
     
     storage.get('language').then((val) => {
         console.log("language val ",val);

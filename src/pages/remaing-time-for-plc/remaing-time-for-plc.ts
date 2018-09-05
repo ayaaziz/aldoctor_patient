@@ -27,6 +27,8 @@ export class RemaingTimeForPlcPage {
     public helper:HelperProvider,public events: Events,
     public storage: Storage,public service:LoginserviceProvider) {
 
+      this.accessToken = localStorage.getItem('user_token');
+      
      var data =  this.navParams.get('data');
      console.log("data from remaing time for plc",data);
      
@@ -50,8 +52,9 @@ export class RemaingTimeForPlcPage {
         console.log("timer off");
        clearTimeout(this.timer);
 
-       this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+      //  this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+      this.accessToken = localStorage.getItem('user_token');
 
       this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
         resp=>{
@@ -61,7 +64,7 @@ export class RemaingTimeForPlcPage {
           console.log("uppdate status",err);
         }
       );
-    });
+    // });
 
        this.navCtrl.setRoot('order-not-accepted');
        

@@ -45,6 +45,8 @@ validPass=false;
         this.tostClass = "toastRight";
       else
         this.tostClass="toastLeft";
+      
+    this.accessToken = localStorage.getItem('user_token');
 
     this.resetForm = formBuilder.group({
       //usermail: ['', Validators.compose([Validators.required,Validators.email])],
@@ -56,9 +58,10 @@ validPass=false;
 
     }); 
   
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
-    });
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    // });
+    this.accessToken = localStorage.getItem('user_token');
   }
 
   ionViewDidLoad() {
@@ -88,9 +91,11 @@ validPass=false;
 
     if(this.validPass == true)
     {
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
-      if (navigator.onLine) {
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
+    if (navigator.onLine) {
       this.service.changePassword(this.currentPass,this.newPass,this.confirmTxt,this.accessToken).timeout(10000).subscribe(
         resp => {
           
@@ -106,7 +111,7 @@ validPass=false;
     }else{
       this.presentToast(this.translate.instant("checkNetwork"));
     }
-    })
+    // })
   }else{
     this.presentToast(this.translate.instant("passNotCorrect"));
   }

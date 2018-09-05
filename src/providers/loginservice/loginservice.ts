@@ -69,7 +69,7 @@ userRegister(userData,access_token,SuccessCallback,FailureCallback) {
   .set('password',userData.password).set('city',userData.city)
   .set('country',userData.country).set('gender',userData.gender)
   .set('terms',"1").set('email',userData.email)
-  .set("profile_pic",userData.img );
+  .set("profile_pic",userData.img ).set('profile_pic_ext','jpeg');
 
       
 

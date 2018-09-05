@@ -35,7 +35,8 @@ export class ChangePhonePage {
     public navCtrl: NavController, public navParams: NavParams,
   public app:App) {
 
-
+    this.accessToken = localStorage.getItem('user_token');
+    
     this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);
     if(this.langDirection == "rtl")
@@ -85,8 +86,10 @@ export class ChangePhonePage {
         else
         {
 
-        this.storage.get("access_token").then(data=>{
-          this.accessToken = data;
+        // this.storage.get("access_token").then(data=>{
+        //   this.accessToken = data;
+        this.accessToken = localStorage.getItem('user_token');
+
         this.loginservice.changePhoneNumber(this.phone,this.accessToken).timeout(10000).subscribe(
             resp=>{
               console.log("resp from changephone",resp);
@@ -104,7 +107,7 @@ export class ChangePhonePage {
             }
         );
         
-      });
+      // });
 
         }
       });

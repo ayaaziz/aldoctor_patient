@@ -83,6 +83,8 @@ export class OrderServicePage {
   public camera: Camera,
   public actionSheetCtrl: ActionSheetController) {
 
+    this.accessToken = localStorage.getItem('user_token');
+
       this.langDirection = this.helper.lang_direction;
        
       if(this.langDirection == "rtl")
@@ -91,12 +93,13 @@ export class OrderServicePage {
         this.tostClass="toastLeft";
 
       this.translate.use(this.helper.currentLang);
-      this.storage.get("access_token").then(data=>{
-        //this.accessToken = this.helper.accessToken;
-        this.accessToken = data;
-        this.helper.accessToken = this.accessToken;
+      // this.storage.get("access_token").then(data=>{
+      //   //this.accessToken = this.helper.accessToken;
+      //   this.accessToken = data;
+      this.accessToken = localStorage.getItem('user_token');
+      this.helper.accessToken = this.accessToken;
 
-      });
+      // });
       
 
       var recievedData = this.navParams.get('data');
@@ -334,9 +337,12 @@ this.events.subscribe('location', (data) => {
     console.log('ionViewDidLoad OrderServicePage');
 
     this.showLoading = false;
-    this.storage.get("access_token").then(data=>{
-      //this.accessToken = this.helper.accessToken;
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   //this.accessToken = this.helper.accessToken;
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
+
       this.srv.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp=>{
           this.showLoading=true;
@@ -421,7 +427,7 @@ this.events.subscribe('location', (data) => {
           this.presentToast(this.translate.instant("serverError"));
         }
       );
-    });
+    // });
 
 
 

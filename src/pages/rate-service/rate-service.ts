@@ -41,6 +41,8 @@ export class RateServicePage {
     public storage: Storage, public srv: ProvidedServicesProvider,
     public helper:HelperProvider,public translate: TranslateService) {
 
+      this.accessToken = localStorage.getItem('user_token');
+
       this.langDirection = this.helper.lang_direction;
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
@@ -82,8 +84,10 @@ export class RateServicePage {
       }
 
 
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+      this.accessToken = localStorage.getItem('user_token');
+      
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in doctor rate: ",resp);
@@ -102,14 +106,15 @@ export class RateServicePage {
   
         );
         
-      });
+      // });
       this.storage.get("user_info").then(data=>{
         this.userId = data.id;
       });
   
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
-      
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+      this.accessToken = localStorage.getItem('user_token');
+
       this.srv.rateWords( this.type_id , this.accessToken).subscribe(
         resp=>{
           console.log("rateWords resp ",resp);
@@ -126,7 +131,7 @@ export class RateServicePage {
           console.log("ratewords err",err);
         }
       );
-    });
+    // });
 
   }
 

@@ -31,7 +31,7 @@ export class AboutAppPage {
     public storage:Storage,public navCtrl: NavController, 
     public navParams: NavParams) {
     
-    
+      this.accessToken  = localStorage.getItem('user_token')
 
     if (this.helper.currentLang == 'ar')
     {
@@ -58,9 +58,11 @@ export class AboutAppPage {
       else
         this.tostClass="toastLeft";
   
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
-      //alert(this.accessToken)
+    // this.storage.get("access_token").then(data=>{
+      //this.accessToken = data;
+
+      this.accessToken = localStorage.getItem('user_token');
+      
       if (navigator.onLine) {
       this.service.AboutApplication(this.accessToken)
       .timeout(10000)
@@ -77,7 +79,7 @@ export class AboutAppPage {
     }else{
       this.presentToast(this.translate.instant("checkNetwork"));
     }
-    });
+    // });
   
 
   }

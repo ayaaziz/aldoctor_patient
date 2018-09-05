@@ -34,6 +34,8 @@ export class ConditionsPage {
     public storage:Storage,public helper:HelperProvider,
     public translate:TranslateService,public navCtrl: NavController, public navParams: NavParams) {
    
+      this.accessToken = localStorage.getItem('user_token');
+
     if (this.helper.currentLang == 'ar')
     {
      
@@ -61,8 +63,11 @@ export class ConditionsPage {
       this.tostClass="toastLeft";
 
 
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    
+    this.accessToken = localStorage.getItem('user_token');
+
       if(navigator.onLine){
       this.service.Conditions(this.accessToken)
       .timeout(10000)
@@ -82,7 +87,7 @@ export class ConditionsPage {
     }else{
       this.presentToast(this.translate.instant("checkNetwork"));
     }
-    });
+    // });
 
   }
 

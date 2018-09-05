@@ -108,5 +108,18 @@ export class ProvidedServicesProvider {
       
   }
 
+editOrderToSendImages(orderId , images ,files_ext, access_token){
+  
+  let headers = new HttpHeaders();
+  
+  let parameter = new HttpParams().set('order_id',orderId)
+  .set('files',images).set('fiels_ext',files_ext);
+  
+  
+  headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+  let serviceUrl = this.helper.serviceUrl +'api/orders/updatefiles';
+  return this.http.post(serviceUrl,parameter,{headers: headers });
+
+}
 
 }

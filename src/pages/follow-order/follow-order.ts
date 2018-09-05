@@ -57,6 +57,8 @@ export class FollowOrderPage {
        console.log("follow order");
     this.langDirection = this.helper.lang_direction;
     
+    this.accessToken = localStorage.getItem('user_token');
+    
     if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
       else
@@ -75,8 +77,10 @@ export class FollowOrderPage {
         this.disableCancelBtn = false;
   
   
-        this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+        // this.storage.get("access_token").then(data=>{
+        // this.accessToken = data;
+        this.accessToken = localStorage.getItem('user_token');
+
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in followorder: ",resp);
@@ -100,7 +104,7 @@ export class FollowOrderPage {
           }
   
         );
-      });
+      // });
       this.events.subscribe('location', (data) => {
         console.log(" event location ",data);
         if(data.location){

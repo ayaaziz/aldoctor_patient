@@ -88,6 +88,8 @@ import { Camera } from '@ionic-native/camera';
 //import { Base64 } from '@ionic-native/base64';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ProvidedServicesProvider } from '../providers/provided-services/provided-services';
+//import { RefreshToken1InterceptorProvider } from '../providers/refresh-token1-interceptor/refresh-token1-interceptor';
+import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-interceptor/refresh-token-interceptor';
 //import { ConditionsPage } from '../pages/conditions/conditions';
 //import { ContactusPage } from '../pages/contactus/contactus';
 
@@ -97,6 +99,7 @@ import { ProvidedServicesProvider } from '../providers/provided-services/provide
 // import { AngularFireDatabase } from '../../node_modules/angularfire2/database';
 // import { AngularFireDatabaseModule } from 'angularfire2/database';
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyDnAX0CQbbsMYuOTJ66ox_F0GwzPM4XPXY",
@@ -204,8 +207,12 @@ export function createTranslateLoader(http: HttpClient) {
     //Base64,
     Geolocation,
     ProvidedServicesProvider,
+    // RefreshToken1InterceptorProvider,
+    RefreshTokenInterceptorProvider,
     // AngularFireAuth,
     // AngularFireDatabase,
+    {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptorProvider, multi: true },
+
   ]
 })
 export class AppModule {}

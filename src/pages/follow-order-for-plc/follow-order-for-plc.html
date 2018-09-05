@@ -18,8 +18,8 @@
 </ion-header>
 
 <ion-content padding>
-  
-  <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;margin-top:15px;">{{serviceName}} {{doctorName}} </h5>
+    <!-- {{serviceName}} -->
+  <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;margin-top:15px;"> {{doctorName}} </h5>
   <h5 style="color:grey;" *ngIf="langDirection != 'rtl'" >{{serviceName}} {{doctorName}} </h5>
 
   <h5  *ngIf="langDirection == 'rtl'" [dir]="langDirection" style="text-align: right;color:grey;">
@@ -62,7 +62,7 @@
 
 
     <ion-fab left bottom>
-            <button ion-fab style="background-color:#026938;font-size:9px;">
+            <button ion-fab style="background-color:#026938;font-size:8px;">
             {{callService}}
             </button>
             <ion-fab-list side="right">        
@@ -77,7 +77,7 @@
         
             
           <ion-item style="text-align:center;" no-lines>
-              <button type="button"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendprescriptionImages()"> {{sendprescription}}</button>  
+              <button type="button" [disabled]="UpdateorderBTn" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendprescriptionImages()"> {{sendprescription}}</button>  
             </ion-item> 
 
             <ion-item style="text-align:center;" no-lines>

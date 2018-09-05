@@ -46,6 +46,8 @@ export class DoctorEvaluationPage {
       else
         this.tostClass="toastLeft";
 
+      this.accessToken = localStorage.getItem('user_token');
+
       var notificationdata = this.navParams.get('data');
       if(notificationdata )
       {
@@ -84,8 +86,11 @@ export class DoctorEvaluationPage {
       //   }
       // });
 
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+      
+      this.accessToken = localStorage.getItem('user_token');
+
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in doctor rate: ",resp);
@@ -108,14 +113,16 @@ export class DoctorEvaluationPage {
   
         );
         
-      });
+      // });
       this.storage.get("user_info").then(data=>{
         this.userId = data.id;
       });
   
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
       
+      this.accessToken = localStorage.getItem('user_token');
+
       this.service.rateWords(this.accessToken).subscribe(
         resp=>{
           console.log("rateWords resp ",resp);
@@ -132,7 +139,7 @@ export class DoctorEvaluationPage {
           console.log("ratewords err",err);
         }
       );
-    });
+    // });
     }
 
   ionViewDidLoad() {

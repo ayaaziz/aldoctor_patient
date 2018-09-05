@@ -47,6 +47,8 @@ xxx;
     )
   {
     
+    this.accessToken = localStorage.getItem('user_token');
+
         this.langDirection = this.helper.lang_direction;
         
         if(this.langDirection == "rtl")
@@ -91,8 +93,10 @@ xxx;
         //this.presentToast("image->profile: "+this.image);
           }
           else{
-            this.storage.get("access_token").then(data=>{
-              this.accessToken = data;
+            // this.storage.get("access_token").then(data=>{
+            //   this.accessToken = data;
+            this.accessToken = localStorage.getItem('user_token');
+
               this.service.getuserProfile(this.accessToken).subscribe(
                 resp=>{
                   this.newuserData = JSON.parse(JSON.stringify(resp));
@@ -119,7 +123,7 @@ xxx;
 
                 }
               );
-            });
+            // });
           }
       }
     );
@@ -314,8 +318,10 @@ xxx;
             }
         });    
 
-      this.storage.get("access_token").then(data=>{
-        this.accessToken = data;
+      // this.storage.get("access_token").then(data=>{
+      //   this.accessToken = data;
+      this.accessToken = localStorage.getItem('user_token');
+      
         console.log("image to api: ",this.profileImg);
         this.service.changeProfilePic(encodeURIComponent(this.xxx),this.accessToken).subscribe(
           resp =>{
@@ -335,7 +341,7 @@ xxx;
             console.log("err from change photo: "+ JSON.stringify(err));
           }
         );
-      })
+      // })
       
       //this.presentToast(this.profileImg);
     }, (err) => {

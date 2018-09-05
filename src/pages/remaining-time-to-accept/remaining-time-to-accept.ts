@@ -18,6 +18,7 @@ export class RemainingTimeToAcceptPage {
   constructor(public helper:HelperProvider,public navCtrl: NavController, 
     public navParams: NavParams,public storage: Storage,
     public events: Events,public service:LoginserviceProvider) {
+      this.accessToken = localStorage.getItem('user_token');
   }
 
   time=45;
@@ -38,8 +39,9 @@ export class RemainingTimeToAcceptPage {
           console.log("timer off");
           clearTimeout(this.timer);
           
-          this.storage.get("access_token").then(data=>{
-            this.accessToken = data;
+          // this.storage.get("access_token").then(data=>{
+          //   this.accessToken = data;
+          this.accessToken = localStorage.getItem('user_token');
 
           this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
             resp=>{
@@ -49,7 +51,7 @@ export class RemainingTimeToAcceptPage {
               console.log("uppdate status",err);
             }
           );
-        });
+        // });
         this.navCtrl.setRoot('order-not-accepted');
          
         }

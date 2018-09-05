@@ -48,6 +48,8 @@ export class OrderhistoryPage {
     public translate: TranslateService, public navCtrl: NavController,
      public navParams: NavParams,public toastCtrl: ToastController) {
 
+      this.accessToken = localStorage.getItem('user_token');
+
       this.langDirection = this.helper.lang_direction;
 
       if(this.langDirection == "rtl")
@@ -254,8 +256,10 @@ export class OrderhistoryPage {
   }
 
   refreshOrders(){
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
       this.showLoading = false;
 
       this.service.getUserOrders(1,this.accessToken).subscribe(
@@ -275,12 +279,14 @@ export class OrderhistoryPage {
           console.log("refresh",err);
         }
       );
-    });
+    // });
   }
   getOrders(){
     
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+    
       this.showLoading = false;
       this.service.getUserOrders(this.page,this.accessToken).subscribe(
         resp=>{
@@ -437,7 +443,7 @@ export class OrderhistoryPage {
 //           console.log("getUserOrders error: ",err);
 //         }
 //       );
-   });
+  //  });
 
 
   }

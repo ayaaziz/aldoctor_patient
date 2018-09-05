@@ -371,6 +371,11 @@ if(this.patientRegisterForm.controls["email"].errors){
       console.log("access token: ",data.access_token);
       //this.presentToast("token: "+data.access_token);
       console.log("refresh token: ",data.refresh_token);
+      
+      localStorage.setItem('user_token', data.access_token);
+      localStorage.setItem('refresh_token', data.refresh_token);
+
+      
       this.storage.set("language",{"lang":this.helper.currentLang,
       "langdir":this.helper.lang_direction} );
 

@@ -39,6 +39,9 @@ export class CentersPage {
 
       this.langDirection = this.helper.lang_direction;
       console.log("lang ffrom centers",this.langDirection);
+      
+      this.accessToken = localStorage.getItem('user_token');
+
 
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
@@ -89,8 +92,9 @@ export class CentersPage {
   
 
     
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+this.accessToken = localStorage.getItem('user_token');
 
       this.showLoading = false;
       
@@ -133,7 +137,7 @@ export class CentersPage {
           this.presentToast(this.translate.instant("serverError"));
         }
       );
-    });
+    // });
 
    
   }

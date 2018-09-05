@@ -115,6 +115,11 @@ export class LoginPage {
   }
   loginSuccessCallback(data) {
     console.log("from logincallback: ",JSON.stringify(data))
+
+    localStorage.setItem('user_token', data.access_token);
+    localStorage.setItem('refresh_token', data.refresh_token);
+    console.log("accessToken from local storage",localStorage.getItem('user_token'));
+
     this.storage.set("language",{"lang":this.helper.currentLang,
     "langdir":this.helper.lang_direction} );
     // this.storage.set("lang-dir",this.helper.lang_direction);

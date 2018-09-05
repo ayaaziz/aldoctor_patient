@@ -64,6 +64,8 @@ export class OrderDoctorPage {
 
      console.log("ordre btn",this.orderBTn);
 
+     this.accessToken = localStorage.getItem('user_token');
+
         this.langDirection = this.helper.lang_direction;
         if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
@@ -293,8 +295,11 @@ export class OrderDoctorPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderDoctorPage');
    
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+
+    this.accessToken = localStorage.getItem('user_token');
+    
       this.service.getSpecializations(this.accessToken).subscribe(
         resp=>{
           
@@ -315,7 +320,7 @@ export class OrderDoctorPage {
           console.log("getSpecializations error: ",err);
         }
       );
-    });
+    // });
 
    
     // this.events.subscribe('statusChanged', (data) => {

@@ -44,6 +44,8 @@ export class DoctorProfilePage {
       else
         this.tostClass="toastLeft";
 
+    this.accessToken = localStorage.getItem('user_token');
+
     this.translate.use(this.helper.currentLang);
     
     this.doctorProfile = navParams.get('data');
@@ -82,8 +84,10 @@ export class DoctorProfilePage {
     
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    
+    this.accessToken = localStorage.getItem('user_token');
 
     this.service.saveOrder(this.doctorProfile.id,this.accessToken).subscribe(
       resp => {
@@ -109,7 +113,7 @@ export class DoctorProfilePage {
       }
     ); 
 
-  });
+  // });
 
 }
   }

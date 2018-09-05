@@ -28,6 +28,7 @@ import { Push, PushObject, PushOptions } from '@ionic-native/push';
 //import { AboutAppPage } from '../pages/about-app/about-app';
 
 import { LoginserviceProvider } from '../providers/loginservice/loginservice';
+import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-interceptor/refresh-token-interceptor';
 
 import * as firebase from 'firebase/app';
 

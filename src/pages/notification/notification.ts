@@ -37,6 +37,8 @@ export class NotificationPage {
     public translate:TranslateService,public helper:HelperProvider
     ,public navCtrl: NavController, public navParams: NavParams) {
 
+      this.accessToken = localStorage.getItem('user_token');
+      
       this.langDirection = this.helper.lang_direction;
       this.translate.use(this.helper.currentLang);
       if(this.langDirection == "rtl")
@@ -48,16 +50,21 @@ export class NotificationPage {
   ionViewWillEnter(){
     console.log("will enter notifications");
 
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+
+    this.accessToken = localStorage.getItem('user_token');
+    
       this.data=[];
       this.page=1;
       this.loadNotification();
-    });
+    // });
 
-    this.storage.get("access_token").then(data=>{
+    // this.storage.get("access_token").then(data=>{
 
-      this.accessToken = data;
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
 
     this.service.readNotification(this.accessToken).subscribe(
       resp=>{
@@ -68,7 +75,7 @@ export class NotificationPage {
       }
     );
 
-  });
+  // });
 
 }
   ionViewDidLoad() {

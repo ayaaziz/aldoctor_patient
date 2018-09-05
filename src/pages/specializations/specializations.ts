@@ -40,6 +40,9 @@ export class SpecializationsPage {
      public service:LoginserviceProvider,public toastCtrl: ToastController,
      public translate: TranslateService
     ) {
+
+      this.accessToken = localStorage.getItem('user_token');
+
       this.langDirection = this.helper.lang_direction;
 
       if(this.langDirection == "rtl")
@@ -102,9 +105,11 @@ export class SpecializationsPage {
     // {
     //   console.log("item /2",arr1[j]);
     // }
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
 
+    this.accessToken = localStorage.getItem('user_token');
+    
       this.showLoading = false;
       
       this.service.getSpecializations(this.accessToken).subscribe(
@@ -147,7 +152,7 @@ export class SpecializationsPage {
           this.presentToast(this.translate.instant("serverError"));
         }
       );
-    });
+    // });
 
    
   }

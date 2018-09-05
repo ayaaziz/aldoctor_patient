@@ -37,8 +37,8 @@ export class SearchForPharmacyPage {
   btn1;
   btn2;
   tostClass ;
- locFlag= 0;
-  // locFlag= 1;
+//  locFlag= 0;
+  locFlag= 1;
 
   center_id = "";
   toastFlag = false;
@@ -50,6 +50,8 @@ export class SearchForPharmacyPage {
      private geolocation: Geolocation, public toastCtrl: ToastController,
      public navCtrl: NavController, public navParams: NavParams,
      public events: Events) {
+
+      this.accessToken = localStorage.getItem('user_token');
 
       this.langDirection = this.helper.lang_direction;
       
@@ -201,8 +203,10 @@ export class SearchForPharmacyPage {
 
         console.log("resp: ", resp);
         this.initMapwithUserLocations();
-        this.storage.get("access_token").then(data=>{
-          this.accessToken = data;
+        // this.storage.get("access_token").then(data=>{
+        //   this.accessToken = data;
+        this.accessToken = localStorage.getItem('user_token');
+
           this.helper.accessToken = this.accessToken;
           this.service.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
             resp =>{
@@ -226,7 +230,7 @@ export class SearchForPharmacyPage {
             }
           );
        
-        });
+        // });
   
         
       }).catch((error) => {
@@ -290,8 +294,10 @@ export class SearchForPharmacyPage {
   
     this.initMapwithUserLocations();
   
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    this.accessToken = localStorage.getItem('user_token');
+
       this.service.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp =>{
           console.log("resp from nearby doctors: ",resp);
@@ -315,7 +321,7 @@ export class SearchForPharmacyPage {
         }
       );
    
-    });
+  //  });
   
   
   }

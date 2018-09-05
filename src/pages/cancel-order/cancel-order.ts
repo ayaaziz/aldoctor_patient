@@ -38,6 +38,7 @@ export class CancelOrderPage {
    this.orderId =  this.navParams.get('orderId');
    this.langDirection = this.helper.lang_direction;
 
+    this.accessToken = localStorage.getItem('user_token');
       
    if(this.langDirection == "rtl")
      this.tostClass = "toastRight";
@@ -49,8 +50,10 @@ export class CancelOrderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CancelOrderPage');
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
+    // this.storage.get("access_token").then(data=>{
+      // this.accessToken = data;
+      this.accessToken = localStorage.getItem('user_token');
+      
       if (navigator.onLine) {
       this.service.cancelreasons(this.accessToken).timeout(10000).subscribe(
         resp=>{
@@ -75,7 +78,7 @@ export class CancelOrderPage {
     } 
    
    
-    });
+    // });
   }
   reasonChecked(item , event){
     if(item.checked == true)

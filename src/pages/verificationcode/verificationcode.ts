@@ -54,9 +54,11 @@ phone="";
     
     console.log("activation code lang dir :",this.langDirection);
 
-    this.storage.get("access_token").then(data=>{
-      this.accessToken = data;
-    });
+    // this.storage.get("access_token").then(data=>{
+    //   this.accessToken = data;
+    // });
+    this.accessToken = localStorage.getItem('user_token');
+
     
   }
 
@@ -84,8 +86,10 @@ phone="";
     }
     if(this.activationForm.valid){
       if(navigator.onLine){
-        this.storage.get("access_token").then(data=>{
-          this.accessToken = data;
+        // this.storage.get("access_token").then(data=>{
+        //   this.accessToken = data;
+        this.accessToken = localStorage.getItem('user_token');
+        
           if(this.from)
           {
             this.loginservice.checkPhoneWithCode(this.phone,this.code,this.accessToken).subscribe(
@@ -144,7 +148,7 @@ phone="";
           }else
           this.loginservice.activateUser(this.code,this.accessToken,(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data));
         
-        })
+        // })
 
        // this.loginservice.activateUser(this.code,"",(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data))
       }
