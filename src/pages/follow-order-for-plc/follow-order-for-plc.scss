@@ -106,7 +106,10 @@ select option[selected]{
         background-color: #016a38 !important;
         border-color: #016a38 !important;
     }
-   
+    .btn:disabled {
+        background-color: #dddddd !important ;
+        border-color: #dddddd  !important;
+    }
     .row{
         margin: 0px;
         padding: 0px;
