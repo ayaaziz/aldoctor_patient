@@ -433,7 +433,7 @@ this.events.subscribe('location', (data) => {
       }
       console.log("doctors id: ",doctorsId);
       this.orderBTn = true;
-      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
+      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length).subscribe(
         resp => {
           console.log("saveOrder resp: ",resp);
           // this.presentToast(this.translate.instant("ordersent"));

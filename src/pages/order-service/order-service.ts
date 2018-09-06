@@ -671,7 +671,7 @@ Loadfunc(){
       console.log("doctors id: ",doctorsId);
      this.orderBTn = true;
     //  this.showLoading=false;
-      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
+      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length).subscribe(
         resp => {
           // this.showLoading=true;
           if(JSON.parse(JSON.stringify(resp)).success ){

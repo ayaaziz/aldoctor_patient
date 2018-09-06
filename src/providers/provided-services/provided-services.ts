@@ -31,7 +31,7 @@ export class ProvidedServicesProvider {
   
   }
 
-  saveOrder(doctorsId ,images,files_ext,access_token){
+  saveOrder(doctorsId ,images,files_ext,access_token,serviceNmber){
     let headers = new HttpHeaders();
     console.log("lat from service ",this.helper.lat);
     console.log("lon from service ",this.helper.lon);
@@ -41,7 +41,7 @@ export class ProvidedServicesProvider {
     let parameter = new HttpParams().set('doctor_id',doctorsId).
     set('extra',userLocation).set('files',images)
     .set('service_id','3').set('type_id',this.helper.type_id)
-    .set('fiels_ext',files_ext);
+    .set('fiels_ext',files_ext).set('service_number',serviceNmber);
     
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);

@@ -671,7 +671,7 @@ this.events.subscribe('location', (data) => {
       }
       console.log("doctors id: ",doctorsId);
       this.orderBTn = true;
-      this.service.saveOrder(doctorsId,this.accessToken).subscribe(
+      this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length).subscribe(
         resp => {
           if(JSON.parse(JSON.stringify(resp)).success ){
           console.log("saveOrder resp: ",resp);

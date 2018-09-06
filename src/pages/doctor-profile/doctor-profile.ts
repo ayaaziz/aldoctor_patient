@@ -89,7 +89,7 @@ export class DoctorProfilePage {
     
     this.accessToken = localStorage.getItem('user_token');
 
-    this.service.saveOrder(this.doctorProfile.id,this.accessToken).subscribe(
+    this.service.saveOrder(this.doctorProfile.id,this.accessToken,1).subscribe(
       resp => {
         if(JSON.parse(JSON.stringify(resp)).success ){
         console.log("saveOrder resp: ",resp);

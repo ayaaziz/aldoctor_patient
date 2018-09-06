@@ -127,7 +127,7 @@ export class ServiceProfilePage {
     //   this.accessToken = data;
     this.accessToken = localStorage.getItem('user_token');
 
-      this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.imageExt.join(','),this.accessToken).subscribe(
+      this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.imageExt.join(','),this.accessToken,1).subscribe(
         resp => {
           
           // this.showLoading=true;

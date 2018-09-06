@@ -213,7 +213,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.get(serviceUrl,{headers: headers });
 
   }
-  saveOrder(doctorsId ,access_token){
+  saveOrder(doctorsId ,access_token,serviceNumber){
     let headers = new HttpHeaders();
     console.log("lat from service ",this.helper.lat);
     console.log("lon from service ",this.helper.lon);
@@ -221,7 +221,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let userLocation = this.helper.lat + "," + this.helper.lon;
 
     let parameter = new HttpParams().set('doctor_id',doctorsId).
-    set('extra',userLocation).set('service_id','2');
+    set('extra',userLocation).set('service_id','2').set('service_number',serviceNumber);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/orders/create';
