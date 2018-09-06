@@ -120,7 +120,7 @@ reasonChecked(item , event){
           console.log("cancel order resp: ",resp);
           if(JSON.parse(JSON.stringify(resp)).success)
           {
-            this.helper.updateCancelOrderStatus(this.orderId);
+            // this.helper.updateCancelOrderStatus(this.orderId);
             this.presentToast(this.translate.instant("orderCancled"));     
             this.navCtrl.setRoot(OrderhistoryPage);
           }
