@@ -61,6 +61,10 @@
 
 <ion-content padding>
 
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+
   <h2 style="text-align:right"  *ngIf="langDirection == 'rtl' "  >{{serviceTitle}}</h2>
   <h2  *ngIf="langDirection != 'rtl' "  >{{serviceTitle}}</h2>
 
@@ -112,7 +116,9 @@
                   <!-- overflow-x: hidden; -->
                 <h2 style="width:60px;margin-top:0px;">{{item.name}}</h2>
                 <!-- <img src="assets/icon/doctor.png" style="width:15px;height:15px;"> -->
-                <h3 >{{item.extraInfo.address}}</h3>
+                
+                <!-- <h3 >{{item.extraInfo.address}}</h3> -->
+                
                 <!-- <h4 >{{"cost"|translate}} : {{item.price}} {{"pound"|translate}}</h4> -->
                 <rating 
                       [(ngModel)]="item.rate" 

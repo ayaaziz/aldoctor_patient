@@ -37,6 +37,7 @@ export class OrderhistoryPage {
   refresher;
   swipe=0;
   page=1;
+  // page = 0;
   infiniteScroll;
   filterpage=1;
   scroll = 1;
@@ -154,7 +155,7 @@ export class OrderhistoryPage {
                 this.orderobject.diabledesign = true;
                 this.orderobject.addressSign = false;
                 this.orderobject.diabledRate = false;
-                this.orderobject.specialization = serviceProfile.entity.address;
+               // this.orderobject.specialization = serviceProfile.entity.address;
                 this.orderobject.type_id = serviceProfile.entity.type_id;
 
               }  
@@ -643,6 +644,7 @@ export class OrderhistoryPage {
     this.from="";
     this.data=[];
     this.page=1;
+    // this.page=0;
     this.getOrders();
 
     // this.getSpecializationsData()

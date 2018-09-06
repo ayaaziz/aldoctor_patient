@@ -72,6 +72,7 @@ export class OrderServicePage {
 
   center_id = "" ;
   imageExt=[];
+  refresher;
 
 
   constructor(public translate: TranslateService,  public events: Events,
@@ -334,33 +335,130 @@ this.events.subscribe('location', (data) => {
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderServicePage');
 
-    this.showLoading = false;
-    // this.storage.get("access_token").then(data=>{
-    //   //this.accessToken = this.helper.accessToken;
-    //   this.accessToken = data;
+    console.log('ionViewDidLoad OrderServicePage');
+    this.Loadfunc();
+    // this.showLoading = false;
+    // // this.storage.get("access_token").then(data=>{
+    // //   //this.accessToken = this.helper.accessToken;
+    // //   this.accessToken = data;
+    // this.accessToken = localStorage.getItem('user_token');
+
+
+    //   this.srv.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
+    //     resp=>{
+    //       this.showLoading=true;
+    //       console.log("nearbyservice resp: ",resp);
+          
+    //       let doctorData =JSON.parse(JSON.stringify(resp));
+    //       console.log("service data",doctorData);
+    //     console.log("doctors data",doctorData["result"]);
+    //     this.DoctorsArray=[];  
+    //     for(var i=0;i<doctorData["result"].length;i++){
+    //         console.log("doctor: ",doctorData["result"][i]); 
+            
+    //         // doctorData["result"][i].color="green";
+    //         // doctorData["result"][i].offline = false;
+            
+    //         // doctorData["result"][i].timefordelivery = "2د";
+    //         // doctorData["result"][i].distance = "2كم";
+            
+    //         doctorData["result"][i].type_id = this.type_id;
+    //         if(doctorData["result"][i].nickname)
+    //         doctorData["result"][i].doctorName = doctorData["result"][i].nickname;
+    //         else 
+    //         doctorData["result"][i].doctorName = doctorData["result"][i].name;
+
+      
+
+    //       if(doctorData["result"][i].busy == "1")
+    //       {
+    //         doctorData["result"][i].color="red";
+    //         doctorData["result"][i].offline=true;
+    //         doctorData["result"][i].moreTxt="غير متوافر";
+
+    //       }else if (doctorData["result"][i].busy == "0")
+    //       {
+    //         if(doctorData["result"][i].online  == "1")
+    //           {
+    //             doctorData["result"][i].color="green";
+    //             doctorData["result"][i].offline=false;
+    //             doctorData["result"][i].moreTxt = "متوافر";
+              
+
+    //           }else if (doctorData["result"][i].online  == "0")
+    //           {
+    //             doctorData["result"][i].color="grey";
+    //             doctorData["result"][i].offline=true;
+    //             doctorData["result"][i].moreTxt="غير متوافر";
+                
+    //           }
+           
+    //       }
+
+          
+
+
+    //         this.DoctorsArray.push(doctorData["result"][i]);
+    //       }
+          
+    //     if(this.DoctorsArray.length >= 3)
+    //     {
+    //       this.scrollHeight = "385px";
+        
+    //     }else{
+    //       this.scrollHeight = "260px";
+    //     }
+    //       for(i=0;i<this.DoctorsArray.length;i++)
+    //       {
+            
+    //         this.helper.getDoctorStatus(this.DoctorsArray[i].id);
+    //         this.helper.getBusyDoctor(this.DoctorsArray[i].id);
+            
+    //       }
+          
+    //       if(this.DoctorsArray.length == 0)
+    //       {
+    //         console.log("if = 0");
+    //         this.presentToast(this.translate.instant("noSearchResult"));
+    //       }
+          
+    //     },
+    //     err=>{
+    //       console.log("nearbyservice error: ",err);
+    //       this.showLoading = true;
+    //       this.presentToast(this.translate.instant("serverError"));
+    //     }
+    //   );
+    // // });
+
+
+
+  }
+Loadfunc(){
+  this.showLoading = false;
+    
     this.accessToken = localStorage.getItem('user_token');
 
 
       this.srv.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp=>{
           this.showLoading=true;
+          
+          
           console.log("nearbyservice resp: ",resp);
           
           let doctorData =JSON.parse(JSON.stringify(resp));
+          
           console.log("service data",doctorData);
         console.log("doctors data",doctorData["result"]);
         this.DoctorsArray=[];  
         for(var i=0;i<doctorData["result"].length;i++){
             console.log("doctor: ",doctorData["result"][i]); 
             
-            // doctorData["result"][i].color="green";
-            // doctorData["result"][i].offline = false;
-            
-            // doctorData["result"][i].timefordelivery = "2د";
-            // doctorData["result"][i].distance = "2كم";
-            
+            doctorData["result"][i].timefordelivery = "1د";
+            doctorData["result"][i].distance = "1م";
+
             doctorData["result"][i].type_id = this.type_id;
             if(doctorData["result"][i].nickname)
             doctorData["result"][i].doctorName = doctorData["result"][i].nickname;
@@ -420,19 +518,22 @@ this.events.subscribe('location', (data) => {
             console.log("if = 0");
             this.presentToast(this.translate.instant("noSearchResult"));
           }
-          
+          if(this.refresher)
+            this.refresher.complete();
         },
         err=>{
           console.log("nearbyservice error: ",err);
           this.showLoading = true;
           this.presentToast(this.translate.instant("serverError"));
+          if(this.refresher)
+            this.refresher.complete();
+          
         }
       );
-    // });
 
 
 
-  }
+}
 
   getDistanceAndDuration(i){
 
@@ -733,6 +834,16 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     this.photosForApi.splice(index,1);
     this.imageExt.pop();
     this.imageFlag = true;
+  }
+
+  doRefresh(ev){
+    console.log("refresh",ev);
+    this.photos =[];
+    this.photosForApi = [];
+    this.refresher = ev;
+    this.Loadfunc();
+    
+    
   }
 
 }

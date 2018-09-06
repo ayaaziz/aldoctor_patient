@@ -629,8 +629,8 @@ this.events.subscribe('location', (data) => {
             // doctorData["result"][i].color="green";
             // doctorData["result"][i].offline = false;
 
-            // doctorData["result"][i].timefordelivery = "2د";
-            // doctorData["result"][i].distance = "2كم";
+            doctorData["result"][i].timefordelivery = "1د";
+            doctorData["result"][i].distance ="1م";
             
             doctorData["result"][i].type_id = this.type_id;
             if(doctorData["result"][i].nickname)
