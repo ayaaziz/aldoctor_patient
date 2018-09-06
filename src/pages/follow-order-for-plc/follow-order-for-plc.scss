@@ -147,8 +147,18 @@ select option[selected]{
         // background-color: #016a38 !important;
         border-color: #016a38 !important;
     }
+    #profileImg{
+        border:1px rgb(240, 234, 234) solid;
+        border-radius: 50%;
+        height:100px;
+        width: 100px; 
+       
+    }
 
-
+    .center{
+        text-align: center;
+    }
+    
 }
 .toastRight{
     text-align: right;

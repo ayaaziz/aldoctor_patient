@@ -62,6 +62,7 @@ export class FollowOrderForPlcPage {
 
   imageExt=[];
   UpdateorderBTn = false;
+  plcimage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -144,6 +145,8 @@ export class FollowOrderForPlcPage {
             this.doctorSpecialization = tempData.speciality; 
             this.OrderCost = tempData.extraInfo.discount;
             this.phone = tempData.phone;
+            this.plcimage= tempData.profile_pic;
+            
             console.log("phone",this.phone);          
    
            

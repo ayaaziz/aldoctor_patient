@@ -19,8 +19,25 @@
 
 <ion-content padding>
     <!-- {{serviceName}} -->
-  <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;margin-top:15px;"> {{doctorName}} </h5>
-  <h5 style="color:grey;" *ngIf="langDirection != 'rtl'" >{{serviceName}} {{doctorName}} </h5>
+
+    <div class="center">
+            <img [src]="plcimage" id="profileImg" >  
+        
+        <ion-label>{{doctorName}}</ion-label> 
+        <!-- <ion-label>{{rateWord}}</ion-label> -->
+        <!-- <rating [(ngModel)]="rate" 
+          readOnly="false" 
+          max="5" 
+          emptyStarIconName="star-outline"
+          halfStarIconName="star-half" 
+          starIconName="star" 
+          nullable="false" 
+          (ngModelChange)="onModelChange($event)" 
+          ></rating> -->
+        </div>
+
+  <!-- <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;margin-top:15px;"> {{doctorName}} </h5>
+  <h5 style="color:grey;" *ngIf="langDirection != 'rtl'" >{{serviceName}} {{doctorName}} </h5> -->
 
   <h5  *ngIf="langDirection == 'rtl'" [dir]="langDirection" style="text-align: right;color:grey;">
     {{serviceTxt}} {{duration}} {{completeServiceTxt}} 
