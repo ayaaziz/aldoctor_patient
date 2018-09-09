@@ -63,6 +63,8 @@ export class FollowOrderForPlcPage {
   imageExt=[];
   UpdateorderBTn = false;
   plcimage;
+  receivedImage = "0";
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -93,6 +95,11 @@ export class FollowOrderForPlcPage {
       this.doctorId = this.doctorData.doctorId;
       this.orderId = this.doctorData.orderId;
 
+      if(this.doctorData.receivedImage){
+
+        this.receivedImage = this.doctorData.receivedImage;
+        console.log("received image",this.receivedImage);
+      }
       console.log("doctorid: ",this.doctorId," orderid: ",this.doctorData.orderId);
       // if(this.doctorData.order_status && this.doctorData.order_status == "7")
       //   this.disableCancelBtn = true;
@@ -475,7 +482,7 @@ private presentToast(text) {
       this.photosForApi.push(encodeURIComponent(imageData));
       
       this.imageExt.push("jpeg");
-
+      //this.receivedImage = 1;
 
       if(this.photosForApi.length == 2)
         this.imageFlag = false;
@@ -511,9 +518,11 @@ private presentToast(text) {
           if(JSON.parse(JSON.stringify(resp)).success == true)
           {
             this.presentToast("تم الارسال");
+            this.receivedImage = "1";
             this.photosForApi = [];
             this.photos = [];
             this.UpdateorderBTn = false;
+            
           }else{
             this.UpdateorderBTn = false;
           }  
@@ -535,13 +544,20 @@ private presentToast(text) {
     this.imageFlag = true;
   }
   serviceRate(){
-    this.navCtrl.push('rate-service',
-  {data:
+    if(this.receivedImage == "0")
     {
+      this.presentToast(this.translate.instant(" ادخل "+this.medicalprescriptionImage));
+    }else if(this.receivedImage == "1"){
+      this.navCtrl.push('rate-service',
+      {data:
+      {
       "doctorId":this.doctorData.doctorId, 
       "orderId":this.doctorData.orderId
+      }
+      });
+
     }
-  });
+    
   }
 
   

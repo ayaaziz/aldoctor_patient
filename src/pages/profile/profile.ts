@@ -34,6 +34,7 @@ export class ProfilePage {
   
   tostClass ;
 xxx;
+myRate;
 
   constructor(//private imagePicker: ImagePicker,
     //private base64: Base64,
@@ -66,7 +67,14 @@ xxx;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
+    this.service.getuserProfile(this.accessToken).subscribe(
+      resp=>{
+        this.myRate = JSON.parse(JSON.stringify(resp)).rate;
+        
+      },err=>{
 
+      }
+    );
     
 
   }

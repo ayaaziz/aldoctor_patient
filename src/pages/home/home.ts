@@ -22,7 +22,7 @@ export class HomePage {
   langDirection:any;
   accessToken;
   tostClass;
-
+xxrate;
   DoctorsArray = [{distanceVal:5,offline:false},{distanceVal:1000,offline:true},{distanceVal:3,offline:false},{distanceVal:1,offline:true}];
 
   constructor(public service: LoginserviceProvider,public events: Events,
@@ -36,7 +36,12 @@ export class HomePage {
     // this.helper.intializeFirebase();
     console.log("acceeToken from localstorage", localStorage.getItem('user_token'));
     this.sortDoctors();
-
+if(this.xxrate)
+{
+  console.log("value in xxrate",this.xxrate)
+}else {
+  console.log("non value in xxrate",this.xxrate);
+}
 //     var d = Number(13376+(30*60));
 //     var h = Math.floor(d/3600);
 //     var m = Math.floor(d % 3600 /60);

@@ -182,14 +182,29 @@ export class NotificationPage {
         console.log("notificationsData" , notificationsData);
         console.log("notificationsData lenght",notificationsData.length);
         // this.data = [];
+        // for(var i=0;i<notificationsData.length;i++){
+        //   console.log("text ",notificationsData[i].data.text);
+        //   // this.data.push(notificationsData[i].data.text);
+        //   notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
+        //   this.data.push(notificationsData[i]);
+          
+        // }
         for(var i=0;i<notificationsData.length;i++){
           console.log("text ",notificationsData[i].data.text);
           // this.data.push(notificationsData[i].data.text);
+          if(notificationsData[i].data.paitentId)
+          notificationsData[i].notificationimage=notificationsData[i].data.paitentId.profile_pic;
+          else
+          notificationsData[i].notificationimage="assets/imgs/default-avatar.png";
+          
           notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
           this.data.push(notificationsData[i]);
           
         }
-        
+        if(this.data.length == 0)
+        {
+         this.presentToast(this.translate.instant("noNOtification")); 
+        }
         // this.data = notificationsData;
 
 

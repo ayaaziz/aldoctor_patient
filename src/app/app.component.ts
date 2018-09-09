@@ -612,7 +612,10 @@ export class MyApp {
          
             if(orderStatus == "2")
               this.events.publish('status2ForPLC',data );
+            if(orderStatus == "11")
+              this.presentAlert(notification.title,notification.message);
 
+            
             if(orderStatus == "5" )
             { 
               // if(this.helper.orderRated == 0)
@@ -800,4 +803,16 @@ export class MyApp {
       actionSheet.present();
     }
   
+
+presentAlert(title,msg) {
+  this.navctrl.setRoot(TabsPage);
+      let alert = this.alertCtrl.create({
+        title: title,
+        subTitle: msg,
+        buttons: ['موافق']
+      });
+      alert.present();
+    }
+
+    
 }

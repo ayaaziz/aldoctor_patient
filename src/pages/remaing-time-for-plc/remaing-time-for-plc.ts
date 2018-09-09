@@ -21,7 +21,7 @@ export class RemaingTimeForPlcPage {
   notification;
   orderStatus;
   accessToken;
-
+  receivedImage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider,public events: Events,
@@ -35,9 +35,10 @@ export class RemaingTimeForPlcPage {
      if(data == 1)
      {
        this.time = 120;
-
+        this.receivedImage = 1;
      }else if (data == 0){
        this.time = 45;
+       this.receivedImage = 0;
      }
   }
 
@@ -86,7 +87,8 @@ export class RemaingTimeForPlcPage {
     this.navCtrl.setRoot('follow-order-for-plc',
     {data:
       { "orderId":data.orderId, 
-        "doctorId":data.doctorId
+        "doctorId":data.doctorId,
+        "receivedImage":this.receivedImage
       }
     });
   });

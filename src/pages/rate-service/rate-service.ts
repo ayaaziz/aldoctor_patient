@@ -226,6 +226,8 @@ export class RateServicePage {
     }
   }
   rateDoctor(){
+    if(this.rate){
+
     
     this.review += " ";
     this.review += this.moreReview;
@@ -252,7 +254,10 @@ export class RateServicePage {
       }
     );
     
-    
+  }else{
+    this.presentToast("اختر تقييم للخدمه");
+  }
+  
   }
   dismiss(){
     this.navCtrl.pop();

@@ -80,7 +80,16 @@
   
   <p class="center" style="color:gray;font-size: 16px">{{name}}</p>
     
-  
+  <rating  class="center"
+  [(ngModel)]="myRate" 
+  readOnly="true" 
+  max="5" 
+  emptyStarIconName="star-outline"
+  halfStarIconName="star-half" 
+  starIconName="star" 
+  nullable="false" 
+  ></rating>
+
 <div >
 
   <div style="width:100%;position:absolute;top:190px;z-index:1;">
