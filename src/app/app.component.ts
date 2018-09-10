@@ -608,19 +608,29 @@ export class MyApp {
             };
 
             if(orderStatus == "10" || orderStatus == "3") 
+            {
+              this.storage.remove("orderImages"); 
               this.events.publish('status0ForPLC');
+            } 
          
             if(orderStatus == "2")
               this.events.publish('status2ForPLC',data );
+            
             if(orderStatus == "11")
+            {
+              this.storage.remove("orderImages");
               this.presentAlert(notification.title,notification.message);
+            }
+
 
             
             if(orderStatus == "5" )
             { 
               // if(this.helper.orderRated == 0)
               // {
-               // this.events.publish('status5'); 
+               // this.events.publish('status5');
+               this.storage.remove("orderImages");
+
                 this.nav.push('rate-service',{
                   data:{
                     doctorId:notification.additionalData.doctorId,

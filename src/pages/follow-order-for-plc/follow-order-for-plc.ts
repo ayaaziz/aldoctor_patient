@@ -64,7 +64,7 @@ export class FollowOrderForPlcPage {
   UpdateorderBTn = false;
   plcimage;
   receivedImage = "0";
-
+  editFlag =false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -136,7 +136,31 @@ export class FollowOrderForPlcPage {
       
         // this.storage.get("access_token").then(data=>{
         // this.accessToken = data;
-        
+        this.storage.get('orderImages').then(val=>{
+          if(val){
+            console.log("if from follow order for plc images",val);
+            this.photos = val;
+            for(var i=0;i<this.photos.length;i++)
+            {
+              this.photosForApi.push(encodeURIComponent(this.photos[i].split(',')[1]));
+              
+            }
+            if(val.length == 2)
+              this.imageFlag = false;
+            else if(val.length == 1)
+              this.imageFlag = true;
+
+              
+          }else{
+            console.log("else from follow order for plc");
+            this.imageFlag = true;
+          }
+         
+        }).catch(err=>{
+          console.log("catch from follow order for plc",err);
+          this.imageFlag = true;
+        });
+
         this.accessToken = localStorage.getItem('user_token');
 
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
@@ -213,10 +237,10 @@ export class FollowOrderForPlcPage {
 
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
-              if(this.notificationFlag == false && h == 0 && m <= 20 && this.type_id == "1") //|| m <= 30
+              if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
                 this.scheduleNotification(m);
 
-              if(this.notificationFlag == false && h == 0 && m <= 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
                 this.scheduleNotification(m);
 
             },
@@ -276,10 +300,10 @@ export class FollowOrderForPlcPage {
 
               // if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
               //   this.scheduleNotification(m);
-              if(this.notificationFlag == false && h == 0 && m <= 20 && this.type_id == "1") //|| m <= 30
+              if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
                 this.scheduleNotification(m);
 
-              if(this.notificationFlag == false && h == 0 && m <= 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
                 this.scheduleNotification(m);
 
         },
@@ -420,13 +444,13 @@ private presentToast(text) {
 }
 
   cancelOrder(){
-
-    this.service.cancelMsg(this.accessToken).subscribe(
-      resp=>{
-        console.log("cancel msg resp",resp);
-        this.presentCancelConfirm(JSON.parse(JSON.stringify(resp)).message);
-      }
-    );
+    this.navCtrl.push('cancel-service',{orderId:this.doctorData.orderId});
+    // this.service.cancelMsg(this.accessToken).subscribe(
+    //   resp=>{
+    //     console.log("cancel msg resp",resp);
+    //     this.presentCancelConfirm(JSON.parse(JSON.stringify(resp)).message);
+    //   }
+    // );
   }
   dismiss(){
     this.navCtrl.pop();
@@ -499,42 +523,55 @@ private presentToast(text) {
   }
   sendprescriptionImages(){
     
-
-    if(this.photosForApi.length == 0 && this.type_id == 3)
+    if(this.editFlag == true)
     {
-      this.presentToast(this.translate.instant("atleastOneimageforLab"));
-    }else if(this.photosForApi.length == 0 && this.type_id == 2)
-    {
-      this.presentToast(this.translate.instant("atleastOneimageforcenter"));
-    }else if(this.photosForApi.length == 0 && this.type_id == 1)
-    {
-      this.presentToast(this.translate.instant("atleastOneimageforpharmacy"));
-    }else{
-      this.accessToken = localStorage.getItem('user_token');
-      this.UpdateorderBTn = true;
-      this.srv.editOrderToSendImages(this.orderId,this.photosForApi,this.imageExt,this.accessToken).subscribe(
-        resp=>{
-          console.log("resp from editOrderToSendImages",resp);
-          if(JSON.parse(JSON.stringify(resp)).success == true)
-          {
-            this.presentToast("تم الارسال");
-            this.receivedImage = "1";
-            this.photosForApi = [];
-            this.photos = [];
+      if(this.photosForApi.length == 0 && this.type_id == 3)
+      {
+        this.presentToast(this.translate.instant("atleastOneimageforLab"));
+      }else if(this.photosForApi.length == 0 && this.type_id == 2)
+      {
+        this.presentToast(this.translate.instant("atleastOneimageforcenter"));
+      }else if(this.photosForApi.length == 0 && this.type_id == 1)
+      {
+        this.presentToast(this.translate.instant("atleastOneimageforpharmacy"));
+      }else{
+        this.accessToken = localStorage.getItem('user_token');
+        this.UpdateorderBTn = true;
+        this.srv.editOrderToSendImages(this.orderId,this.photosForApi,this.imageExt,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp from editOrderToSendImages",resp);
+            if(JSON.parse(JSON.stringify(resp)).success == true)
+            {
+              this.storage.set('orderImages',this.photos).then(
+                val=>{
+                  console.log("image saved",val);
+                }
+              );
+  
+              this.presentToast("تم الارسال");
+              this.receivedImage = "1";
+              this.photosForApi = [];
+              this.photos = [];
+              this.UpdateorderBTn = false;
+              
+            }else{
+              this.UpdateorderBTn = false;
+            }  
+            
+          },err=>{
+            console.log("err from editOrderToSendImages",err);
+            this.presentToast(this.translate.instant("serverError"));
             this.UpdateorderBTn = false;
             
-          }else{
-            this.UpdateorderBTn = false;
-          }  
-          
-        },err=>{
-          console.log("err from editOrderToSendImages",err);
-          this.presentToast(this.translate.instant("serverError"));
-          this.UpdateorderBTn = false;
-          
-        }
-      );
+          }
+        );
+      }
+
+    }else{
+      this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
     }
+
+   
   }
   deletePhoto(index){
     console.log("photo index",index);
@@ -542,6 +579,7 @@ private presentToast(text) {
     this.photosForApi.splice(index,1);
     this.imageExt.pop();
     this.imageFlag = true;
+    this.editFlag = true;
   }
   serviceRate(){
     if(this.receivedImage == "0")
@@ -580,4 +618,11 @@ private presentToast(text) {
       trigger:{ at: new Date(new Date().getTime())}
     });
   }
+
+
+  fullScreen(index){
+    console.log("image clicked",index)
+    this.navCtrl.push('full-screen',{data:this.photos[index]});
+  }
+
 }

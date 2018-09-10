@@ -21,7 +21,8 @@ export class RemainingTimeToAcceptPage {
       this.accessToken = localStorage.getItem('user_token');
   }
 
-  time=45;
+  // time = 45;
+  time = 120;
   timer;
   notification;
   orderStatus;

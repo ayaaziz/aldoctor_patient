@@ -132,6 +132,13 @@ export class ServiceProfilePage {
           
           // this.showLoading=true;
           if(JSON.parse(JSON.stringify(resp)).success ){
+
+            this.storage.set('orderImages',this.photos).then(
+              val=>{
+                console.log("image saved",val);
+              }
+            );
+            
           console.log("saveOrder resp: ",resp);
           var newOrder = JSON.parse(JSON.stringify(resp));
           

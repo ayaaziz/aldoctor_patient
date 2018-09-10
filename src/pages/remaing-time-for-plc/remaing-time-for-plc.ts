@@ -34,7 +34,7 @@ export class RemaingTimeForPlcPage {
      
      if(data == 1)
      {
-       this.time = 120;
+        this.time = 120;
         this.receivedImage = 1;
      }else if (data == 0){
        this.time = 45;

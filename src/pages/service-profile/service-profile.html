@@ -153,14 +153,22 @@
     </ion-col>
   </ion-row> -->
 
-  <ion-item class="form-group" no-lines>
+  <!-- <ion-item class="form-group" no-lines>
       <button type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725);margin:10px auto;" >  
         <img src="assets/icon/cam.png" height="25" width="25">  
         {{medicalprescriptionImage}} 
-        <!-- <ion-icon name="checkmark-circle" style="color: darkgreen;vertical-align: middle;" *ngIf="imageAdded" ></ion-icon>  -->
+       
     </button> 
       
+    </ion-item> -->
+    <ion-item class="form-group" no-lines>
+        <button type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="font-family: 'Cairo Black';color:#fff;background-color: #016a38 ; border-color: #016a38;margin:10px auto;" > 
+              <!-- <img src="assets/icon/cam.png" height="25" width="25" style="color:#fff">   -->
+            <ion-icon name="camera" style="color:#fff;font-size:20px;vertical-align: middle;"></ion-icon>
+            {{medicalprescriptionImage}}
+        </button>     
     </ion-item>
+
     <ion-row>
         <ion-col col-2>
             <!-- <ion-item class="form-group" no-lines>

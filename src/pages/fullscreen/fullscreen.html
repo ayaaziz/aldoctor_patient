@@ -1,0 +1,28 @@
+
+<ion-header>
+
+  <ion-navbar hideBackButton>
+    <!-- <ion-title>fullscreen</ion-title> -->
+    <ion-row>
+      <ion-col col-7>
+      </ion-col>
+      <ion-col col-3 >
+      </ion-col>    
+      <ion-col col-2>
+        <ion-buttons  left>
+          <button ion-button (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon" >
+          </button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    
+  <img [src]="image" id="image" style="height: 100%;"> 
+    
+</ion-content>

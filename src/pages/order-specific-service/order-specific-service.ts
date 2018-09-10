@@ -441,6 +441,13 @@ this.events.subscribe('location', (data) => {
           // this.navCtrl.push('remaining-time-to-accept');
 
           if(JSON.parse(JSON.stringify(resp)).success ){
+            
+            this.storage.set('orderImages',this.photos).then(
+              val=>{
+                console.log("image saved",val);
+              }
+            );
+
             console.log("saveOrder resp: ",resp);
             var newOrder = JSON.parse(JSON.stringify(resp));
             

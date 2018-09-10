@@ -66,8 +66,8 @@ export class OrderServicePage {
   orderBTn = false;
   
   photosForApi=[];
-  // photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
-  photos=[];
+  photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
+  // photos=[];
   imageFlag = true;
 
   center_id = "" ;
@@ -675,6 +675,11 @@ Loadfunc(){
         resp => {
           // this.showLoading=true;
           if(JSON.parse(JSON.stringify(resp)).success ){
+            this.storage.set('orderImages',this.photos).then(
+              val=>{
+                console.log("image saved",val);
+              }
+            );
           console.log("saveOrder resp: ",resp);
           var newOrder = JSON.parse(JSON.stringify(resp));
           
@@ -815,7 +820,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
       this.photosForApi.push(encodeURIComponent(imageData));
       this.imageExt.push("jpeg");
 
-
+      
       if(this.photosForApi.length == 2)
         this.imageFlag = false;
 
