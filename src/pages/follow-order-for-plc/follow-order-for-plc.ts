@@ -77,6 +77,7 @@ export class FollowOrderForPlcPage {
     private localNotifications: LocalNotifications)
     {  
       this.accessToken = localStorage.getItem('user_token');
+      this.helper.view = "";
       
       this.langDirection = this.helper.lang_direction;
     
@@ -238,10 +239,22 @@ export class FollowOrderForPlcPage {
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
               if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
+              {
+                console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
                 this.scheduleNotification(m);
+              }  
 
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
+              {
+                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
                 this.scheduleNotification(m);
+              }  
+              
+              if(this.notificationFlag == false && h == 0 && m == 31 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
+              {
+                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+                this.scheduleNotification(m);
+              } 
 
             },
             err=>{
@@ -305,6 +318,8 @@ export class FollowOrderForPlcPage {
 
               if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
                 this.scheduleNotification(m);
+
+                
 
         },
         err=>{
@@ -550,8 +565,8 @@ private presentToast(text) {
   
               this.presentToast("تم الارسال");
               this.receivedImage = "1";
-              this.photosForApi = [];
-              this.photos = [];
+     //         this.photosForApi = [];
+    //          this.photos = [];
               this.UpdateorderBTn = false;
               
             }else{

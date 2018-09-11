@@ -20,11 +20,19 @@ export class TabsPage {
   tab4Root = NotificationPage;
 
   favCount ;
+  tabindex ;
 
   constructor(public events: Events) {
     this.events.subscribe('lengthdata', (count) => {
       
       this.favCount = count;
+    });
+    this.events.subscribe('changeIndex',(index)=>{
+      console.log("index",index);
+      console.log("index.index",index.index);
+      console.log("this.tabindex before set",this.tabindex);
+      this.tabindex = "1";
+      console.log("this.tabindex after set",this.tabindex);
     });
   }
   

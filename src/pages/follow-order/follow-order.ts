@@ -56,6 +56,7 @@ export class FollowOrderPage {
      public events: Events,private localNotifications: LocalNotifications) {
        console.log("follow order");
     this.langDirection = this.helper.lang_direction;
+    this.helper.view = "";
     
     this.accessToken = localStorage.getItem('user_token');
     

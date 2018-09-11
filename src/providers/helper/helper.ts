@@ -6,7 +6,7 @@ import { ToastController ,Events} from 'ionic-angular';
 // import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
 
-
+import { Network } from '@ionic-native/network';
 
 @Injectable()
 export class HelperProvider {
@@ -54,9 +54,13 @@ export class HelperProvider {
 
   public orderIdForUpdate;
 
+  public disconnectSubscription;
+  public connectSubscription;
+  public view;
+
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
-    public events: Events) {
+    public events: Events, private network: Network) {
     console.log('Hello HelperProvider Provider');
     
   }
@@ -366,5 +370,34 @@ connectedRef.on("value", (snap)=> {
 
 }
 
+listenToNetworkDisconnection(){
+console.log("listenToNetworkDisconnection");
+  this.disconnectSubscription = this.network.onDisconnect().subscribe(
+    () => {
+    console.log('network was disconnected :-(');
+    this.events.publish('networkError');
+  });
+  
+}
+removeNetworkDisconnectionListener(){
+  console.log("removeNetworkDisconnectionListener");
+  this.disconnectSubscription.unsubscribe(); 
+}
+listenToNetworkConnection(){
+  this.connectSubscription = this.network.onConnect().subscribe(
+    () => {
+    console.log('network connected!');
+    this.events.publish('networkConnected');
+      this.removeNetworkConnectionListener();
+    // setTimeout(() => {
+    //   if (this.network.type === 'wifi') {
+    //     console.log('we got a wifi connection, woohoo!');
+    //   }
+    // }, 3000);
+  });
+}
+removeNetworkConnectionListener(){
+  this.connectSubscription.unsubscribe(); 
+}
 
 }

@@ -37,8 +37,8 @@ export class SearchForPharmacyPage {
   btn1;
   btn2;
   tostClass ;
-//  locFlag= 0;
-  locFlag= 1;
+  locFlag= 0;
+  // locFlag= 1;
 
   center_id = "";
   toastFlag = false;
@@ -515,6 +515,6 @@ export class SearchForPharmacyPage {
       });
       toast.present();
     }
-  
+    
   
 }

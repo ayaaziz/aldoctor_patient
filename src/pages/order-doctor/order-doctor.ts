@@ -639,7 +639,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           
           this.presentToast(this.translate.instant("ordersent"));
           // this.navCtrl.pop();
-          this.navCtrl.setRoot('remaining-time-to-accept');
+          this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
           }else{
             this.presentToast(this.translate.instant("serverError"));
           }

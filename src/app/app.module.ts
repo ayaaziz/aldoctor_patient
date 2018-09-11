@@ -100,6 +100,7 @@ import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-inte
 // import { AngularFireDatabaseModule } from 'angularfire2/database';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Network } from '@ionic-native/network';
 
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyDnAX0CQbbsMYuOTJ66ox_F0GwzPM4XPXY",
@@ -212,7 +213,7 @@ export function createTranslateLoader(http: HttpClient) {
     // AngularFireAuth,
     // AngularFireDatabase,
     {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptorProvider, multi: true },
-
+    Network
   ]
 })
 export class AppModule {}

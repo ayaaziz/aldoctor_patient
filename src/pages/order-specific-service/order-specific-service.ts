@@ -426,14 +426,20 @@ this.events.subscribe('location', (data) => {
       this.presentToast(this.translate.instant("checkAtleastonepharmacy"));
     }
     else{
-      var doctorsId="";
+      // var doctorsId="";
+      // for(var j=0;j<this.choosenDoctors.length;j++)
+      // {
+      //   doctorsId += this.choosenDoctors[j].id+",";
+      // }
+      var doctorsId=[];
       for(var j=0;j<this.choosenDoctors.length;j++)
       {
-        doctorsId += this.choosenDoctors[j].id+",";
+        doctorsId.push(this.choosenDoctors[j].id);
       }
+
       console.log("doctors id: ",doctorsId);
       this.orderBTn = true;
-      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length).subscribe(
+      this.srv.saveOrder(doctorsId.join(','),this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length).subscribe(
         resp => {
           console.log("saveOrder resp: ",resp);
           // this.presentToast(this.translate.instant("ordersent"));
@@ -465,9 +471,9 @@ this.events.subscribe('location', (data) => {
             
             // this.navCtrl.push('remaining-time-to-accept');
             if(this.photosForApi.length == 0)
-              this.navCtrl.setRoot('remaining-time-for-plc',{data:0});
+              this.navCtrl.setRoot('remaining-time-for-plc',{data:0,orderId:newOrder.order.id});
             else 
-              this.navCtrl.setRoot('remaining-time-for-plc',{data:1});
+              this.navCtrl.setRoot('remaining-time-for-plc',{data:1,orderId:newOrder.order.id});
 
             }else{
               this.presentToast(this.translate.instant("serverError"));

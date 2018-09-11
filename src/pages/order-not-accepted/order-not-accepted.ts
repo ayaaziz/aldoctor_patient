@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
-
+import { HelperProvider } from '../../providers/helper/helper';
 
 @IonicPage(
   {
@@ -14,11 +14,13 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class OrderNotAcceptedPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(  public helper:HelperProvider,
+    public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderNotAcceptedPage');
+    this.helper.view = "";
   }
   ok(){
     this.navCtrl.setRoot(TabsPage);

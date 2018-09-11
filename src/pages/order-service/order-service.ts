@@ -38,11 +38,12 @@ export class OrderServicePage {
   fourth
   last;
   
-  // DoctorsArray=[{"id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
-  // {"id":2,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 2","color":"grey","offline":true,"place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
+   //DoctorsArray=[{"moreTxt":"xx","id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"}];
+  //  ,
+  //  {"id":2,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 2","color":"grey","offline":true,"place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
   // {"id":3,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 3","color":"grey","offline":true,"place":"mansoura","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
   
-  DoctorsArray=[];
+   DoctorsArray=[];
 
 
   cost:number=0;
@@ -66,8 +67,8 @@ export class OrderServicePage {
   orderBTn = false;
   
   photosForApi=[];
-  photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
-  // photos=[];
+  //photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
+  photos=[];
   imageFlag = true;
 
   center_id = "" ;
@@ -663,15 +664,21 @@ Loadfunc(){
       this.presentToast(this.translate.instant("checkAtleastonepharmacy"));
     }
     else{
-      var doctorsId="";
+      // var doctorsId="";
+      // for(var j=0;j<this.choosenDoctors.length;j++)
+      // {
+      //   doctorsId += this.choosenDoctors[j].id+",";
+      // }
+      var doctorsId=[];
       for(var j=0;j<this.choosenDoctors.length;j++)
       {
-        doctorsId += this.choosenDoctors[j].id+",";
+        doctorsId.push(this.choosenDoctors[j].id);
       }
       console.log("doctors id: ",doctorsId);
      this.orderBTn = true;
-    //  this.showLoading=false;
-      this.srv.saveOrder(doctorsId,this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length).subscribe(
+    //  this.showLoading=false;   \n doctorsId
+    console.log("choosenDoctors ,, ",doctorsId.join(','));
+      this.srv.saveOrder(doctorsId.join(','),this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length).subscribe(
         resp => {
           // this.showLoading=true;
           if(JSON.parse(JSON.stringify(resp)).success ){
@@ -696,9 +703,9 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           // this.navCtrl.push('remaining-time-to-accept');
           
           if(this.photosForApi.length == 0)
-            this.navCtrl.setRoot('remaining-time-for-plc',{data:0});
+            this.navCtrl.setRoot('remaining-time-for-plc',{data:0,orderId:newOrder.order.id});
           else 
-            this.navCtrl.setRoot('remaining-time-for-plc',{data:1});
+            this.navCtrl.setRoot('remaining-time-for-plc',{data:1,orderId:newOrder.order.id});
 
           }else{
             this.presentToast(this.translate.instant("serverError"));

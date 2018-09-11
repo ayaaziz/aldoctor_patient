@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {Nav, Platform, NavController, MenuController ,AlertController,ActionSheetController,Events} from 'ionic-angular';
+import {App, Nav, Platform, NavController, MenuController ,AlertController,ActionSheetController,Events} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -68,7 +68,8 @@ export class MyApp {
     public platform: Platform, private appRate: AppRate,
     public actionSheetCtrl: ActionSheetController,
     statusBar: StatusBar, splashScreen: SplashScreen,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+  public app:App) {
     console.log("current lang: ",this.helper.currentLang);
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
@@ -217,7 +218,20 @@ export class MyApp {
       this.helper.device_type="1";
     }
     
- 
+    platform.registerBackButtonAction(()=>{
+       console.log("back btn ");
+      //  this.app.viewWillLeave.subscribe(view=>{
+      //   console.log("view will leave ",view);
+      //   if(view.id == "remaining-time-for-plc")
+      //     this.events.publish('cancelOrder');
+      //   else if (view.id == "remaining-time-to-accept")
+      //     this.events.publish('cancelDoctorOrder');
+      //  });
+      if(this.helper.view == "remaining-time-for-plc")
+        this.events.publish('cancelOrder');
+      else if (this.helper.view == "remaining-time-to-accept")
+        this.events.publish('cancelDoctorOrder');
+     });
   }
   defaultLang(){
     this.translate.use('ar');
@@ -618,6 +632,7 @@ export class MyApp {
             
             if(orderStatus == "11")
             {
+              this.helper.removeNetworkDisconnectionListener();
               this.storage.remove("orderImages");
               this.presentAlert(notification.title,notification.message);
             }
@@ -629,6 +644,8 @@ export class MyApp {
               // if(this.helper.orderRated == 0)
               // {
                // this.events.publish('status5');
+               this.helper.removeNetworkDisconnectionListener();
+
                this.storage.remove("orderImages");
 
                 this.nav.push('rate-service',{
@@ -824,5 +841,30 @@ presentAlert(title,msg) {
       alert.present();
     }
 
+    // presentCancelConfirm() {
+    //   let alert = this.alertCtrl.create({
+    //     title: this.translate.instant("confirmCancelOrder"),
+    //     message: "هل تريد الغاء الطلب ؟ ",
+    //     buttons: [
+    //       {
+    //         text: this.translate.instant("disagree"),
+    //         role: 'cancel',
+    //         handler: () => {
+    //           console.log('disagree clicked');
+    //         }
+    //       },
+    //       {
+    //         text: this.translate.instant("agree"),
+    //         handler: () => {
+    //           console.log('cancel order agree clicked');
+              
+    //           this.navCtrl.push('cancel-service',{orderId:this.orderId});
+              
+    //         } 
+    //       }
+    //     ]
+    //   });
+    //   alert.present();
+    // }
     
 }

@@ -341,4 +341,5 @@ this.storage.get("rate_doctor").then(data=>{
 // time = time - hours * 3600;
 // }
 
+
 }

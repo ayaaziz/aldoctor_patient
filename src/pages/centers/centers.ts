@@ -158,6 +158,9 @@ console.log("sp item search val ",val);
       this.specializations2 = this.specializations2.filter((item)=>{
         return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
       });
+      console.log("centers sp1",this.specializations1);
+      console.log("centers sp2",this.specializations2);
+      
       if(this.specializations2.length == 0 && this.specializations1.length == 0)
       {
         this.presentToast(this.translate.instant('noSearchResult'));
