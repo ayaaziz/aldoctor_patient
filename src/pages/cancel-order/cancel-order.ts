@@ -38,8 +38,10 @@ export class CancelOrderPage {
    this.orderId =  this.navParams.get('orderId');
    this.langDirection = this.helper.lang_direction;
 
+   this.helper.view = "";
     this.accessToken = localStorage.getItem('user_token');
-      
+    
+
    if(this.langDirection == "rtl")
      this.tostClass = "toastRight";
    else

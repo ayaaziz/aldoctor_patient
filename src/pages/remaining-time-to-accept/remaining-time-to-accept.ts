@@ -21,6 +21,8 @@ export class RemainingTimeToAcceptPage {
   orderId;
   langDirection;
   tostClass;
+  acceptOrder = false;
+
 
   constructor(public helper:HelperProvider,public navCtrl: NavController, 
     public navParams: NavParams,public storage: Storage,
@@ -122,6 +124,7 @@ export class RemainingTimeToAcceptPage {
 
     this.events.subscribe('status2', (data) => {
       console.log("status2",data);
+      this.acceptOrder = true;
       clearTimeout(this.timer);
       this.navCtrl.setRoot('follow-order',
       {data:
@@ -134,7 +137,9 @@ export class RemainingTimeToAcceptPage {
     this.events.subscribe('networkError',(data)=>{
       this.helper.listenToNetworkConnection();
       this.presentToast(" تأكد من اتصالك بالانترنت.. لمتابعه الطلب من هنا ");
-      // this.navCtrl.push(OrderhistoryPage);  
+      // this.navCtrl.push(OrderhistoryPage);
+      clearTimeout(this.timer);
+      this.navCtrl.setRoot(TabsPage);  
       this.events.publish("changeIndex",{index:"1"});
       
       
@@ -150,7 +155,7 @@ export class RemainingTimeToAcceptPage {
   
   ionViewWillLeave(){
     console.log("remaing time for plc will leave");
-    if(this.time > 0)
+    if(this.time > 0 && this.acceptOrder == false)
       this.presentCancelConfirm();
   }
 
@@ -163,7 +168,8 @@ export class RemainingTimeToAcceptPage {
           text: this.translate.instant("disagree"),
           role: 'cancel',
           handler: () => {
-            console.log('disagree clicked');
+            console.log('cancel disagree clicked');
+            // this.navCtrl.setRoot(TabsPage);
           }
         },
         {

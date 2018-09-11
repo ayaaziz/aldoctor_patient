@@ -31,6 +31,7 @@ export class RemaingTimeForPlcPage {
   langDirection;
   tostClass;
   orderId;
+  acceptOrder = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider,public events: Events,
@@ -41,7 +42,7 @@ export class RemaingTimeForPlcPage {
   ) {
     
       this.helper.view = "remaining-time-for-plc";
-      
+
       this.accessToken = localStorage.getItem('user_token');
       this.langDirection = this.helper.lang_direction;
     
@@ -117,7 +118,7 @@ export class RemaingTimeForPlcPage {
 
   this.events.subscribe('status2ForPLC', (data) => {
     console.log("status2ForPLC",data);
-
+    this.acceptOrder = true;
     clearTimeout(this.timer);
     this.navCtrl.setRoot('follow-order-for-plc',
     {data:
@@ -137,6 +138,8 @@ export class RemaingTimeForPlcPage {
     this.helper.listenToNetworkConnection();
     this.presentToast(" تأكد من اتصالك بالانترنت.. لمتابعه الطلب من هنا ");
     // this.navCtrl.push(OrderhistoryPage);  
+    clearTimeout(this.timer);
+    this.navCtrl.setRoot(TabsPage);
     this.events.publish("changeIndex",{index:"1"});
     
     
@@ -160,7 +163,7 @@ export class RemaingTimeForPlcPage {
 
   ionViewWillLeave(){
     console.log("remaing time for plc will leave");
-    if(this.time > 0)
+    if(this.time > 0 && this.acceptOrder == false)
       this.presentCancelConfirm();
   }
 

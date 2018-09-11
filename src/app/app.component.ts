@@ -636,6 +636,11 @@ export class MyApp {
               this.storage.remove("orderImages");
               this.presentAlert(notification.title,notification.message);
             }
+            if(orderStatus == "8")
+            {
+              //بدء التوصيل
+              this.events.publish('status8ForPLC');
+            }
 
 
             

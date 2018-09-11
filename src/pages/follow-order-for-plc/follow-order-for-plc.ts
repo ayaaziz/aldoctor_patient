@@ -107,6 +107,11 @@ export class FollowOrderForPlcPage {
       // else
       //   this.disableCancelBtn = false;
   
+      if(this.doctorData.order_status && this.doctorData.order_status == "8")
+        this.disableCancelBtn = true;
+      else
+        this.disableCancelBtn = false;
+
       if(this.type_id == "1"){
         this.callService = this.translate.instant("callPharmacy");
         this.serviceName = this.translate.instant("pharmacyName");
@@ -155,11 +160,13 @@ export class FollowOrderForPlcPage {
           }else{
             console.log("else from follow order for plc");
             this.imageFlag = true;
+            this.editFlag = true;
           }
          
         }).catch(err=>{
           console.log("catch from follow order for plc",err);
           this.imageFlag = true;
+          this.editFlag = true;
         });
 
         this.accessToken = localStorage.getItem('user_token');
@@ -238,7 +245,7 @@ export class FollowOrderForPlcPage {
 
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
-              if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
               {
                 console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
                 this.scheduleNotification(m);
@@ -250,7 +257,7 @@ export class FollowOrderForPlcPage {
                 this.scheduleNotification(m);
               }  
               
-              if(this.notificationFlag == false && h == 0 && m == 31 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
               {
                 console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
                 this.scheduleNotification(m);
@@ -313,12 +320,28 @@ export class FollowOrderForPlcPage {
 
               // if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
               //   this.scheduleNotification(m);
-              if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
-                this.scheduleNotification(m);
+              // if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
+              //   this.scheduleNotification(m);
 
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
+              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
+              //   this.scheduleNotification(m);
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
+              {
+                console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
                 this.scheduleNotification(m);
+              }  
 
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
+              {
+                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+                this.scheduleNotification(m);
+              }  
+              
+              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
+              {
+                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+                this.scheduleNotification(m);
+              }
                 
 
         },
@@ -363,8 +386,8 @@ export class FollowOrderForPlcPage {
     //   });
       
     // });
-    this.events.subscribe('status7', (data) => {
-      console.log("notification event status 7");
+    this.events.subscribe('status8ForPLC', (data) => {
+      console.log("notification event status8ForPLC");
 
       this.disableCancelBtn = true;
     });
@@ -618,10 +641,14 @@ private presentToast(text) {
   scheduleNotification(m) {
     this.notificationFlag = true;
     var txt = "";
+    // if(this.type_id == "1")
+    //   txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
+    // else if (this.type_id == "2" || this.type_id == "3")
+    //   txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
     if(this.type_id == "1")
-      txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
+      txt = "سوف يصلك الطلب  ";
     else if (this.type_id == "2" || this.type_id == "3")
-      txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
+      txt = "سوف يصلك الطلب  ";
 
 //+ 1 * 1000
 

@@ -457,8 +457,8 @@ Loadfunc(){
         for(var i=0;i<doctorData["result"].length;i++){
             console.log("doctor: ",doctorData["result"][i]); 
             
-            doctorData["result"][i].timefordelivery = "1د";
-            doctorData["result"][i].distance = "1م";
+            // doctorData["result"][i].timefordelivery = "1د";
+            // doctorData["result"][i].distance = "1م";
 
             doctorData["result"][i].type_id = this.type_id;
             if(doctorData["result"][i].nickname)
@@ -850,8 +850,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
 
   doRefresh(ev){
     console.log("refresh",ev);
-    this.photos =[];
-    this.photosForApi = [];
+    // this.photos =[];
+    // this.photosForApi = [];
     this.refresher = ev;
     this.Loadfunc();
     

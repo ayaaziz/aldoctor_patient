@@ -226,6 +226,10 @@ export class OrderhistoryPage {
                 this.orderobject.name = "لا يوجد استجابه"; //تم رفض الطلب
               else if (ordersData[j].status == "0")
                 this.orderobject.name = "تم ارسال الطلب";
+              else if (ordersData[j].status == "10")
+                this.orderobject.name = "مرفوض";
+              else if (ordersData[j].status == "4")
+                this.orderobject.name = "ملغى";
                 
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
               this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
