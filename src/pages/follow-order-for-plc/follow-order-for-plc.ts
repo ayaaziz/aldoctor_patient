@@ -563,7 +563,10 @@ private presentToast(text) {
   }
   sendprescriptionImages(){
     
-    // if(this.editFlag == true)
+    console.log("editflag",this.editFlag);
+    if(this.editFlag == true)
+    {
+    // if(this.receivedImage == "1")
     // {
       if(this.photosForApi.length == 0 && this.type_id == 3)
       {
@@ -607,9 +610,9 @@ private presentToast(text) {
         );
       }
 
-    // }else{
-    //   this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
-    // }
+    }else{
+      this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
+    }
 
    
   }

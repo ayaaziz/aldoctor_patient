@@ -663,7 +663,7 @@ export class MyApp {
                this.helper.removeNetworkDisconnectionListener();
 
                this.storage.remove("orderImages");
-
+                this.helper.dontSendNotification = true;
                 this.nav.push('rate-service',{
                   data:{
                     doctorId:notification.additionalData.doctorId,

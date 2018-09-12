@@ -239,13 +239,19 @@ export class RateServicePage {
         console.log("resp from rate :",resp); 
         this.helper.orderRated = 1;
         this.presentToast(this.translate.instant("done"));
-        this.srv.updateOrderStatus(this.orderId,this.accessToken).subscribe(
-          resp=>{
-            console.log("resp updateOrderStatus",resp);
-          },err=>{
-            console.log("err updateOrderStatus",err);
-          }
-        );
+        if(this.helper.dontSendNotification == false)
+        {
+          this.srv.updateOrderStatus(this.orderId,this.accessToken).subscribe(
+            resp=>{
+              console.log("resp updateOrderStatus",resp);
+            },err=>{
+              console.log("err updateOrderStatus",err);
+            }
+          );
+          
+        }
+        
+
         this.navCtrl.setRoot(TabsPage);
         
       },err=>{

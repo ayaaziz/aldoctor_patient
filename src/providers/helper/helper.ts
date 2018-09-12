@@ -57,6 +57,7 @@ export class HelperProvider {
   public disconnectSubscription;
   public connectSubscription;
   public view;
+  public dontSendNotification = false;
 
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
