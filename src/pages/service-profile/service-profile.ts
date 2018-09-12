@@ -51,6 +51,8 @@ export class ServiceProfilePage {
     public actionSheetCtrl: ActionSheetController) {
       
       this.accessToken = localStorage.getItem('user_token');
+      this.helper.view = "pop";
+      
 
     var data = this.navParams.get('data');
     console.log("data from service-profile ", data);
@@ -255,4 +257,10 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     this.imageExt.pop();
     this.imageFlag = true;
   }
+
+  fullScreen(index){
+    console.log("image clicked",index)
+    this.navCtrl.push('full-screen',{data:this.photos[index]});
+  }
+  
 }

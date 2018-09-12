@@ -40,6 +40,7 @@ export class DoctorEvaluationPage {
     public navCtrl: NavController, public navParams: NavParams) {
       this.langDirection = this.helper.lang_direction;
 
+      this.helper.view = "pop";
       
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";

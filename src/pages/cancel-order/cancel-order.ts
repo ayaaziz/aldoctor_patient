@@ -39,6 +39,8 @@ export class CancelOrderPage {
    this.langDirection = this.helper.lang_direction;
 
    this.helper.view = "";
+   this.helper.view = "pop";
+
     this.accessToken = localStorage.getItem('user_token');
     
 
@@ -122,7 +124,9 @@ export class CancelOrderPage {
             this.helper.view = "";
             this.helper.updateCancelOrderStatus(this.orderId);
             this.presentToast(this.translate.instant("orderCancled"));     
-            this.navCtrl.setRoot(OrderhistoryPage);
+            // this.navCtrl.setRoot(OrderhistoryPage);
+            this.navCtrl.pop();
+            this.navCtrl.parent.select(1);
           }
         },
         err=>{

@@ -71,6 +71,7 @@ export class OrderSpecificServicePage {
     public actionSheetCtrl: ActionSheetController) {
 
       this.langDirection = this.helper.lang_direction;
+      this.helper.view = "pop";
       
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
@@ -713,5 +714,10 @@ this.events.subscribe('location', (data) => {
     
   }
 
+  fullScreen(index){
+    console.log("image clicked",index)
+    this.navCtrl.push('full-screen',{data:this.photos[index]});
+  }
+  
 
 }

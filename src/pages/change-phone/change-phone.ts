@@ -36,6 +36,7 @@ export class ChangePhonePage {
   public app:App) {
 
     this.accessToken = localStorage.getItem('user_token');
+    this.helper.view = "pop";
     
     this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);

@@ -65,6 +65,7 @@ export class OrderDoctorPage {
      console.log("ordre btn",this.orderBTn);
 
      this.accessToken = localStorage.getItem('user_token');
+     this.helper.view = "pop";
 
         this.langDirection = this.helper.lang_direction;
         if(this.langDirection == "rtl")

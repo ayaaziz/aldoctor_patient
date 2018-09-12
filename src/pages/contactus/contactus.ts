@@ -39,6 +39,8 @@ export class ContactusPage {
     
     
     this.accessToken = localStorage.getItem('user_token');
+    this.helper.view = "pop";
+    
 
     if (this.helper.currentLang == 'ar')
     {

@@ -45,6 +45,7 @@ export class DoctorProfilePage {
         this.tostClass="toastLeft";
 
     this.accessToken = localStorage.getItem('user_token');
+    this.helper.view = "pop";
 
     this.translate.use(this.helper.currentLang);
     

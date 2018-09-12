@@ -52,6 +52,7 @@ export class FollowOrderForPlcPage {
   sendprescription;
   hint;
   photos=[];
+  //photos = ["assets/imgs/testImage.jpeg"];
   // photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
   photosForApi=[];
   
@@ -146,6 +147,7 @@ export class FollowOrderForPlcPage {
           if(val){
             console.log("if from follow order for plc images",val);
             this.photos = val;
+            // this.photos.push("assets/imgs/testImage.jpeg");
             for(var i=0;i<this.photos.length;i++)
             {
               this.photosForApi.push(encodeURIComponent(this.photos[i].split(',')[1]));
@@ -224,7 +226,7 @@ export class FollowOrderForPlcPage {
               // this.duration = dur;
               var number = 0;
               if(this.type_id == "1")
-                number = 20*60;
+                number = 30*60;
               else if (this.type_id == "2" || this.type_id == "3")
                 number = 30*60;
               
@@ -299,7 +301,7 @@ export class FollowOrderForPlcPage {
               // this.duration = dur;
               var number = 0;
               if(this.type_id == "1")
-                number = 20*60;
+                number = 30*60;
               else if (this.type_id == "2" || this.type_id == "3")
                 number = 30*60;
               
@@ -561,8 +563,8 @@ private presentToast(text) {
   }
   sendprescriptionImages(){
     
-    if(this.editFlag == true)
-    {
+    // if(this.editFlag == true)
+    // {
       if(this.photosForApi.length == 0 && this.type_id == 3)
       {
         this.presentToast(this.translate.instant("atleastOneimageforLab"));
@@ -605,9 +607,9 @@ private presentToast(text) {
         );
       }
 
-    }else{
-      this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
-    }
+    // }else{
+    //   this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
+    // }
 
    
   }

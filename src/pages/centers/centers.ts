@@ -47,6 +47,9 @@ export class CentersPage {
         this.tostClass = "toastRight";
       else
         this.tostClass="toastLeft";
+
+        this.helper.view = "pop";
+        
   }
 
   

@@ -30,6 +30,9 @@ export class ForgetPasswordPage {
 
 
     this.langDirection = this.helper.lang_direction;
+
+    this.helper.view = "pop";
+    
     this.translate.use(this.helper.currentLang);
     if(this.langDirection == "rtl")
       this.tostClass = "toastRight";

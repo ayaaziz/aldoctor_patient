@@ -44,6 +44,8 @@ export class SpecializationsPage {
       this.accessToken = localStorage.getItem('user_token');
 
       this.langDirection = this.helper.lang_direction;
+      this.helper.view = "pop";
+      
 
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";

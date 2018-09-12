@@ -22,6 +22,9 @@ export class RemainingTimeToAcceptPage {
   langDirection;
   tostClass;
   acceptOrder = false;
+  net = true;
+  stopAlert = false;
+  
 
 
   constructor(public helper:HelperProvider,public navCtrl: NavController, 
@@ -60,7 +63,7 @@ export class RemainingTimeToAcceptPage {
         this.time--;
         if(this.time <= 0){
           console.log("timer off");
-          this.helper.removeNetworkDisconnectionListener();
+          // this.helper.removeNetworkDisconnectionListener();
           clearTimeout(this.timer);
           
           // this.storage.get("access_token").then(data=>{
@@ -111,13 +114,14 @@ export class RemainingTimeToAcceptPage {
     this.events.subscribe('cancelDoctorOrder', () => {
       console.log("cancel order from event doc");
 
-      this.presentCancelConfirm();
+      // this.presentCancelConfirm();
+      this.backpresentCancelConfirm();
      });
 
 
     this.events.subscribe('status0', (data) => {
       console.log("status0",data);
-      this.helper.removeNetworkDisconnectionListener(); 
+      // this.helper.removeNetworkDisconnectionListener(); 
       clearTimeout(this.timer);
       this.navCtrl.setRoot('order-not-accepted');
     });
@@ -136,17 +140,23 @@ export class RemainingTimeToAcceptPage {
 
     this.events.subscribe('networkError',(data)=>{
       this.helper.listenToNetworkConnection();
+      this.net = false;
+
       this.presentToast(" تأكد من اتصالك بالانترنت.. لمتابعه الطلب من هنا ");
       // this.navCtrl.push(OrderhistoryPage);
+      this.helper.removeNetworkDisconnectionListener();
       clearTimeout(this.timer);
       this.navCtrl.setRoot(TabsPage);  
-      this.events.publish("changeIndex",{index:"1"});
+      this.navCtrl.parent.select(1);
+      //this.events.publish("changeIndex",{index:"1"});
       
       
     });
     
     this.events.subscribe('networkConnected',(data)=>{
-      this.presentToast("الان انت متصل بالانترنت");
+      this.presentToast(" انت متصل بالانترنت");
+      this.net = true;
+      this.helper.removeNetworkConnectionListener();
     });
 
 
@@ -155,7 +165,7 @@ export class RemainingTimeToAcceptPage {
   
   ionViewWillLeave(){
     console.log("remaing time for plc will leave");
-    if(this.time > 0 && this.acceptOrder == false)
+    if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
       this.presentCancelConfirm();
   }
 
@@ -170,6 +180,7 @@ export class RemainingTimeToAcceptPage {
           handler: () => {
             console.log('cancel disagree clicked');
             // this.navCtrl.setRoot(TabsPage);
+            this.navCtrl.parent.select(0);
           }
         },
         {
@@ -178,6 +189,8 @@ export class RemainingTimeToAcceptPage {
             console.log('cancel order agree clicked');
             clearTimeout(this.timer);
             // this.navCtrl.pop();
+            this.navCtrl.parent.select(0);
+            this.stopAlert = true;
             this.navCtrl.setRoot(TabsPage);
             this.navCtrl.push('cancel-order',{orderId:this.orderId});
             
@@ -197,5 +210,35 @@ export class RemainingTimeToAcceptPage {
     });
     toast.present();
   }
-
+  backpresentCancelConfirm() {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmCancelOrder"),
+      message: "هل تريد الغاء الطلب ؟ ",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('cancel disagree clicked');
+            // this.navCtrl.setRoot(TabsPage);
+     //       this.navCtrl.parent.select(0);
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('cancel order agree clicked');
+            clearTimeout(this.timer);
+            // this.navCtrl.pop();
+   //         this.navCtrl.parent.select(0);
+            this.stopAlert = true;
+            this.navCtrl.setRoot(TabsPage);
+            this.navCtrl.push('cancel-order',{orderId:this.orderId});
+            
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
 }

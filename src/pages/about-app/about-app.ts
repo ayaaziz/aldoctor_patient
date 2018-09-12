@@ -31,7 +31,8 @@ export class AboutAppPage {
     public storage:Storage,public navCtrl: NavController, 
     public navParams: NavParams) {
     
-      this.accessToken  = localStorage.getItem('user_token')
+      this.accessToken  = localStorage.getItem('user_token');
+      this.helper.view = "pop";
 
     if (this.helper.currentLang == 'ar')
     {

@@ -32,6 +32,8 @@ export class RemaingTimeForPlcPage {
   tostClass;
   orderId;
   acceptOrder = false;
+  net = true;
+  stopAlert = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider,public events: Events,
@@ -84,7 +86,7 @@ export class RemaingTimeForPlcPage {
       this.time--;
       if(this.time <= 0){
         console.log("timer off");
-        this.helper.removeNetworkDisconnectionListener();
+        // this.helper.removeNetworkDisconnectionListener();
        clearTimeout(this.timer);
 
       //  this.storage.get("access_token").then(data=>{
@@ -110,7 +112,7 @@ export class RemaingTimeForPlcPage {
 
   this.events.subscribe('status0ForPLC', (data) => {
     console.log("status0ForPLC",data);
-    this.helper.removeNetworkDisconnectionListener();    
+    // this.helper.removeNetworkDisconnectionListener();    
     clearTimeout(this.timer);
     
     this.navCtrl.setRoot('order-not-accepted');
@@ -131,22 +133,28 @@ export class RemaingTimeForPlcPage {
   
   this.events.subscribe('cancelOrder', () => {
    console.log("cancel order from event");
-   this.presentCancelConfirm();
+  //  this.presentCancelConfirm();
+  this.backpresentCancelConfirm();
   });
   
   this.events.subscribe('networkError',(data)=>{
     this.helper.listenToNetworkConnection();
+    this.net = false;
     this.presentToast(" تأكد من اتصالك بالانترنت.. لمتابعه الطلب من هنا ");
     // this.navCtrl.push(OrderhistoryPage);  
+    this.helper.removeNetworkDisconnectionListener();
     clearTimeout(this.timer);
     this.navCtrl.setRoot(TabsPage);
-    this.events.publish("changeIndex",{index:"1"});
+    this.navCtrl.parent.select(1);
+    // this.events.publish("changeIndex",{index:"1"});
     
     
   });
   
   this.events.subscribe('networkConnected',(data)=>{
-    this.presentToast("الان انت متصل بالانترنت");
+    this.presentToast("انت متصل بالانترنت");
+    this.net = true;
+    this.helper.removeNetworkConnectionListener();
   });
 
   }
@@ -163,7 +171,8 @@ export class RemaingTimeForPlcPage {
 
   ionViewWillLeave(){
     console.log("remaing time for plc will leave");
-    if(this.time > 0 && this.acceptOrder == false)
+    console.log("net",this.net);
+    if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
       this.presentCancelConfirm();
   }
 
@@ -177,6 +186,7 @@ export class RemaingTimeForPlcPage {
           role: 'cancel',
           handler: () => {
             console.log('disagree clicked');
+            this.navCtrl.parent.select(0);
           }
         },
         {
@@ -185,7 +195,10 @@ export class RemaingTimeForPlcPage {
             console.log('cancel order agree clicked');
             clearTimeout(this.timer);
             // this.navCtrl.pop();
+            this.navCtrl.parent.select(0);
+            this.stopAlert = true;
             this.navCtrl.setRoot(TabsPage);
+            
             this.navCtrl.push('cancel-service',{orderId:this.orderId});
             
           } 
@@ -194,5 +207,37 @@ export class RemaingTimeForPlcPage {
     });
     alert.present();
   }
+  backpresentCancelConfirm() {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmCancelOrder"),
+      message: "هل تريد الغاء الطلب ؟ ",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+            //this.navCtrl.parent.select(0);
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('cancel order agree clicked');
+            clearTimeout(this.timer);
+            // this.navCtrl.pop();
+            //this.navCtrl.parent.select(0);
+            this.stopAlert = true;
+            this.navCtrl.setRoot(TabsPage);
+            
+            this.navCtrl.push('cancel-service',{orderId:this.orderId});
+            
+          } 
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
 }

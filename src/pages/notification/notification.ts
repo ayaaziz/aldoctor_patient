@@ -50,6 +50,9 @@ export class NotificationPage {
   ionViewWillEnter(){
     console.log("will enter notifications");
 
+    
+      this.helper.view = "NotificationPage"; 
+    
     // this.storage.get("access_token").then(data=>{
     //   this.accessToken = data;
 

@@ -80,6 +80,7 @@ myRate;
   }
   newuserData;
   ionViewWillEnter(){
+    this.helper.view = "ProfilePage";
     this.storage.ready().then(() => {
     
       // this.storage.get('data').then(data=>{

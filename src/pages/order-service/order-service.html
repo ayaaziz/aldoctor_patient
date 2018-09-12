@@ -197,7 +197,7 @@
       <ion-col col-4 *ngFor="let photo of photos; let id = index" style="text-align:right">
 
           <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-          <img [src]="photo" *ngIf="photo" style="width:90px;height:80px" />
+          <img [src]="photo" *ngIf="photo" style="width:90px;height:80px" (click)="fullScreen(id)"/>
   
       </ion-col>
   

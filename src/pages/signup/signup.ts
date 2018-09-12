@@ -74,6 +74,7 @@ export class SignupPage {
     public camera: Camera,
     public actionSheetCtrl: ActionSheetController, public storage: Storage,public loginservice:LoginserviceProvider, public toastCtrl: ToastController, public translate: TranslateService,public helper: HelperProvider, public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder) {
     this.langDirection = this.helper.lang_direction;
+    this.helper.view = "pop";
 
     if(this.langDirection == "rtl")
         this.tostClass = "toastRight";

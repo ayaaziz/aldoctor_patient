@@ -31,6 +31,7 @@ xxrate;
     // this.translate.use(this.helper.currentLang);
     
     this.accessToken = localStorage.getItem('user_token');
+    this.helper.view = "HomePage";
 
     // this.helper.userId=114;
     // this.helper.intializeFirebase();
@@ -291,8 +292,10 @@ this.storage.get("rate_doctor").then(data=>{
   }
 
   ionViewDidLoad(){
-    if(!navigator.onLine)
-      this.presentToast(this.translate.instant("checkNetwork"));
+    // if(!navigator.onLine)
+    //   this.presentToast(this.translate.instant("checkNetwork"));
+
+
   //   this.storage.ready().then(() => {
     
   //     this.storage.set('data',"samar").then(
@@ -341,5 +344,8 @@ this.storage.get("rate_doctor").then(data=>{
 // time = time - hours * 3600;
 // }
 
+ionViewDidEnter(){
+  this.helper.view = "HomePage"; 
+}
 
 }

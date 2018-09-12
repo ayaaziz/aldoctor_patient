@@ -47,6 +47,7 @@ validPass=false;
         this.tostClass="toastLeft";
       
     this.accessToken = localStorage.getItem('user_token');
+    this.helper.view = "pop";
 
     this.resetForm = formBuilder.group({
       //usermail: ['', Validators.compose([Validators.required,Validators.email])],

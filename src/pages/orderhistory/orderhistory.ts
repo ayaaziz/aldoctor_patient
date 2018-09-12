@@ -107,7 +107,7 @@ export class OrderhistoryPage {
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
-            else if (ordersData[j].status == "10")
+            else if (ordersData[j].status == "10" || ordersData[j].status == "11")
             {
               ordersData[j].statusTxt ="مرفوض" ;
               ordersData[j].color = "red";
@@ -641,7 +641,8 @@ export class OrderhistoryPage {
     // );
   }
   ionViewWillEnter() {
-    console.log("will enter get orders")
+    console.log("will enter get orders");
+    this.helper.view = "OrderhistoryPage";
     this.cancelTxt = this.translate.instant("canceltxt");
     this.doneTxt = this.translate.instant("doneTxt");
     this.to="";

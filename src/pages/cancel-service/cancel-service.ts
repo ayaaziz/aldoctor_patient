@@ -38,6 +38,7 @@ export class CancelServicePage {
       this.orderId =  this.navParams.get('orderId');
       this.langDirection = this.helper.lang_direction;
       this.helper.view = "";
+      this.helper.view = "pop";
 
       this.accessToken = localStorage.getItem('user_token');
       
@@ -124,7 +125,10 @@ reasonChecked(item , event){
             this.helper.view = "";
             // this.helper.updateCancelOrderStatus(this.orderId);
             this.presentToast(this.translate.instant("orderCancled"));     
-            this.navCtrl.setRoot(OrderhistoryPage);
+            // this.navCtrl.setRoot(OrderhistoryPage);
+            this.navCtrl.pop();
+            this.navCtrl.parent.select(1);
+
           }
         },
         err=>{

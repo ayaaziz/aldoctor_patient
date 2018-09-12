@@ -65,15 +65,15 @@ export class HelperProvider {
     
   }
   
-  public presentToast(text) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 4000,
-      position: 'bottom'
+  // public presentToast(text) {
+  //   let toast = this.toastCtrl.create({
+  //     message: text,
+  //     duration: 4000,
+  //     position: 'bottom'
       
-    });
-    toast.present();
-  }
+  //   });
+  //   toast.present();
+  // }
 
 
   private updateOnDisconnect() {
@@ -373,8 +373,8 @@ connectedRef.on("value", (snap)=> {
 listenToNetworkDisconnection(){
 console.log("listenToNetworkDisconnection");
   this.disconnectSubscription = this.network.onDisconnect().subscribe(
-    () => {
-    console.log('network was disconnected :-(');
+    (val) => {
+    console.log('network was disconnected :-(',val);
     this.events.publish('networkError');
   });
   

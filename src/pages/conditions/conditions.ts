@@ -35,7 +35,8 @@ export class ConditionsPage {
     public translate:TranslateService,public navCtrl: NavController, public navParams: NavParams) {
    
       this.accessToken = localStorage.getItem('user_token');
-
+      this.helper.view = "pop";
+      
     if (this.helper.currentLang == 'ar')
     {
      

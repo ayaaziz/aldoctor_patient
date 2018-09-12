@@ -59,6 +59,7 @@ export class EditProfilePage {
     this.translate.use(this.helper.currentLang);
      
     this.accessToken = localStorage.getItem('user_token');
+    this.helper.view = "pop";
     
     if(this.langDirection == "rtl")
       this.tostClass = "toastRight";

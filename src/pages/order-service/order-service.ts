@@ -88,6 +88,8 @@ export class OrderServicePage {
     this.accessToken = localStorage.getItem('user_token');
 
       this.langDirection = this.helper.lang_direction;
+      this.helper.view = "pop";
+      
        
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";
@@ -856,6 +858,11 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     this.Loadfunc();
     
     
+  }
+  
+  fullScreen(index){
+    console.log("image clicked",index)
+    this.navCtrl.push('full-screen',{data:this.photos[index]});
   }
 
 }

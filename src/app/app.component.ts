@@ -227,10 +227,21 @@ export class MyApp {
       //   else if (view.id == "remaining-time-to-accept")
       //     this.events.publish('cancelDoctorOrder');
       //  });
+      console.log("this.app.getActiveNavs()",this.app.getActiveNavs());
+      let nav = this.app.getActiveNavs()[0];
+      console.log("nav: ",nav)
+      console.log("view : ",this.helper.view)
       if(this.helper.view == "remaining-time-for-plc")
         this.events.publish('cancelOrder');
       else if (this.helper.view == "remaining-time-to-accept")
         this.events.publish('cancelDoctorOrder');
+      else if (this.helper.view == "HomePage" || this.helper.view == "LoginPage" || this.helper.view == "NotificationPage" || this.helper.view == "OrderhistoryPage" ||this.helper.view == "ProfilePage")
+        this.platform.exitApp();
+      else if (this.helper.view == "pop")
+        nav.pop();
+      else
+        this.platform.exitApp();
+        
      });
   }
   defaultLang(){
@@ -871,5 +882,9 @@ presentAlert(title,msg) {
     //   });
     //   alert.present();
     // }
-    
+    ionViewWillLeave() {
+      console.log('app will leave')
+     }
+
 }
+

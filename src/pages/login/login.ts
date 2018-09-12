@@ -223,4 +223,9 @@ export class LoginPage {
   forgetPass(){
     this.navCtrl.push('forget-Pass');
   }
+  ionViewDidEnter(){
+    this.helper.view = "LoginPage"; 
+  }
+
+  
 }
