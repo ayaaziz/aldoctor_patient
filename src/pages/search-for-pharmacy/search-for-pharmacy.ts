@@ -42,6 +42,7 @@ export class SearchForPharmacyPage {
 
   center_id = "";
   toastFlag = false;
+  allMarkers = [] ;
 
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -354,30 +355,35 @@ export class SearchForPharmacyPage {
   }
   initMapWithDoctorsLocation(){
   
-    let latlng = new google.maps.LatLng(this.lat,this.lng);
-    var mapOptions={
-     center:latlng,
-      zoom:15,
-      mapTypeId:google.maps.MapTypeId.ROADMAP,
+    // let latlng = new google.maps.LatLng(this.lat,this.lng);
+    // var mapOptions={
+    //  center:latlng,
+    //   zoom:15,
+    //   mapTypeId:google.maps.MapTypeId.ROADMAP,
   
-    };
-    this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: latlng,
-      icon: { 
-        url : 'assets/icon/user_locations.png',
-        size: new google.maps.Size(71, 71),
-        scaledSize: new google.maps.Size(20, 25) 
-      }
+    // };
+    // this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+    // let marker = new google.maps.Marker({
+    //   map: this.map,
+    //   animation: google.maps.Animation.DROP,
+    //   position: latlng,
+    //   icon: { 
+    //     url : 'assets/icon/user_locations.png',
+    //     size: new google.maps.Size(71, 71),
+    //     scaledSize: new google.maps.Size(20, 25) 
+    //   }
   
      
-    });
+    // });
   
   
     var markers, i;
-  
+    
+    for(var j=0;j<this.allMarkers.length;j++)
+    {
+      this.allMarkers[j].setMap(null);
+    }
+
     for (i = 0; i < this.doctorsLoc.length; i++) {  
       console.log("pin doctors om map",this.doctorsLoc);
   
@@ -393,7 +399,7 @@ export class SearchForPharmacyPage {
       });
     
     }
-    
+    this.allMarkers.push(markers);    
     this.allowUserToChooseHisLocation();
   
   }

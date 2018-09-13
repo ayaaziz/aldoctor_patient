@@ -42,7 +42,7 @@ export class RateServicePage {
     public helper:HelperProvider,public translate: TranslateService) {
 
       this.accessToken = localStorage.getItem('user_token');
-
+      this.helper.view = "pop";
       this.langDirection = this.helper.lang_direction;
       if(this.langDirection == "rtl")
         this.tostClass = "toastRight";

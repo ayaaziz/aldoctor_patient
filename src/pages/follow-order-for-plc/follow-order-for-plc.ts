@@ -651,9 +651,9 @@ private presentToast(text) {
     // else if (this.type_id == "2" || this.type_id == "3")
     //   txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
     if(this.type_id == "1")
-      txt = "سوف يصلك الطلب  ";
+      txt =  this.doctorName +"سوف يصلك الطلب من قبل ";
     else if (this.type_id == "2" || this.type_id == "3")
-      txt = "سوف يصلك الطلب  ";
+      txt =  this.doctorName +"سوف يصلك الطلب من قبل ";
 
 //+ 1 * 1000
 
