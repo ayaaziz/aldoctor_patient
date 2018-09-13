@@ -439,7 +439,11 @@ this.events.subscribe('location', (data) => {
 
   }
 Loadfunc(){
-  this.showLoading = false;
+  
+  if(this.refresher)
+    this.showLoading = true;
+  else
+    this.showLoading = false;
     
     this.accessToken = localStorage.getItem('user_token');
 
