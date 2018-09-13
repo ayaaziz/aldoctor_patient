@@ -263,9 +263,15 @@ export class OrderhistoryPage {
   refreshOrders(){
     // this.storage.get("access_token").then(data=>{
     //   this.accessToken = data;
+
+
     this.accessToken = localStorage.getItem('user_token');
 
+    if(this.refresher)
+      this.showLoading = true;
+    else
       this.showLoading = false;
+          // this.showLoading = false;
 
       this.service.getUserOrders(1,this.accessToken).subscribe(
         resp=>{
@@ -454,8 +460,13 @@ export class OrderhistoryPage {
   }
 
   refreshFilterOrders(){
-    this.showLoading = false;
-    this.service.filterOrder(this.from,this.to,1,this.accessToken).subscribe(
+    
+    if(this.refresher)
+      this.showLoading = true;
+    else
+      this.showLoading = false;
+    
+      this.service.filterOrder(this.from,this.to,1,this.accessToken).subscribe(
       resp=>{
 
         this.showLoading = true;
