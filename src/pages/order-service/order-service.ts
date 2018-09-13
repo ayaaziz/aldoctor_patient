@@ -206,55 +206,55 @@ export class OrderServicePage {
         }
       });
 
-      this.events.subscribe('locationChanged', (data) => {
-        console.log("location changed event",data);
+      // this.events.subscribe('locationChanged', (data) => {
+      //   console.log("location changed event",data);
 
-        if(data.location){
-          for(var k=0;k<this.DoctorsArray.length;k++)
-          {   
-            if(this.DoctorsArray[k].id == data.id)
-            {
-              this.DoctorsArray[k].lat = data.location.split(',')[0];
-              this.DoctorsArray[k].lng = data.location.split(',')[1];
-              if(this.DoctorsArray[k].offline == false)
-              {
-                this.getDistanceAndDuration(k);
-                this.sortDoctors();
-              }
+      //   if(data.location){
+      //     for(var k=0;k<this.DoctorsArray.length;k++)
+      //     {   
+      //       if(this.DoctorsArray[k].id == data.id)
+      //       {
+      //         this.DoctorsArray[k].lat = data.location.split(',')[0];
+      //         this.DoctorsArray[k].lng = data.location.split(',')[1];
+      //         if(this.DoctorsArray[k].offline == false)
+      //         {
+      //           this.getDistanceAndDuration(k);
+      //           this.sortDoctors();
+      //         }
   
               
-            }
+      //       }
                   
-          }
-          }
+      //     }
+      //     }
 
-      });
-this.events.subscribe('location', (data) => {
-  console.log(" event location ",data);
+      // });
+// this.events.subscribe('location', (data) => {
+//   console.log(" event location ",data);
   
 
-  if(data.location){
-  for(var k=0;k<this.DoctorsArray.length;k++)
-  {   
-    if(this.DoctorsArray[k].id == data.id)
-    {
-      this.DoctorsArray[k].lat = data.location.split(',')[0];
-      this.DoctorsArray[k].lng = data.location.split(',')[1];
-      if(this.DoctorsArray[k].offline == false)
-      {  
-        this.getDistanceAndDuration(k);
-      }
+//   if(data.location){
+//   for(var k=0;k<this.DoctorsArray.length;k++)
+//   {   
+//     if(this.DoctorsArray[k].id == data.id)
+//     {
+//       this.DoctorsArray[k].lat = data.location.split(',')[0];
+//       this.DoctorsArray[k].lng = data.location.split(',')[1];
+//       if(this.DoctorsArray[k].offline == false)
+//       {  
+//         this.getDistanceAndDuration(k);
+//       }
      
       
-    }
+//     }
           
-  }
-  }
+//   }
+//   }
 
   
 
 
-  });
+//   });
 
   this.events.subscribe('getBusyDoctor', (data) => {
     console.log(" event getBusyDoctor ",data);

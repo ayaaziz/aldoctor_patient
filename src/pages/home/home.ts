@@ -268,7 +268,7 @@ this.storage.get("rate_doctor").then(data=>{
     this.helper.type_id="1";
     this.navCtrl.setRoot('follow-order-for-plc',
   {data:
-    {"orderId":201, 
+    {"orderId":678, 
       "doctorId":61
     }
   });
@@ -347,5 +347,7 @@ this.storage.get("rate_doctor").then(data=>{
 ionViewDidEnter(){
   this.helper.view = "HomePage"; 
 }
+
+
 
 }

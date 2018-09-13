@@ -181,51 +181,51 @@ export class OrderSpecificServicePage {
         }
       });
 
-      this.events.subscribe('locationChanged', (data) => {
-        console.log("location changed event",data);
-        if(data.location){
-          for(var k=0;k<this.doctors.length;k++)
-          {   
-            if(this.doctors[k].id == data.id)
-            {
-              this.doctors[k].lat = data.location.split(',')[0];
-              this.doctors[k].lng = data.location.split(',')[1];
-              if(this.doctors[k].offline == false)
-              {
-                this.getDistanceAndDuration(k);
-                this.sortDoctors();
-              }
+      // this.events.subscribe('locationChanged', (data) => {
+      //   console.log("location changed event",data);
+      //   if(data.location){
+      //     for(var k=0;k<this.doctors.length;k++)
+      //     {   
+      //       if(this.doctors[k].id == data.id)
+      //       {
+      //         this.doctors[k].lat = data.location.split(',')[0];
+      //         this.doctors[k].lng = data.location.split(',')[1];
+      //         if(this.doctors[k].offline == false)
+      //         {
+      //           this.getDistanceAndDuration(k);
+      //           this.sortDoctors();
+      //         }
               
-            }
+      //       }
                   
-          }
-          }
+      //     }
+      //     }
 
 
-      });
-this.events.subscribe('location', (data) => {
-  console.log(" event location ",data);
-  if(data.location){
-  for(var k=0;k<this.doctors.length;k++)
-  {   
-    if(this.doctors[k].id == data.id)
-    {
-      this.doctors[k].lat = data.location.split(',')[0];
-      this.doctors[k].lng = data.location.split(',')[1];
-      if(this.doctors[k].offline == false){
-        this.getDistanceAndDuration(k);
-      }
+      // });
+// this.events.subscribe('location', (data) => {
+//   console.log(" event location ",data);
+//   if(data.location){
+//   for(var k=0;k<this.doctors.length;k++)
+//   {   
+//     if(this.doctors[k].id == data.id)
+//     {
+//       this.doctors[k].lat = data.location.split(',')[0];
+//       this.doctors[k].lng = data.location.split(',')[1];
+//       if(this.doctors[k].offline == false){
+//         this.getDistanceAndDuration(k);
+//       }
       
     
 
-    }
+//     }
           
-  }
-  }
+//   }
+//   }
 
 
 
-  });
+//   });
 
   this.events.subscribe('getBusyDoctor', (data) => {
     console.log(" event getBusyDoctor ",data);

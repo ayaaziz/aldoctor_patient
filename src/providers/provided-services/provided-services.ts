@@ -121,13 +121,23 @@ editOrderToSendImages(orderId , images ,files_ext, access_token){
   return this.http.post(serviceUrl,parameter,{headers: headers });
 
 }
-updateOrderStatus(orderId,access_token){
+updateOrderStatus(orderId,access_token,type){
   let headers = new HttpHeaders();
-  let parameter = new HttpParams().set("order_id",orderId).set("status",'5'); 
+  let parameter = new HttpParams().set("order_id",orderId).set("status",'5').set('type',type); 
   headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
   let serviceUrl = this.helper.serviceUrl +'api/orders/update';
   return this.http.post(serviceUrl,parameter,{headers: headers });
 
+}
+getOrderDetails(id,access_token){
+  
+  let headers = new HttpHeaders();
+
+  headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+     
+  let serviceUrl = this.helper.serviceUrl +'api/orders/get/'+id;
+
+  return this.http.get(serviceUrl,{headers: headers });
 }
 
 }

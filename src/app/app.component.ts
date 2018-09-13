@@ -643,9 +643,11 @@ export class MyApp {
             
             if(orderStatus == "11")
             {
+              console.log("status 11");
+              this.presentAlert(notification.title,notification.message);
               this.helper.removeNetworkDisconnectionListener();
               this.storage.remove("orderImages");
-              this.presentAlert(notification.title,notification.message);
+              
             }
             if(orderStatus == "8")
             {
@@ -664,6 +666,9 @@ export class MyApp {
 
                this.storage.remove("orderImages");
                 this.helper.dontSendNotification = true;
+                
+                this.nav.setRoot(TabsPage);
+
                 this.nav.push('rate-service',{
                   data:{
                     doctorId:notification.additionalData.doctorId,
@@ -848,6 +853,7 @@ export class MyApp {
   
 
 presentAlert(title,msg) {
+  console.log("enter presentAlert");
   this.navctrl.setRoot(TabsPage);
       let alert = this.alertCtrl.create({
         title: title,

@@ -140,10 +140,16 @@ export class NotificationPage {
         for(var i=0;i<notificationsData.length;i++){
           console.log("text ",notificationsData[i].data.text);
           // this.data.push(notificationsData[i].data.text);
-          if(notificationsData[i].data.paitentId)
-          notificationsData[i].notificationimage=notificationsData[i].data.paitentId.profile_pic;
+          // if(notificationsData[i].data.paitentId)
+          // notificationsData[i].notificationimage=notificationsData[i].data.paitentId.profile_pic;
+          // else
+          // notificationsData[i].notificationimage="assets/imgs/default-avatar.png";
+          
+          if(notificationsData[i].user)
+          notificationsData[i].notificationimage=notificationsData[i].user.profile_pic;
           else
           notificationsData[i].notificationimage="assets/imgs/default-avatar.png";
+          
           
           notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
           this.data.push(notificationsData[i]);
@@ -195,11 +201,17 @@ export class NotificationPage {
         for(var i=0;i<notificationsData.length;i++){
           console.log("text ",notificationsData[i].data.text);
           // this.data.push(notificationsData[i].data.text);
-          if(notificationsData[i].data.paitentId)
-          notificationsData[i].notificationimage=notificationsData[i].data.paitentId.profile_pic;
+          // if(notificationsData[i].data.paitentId)
+          // notificationsData[i].notificationimage=notificationsData[i].data.paitentId.profile_pic;
+          // else
+          // notificationsData[i].notificationimage="assets/imgs/default-avatar.png";
+          
+          if(notificationsData[i].user)
+          notificationsData[i].notificationimage=notificationsData[i].user.profile_pic;
           else
           notificationsData[i].notificationimage="assets/imgs/default-avatar.png";
           
+
           notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
           this.data.push(notificationsData[i]);
           

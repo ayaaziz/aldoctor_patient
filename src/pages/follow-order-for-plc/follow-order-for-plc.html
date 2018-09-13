@@ -114,7 +114,7 @@
 </ion-item>
   
 <ion-item class="form-group" no-lines>
-        <button type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="font-family: 'Cairo Black';color:#fff;background-color: #016a38 ; border-color: #016a38;margin:10px auto;" > 
+        <button  [disabled]="disabled2btn" type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="font-family: 'Cairo Black';color:#fff;background-color: #016a38 ; border-color: #016a38;margin:10px auto;" > 
             
             <ion-icon name="camera" style="color:#fff;font-size:20px;vertical-align: middle;"></ion-icon>
               {{medicalprescriptionImage}}      
@@ -123,13 +123,13 @@
     </ion-item>
 
     <ion-item style="text-align:center;" no-lines>
-            <button type="button" [disabled]="UpdateorderBTn" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendprescriptionImages()"> {{sendprescription}}</button>  
+            <button type="button" [disabled]="disabled2btn"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendprescriptionImages()"> {{sendprescription}}</button>  
           </ion-item> 
 
 <ion-item no-lines>
 
 </ion-item>
-    
+<!-- [disabled]="UpdateorderBTn" -->
 
 </ion-content>
 

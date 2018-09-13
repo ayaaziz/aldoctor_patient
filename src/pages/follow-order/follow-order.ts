@@ -663,7 +663,7 @@ private presentToast(text) {
     this.localNotifications.schedule({
       id: 1,
       title: "تطبيق الدكتور",
-      text:  this.doctorName +"سوف يصلك الطلب من قبل ",
+      text:  " سوف يصلك الطلب من قبل "+this.doctorName ,
       data: { mydata: 'My hidden message this is' },
       trigger:{ at: new Date(new Date().getTime())}
     });

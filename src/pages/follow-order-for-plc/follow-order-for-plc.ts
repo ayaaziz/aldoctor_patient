@@ -66,6 +66,8 @@ export class FollowOrderForPlcPage {
   plcimage;
   receivedImage = "0";
   editFlag =false;
+  orderFiles = [];
+  disabled2btn ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -97,6 +99,46 @@ export class FollowOrderForPlcPage {
       this.doctorId = this.doctorData.doctorId;
       this.orderId = this.doctorData.orderId;
 
+      this.srv.getOrderDetails(this.orderId,this.accessToken).subscribe(
+        resp=>{
+          console.log("orderDetails ",resp);
+          var myorder = JSON.parse(JSON.stringify(resp)).order;
+          
+          if(myorder.files)
+          {
+            //this.disabled2btn = true;
+            //this.imageFlag = false;
+            this.orderFiles = myorder.files;
+
+            for(var i=0;i<this.orderFiles.length;i++)
+            {
+              this.photos.push(this.helper.serviceUrl+this.orderFiles[i].path);
+    //          this.photosForApi.push(this.helper.serviceUrl+this.orderFiles[i]);
+              // this.photosForApi.push(encodeURIComponent(this.photos[i].split(',')[1]));      
+            }
+            console.log("photos",this.photos);
+
+            if(this.orderFiles.length == 2)
+            {
+              this.imageFlag = false;
+              this.disabled2btn = true;
+            }
+            else if(this.orderFiles.length == 1)
+            {
+              this.imageFlag = true;
+              this.disabled2btn = false;
+            }
+              
+          
+            }else{
+            this.disabled2btn = false;
+          }
+            
+        },
+        err=>{
+          console.log("orderDetailsErr",err);
+        }
+      );
       if(this.doctorData.receivedImage){
 
         this.receivedImage = this.doctorData.receivedImage;
@@ -143,33 +185,33 @@ export class FollowOrderForPlcPage {
       
         // this.storage.get("access_token").then(data=>{
         // this.accessToken = data;
-        this.storage.get('orderImages').then(val=>{
-          if(val){
-            console.log("if from follow order for plc images",val);
-            this.photos = val;
-            // this.photos.push("assets/imgs/testImage.jpeg");
-            for(var i=0;i<this.photos.length;i++)
-            {
-              this.photosForApi.push(encodeURIComponent(this.photos[i].split(',')[1]));
+        // this.storage.get('orderImages').then(val=>{
+        //   if(val){
+        //     console.log("if from follow order for plc images",val);
+        //     this.photos = val;
+        //     // this.photos.push("assets/imgs/testImage.jpeg");
+        //     for(var i=0;i<this.photos.length;i++)
+        //     {
+        //       this.photosForApi.push(encodeURIComponent(this.photos[i].split(',')[1]));
               
-            }
-            if(val.length == 2)
-              this.imageFlag = false;
-            else if(val.length == 1)
-              this.imageFlag = true;
+        //     }
+        //     if(val.length == 2)
+        //       this.imageFlag = false;
+        //     else if(val.length == 1)
+        //       this.imageFlag = true;
 
               
-          }else{
-            console.log("else from follow order for plc");
-            this.imageFlag = true;
-            this.editFlag = true;
-          }
+        //   }else{
+        //     console.log("else from follow order for plc");
+        //     this.imageFlag = true;
+        //     this.editFlag = true;
+        //   }
          
-        }).catch(err=>{
-          console.log("catch from follow order for plc",err);
-          this.imageFlag = true;
-          this.editFlag = true;
-        });
+        // }).catch(err=>{
+        //   console.log("catch from follow order for plc",err);
+        //   this.imageFlag = true;
+        //   this.editFlag = true;
+        // });
 
         this.accessToken = localStorage.getItem('user_token');
 
@@ -521,11 +563,12 @@ private presentToast(text) {
       actionSheet.present();
     }else{
       this.presentToast(this.translate.instant("maxNumberOFIMages"));
+      //this.presentToast(this.translate.instant(""));
     }
     
   }
   public takePicture(sourceType) {
-    
+    console.log("take image");
     var options = {
       targetWidth: 600,
       targetHeight: 600,
@@ -546,6 +589,7 @@ private presentToast(text) {
       this.photosForApi.push(encodeURIComponent(imageData));
       
       this.imageExt.push("jpeg");
+      console.log("image ext",this.imageExt);
       //this.receivedImage = 1;
 
       if(this.photosForApi.length == 2)
@@ -564,8 +608,8 @@ private presentToast(text) {
   sendprescriptionImages(){
     
     console.log("editflag",this.editFlag);
-    if(this.editFlag == true)
-    {
+    // if(!this.orderFiles)
+    // {
     // if(this.receivedImage == "1")
     // {
       if(this.photosForApi.length == 0 && this.type_id == 3)
@@ -585,18 +629,25 @@ private presentToast(text) {
             console.log("resp from editOrderToSendImages",resp);
             if(JSON.parse(JSON.stringify(resp)).success == true)
             {
+              this.imageExt = [];
+              this.photosForApi = [];
               this.storage.set('orderImages',this.photos).then(
                 val=>{
                   console.log("image saved",val);
                 }
               );
-  
+              
               this.presentToast("تم الارسال");
               this.receivedImage = "1";
      //         this.photosForApi = [];
     //          this.photos = [];
               this.UpdateorderBTn = false;
               
+              if(this.photos.length == 2)
+                this.imageFlag = false;
+              else
+                this.imageFlag = true;
+
             }else{
               this.UpdateorderBTn = false;
             }  
@@ -610,9 +661,9 @@ private presentToast(text) {
         );
       }
 
-    }else{
-      this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
-    }
+    // }else{
+    //   this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
+    // }
 
    
   }
@@ -651,9 +702,9 @@ private presentToast(text) {
     // else if (this.type_id == "2" || this.type_id == "3")
     //   txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
     if(this.type_id == "1")
-      txt =  this.doctorName +"سوف يصلك الطلب من قبل ";
+      txt =  " سوف يصلك الطلب من قبل " + this.doctorName ;
     else if (this.type_id == "2" || this.type_id == "3")
-      txt =  this.doctorName +"سوف يصلك الطلب من قبل ";
+      txt =  " سوف يصلك الطلب من قبل " + this.doctorName ;
 
 //+ 1 * 1000
 
