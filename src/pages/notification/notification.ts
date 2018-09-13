@@ -171,7 +171,7 @@ export class NotificationPage {
   }
  
   refreshNotification() {
-    this.showLoading = false;
+    // this.showLoading = false;
     this.service.getNotifications("1",this.accessToken).subscribe(
       resp=>{
         this.showLoading = true;
