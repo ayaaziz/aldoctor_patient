@@ -243,8 +243,8 @@ export class RemainingTimeToAcceptPage {
     alert.present();
   }
 
-  ionViewDidEnter(){
-
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter from doctor");
     this.helper.view = "remaining-time-to-accept";
   }
   

@@ -6,6 +6,7 @@ import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { OrderhistoryPage } from '../orderhistory/orderhistory';
 import 'rxjs/add/operator/timeout';
+import { HomePage } from '../home/home';
 
 
 
@@ -126,6 +127,7 @@ export class CancelOrderPage {
             this.presentToast(this.translate.instant("orderCancled"));     
             // this.navCtrl.setRoot(OrderhistoryPage);
             this.navCtrl.pop();
+            this.navCtrl.setRoot(HomePage);
             this.navCtrl.parent.select(1);
           }
         },

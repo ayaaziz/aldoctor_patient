@@ -240,7 +240,8 @@ export class RemaingTimeForPlcPage {
   }
 
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter from plc");
     this.helper.view = "remaining-time-for-plc";
   }
 

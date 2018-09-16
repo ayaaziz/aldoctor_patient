@@ -8,6 +8,7 @@ import { OrderhistoryPage } from '../orderhistory/orderhistory';
 import 'rxjs/add/operator/timeout';
 
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
+import { HomePage } from '../home/home';
 
 
 @IonicPage({
@@ -127,6 +128,7 @@ reasonChecked(item , event){
             this.presentToast(this.translate.instant("orderCancled"));     
             // this.navCtrl.setRoot(OrderhistoryPage);
             this.navCtrl.pop();
+            this.navCtrl.setRoot(HomePage);
             this.navCtrl.parent.select(1);
 
           }
