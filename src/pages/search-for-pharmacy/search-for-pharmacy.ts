@@ -93,28 +93,28 @@ export class SearchForPharmacyPage {
     // this.initMap();
 
 
-    this.events.subscribe('location', (data) => {
-      console.log(" event location ",data);
+    // this.events.subscribe('location', (data) => {
+    //   console.log(" event location ",data);
       
-      if(data.location){
-      for(var k=0;k<this.doctorsLoc.length;k++)
-      {   
-        if(this.doctorsLoc[k].id == data.id)
-        {
-          this.doctorsLoc[k].lat = data.location.split(',')[0];
-          this.doctorsLoc[k].lng = data.location.split(',')[1];
+    //   if(data.location){
+    //   for(var k=0;k<this.doctorsLoc.length;k++)
+    //   {   
+    //     if(this.doctorsLoc[k].id == data.id)
+    //     {
+    //       this.doctorsLoc[k].lat = data.location.split(',')[0];
+    //       this.doctorsLoc[k].lng = data.location.split(',')[1];
           
           
-        }
+    //     }
               
-      }
-      }
-       this.initMapWithDoctorsLocation();
+    //   }
+    //   }
+    //    this.initMapWithDoctorsLocation();
   
       
   
   
-      });
+    //   });
 
 
     this.initMap();
@@ -218,14 +218,26 @@ export class SearchForPharmacyPage {
               this.doctorsLoc = [];
               for (let element in docsData) {
                 console.log("element ",docsData[element]);
-               
+                if(docsData[element].locationNode)
+                {
+                  docsData[element].lat = docsData[element].locationNode.split(',')[0];
+                  docsData[element].lng = docsData[element].locationNode.split(',')[1];
+                }else{
+                  docsData[element].lat = "";
+                  docsData[element].lng = "";
+                }
+                // docsData[element].lat = docsData[element].locationNode.split(',')[0];
+                // docsData[element].lng = docsData[element].locationNode.split(',')[1];
+
+                if(docsData[element].online  == "1")
                   this.doctorsLoc.push( docsData[element]);
-                  this.helper.getDoctorlocation(docsData[element].id);
+
+                  //this.helper.getDoctorlocation(docsData[element].id);
   
                }
                console.log("doctorsLoc",this.doctorsLoc);
               //  this.initMapWithDoctorsLocation();
-             
+              this.initMapWithDoctorsLocation();
   
             },err=>{
               console.log("err from nearby doctors: ",err);
@@ -309,14 +321,27 @@ export class SearchForPharmacyPage {
           for (let element in docsData) {
             console.log("element ",docsData[element]);
   
-            this.doctorsLoc.push( docsData[element]);
+            // docsData[element].lat = docsData[element].locationNode.split(',')[0];
+            // docsData[element].lng = docsData[element].locationNode.split(',')[1];
+
+            if(docsData[element].locationNode)
+            {
+              docsData[element].lat = docsData[element].locationNode.split(',')[0];
+              docsData[element].lng = docsData[element].locationNode.split(',')[1];
+            }else{
+              docsData[element].lat = "";
+              docsData[element].lng = "";
+            }
+            
+            if(docsData[element].online  == "1")
+              this.doctorsLoc.push( docsData[element]);
   
-              this.helper.getDoctorlocation(docsData[element].id);
+            //this.helper.getDoctorlocation(docsData[element].id);
   
            }
            console.log("doctorsLoc",this.doctorsLoc);
   
-          
+           this.initMapWithDoctorsLocation();
   
         },err=>{
           console.log("err from nearby doctors: ",err);

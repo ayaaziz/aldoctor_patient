@@ -34,6 +34,7 @@ export class RemainingTimeToAcceptPage {
     public translate: TranslateService) {
       
       this.helper.view = "remaining-time-to-accept";
+
       this.accessToken = localStorage.getItem('user_token');
       this.orderId = this.navParams.get('orderId');
 
@@ -241,4 +242,11 @@ export class RemainingTimeToAcceptPage {
     });
     alert.present();
   }
+
+  ionViewDidEnter(){
+
+    this.helper.view = "remaining-time-to-accept";
+  }
+  
+
 }

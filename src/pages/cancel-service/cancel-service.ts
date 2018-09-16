@@ -23,7 +23,7 @@ export class CancelServicePage {
   userReasons = [] ;
   orderId;
   accessToken;
-  desc;
+  desc = "";
   langDirection;
   tostClass ;
   CancelBtn =true;
@@ -158,10 +158,10 @@ reasonChecked(item , event){
 
     notesevent(){
       console.log("desc....",this.desc);
-      if(this.desc && this.userReasons.length == 0)
-      this.CancelBtn = false;
-      else
-      this.CancelBtn = true;
+      // if(this.desc && this.userReasons.length == 0)
+      // this.CancelBtn = false;
+      // else
+      // this.CancelBtn = true;
     }
 
 }

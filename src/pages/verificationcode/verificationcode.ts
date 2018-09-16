@@ -70,6 +70,12 @@ phone="";
     // if(! this.activationForm.valid)
     //   this.submitAttempt=true;
     // else{}
+    // '/[٠١٢٣٤٥٦٧٨٩]/g'
+
+    console.log("code:", this.code);
+    // this.code.replace('١',1);
+    console.log("code 2: ",this.code); 
+
     this.submitAttempt = true;
     if( !this.activationForm.valid){
 

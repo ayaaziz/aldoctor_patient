@@ -32,7 +32,7 @@ xxrate;
     
     this.accessToken = localStorage.getItem('user_token');
     this.helper.view = "HomePage";
-
+this.parseArabic();
     // this.helper.userId=114;
     // this.helper.intializeFirebase();
     console.log("acceeToken from localstorage", localStorage.getItem('user_token'));
@@ -279,6 +279,8 @@ this.storage.get("rate_doctor").then(data=>{
   }
   cancel(){
     this.navCtrl.push('cancel-order',{orderId:201});
+    
+    //this.navCtrl.push('cancel-service',{orderId:201});
   }
   
   private presentToast(text) {
@@ -348,6 +350,16 @@ ionViewDidEnter(){
   this.helper.view = "HomePage"; 
 }
 
-
+ parseArabic(){ // PERSIAN, ARABIC, URDO
+  var yas ="٠١٢٣٤٥٦٧٨٩";
+  console.log("yas",yas);
+  yas = yas.replace('/[٠١٢٣٤٥٦٧٨٩]/g', (d) =>
+  {  
+    return String( d.charCodeAt(0) - 1632);                
+  }).replace(/[۰۱۲۳۴۵۶۷۸۹]/g,  (d)=> 
+      { return String(d.charCodeAt(0) - 1776); })
+  ;
+  console.log("yas2:",yas);
+}
 
 }
