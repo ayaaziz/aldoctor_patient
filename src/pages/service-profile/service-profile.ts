@@ -41,6 +41,9 @@ export class ServiceProfilePage {
   imageFlag = true;
   image2;
   imageExt=[];
+  phone2;
+  phone2Apear =  true;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
@@ -66,8 +69,9 @@ export class ServiceProfilePage {
     this.image = data.profile_pic;
     this.name = data.name;
     this.rate = data.rate;
-    this.phone="0123456";
-    this.address="address";
+    //this.phone="0123456";
+    //this.address="address";
+    
     // this.services = this.doctorProfile.SpecialityServices;
     this.services = [];
 
@@ -78,6 +82,14 @@ export class ServiceProfilePage {
     // this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
     this.phone = this.doctorProfile.phone;
+
+    if(this.doctorProfile.entity.phone)
+    {
+      this.phone2 = this.doctorProfile.entity.phone;
+      this.phone2Apear = false; 
+    }
+      
+    
     this.address = this.doctorProfile.extraInfo.address;
     // this.services = this.doctorProfile.speciality_services;
     this.type_id = this.doctorProfile.type_id;

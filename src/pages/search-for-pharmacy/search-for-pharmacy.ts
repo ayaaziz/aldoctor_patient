@@ -34,7 +34,7 @@ export class SearchForPharmacyPage {
 
   btn;
   title;
-  btn1;
+  btn1;s
   btn2;
   tostClass ;
   locFlag= 0;
