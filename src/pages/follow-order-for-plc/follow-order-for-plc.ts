@@ -600,6 +600,7 @@ private presentToast(text) {
       console.log("all photos ",this.photos,"length",this.photos.length);
       console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);
     
+      this.sendprescriptionImagesUpdated();
 
     }, (err) => {
      
@@ -667,6 +668,67 @@ private presentToast(text) {
 
    
   }
+
+  sendprescriptionImagesUpdated(){
+    
+    console.log("editflag",this.editFlag);
+    
+      if(this.photos.length == 0 && this.type_id == 3)
+      {
+        this.presentToast(this.translate.instant("atleastOneimageforLab"));
+      }else if(this.photos.length == 0 && this.type_id == 2)
+      {
+        this.presentToast(this.translate.instant("atleastOneimageforcenter"));
+      }else if(this.photos.length == 0 && this.type_id == 1)
+      {
+        this.presentToast(this.translate.instant("atleastOneimageforpharmacy"));
+      }else{
+        this.accessToken = localStorage.getItem('user_token');
+        this.UpdateorderBTn = true;
+        this.srv.editOrderToSendImages(this.orderId,this.photosForApi,this.imageExt,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp from editOrderToSendImages",resp);
+            if(JSON.parse(JSON.stringify(resp)).success == true)
+            {
+              this.imageExt = [];
+              this.photosForApi = [];
+              this.storage.set('orderImages',this.photos).then(
+                val=>{
+                  console.log("image saved",val);
+                }
+              );
+              
+              this.presentToast("تم الارسال");
+              this.receivedImage = "1";
+     //         this.photosForApi = [];
+    //          this.photos = [];
+              this.UpdateorderBTn = false;
+              
+              if(this.photos.length == 2)
+                this.imageFlag = false;
+              else
+                this.imageFlag = true;
+
+            }else{
+              this.UpdateorderBTn = false;
+            }  
+            
+          },err=>{
+            console.log("err from editOrderToSendImages",err);
+            this.presentToast(this.translate.instant("serverError"));
+            this.UpdateorderBTn = false;
+            
+          }
+        );
+      }
+
+    // }else{
+    //   this.presentToast(" لم يتم تعديل "+this.medicalprescriptionImage);
+    // }
+
+   
+  }
+
   deletePhoto(index){
     console.log("photo index",index);
     this.photos.splice(index, 1);
@@ -676,10 +738,13 @@ private presentToast(text) {
     this.editFlag = true;
   }
   serviceRate(){
-    if(this.receivedImage == "0")
-    {
-      this.presentToast(this.translate.instant(" ادخل "+this.medicalprescriptionImage));
-    }else if(this.receivedImage == "1"){
+
+    // if(this.receivedImage == "0")
+    // {
+    //   this.presentToast(this.translate.instant(" ادخل "+this.medicalprescriptionImage));
+    // }else if(this.receivedImage == "1"){
+      if(this.orderFiles.length == 2 || this.orderFiles.length == 1 || this.photos.length == 1 || this.photos.length == 2)
+      {
       this.navCtrl.push('rate-service',
       {data:
       {
@@ -688,6 +753,9 @@ private presentToast(text) {
       }
       });
 
+    }else 
+    {
+      this.presentToast(this.translate.instant(" ادخل "+this.medicalprescriptionImage));
     }
     
   }
