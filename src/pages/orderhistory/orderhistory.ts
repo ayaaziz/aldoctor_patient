@@ -42,7 +42,7 @@ export class OrderhistoryPage {
   filterpage=1;
   scroll = 1;
   showLoading=true;
-
+  myId;
   
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage,  public alertCtrl: AlertController,
@@ -61,6 +61,13 @@ export class OrderhistoryPage {
       
       console.log("langdir:",this.langDirection);
       this.translate.use(this.helper.currentLang);
+
+      this.storage.get("user_info").then(
+        (data) => {
+            this.myId = data.id;
+            console.log("myId",this.myId);
+        });  
+
   }
 
   ionViewDidLoad() {
@@ -86,6 +93,23 @@ export class OrderhistoryPage {
           
 
           for(var j=0;j<ordersData.length;j++){
+            
+            console.log("ratings length",ordersData[j].ratings.length);
+              for(var r=0; r < ordersData[j].ratings.length; r++)
+              { console.log("ordersData[j].ratings[r].user_id",ordersData[j].ratings[r].user_id,"orderID",ordersData[j].id);
+              
+                if(this.myId == ordersData[j].ratings[r].user_id)
+                {
+                  this.orderobject.rate = ordersData[j].ratings[r].rate;
+                  console.log("object after rate",this.orderobject);
+                }
+                  
+                // else
+                //   this.orderobject.rate = "";
+
+              }
+              console.log("object after rate2",this.orderobject);
+
             
             if(ordersData[j].status == "10" ) //canceled by doctor 0, || ordersData[j].status == "3"
             {  
@@ -149,8 +173,23 @@ export class OrderhistoryPage {
               this.orderobject.profile_pic = serviceProfile.profile_pic;
               //this.orderobject.rate = serviceProfile.rate;
               // this.orderobject.rate = ordersData[j].ratedvalue;
-              if(ordersData[j].ratings[0])
-                this.orderobject.rate = ordersData[j].ratings[0].rate;
+              console.log("ratings length",ordersData[j].ratings.length);
+              for(var r=0; r < ordersData[j].ratings.length; r++)
+              { console.log("ordersData[j].ratings[r].user_id",ordersData[j].ratings[r].user_id,"orderID",ordersData[j].id);
+              
+                if(this.myId == ordersData[j].ratings[r].user_id)
+                {
+                  this.orderobject.rate = ordersData[j].ratings[r].rate;
+                  console.log("object after rate",this.orderobject);
+                }
+                  
+                // else
+                //   this.orderobject.rate = "";
+
+              }
+              console.log("object after rate2",this.orderobject);
+              // if(ordersData[j].ratings[0])
+              //   this.orderobject.rate = ordersData[j].ratings[0].rate;
               
               if(ordersData[j].service_id && ordersData[j].service_id == "3" )
               {
@@ -217,7 +256,7 @@ export class OrderhistoryPage {
                     
             }
             else{
-
+              console.log("else no service profile","orderID",ordersData[j].id);
               this.orderobject.diabledesign = true;
               this.orderobject.addressSign = true;
               this.orderobject.diabledRate = true;

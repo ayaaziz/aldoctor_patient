@@ -625,99 +625,112 @@ export class OrderSpecificServicePage {
     var searchVal = ev.target.value;
     var id ;
     console.log("search value ",searchVal);
-    this.showLoading = false;
+    if(searchVal)
+    {
+     this.searchFunc(searchVal);
+    
+    }
+    else{
+      this.doctors = [];  
+    }
 
-      this.srv.searchServiceByName(searchVal,this.type_id,this.accessToken).subscribe(
-        resp=>{
-          console.log("searchServiceByName resp: ",resp);
-          this.showLoading=true;
-          console.log("nearbyservice resp: ",resp);
-          
-          let doctorData =JSON.parse(JSON.stringify(resp));
-          console.log("service data",doctorData);
-        console.log("doctors data",doctorData["result"]);
-        this.doctors=[];  
-        for(var i=0;i<doctorData["result"].length;i++){
-            console.log("doctor: ",doctorData["result"][i]); 
-            
-            // doctorData["result"][i].color="green";
-            // doctorData["result"][i].offline = false;
+  }
+searchFunc(searchVal){
+  this.showLoading = false;
 
-            // doctorData["result"][i].timefordelivery = "1د";
-            // doctorData["result"][i].distance ="1م";
-            
-            doctorData["result"][i].type_id = this.type_id;
-            if(doctorData["result"][i].nickname)
-            doctorData["result"][i].doctorName = doctorData["result"][i].nickname;
-            else 
-            doctorData["result"][i].doctorName = doctorData["result"][i].name;
+  this.srv.searchServiceByName(searchVal,this.type_id,this.accessToken).subscribe(
+    resp=>{
+      console.log("searchServiceByName resp: ",resp);
+      this.showLoading=true;
+      console.log("nearbyservice resp: ",resp);
+      
+      let doctorData =JSON.parse(JSON.stringify(resp));
+      console.log("service data",doctorData);
+    console.log("doctors data",doctorData["result"]);
+    this.doctors=[];  
+    for(var i=0;i<doctorData["result"].length;i++){
+        console.log("doctor: ",doctorData["result"][i]); 
+        
+        // doctorData["result"][i].color="green";
+        // doctorData["result"][i].offline = false;
+
+        // doctorData["result"][i].timefordelivery = "1د";
+        // doctorData["result"][i].distance ="1م";
+        
+        doctorData["result"][i].type_id = this.type_id;
+        if(doctorData["result"][i].nickname)
+        doctorData["result"][i].doctorName = doctorData["result"][i].nickname;
+        else 
+        doctorData["result"][i].doctorName = doctorData["result"][i].name;
+
+  
+
+      if(doctorData["result"][i].busy == "1")
+      {
+        doctorData["result"][i].color="red";
+        doctorData["result"][i].offline=true;
+        doctorData["result"][i].moreTxt = "غير متوافر";
+        
+      }else if (doctorData["result"][i].busy == "0")
+      {
+        if(doctorData["result"][i].online  == "1")
+          {
+            doctorData["result"][i].color="green";
+            doctorData["result"][i].offline=false;
+            doctorData["result"][i].moreTxt = "متوافر";
+
+          }else if (doctorData["result"][i].online  == "0")
+          {
+            doctorData["result"][i].color="grey";
+            doctorData["result"][i].offline=true;
+            doctorData["result"][i].moreTxt = "غير متوافر";
+          }
+       
+      }
 
       
 
-          if(doctorData["result"][i].busy == "1")
-          {
-            doctorData["result"][i].color="red";
-            doctorData["result"][i].offline=true;
-            doctorData["result"][i].moreTxt = "غير متوافر";
-            
-          }else if (doctorData["result"][i].busy == "0")
-          {
-            if(doctorData["result"][i].online  == "1")
-              {
-                doctorData["result"][i].color="green";
-                doctorData["result"][i].offline=false;
-                doctorData["result"][i].moreTxt = "متوافر";
 
-              }else if (doctorData["result"][i].online  == "0")
-              {
-                doctorData["result"][i].color="grey";
-                doctorData["result"][i].offline=true;
-                doctorData["result"][i].moreTxt = "غير متوافر";
-              }
-           
-          }
-
-          
-
-
-            this.doctors.push(doctorData["result"][i]);
-          }
-          
-        if(this.doctors.length >= 3)
-        {
-          this.scrollHeight = "385px";
-        
-        }else{
-          this.scrollHeight = "260px";
-        }
-          for(i=0;i<this.doctors.length;i++)
-          {
-            
-            this.helper.getDoctorStatus(this.doctors[i].id);
-            this.helper.getBusyDoctor(this.doctors[i].id);
-            
-          }
-          
-          if(this.doctors.length == 0)
-          {
-            console.log("if = 0");
-            this.presentToast(this.translate.instant("noSearchResult"));
-          }
-          
-        },
-        err=>{
-          console.log("getDoctorsByName error: ",err);
-          this.showLoading = true;
-          this.presentToast(this.translate.instant("serverError"));
-        }
-      );
+        this.doctors.push(doctorData["result"][i]);
+      }
+      
+    if(this.doctors.length >= 3)
+    {
+      this.scrollHeight = "385px";
     
-  }
+    }else{
+      this.scrollHeight = "260px";
+    }
+      for(i=0;i<this.doctors.length;i++)
+      {
+        
+        this.helper.getDoctorStatus(this.doctors[i].id);
+        this.helper.getBusyDoctor(this.doctors[i].id);
+        
+      }
+      
+      if(this.doctors.length == 0)
+      {
+        console.log("if = 0");
+        this.presentToast(this.translate.instant("noSearchResult"));
+      }
+      
+    },
+    err=>{
+      console.log("getDoctorsByName error: ",err);
+      this.showLoading = true;
+      this.presentToast(this.translate.instant("serverError"));
+    }
+  );
+}
 
   fullScreen(index){
     console.log("image clicked",index)
     this.navCtrl.push('full-screen',{data:this.photos[index]});
   }
   
-
+  searchIcon(){
+    console.log("searchIcon clicked");
+    this.searchFunc("");    
+  }
 }

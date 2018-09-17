@@ -595,7 +595,8 @@ private presentToast(text) {
       if(this.photosForApi.length == 2)
         this.imageFlag = false;
 
-      
+      if(this.photos.length == 2)
+        this.disabled2btn = true;
 
       console.log("all photos ",this.photos,"length",this.photos.length);
       console.log("photos for api",this.photosForApi,"length",this.photosForApi.length);

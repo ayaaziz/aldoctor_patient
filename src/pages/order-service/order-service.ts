@@ -858,6 +858,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     console.log("refresh",ev);
     // this.photos =[];
     // this.photosForApi = [];
+    this.choosenDoctors = [];
     this.refresher = ev;
     this.Loadfunc();
     

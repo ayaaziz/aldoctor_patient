@@ -221,6 +221,7 @@ export class RemainingTimeToAcceptPage {
           role: 'cancel',
           handler: () => {
             console.log('cancel disagree clicked');
+            this.helper.backBtnInHelper = false;
             // this.navCtrl.setRoot(TabsPage);
      //       this.navCtrl.parent.select(0);
           }
@@ -230,6 +231,7 @@ export class RemainingTimeToAcceptPage {
           handler: () => {
             console.log('cancel order agree clicked');
             clearTimeout(this.timer);
+            this.helper.backBtnInHelper = false;
             // this.navCtrl.pop();
    //         this.navCtrl.parent.select(0);
             this.stopAlert = true;

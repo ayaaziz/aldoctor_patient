@@ -61,6 +61,9 @@ export class MyApp {
   app_contact = "item_unselected";
   app_conditions = "item_unselected";
 
+  backBtnFlag = false;
+
+
   constructor(public events: Events,public service:LoginserviceProvider, 
     private alertCtrl: AlertController, private push: Push,
     public storage:Storage,public socialSharing:SocialSharing,
@@ -231,10 +234,24 @@ export class MyApp {
       let nav = this.app.getActiveNavs()[0];
       console.log("nav: ",nav)
       console.log("view : ",this.helper.view)
-      if(this.helper.view == "remaining-time-for-plc")
+      this.backBtnFlag  = this.helper.backBtnInHelper;
+
+      if(this.helper.view == "remaining-time-for-plc" && this.backBtnFlag == false)
+      {
+        this.backBtnFlag = true;
+        this.helper.backBtnInHelper = true;
+        
         this.events.publish('cancelOrder');
-      else if (this.helper.view == "remaining-time-to-accept")
+        
+      } 
+      else if (this.helper.view == "remaining-time-to-accept" && this.backBtnFlag == false)
+      {
+        this.backBtnFlag = true;
+        this.helper.backBtnInHelper = true;
+        
         this.events.publish('cancelDoctorOrder');
+        
+      } 
       else if (this.helper.view == "HomePage" || this.helper.view == "LoginPage" || this.helper.view == "NotificationPage" || this.helper.view == "OrderhistoryPage" ||this.helper.view == "ProfilePage")
         this.platform.exitApp();
       else if (this.helper.view == "pop")
@@ -652,6 +669,7 @@ export class MyApp {
             if(orderStatus == "8")
             {
               //بدء التوصيل
+              this.presentdelivaryAlert(notification.title,notification.message);
               this.events.publish('status8ForPLC');
             }
 
@@ -861,8 +879,17 @@ presentAlert(title,msg) {
         buttons: ['موافق']
       });
       alert.present();
-    }
+}
 
+presentdelivaryAlert(title,msg) {
+  console.log("enter presentdelivaryAlert");
+  let alert = this.alertCtrl.create({
+    title: title,
+    subTitle: msg,
+    buttons: ['موافق']
+  });
+  alert.present();
+}
     // presentCancelConfirm() {
     //   let alert = this.alertCtrl.create({
     //     title: this.translate.instant("confirmCancelOrder"),

@@ -96,6 +96,7 @@ export class RemaingTimeForPlcPage {
       this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
         resp=>{
           console.log("update status",resp);
+          
           // this.helper.removeOrder(this.helper.orderIdForUpdate);
         },err=>{
           console.log("uppdate status",err);
@@ -218,6 +219,7 @@ export class RemaingTimeForPlcPage {
           handler: () => {
             console.log('disagree clicked');
             //this.navCtrl.parent.select(0);
+            this.helper.backBtnInHelper = false;
           }
         },
         {
@@ -225,6 +227,7 @@ export class RemaingTimeForPlcPage {
           handler: () => {
             console.log('cancel order agree clicked');
             clearTimeout(this.timer);
+            this.helper.backBtnInHelper = false;
             // this.navCtrl.pop();
             //this.navCtrl.parent.select(0);
             this.stopAlert = true;

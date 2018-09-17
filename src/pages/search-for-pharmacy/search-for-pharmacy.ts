@@ -38,9 +38,13 @@ export class SearchForPharmacyPage {
   btn2;
   tostClass ;
   locFlag= 0;
-  // locFlag= 1;
+  //  locFlag= 1;
 
-  center_id = "";
+//dplc reviews in doctor profile ...........................................
+  //handle resp from upadte status to 3 
+
+
+center_id = "";
   toastFlag = false;
   allMarkers = [] ;
 
