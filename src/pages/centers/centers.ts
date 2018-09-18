@@ -155,11 +155,12 @@ this.searchValue = val;
 console.log("sp item search val ",val);
 
     if (val && val.trim() != '') {
+      val = this.textArabicNumbersReplacment(val);
       this.specializations1 = this.specializations1.filter((item) => {
-        return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (this.textArabicNumbersReplacment(item.value).toLowerCase().indexOf(val.toLowerCase()) > -1); //item.value.toLowerCase().indexOf(val.toLowerCase()
       });
       this.specializations2 = this.specializations2.filter((item)=>{
-        return (item.value.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (this.textArabicNumbersReplacment(item.value).toLowerCase().indexOf(val.toLowerCase()) > -1); //item.value.toLowerCase().indexOf(val.toLowerCase()
       });
       console.log("centers sp1",this.specializations1);
       console.log("centers sp2",this.specializations2);
@@ -223,9 +224,9 @@ console.log("sp item search val ",val);
   
   textArabicNumbersReplacment(strText) {
     // var strTextFiltered = strText.Trim().replace(" ", "");
-   
-    var strTextFiltered = strText.trim();
-    var strTextFiltered = strText;
+   console.log("strText",strText);
+    // var strTextFiltered = strText.trim();
+     var strTextFiltered = strText;
     //
     // strTextFiltered = strTextFiltered.replace('ي', 'ى');
     strTextFiltered = strTextFiltered.replace(/[\ي]/g, 'ى');
@@ -265,6 +266,7 @@ console.log("sp item search val ",val);
     strTextFiltered = strTextFiltered.replace(/[\١]/g, '1');
     strTextFiltered = strTextFiltered.replace(/[\٠]/g, '0');
     //
+    console.log("strtxt after replacement",strTextFiltered);
     return strTextFiltered;
     //
   }
