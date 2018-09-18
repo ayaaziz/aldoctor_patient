@@ -42,7 +42,6 @@ export class SearchForPharmacyPage {
 
 //dplc reviews in doctor profile ...........................................
   //handle resp from upadte status to 3 running
-  //status 12 in labs and centers
 
 
 center_id = "";
