@@ -31,7 +31,8 @@ export class OrderhistoryPage {
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
 "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
-"diabledesign":false,"addressSign":true,"type_id":"","diabledRate":false};
+"diabledesign":false,"addressSign":true,"type_id":"","diabledRate":false,
+"contorder":"","remark":"","contDate":""};
 
   tostClass ;
   refresher;
@@ -143,7 +144,7 @@ export class OrderhistoryPage {
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
-            else if (ordersData[j].status == "5" || ordersData[j].status == "6" )
+            else if (ordersData[j].status == "5" || ordersData[j].status == "6"  || ordersData[j].status == "12" )
             { 
               ordersData[j].statusTxt="تم التنفيذ";
               ordersData[j].color = "grey";
@@ -213,18 +214,25 @@ export class OrderhistoryPage {
               this.orderobject.color = ordersData[j].color;
               // this.orderobject.reorder = ordersData[j].reorder;
               this.orderobject.reorder = ordersData[j].is_reorder;
-              this.orderobject.rated = ordersData[j].rated;
+              this.orderobject.contorder = ordersData[j].contorder;
               
+              if(ordersData[j].status == "4")
+                this.orderobject.contorder = "0";
+
+              this.orderobject.rated = ordersData[j].rated;
+              this.orderobject.remark = ordersData[j].remark;
               
               this.orderobject.orderId = ordersData[j].id;
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
               this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
               
+              if(ordersData[j].date)
+                this.orderobject.contDate = ordersData[j].date;
               // console.log("ordersData[j].date ",ordersData[j].date);
 
               // if(ordersData[j].reorder == "1")
-              if(ordersData[j].is_reorder == "1")
+              if(ordersData[j].is_reorder == "1" || ordersData[j].contorder == "1")
               {
                 console.log("ordersData[j].date ",ordersData[j].date);
                 console.log("today",new Date().toISOString().split('T')[0]);
@@ -251,7 +259,8 @@ export class OrderhistoryPage {
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
                   "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
-                  "diabledesign":false,"addressSign":true,"type_id":"","diabledRate" :false};
+                  "diabledesign":false,"addressSign":true,"type_id":"","diabledRate" :false,
+                  "contorder":"","remark":"","contDate":""};
           
                     
             }
@@ -279,7 +288,8 @@ export class OrderhistoryPage {
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
               "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
               "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
-              "diabledesign":false ,"addressSign":true,"type_id":"","diabledRate":false};
+              "diabledesign":false ,"addressSign":true,"type_id":"","diabledRate":false,
+              "contorder":"","remark":"","contDate":""};
       
            
             }
@@ -903,6 +913,45 @@ swipeDown(event: any): any {
     // loading.present();
 }
 
+contorder(item){
+   console.log("item from contorder",item);
+  this.presentContOrderConfirm(item);
+  
+}
+
+presentContOrderConfirm(item) {
+  let alert = this.alertCtrl.create({
+    title: this.translate.instant("contorder"),
+    message: item.remark+"<br/>"+item.contDate+"<br>"+" هل تريد تأكيد الموعد؟",
+    buttons: [
+      {
+        text: this.translate.instant("disagree"),
+        role: 'cancel',
+        handler: () => {
+          console.log('confirm contorder disagree clicked');
+          this.service.updateOrderStatusToCancel(item.orderId,this.accessToken).subscribe(
+            resp=>{
+              console.log("resp cancel contOrder",resp);
+              if(JSON.parse(JSON.stringify(resp)).success)
+                this.presentToast("تم الغاء الموعد");
+            },err=>{
+              console.log("err cancel contOrder",err);
+            }
+          );
+        }
+      },
+      {
+        text: this.translate.instant("agree"),
+        handler: () => {
+          console.log('confirm contorder agree clicked');
+         
+          
+        }
+      }
+    ]
+  });
+  alert.present();
+}
 
 
 }

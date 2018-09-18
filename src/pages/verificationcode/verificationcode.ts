@@ -72,10 +72,7 @@ phone="";
     // else{}
     // '/[٠١٢٣٤٥٦٧٨٩]/g'
 
-    console.log("code:", this.code);
-    // this.code.replace('١',1);
-    console.log("code 2: ",this.code); 
-    
+    console.log("code from login: ", this.code);
 
     this.submitAttempt = true;
     if( !this.activationForm.valid){
@@ -96,7 +93,8 @@ phone="";
         // this.storage.get("access_token").then(data=>{
         //   this.accessToken = data;
         this.accessToken = localStorage.getItem('user_token');
-        this.code = this.textArabicNumbersReplacment(this.code);
+     
+     //   console.log("code after replacement: ",this.code);
           if(this.from)
           {
             this.loginservice.checkPhoneWithCode(this.phone,this.code,this.accessToken).subscribe(
@@ -258,7 +256,7 @@ textArabicNumbersReplacment(strText) {
   // var strTextFiltered = strText.Trim().replace(" ", "");
  
   var strTextFiltered = strText.trim();
-  var strTextFiltered = strText;
+  strTextFiltered = strText;
   // //
   // // strTextFiltered = strTextFiltered.replace('ي', 'ى');
   // strTextFiltered = strTextFiltered.replace(/[\ي]/g, 'ى');
@@ -301,6 +299,11 @@ textArabicNumbersReplacment(strText) {
   return strTextFiltered;
   //
 }
+changeTxt(){
+  console.log("code...",this.code);
+  this.code = this.textArabicNumbersReplacment(this.code);
+  console.log("code after replacement: ",this.code); 
 
+}
   
 }

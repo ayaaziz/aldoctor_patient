@@ -168,6 +168,13 @@ html[dir="rtl"] body > ion-app > ion-alert .alert-button-group{
 }
 
 
+.toastRight{
+    text-align: right;
+}
+.toastLeft{
+    text-align: left;
+}
+  
 // .item-radio-checked.item-md ion-label {
 //     color: #488aff;
 //     direction: ltr;

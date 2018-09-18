@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {App, Nav, Platform, NavController, MenuController ,AlertController,ActionSheetController,Events} from 'ionic-angular';
+import {App, Nav, Platform, NavController, MenuController ,AlertController,ActionSheetController,Events,ToastController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -62,6 +62,7 @@ export class MyApp {
   app_conditions = "item_unselected";
 
   backBtnFlag = false;
+  tostClass;
 
 
   constructor(public events: Events,public service:LoginserviceProvider, 
@@ -72,14 +73,14 @@ export class MyApp {
     public actionSheetCtrl: ActionSheetController,
     statusBar: StatusBar, splashScreen: SplashScreen,
     public translate: TranslateService,
-  public app:App) {
+  public app:App, public toastCtrl: ToastController) {
     console.log("current lang: ",this.helper.currentLang);
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
     }else{
       this.dir="left";
     }
-    
+    this.tostClass = "toastRight";
     firebase.initializeApp(firebaseConfig);  
     // this.helper.checkConnection();
     
@@ -673,13 +674,13 @@ export class MyApp {
               this.presentdelivaryAlert(notification.title,notification.message);
               this.events.publish('status8ForPLC');
             }
-
-            // if(orderStatus == "12")
-            // {
-            //   this.nav.parent.select(1);
-            // }
+            if(orderStatus == "12")
+            {
+              this.presentContOrderConfirm(notification.additionalData.orderId,notification.additionalData.remark,notification.additionalData.date);
+            }
             
-            if(orderStatus == "5" )
+            
+            if(orderStatus == "5" || orderStatus == "12")
             { 
               // if(this.helper.orderRated == 0)
               // {
@@ -922,6 +923,52 @@ presentdelivaryAlert(title,msg) {
     ionViewWillLeave() {
       console.log('app will leave')
      }
+
+presentContOrderConfirm(order_id,remark,contDate) {
+       var token = localStorage.getItem('user_token');
+      let alert = this.alertCtrl.create({
+        title: this.translate.instant("contorder"),
+        message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",
+        buttons: [
+          {
+            text: this.translate.instant("disagree"),
+            role: 'cancel',
+            handler: () => {
+              console.log('confirm contorder  disagree clicked');
+
+              this.service.updateOrderStatusToCancel(order_id,token).subscribe(
+                resp=>{
+                  console.log("resp cancel contOrder",resp);
+                  if(JSON.parse(JSON.stringify(resp)).success)
+                    this.presentToast("تم الغاء الموعد");
+                },err=>{
+                  console.log("err cancel contOrder",err);
+                }
+              );
+            }
+          },
+          {
+            text: this.translate.instant("agree"),
+            handler: () => {
+              console.log('confirm contorder agree clicked');
+             
+              
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+
+    private presentToast(text) {
+      let toast = this.toastCtrl.create({
+        message: text,
+        duration: 3000,
+        position: 'bottom',
+        cssClass: this.tostClass
+      });
+      toast.present();
+    }
 
 }
 

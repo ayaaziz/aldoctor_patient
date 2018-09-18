@@ -137,7 +137,9 @@ export class RemaingTimeForPlcPage {
   this.events.subscribe('cancelOrder', () => {
    console.log("cancel order from event");
   //  this.presentCancelConfirm();
+  console.log("alertApear: ",this.alertApear);
   if(this.alertApear == false ){
+    console.log("form if alertApear: ",this.alertApear);
     this.alertApear = true;
     this.backpresentCancelConfirm();
   }
@@ -176,13 +178,13 @@ export class RemaingTimeForPlcPage {
     toast.present();
   }
 
-  // ionViewWillLeave(){
-  //   console.log("remaing time for plc will leave");
-  //   console.log("net",this.net);
-  //   this.willLeave = true;
-  //   if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
-  //     this.presentCancelConfirm();
-  // }
+  ionViewWillLeave(){
+    console.log("remaing time for plc will leave");
+    console.log("net",this.net);
+    this.willLeave = true;
+    if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
+      this.presentCancelConfirm();
+  }
 
   presentCancelConfirm() {
     let alert = this.alertCtrl.create({
@@ -263,15 +265,15 @@ export class RemaingTimeForPlcPage {
     this.helper.view = "remaining-time-for-plc";
   }
 
-  ionViewDidLeave(){
-    console.log("ionViewDidLeave from plc");
-    // if(this.willLeave == false)
-    // {
-      if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
-        this.presentCancelConfirm();
-    // }
+  // ionViewDidLeave(){
+  //   console.log("ionViewDidLeave from plc");
+  //   // if(this.willLeave == false)
+  //   // {
+  //     if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
+  //       this.presentCancelConfirm();
+  //   // }
     
-  }
+  // }
 
 
 

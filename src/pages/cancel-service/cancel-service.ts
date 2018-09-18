@@ -25,7 +25,7 @@ export class CancelServicePage {
   orderId;
   accessToken;
   desc = "";
-  langDirection;
+  langDirection = "rtl";
   tostClass ;
   CancelBtn =true;
 
