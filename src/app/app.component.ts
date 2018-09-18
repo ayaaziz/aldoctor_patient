@@ -238,17 +238,17 @@ export class MyApp {
 
       if(this.helper.view == "remaining-time-for-plc" && this.backBtnFlag == false)
       {
-        this.backBtnFlag = true;
-        this.helper.backBtnInHelper = true;
-        
+        //this.backBtnFlag = true;
+        // this.helper.backBtnInHelper = true;
+        console.log("if to fire cancelOrder event");
         this.events.publish('cancelOrder');
         
       } 
       else if (this.helper.view == "remaining-time-to-accept" && this.backBtnFlag == false)
       {
-        this.backBtnFlag = true;
-        this.helper.backBtnInHelper = true;
-        
+        //this.backBtnFlag = true;
+        // this.helper.backBtnInHelper = true;
+        console.log("if to fire cancelDoctorOrder event");
         this.events.publish('cancelDoctorOrder');
         
       } 
@@ -651,6 +651,7 @@ export class MyApp {
 
             if(orderStatus == "10" || orderStatus == "3") 
             {
+              console.log("status 10 or 3");
               this.storage.remove("orderImages"); 
               this.events.publish('status0ForPLC');
             } 
@@ -673,7 +674,10 @@ export class MyApp {
               this.events.publish('status8ForPLC');
             }
 
-
+            // if(orderStatus == "12")
+            // {
+            //   this.nav.parent.select(1);
+            // }
             
             if(orderStatus == "5" )
             { 

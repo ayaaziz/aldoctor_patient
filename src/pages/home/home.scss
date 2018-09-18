@@ -186,6 +186,31 @@ page-home {
 //     }
 
 // }
+// .rating-box {
+//     position:relative;
+//     vertical-align: middle;
+//     font-size: 3/3em;
+//     font-family: FontAwesome;
+//     display:inline-block;
+//     color: lightgray;
+  
+//     &:before{
+//       content: "\f006 \f006 \f006 \f006 \f006";
+//     }
+  
+//     .rating {
+//       position: absolute;
+//       left:0;
+//       top:0;
+//       white-space:nowrap;
+//       overflow:hidden;
+//       color: #F68127;
+//       &:before {
+//         content: "\f005 \f005 \f005 \f005 \f005";
+//       }
+//     }
+//   }
+
 }
 .toastRight{
     text-align: right;

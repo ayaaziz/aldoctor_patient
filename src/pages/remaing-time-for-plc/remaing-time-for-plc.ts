@@ -34,6 +34,8 @@ export class RemaingTimeForPlcPage {
   acceptOrder = false;
   net = true;
   stopAlert = false;
+  willLeave = false;
+  alertApear = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider,public events: Events,
@@ -135,7 +137,11 @@ export class RemaingTimeForPlcPage {
   this.events.subscribe('cancelOrder', () => {
    console.log("cancel order from event");
   //  this.presentCancelConfirm();
-  this.backpresentCancelConfirm();
+  if(this.alertApear == false ){
+    this.alertApear = true;
+    this.backpresentCancelConfirm();
+  }
+    
   });
   
   this.events.subscribe('networkError',(data)=>{
@@ -170,12 +176,13 @@ export class RemaingTimeForPlcPage {
     toast.present();
   }
 
-  ionViewWillLeave(){
-    console.log("remaing time for plc will leave");
-    console.log("net",this.net);
-    if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
-      this.presentCancelConfirm();
-  }
+  // ionViewWillLeave(){
+  //   console.log("remaing time for plc will leave");
+  //   console.log("net",this.net);
+  //   this.willLeave = true;
+  //   if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
+  //     this.presentCancelConfirm();
+  // }
 
   presentCancelConfirm() {
     let alert = this.alertCtrl.create({
@@ -219,7 +226,9 @@ export class RemaingTimeForPlcPage {
           handler: () => {
             console.log('disagree clicked');
             //this.navCtrl.parent.select(0);
-            this.helper.backBtnInHelper = false;
+            this.alertApear = false;
+             this.helper.backBtnInHelper = false;
+            
           }
         },
         {
@@ -228,6 +237,7 @@ export class RemaingTimeForPlcPage {
             console.log('cancel order agree clicked');
             clearTimeout(this.timer);
             this.helper.backBtnInHelper = false;
+            this.alertApear = false;
             // this.navCtrl.pop();
             //this.navCtrl.parent.select(0);
             this.stopAlert = true;
@@ -243,9 +253,26 @@ export class RemaingTimeForPlcPage {
   }
 
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     console.log("ionViewWillEnter from plc");
     this.helper.view = "remaining-time-for-plc";
   }
+
+  ionViewDidEnter(){
+    console.log("ionViewDidEnter from plc");
+    this.helper.view = "remaining-time-for-plc";
+  }
+
+  ionViewDidLeave(){
+    console.log("ionViewDidLeave from plc");
+    // if(this.willLeave == false)
+    // {
+      if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
+        this.presentCancelConfirm();
+    // }
+    
+  }
+
+
 
 }
