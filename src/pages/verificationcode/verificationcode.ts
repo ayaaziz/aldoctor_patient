@@ -64,6 +64,7 @@ phone="";
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad VerificationcodePage');
+    this.helper.view = "";
   }
   accessToken;
   login(){
