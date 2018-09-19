@@ -680,7 +680,7 @@ export class MyApp {
             }
             
             
-            if(orderStatus == "5" || orderStatus == "12")
+            if(orderStatus == "5")
             { 
               // if(this.helper.orderRated == 0)
               // {
