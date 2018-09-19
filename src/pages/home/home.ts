@@ -29,6 +29,10 @@ xxrate;
     public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
+    var xxdate = "2018-09-20T11:58:00.000Z"
+var yydate = xxdate.split('T');
+var zzdate = yydate[1].split('.');
+console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
     
     this.accessToken = localStorage.getItem('user_token');
     this.helper.view = "HomePage";

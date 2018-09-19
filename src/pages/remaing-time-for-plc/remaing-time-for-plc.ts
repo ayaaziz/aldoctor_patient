@@ -73,7 +73,9 @@ export class RemaingTimeForPlcPage {
     //    console.log("back btn ");
     //    this.presentCancelConfirm();
     //  });
-
+    // this.navCtrl.viewWillLeave.subscribe(view=>{
+    //   console.log("view from remaining time plc",view);
+    // });
 
   }
 
