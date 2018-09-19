@@ -97,11 +97,11 @@ export class RemaingTimeForPlcPage {
 
       this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
         resp=>{
-          console.log("update status",resp);
+          console.log("update status resp from remaining time for plc",resp);
           
           // this.helper.removeOrder(this.helper.orderIdForUpdate);
         },err=>{
-          console.log("uppdate status",err);
+          console.log("update status err from remaining time for plc",err);
         }
       );
     // });

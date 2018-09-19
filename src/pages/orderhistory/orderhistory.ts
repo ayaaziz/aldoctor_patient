@@ -768,7 +768,8 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
   this.navCtrl.setRoot('follow-order-for-plc',
   {data:
     {"orderId":item.orderId, 
-      "doctorId":item.doctor_id
+      "doctorId":item.doctor_id,
+      "order_status":item.order_status
     }
   });
 

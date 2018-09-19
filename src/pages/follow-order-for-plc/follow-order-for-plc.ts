@@ -99,6 +99,12 @@ export class FollowOrderForPlcPage {
       this.doctorId = this.doctorData.doctorId;
       this.orderId = this.doctorData.orderId;
 
+      if(this.doctorData.order_status && this.doctorData.order_status == "8")
+      {
+        console.log("order status from navParams",this.doctorData.order_status);
+        this.disableCancelBtn = true;
+      }  
+
       this.srv.getOrderDetails(this.orderId,this.accessToken).subscribe(
         resp=>{
           console.log("orderDetails ",resp);
