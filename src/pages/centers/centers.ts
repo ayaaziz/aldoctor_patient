@@ -156,6 +156,8 @@ console.log("sp item search val ",val);
 
     if (val && val.trim() != '') {
       val = this.textArabicNumbersReplacment(val);
+      console.log("search val after replacement",val);
+      
       this.specializations1 = this.specializations1.filter((item) => {
         return (this.textArabicNumbersReplacment(item.value).toLowerCase().indexOf(val.toLowerCase()) > -1); //item.value.toLowerCase().indexOf(val.toLowerCase()
       });

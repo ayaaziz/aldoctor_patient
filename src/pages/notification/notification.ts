@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Events,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Events,ToastController,AlertController } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -35,7 +35,8 @@ export class NotificationPage {
   constructor(public events: Events,public toastCtrl: ToastController,
     public service:LoginserviceProvider,public storage: Storage,
     public translate:TranslateService,public helper:HelperProvider
-    ,public navCtrl: NavController, public navParams: NavParams) {
+    ,public navCtrl: NavController, public navParams: NavParams,
+    public alertCtrl: AlertController) {
 
       this.accessToken = localStorage.getItem('user_token');
       
@@ -263,6 +264,41 @@ export class NotificationPage {
     });
     toast.present();
   }
+
+  notificationClickd(item){
+    console.log("notificationClicked , item: ",item)
+    if(item.orderstatus && item.orderstatus == "12")
+    {
+      this.presentContOrderConfirm(item.remark,item.date);
+    }
+  }
+
+  presentContOrderConfirm(remark,contDate) {
+    
+   let alert = this.alertCtrl.create({
+     title: this.translate.instant("contorder"),
+     message: remark+"<br/>"+contDate,
+     buttons: ['موافق']
+      //  {
+      //    text: this.translate.instant("disagree"),
+      //    role: 'cancel',
+      //    handler: () => {
+      //      console.log('confirm contorder  disagree clicked');
+
+      //    }
+      //  },
+       //{
+      //    text: this.translate.instant("agree"),
+      //    handler: () => {
+      //      console.log('confirm contorder agree clicked');
+          
+           
+      //    }
+      //  }
+     
+   });
+   alert.present();
+ }
 
 
 }

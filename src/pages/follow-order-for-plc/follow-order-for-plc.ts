@@ -25,7 +25,7 @@ export class FollowOrderForPlcPage {
 
   doctorData;
   doctorId;
-  doctorName;
+  doctorName = "";
   doctorSpecialization;
   doctorLocation;
   doctorRate;
@@ -219,11 +219,14 @@ export class FollowOrderForPlcPage {
           resp =>{
             console.log("resp from getserviceprofile in followorder: ",resp);
             var tempData = JSON.parse(JSON.stringify(resp)).user;
+            
             if (tempData.nickname)
               this.doctorName = tempData.nickname;
             else 
               this.doctorName = tempData.name;
               
+            console.log("doctor name from getServiceProfile",this.doctorName);
+
             this.doctorRate = tempData.rate;
             this.doctorSpecialization = tempData.speciality; 
             this.OrderCost = tempData.extraInfo.discount;
@@ -289,6 +292,7 @@ export class FollowOrderForPlcPage {
 
               console.log(" time : ",hdisplay+mdisplay);
               this.duration  = hdisplay+mdisplay;
+              console.log("doc name from distance & duration",this.doctorName);
               if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
               {
                 console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
@@ -415,10 +419,11 @@ export class FollowOrderForPlcPage {
     }
     
 
-    this.events.subscribe('status8', (data) => {
-      console.log("notification event status 8");
-      this.helper.trackDoctor(this.doctorId); 
-    });
+    // this.events.subscribe('status8', (data) => {
+    //   console.log("notification event status 8");
+    //   this.helper.trackDoctor(this.doctorId); 
+    // });
+
     // this.events.subscribe('status5', (data) => {
     //   console.log("notification event status 5",data);
     //   this.navCtrl.push(TabsPage);

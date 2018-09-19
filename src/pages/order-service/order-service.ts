@@ -684,7 +684,7 @@ Loadfunc(){
      this.orderBTn = true;
     //  this.showLoading=false;   \n doctorsId
     console.log("choosenDoctors ,, ",doctorsId.join(','));
-      this.srv.saveOrder(doctorsId.join(','),this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length).subscribe(
+      this.srv.saveOrder(doctorsId.join(','),this.photosForApi,this.imageExt.join(','),this.accessToken,this.choosenDoctors.length,this.center_id).subscribe(
         resp => {
           // this.showLoading=true;
           if(JSON.parse(JSON.stringify(resp)).success ){

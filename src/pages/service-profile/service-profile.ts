@@ -43,7 +43,7 @@ export class ServiceProfilePage {
   imageExt=[];
   phone2;
   phone2Apear =  true;
-
+  center_id = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
@@ -141,7 +141,7 @@ export class ServiceProfilePage {
     //   this.accessToken = data;
     this.accessToken = localStorage.getItem('user_token');
 
-      this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.imageExt.join(','),this.accessToken,1).subscribe(
+      this.srv.saveOrder(this.doctorProfile.id,this.photosForApi,this.imageExt.join(','),this.accessToken,1,this.center_id).subscribe(
         resp => {
           
           // this.showLoading=true;

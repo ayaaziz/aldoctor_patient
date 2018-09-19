@@ -96,7 +96,7 @@
             </ion-row>
 
             
-        <ion-item *ngFor="let item of data">
+        <ion-item *ngFor="let item of data" (click)="notificationClickd(item)">
           <!-- start -->
             <ion-avatar item-start style="margin:0px;">
                 <img [src]="item.notificationimage">

@@ -144,12 +144,12 @@ export class OrderhistoryPage {
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
-            else if (ordersData[j].status == "5" || ordersData[j].status == "6"  || ordersData[j].status == "12" )
+            else if (ordersData[j].status == "5" || ordersData[j].status == "6" )
             { 
               ordersData[j].statusTxt="تم التنفيذ";
               ordersData[j].color = "grey";
             }
-            else if(ordersData[j].status == "2" || ordersData[j].status=="8" || ordersData[j].status=="7"){
+            else if(ordersData[j].status == "2" || ordersData[j].status == "8" || ordersData[j].status == "7" || ordersData[j].status == "12"){
               ordersData[j].statusTxt = "قيد التنفيذ";
               ordersData[j].color = "green";
             }
@@ -235,9 +235,11 @@ export class OrderhistoryPage {
               if(ordersData[j].is_reorder == "1" || ordersData[j].contorder == "1")
               {
                 console.log("ordersData[j].date ",ordersData[j].date);
+                console.log("order date only",ordersData[j].date.split(" ")[0]);
+                
                 console.log("today",new Date().toISOString().split('T')[0]);
                 
-                if(new Date().toISOString().split('T')[0] == ordersData[j].date ){
+                if(new Date().toISOString().split('T')[0] == ordersData[j].date.split(" ")[0] ){
                   console.log("==")
                   this.orderobject.reorderBtn = false;
                 }else{
