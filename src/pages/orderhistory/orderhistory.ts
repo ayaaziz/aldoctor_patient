@@ -763,7 +763,7 @@ export class OrderhistoryPage {
       7 start detection
       8 move to paient 
     */
-if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7")
+if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7" || item.order_status =="13" ||item.order_status =="12")
 {
   // this.navCtrl.setRoot('follow-order',{
   //   data:item
