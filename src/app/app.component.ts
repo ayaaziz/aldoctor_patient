@@ -648,6 +648,8 @@ export class MyApp {
           
           if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3"){
 
+            console.log("notification from type_id",notification.additionalData.type_id);
+
             this.helper.type_id = notification.additionalData.type_id;
 
             var orderStatus = notification.additionalData.order_status;
@@ -954,11 +956,15 @@ presentContOrderConfirm(order_id,remark,contDate) {
                 resp=>{
                   console.log("resp cancel contOrder",resp);
                   if(JSON.parse(JSON.stringify(resp)).success)
+                  {
                     this.presentToast("تم الغاء الموعد");
-                    this.nav.setRoot(HomePage);
-                    this.nav.parent.select(1);
+                    console.log("الغاء")
+                    this.events.publish('x');
+                  }
+                    
                 },err=>{
                   console.log("err cancel contOrder",err);
+                  this.presentToast("خطأ فى الاتصال");
                 }
               );
             }
@@ -972,9 +978,15 @@ presentContOrderConfirm(order_id,remark,contDate) {
                 resp=>{
                   console.log("resp cancel contOrder",resp);
                   if(JSON.parse(JSON.stringify(resp)).success)
+                  {
                     this.presentToast("تم تأكيد الموعد");
+                    console.log("تاكيد");
+                    this.events.publish('y');
+                  }
+                    
                 },err=>{
                   console.log("err cancel contOrder",err);
+                  this.presentToast("خطأ فى الاتصال");
                 }
               );
             }

@@ -274,5 +274,9 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     console.log("image clicked",index)
     this.navCtrl.push('full-screen',{data:this.photos[index]});
   }
-  
+  viewRates(){
+    console.log("viewRates");
+    this.navCtrl.push('view-rates');
+  }
+
 }

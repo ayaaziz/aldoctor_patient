@@ -144,7 +144,7 @@ export class OrderhistoryPage {
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
-            else if (ordersData[j].status == "5" || ordersData[j].status == "6" )
+            else if (ordersData[j].status == "5" || ordersData[j].status == "6" || ordersData[j].status == "13")
             { 
               ordersData[j].statusTxt="تم التنفيذ";
               ordersData[j].color = "grey";
@@ -218,7 +218,9 @@ export class OrderhistoryPage {
               
               if (ordersData[j].status == "12")
                 this.orderobject.contorder = "1";
-              else if(ordersData[j].status == "4" || ordersData[j].status == "13")
+              else if(ordersData[j].status == "4" || ordersData[j].status == "13" || ordersData[j].status == "3" || ordersData.status == "11")
+                this.orderobject.contorder = "0";
+              else 
                 this.orderobject.contorder = "0";
               
               

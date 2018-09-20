@@ -11,6 +11,7 @@ import { TabsPage } from '../tabs/tabs';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
+import { HomePage } from '../home/home';
 
 
 @IonicPage({
@@ -305,17 +306,17 @@ export class FollowOrderForPlcPage {
                 this.scheduleNotification(m);
               }  
 
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
-              {
-                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-                this.scheduleNotification(m);
-              }  
+              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
+              // {
+              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+              //   this.scheduleNotification(m);
+              // }  
               
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
-              {
-                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-                this.scheduleNotification(m);
-              } 
+              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
+              // {
+              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+              //   this.scheduleNotification(m);
+              // } 
 
             },
             err=>{
@@ -385,17 +386,17 @@ export class FollowOrderForPlcPage {
                 this.scheduleNotification(m);
               }  
 
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
-              {
-                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-                this.scheduleNotification(m);
-              }  
+              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
+              // {
+              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+              //   this.scheduleNotification(m);
+              // }  
               
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
-              {
-                console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-                this.scheduleNotification(m);
-              }
+              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
+              // {
+              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+              //   this.scheduleNotification(m);
+              // }
                 
 
         },
@@ -441,6 +442,17 @@ export class FollowOrderForPlcPage {
     //   });
       
     // });
+    this.events.subscribe('x',()=>{
+      console.log("x fired");
+      this.navCtrl.setRoot(HomePage);
+      
+    });
+
+    this.events.subscribe('y',()=>{
+      console.log("y fired");
+      this.navCtrl.setRoot(HomePage);
+    });
+
     this.events.subscribe('status8ForPLC', (data) => {
       console.log("notification event status8ForPLC");
 

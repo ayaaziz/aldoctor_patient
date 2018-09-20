@@ -145,6 +145,7 @@ export class RemaingTimeForPlcPage {
     this.helper.stillCount = false;
     
     this.events.publish('enableTabs', true);
+    
     this.navCtrl.setRoot('follow-order-for-plc',
     {data:
       { "orderId":data.orderId, 
