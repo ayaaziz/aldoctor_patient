@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController ,ActionSheetController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController ,ActionSheetController, App} from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -47,7 +47,7 @@ export class ServiceProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
-    public storage: Storage, 
+    public storage: Storage, public app:App,
     public service:LoginserviceProvider,public srv:ProvidedServicesProvider,
     public helper: HelperProvider,public translate: TranslateService,
     public camera: Camera,

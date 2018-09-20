@@ -21,6 +21,7 @@ export class TabsPage {
 
   favCount ;
   tabindex ;
+  enableTab = true;
 
   constructor(public events: Events) {
     this.events.subscribe('lengthdata', (count) => {
@@ -34,6 +35,12 @@ export class TabsPage {
       this.tabindex = "1";
       console.log("this.tabindex after set",this.tabindex);
     });
+
+    this.events.subscribe('enableTabs', (enabel) => {
+      
+      this.enableTab = enabel;
+    });
+
   }
   
 

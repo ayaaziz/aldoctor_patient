@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+import { ToastController, IonicPage, NavController, NavParams, Events, App } from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -45,7 +45,7 @@ export class SpecificDoctorPage {
   orderBTn = false;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
-    public storage: Storage,  public events: Events,
+    public storage: Storage,  public events: Events,public app:App,
     public service:LoginserviceProvider, public navCtrl: NavController,
      public navParams: NavParams, public translate: TranslateService) {
 

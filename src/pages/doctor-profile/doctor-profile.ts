@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController,App } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
@@ -33,7 +33,7 @@ export class DoctorProfilePage {
   location;
 
   constructor( public toastCtrl: ToastController, 
-    public storage: Storage, 
+    public storage: Storage, public app:App,
     public service:LoginserviceProvider,
     public helper: HelperProvider, public navCtrl: NavController,
      public navParams: NavParams,public translate: TranslateService) {

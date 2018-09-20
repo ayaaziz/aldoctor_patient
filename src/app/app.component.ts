@@ -31,6 +31,7 @@ import { LoginserviceProvider } from '../providers/loginservice/loginservice';
 import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-interceptor/refresh-token-interceptor';
 
 import * as firebase from 'firebase/app';
+import { HomePage } from '../pages/home/home';
 
 var firebaseConfig  = {
   apiKey: "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo",
@@ -74,6 +75,9 @@ export class MyApp {
     statusBar: StatusBar, splashScreen: SplashScreen,
     public translate: TranslateService,
   public app:App, public toastCtrl: ToastController) {
+
+  
+            
     console.log("current lang: ",this.helper.currentLang);
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
@@ -570,6 +574,9 @@ export class MyApp {
       const pushObject: PushObject = this.push.init(options);
       pushObject.on('notification').subscribe((notification: any) => {
         console.log("notification " + JSON.stringify(notification))
+        
+        this.translate.use('ar');
+
         if (this.platform.is('ios')) {
           console.log("ios notification",notification);
           if (notification.additionalData.foreground == true) {
@@ -948,6 +955,8 @@ presentContOrderConfirm(order_id,remark,contDate) {
                   console.log("resp cancel contOrder",resp);
                   if(JSON.parse(JSON.stringify(resp)).success)
                     this.presentToast("تم الغاء الموعد");
+                    this.nav.setRoot(HomePage);
+                    this.nav.parent.select(1);
                 },err=>{
                   console.log("err cancel contOrder",err);
                 }
@@ -958,8 +967,16 @@ presentContOrderConfirm(order_id,remark,contDate) {
             text: this.translate.instant("agree"),
             handler: () => {
               console.log('confirm contorder agree clicked');
-             
-              
+
+              this.service.updateOrderStatusToAgreeTime(order_id,token).subscribe(
+                resp=>{
+                  console.log("resp cancel contOrder",resp);
+                  if(JSON.parse(JSON.stringify(resp)).success)
+                    this.presentToast("تم تأكيد الموعد");
+                },err=>{
+                  console.log("err cancel contOrder",err);
+                }
+              );
             }
           }
         ]

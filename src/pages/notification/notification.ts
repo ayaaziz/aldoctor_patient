@@ -267,7 +267,7 @@ export class NotificationPage {
 
   notificationClickd(item){
     console.log("notificationClicked , item: ",item)
-    if(item.orderstatus && item.orderstatus == "12")
+    if(item.orderstatus && item.orderstatus == "12" || item.orderstatus == "13")
     {
       this.presentContOrderConfirm(item.remark,item.date);
     }
@@ -278,7 +278,7 @@ export class NotificationPage {
    let alert = this.alertCtrl.create({
      title: this.translate.instant("contorder"),
      message: remark+"<br/>"+contDate,
-     buttons: ['موافق']
+     buttons: ['حسنا']
       //  {
       //    text: this.translate.instant("disagree"),
       //    role: 'cancel',

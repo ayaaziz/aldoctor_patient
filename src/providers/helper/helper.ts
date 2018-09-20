@@ -60,7 +60,8 @@ export class HelperProvider {
   public dontSendNotification = false;
 
   backBtnInHelper = false;
-  
+  stillCount = false;
+
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
     public events: Events, private network: Network) {
@@ -402,5 +403,7 @@ listenToNetworkConnection(){
 removeNetworkConnectionListener(){
   this.connectSubscription.unsubscribe(); 
 }
+
+
 
 }

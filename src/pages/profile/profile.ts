@@ -7,12 +7,11 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
 //import { ImagePicker } from '@ionic-native/image-picker';
+
 //import { Base64 } from '@ionic-native/base64';
 // import { Jsonp } from '@angular/http/src/http';
 
 //import { ImageLoaderConfig } from 'ionic-image-loader';
-
-
 
 // @IonicPage()
 @Component({
@@ -47,6 +46,7 @@ myRate;
      // private imageLoaderConfig: ImageLoaderConfig
     )
   {
+  
     
     this.accessToken = localStorage.getItem('user_token');
 
@@ -81,6 +81,15 @@ myRate;
   newuserData;
   ionViewWillEnter(){
     this.helper.view = "ProfilePage";
+    
+    if(this.helper.stillCount == true)
+    {
+      console.log("الغاء");
+      this.events.publish("appearCancelAlert");
+    } 
+    else
+      console.log("عادى");
+
     this.storage.ready().then(() => {
     
       // this.storage.get('data').then(data=>{
@@ -362,4 +371,5 @@ myRate;
     console.log("change phone");
     this.navCtrl.push('change-phone');
   }
+  
 }

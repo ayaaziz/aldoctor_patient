@@ -216,8 +216,12 @@ export class OrderhistoryPage {
               this.orderobject.reorder = ordersData[j].is_reorder;
               this.orderobject.contorder = ordersData[j].contorder;
               
-              if(ordersData[j].status == "4")
+              if (ordersData[j].status == "12")
+                this.orderobject.contorder = "1";
+              else if(ordersData[j].status == "4" || ordersData[j].status == "13")
                 this.orderobject.contorder = "0";
+              
+              
 
               this.orderobject.rated = ordersData[j].rated;
               this.orderobject.remark = ordersData[j].remark;
@@ -947,7 +951,15 @@ presentContOrderConfirm(item) {
         text: this.translate.instant("agree"),
         handler: () => {
           console.log('confirm contorder agree clicked');
-         
+          this.service.updateOrderStatusToAgreeTime(item.orderId,this.accessToken).subscribe(
+            resp=>{
+              console.log("resp cancel contOrder",resp);
+              if(JSON.parse(JSON.stringify(resp)).success)
+                this.presentToast("تم تأكيد الموعد");
+            },err=>{
+              console.log("err cancel contOrder",err);
+            }
+          );
           
         }
       }

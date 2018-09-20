@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import {ToastController, IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
+import {ToastController, IonicPage, NavController, NavParams,LoadingController ,App} from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -60,7 +60,7 @@ export class OrderDoctorPage {
     public storage: Storage, public events: Events,
     public service:LoginserviceProvider,public navCtrl: NavController, 
     public navParams: NavParams,  public translate: TranslateService,
-    public loadingCtrl: LoadingController) {
+    public loadingCtrl: LoadingController, public app:App) {
 
      console.log("ordre btn",this.orderBTn);
 

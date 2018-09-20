@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  ToastController, ActionSheetController , IonicPage, NavController, NavParams ,Events} from 'ionic-angular';
+import {  ToastController, ActionSheetController , IonicPage, NavController, NavParams ,Events, App} from 'ionic-angular';
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -66,7 +66,7 @@ export class OrderSpecificServicePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public translate: TranslateService,  public events: Events,
     public helper:HelperProvider, public toastCtrl: ToastController, 
-    public storage: Storage,public camera: Camera, 
+    public storage: Storage,public camera: Camera, public app:App,
     public srv:ProvidedServicesProvider,public service:LoginserviceProvider,
     public actionSheetCtrl: ActionSheetController) {
 
@@ -627,11 +627,14 @@ export class OrderSpecificServicePage {
     console.log("search value ",searchVal);
     if(searchVal)
     {
+      console.log("searchVal from if",searchVal);
      this.searchFunc(searchVal);
     
     }
     else{
       this.doctors = [];  
+      console.log("searchVal from else",searchVal);
+      
     }
 
   }

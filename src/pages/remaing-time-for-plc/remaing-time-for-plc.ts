@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events ,ToastController,AlertController,Platform} from 'ionic-angular';
+import {App, IonicPage, NavController, NavParams, Events ,ToastController,AlertController,Platform} from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -36,16 +36,20 @@ export class RemaingTimeForPlcPage {
   stopAlert = false;
   willLeave = false;
   alertApear = false;
+  alertCancelShown  = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider,public events: Events,
     public storage: Storage,public service:LoginserviceProvider,
     public toastCtrl: ToastController,public alertCtrl: AlertController
     // ,private network: Network
-    ,public translate: TranslateService,public platformObj:Platform
+    ,public translate: TranslateService,public platformObj:Platform,
+    public app:App
   ) {
     
       this.helper.view = "remaining-time-for-plc";
+      this.events.publish('enableTabs', false);
+      this.helper.stillCount = true;
 
       this.accessToken = localStorage.getItem('user_token');
       this.langDirection = this.helper.lang_direction;
@@ -81,7 +85,8 @@ export class RemaingTimeForPlcPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RemaingTimeForPlcPage');
-  
+    console.log("stillCount",this.helper.stillCount);
+
     this.helper.listenToNetworkDisconnection();
     
     
@@ -92,6 +97,7 @@ export class RemaingTimeForPlcPage {
         console.log("timer off");
         // this.helper.removeNetworkDisconnectionListener();
        clearTimeout(this.timer);
+        this.helper.stillCount = false;
 
       //  this.storage.get("access_token").then(data=>{
       //   this.accessToken = data;
@@ -107,19 +113,28 @@ export class RemaingTimeForPlcPage {
         }
       );
     // });
-
-       this.navCtrl.setRoot('order-not-accepted');
+        this.events.publish('enableTabs', true);
+        this.navCtrl.setRoot('order-not-accepted');
        
       }   
     
   },1000);
 
 
+  // this.events.subscribe('appearCancelAlert',()=>{
+  //   console.log("from appearCancelAlert subscribe");
+    
+  //   this.presentCancelConfirm();
+
+  // });
+
   this.events.subscribe('status0ForPLC', (data) => {
     console.log("status0ForPLC",data);
     // this.helper.removeNetworkDisconnectionListener();    
     clearTimeout(this.timer);
-    
+    this.helper.stillCount = false;
+    this.events.publish('enableTabs', true);
+
     this.navCtrl.setRoot('order-not-accepted');
   });
 
@@ -127,6 +142,9 @@ export class RemaingTimeForPlcPage {
     console.log("status2ForPLC",data);
     this.acceptOrder = true;
     clearTimeout(this.timer);
+    this.helper.stillCount = false;
+    
+    this.events.publish('enableTabs', true);
     this.navCtrl.setRoot('follow-order-for-plc',
     {data:
       { "orderId":data.orderId, 
@@ -155,6 +173,8 @@ export class RemaingTimeForPlcPage {
     // this.navCtrl.push(OrderhistoryPage);  
     this.helper.removeNetworkDisconnectionListener();
     clearTimeout(this.timer);
+    this.helper.stillCount = false;
+
     this.navCtrl.setRoot(TabsPage);
     this.navCtrl.parent.select(1);
     // this.events.publish("changeIndex",{index:"1"});
@@ -180,15 +200,17 @@ export class RemaingTimeForPlcPage {
     toast.present();
   }
 
-  ionViewWillLeave(){
-    console.log("remaing time for plc will leave");
-    console.log("net",this.net);
-    this.willLeave = true;
-    if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
-      this.presentCancelConfirm();
-  }
+  // ionViewWillLeave(){
+  //   console.log("remaing time for plc will leave");
+  //   console.log("net",this.net);
+  //   this.willLeave = true;
+  //   if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
+  //     this.presentCancelConfirm();
+  // }
 
   presentCancelConfirm() {
+    console.log("alertCancelShown",this.alertCancelShown);
+        
     let alert = this.alertCtrl.create({
       title: this.translate.instant("confirmCancelOrder"),
       message: "هل تريد الغاء الطلب ؟ ",
@@ -199,6 +221,7 @@ export class RemaingTimeForPlcPage {
           handler: () => {
             console.log('disagree clicked');
             this.navCtrl.parent.select(0);
+
           }
         },
         {
@@ -206,6 +229,8 @@ export class RemaingTimeForPlcPage {
           handler: () => {
             console.log('cancel order agree clicked');
             clearTimeout(this.timer);
+            this.helper.stillCount = false;
+
             // this.navCtrl.pop();
             this.navCtrl.parent.select(0);
             this.stopAlert = true;
@@ -218,7 +243,9 @@ export class RemaingTimeForPlcPage {
       ]
     });
     alert.present();
-  }
+  
+
+}
   backpresentCancelConfirm() {
     let alert = this.alertCtrl.create({
       title: this.translate.instant("confirmCancelOrder"),
@@ -231,7 +258,8 @@ export class RemaingTimeForPlcPage {
             console.log('disagree clicked');
             //this.navCtrl.parent.select(0);
             this.alertApear = false;
-             this.helper.backBtnInHelper = false;
+            this.helper.backBtnInHelper = false;
+            
             
           }
         },
@@ -240,6 +268,8 @@ export class RemaingTimeForPlcPage {
           handler: () => {
             console.log('cancel order agree clicked');
             clearTimeout(this.timer);
+            this.helper.stillCount = false;
+
             this.helper.backBtnInHelper = false;
             this.alertApear = false;
             // this.navCtrl.pop();
@@ -278,7 +308,10 @@ export class RemaingTimeForPlcPage {
   // }
 
   // onPageWillLeave() {
-    
+  // console.log("remaining plc leaveeeeeeeeee");  
+  // }
+  // ionViewCanLeave(){
+  //   console.log("view will leave r plc");
   // }
 
 }

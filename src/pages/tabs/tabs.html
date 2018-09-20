@@ -4,7 +4,7 @@
   <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>
 </ion-tabs> -->
 
-<ion-tabs   [selectedIndex]="tabindex">
+<ion-tabs   [selectedIndex]="tabindex" >
   <!-- <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>
   <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>
   <ion-tab [root]="tab3Root" tabTitle="Contact" tabIcon="contacts"></ion-tab>
@@ -23,10 +23,10 @@
   <ion-tab [root]="tab4Root"  tabIcon="notifications" [tabBadge]="favCount"></ion-tab>
  -->
 
-  <ion-tab [root]="tab1Root"  tabIcon="ios-home-outline" ></ion-tab>
-  <ion-tab [root]="tab2Root"  tabIcon="ios-calendar-outline"></ion-tab>
-  <ion-tab [root]="tab3Root"  tabIcon="ios-person-outline"></ion-tab>
-  <ion-tab [root]="tab4Root"  tabIcon="ios-notifications-outline" [tabBadge]="favCount"></ion-tab>
+  <ion-tab [root]="tab1Root"  tabIcon="ios-home-outline"  ></ion-tab>
+  <ion-tab [root]="tab2Root"  tabIcon="ios-calendar-outline" [enabled]="enableTab"></ion-tab>
+  <ion-tab [root]="tab3Root"  tabIcon="ios-person-outline" [enabled]="enableTab"></ion-tab>
+  <ion-tab [root]="tab4Root"  tabIcon="ios-notifications-outline" [tabBadge]="favCount" [enabled]="enableTab"></ion-tab>
 
 
 </ion-tabs>
