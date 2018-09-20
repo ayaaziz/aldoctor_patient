@@ -144,12 +144,12 @@ export class OrderhistoryPage {
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
-            else if (ordersData[j].status == "5" || ordersData[j].status == "6" || ordersData[j].status == "13")
+            else if (ordersData[j].status == "5" || ordersData[j].status == "6" )
             { 
               ordersData[j].statusTxt="تم التنفيذ";
               ordersData[j].color = "grey";
             }
-            else if(ordersData[j].status == "2" || ordersData[j].status == "8" || ordersData[j].status == "7" || ordersData[j].status == "12"){
+            else if(ordersData[j].status == "2" || ordersData[j].status == "8" || ordersData[j].status == "7" || ordersData[j].status == "12" || ordersData[j].status == "13"){
               ordersData[j].statusTxt = "قيد التنفيذ";
               ordersData[j].color = "green";
             }

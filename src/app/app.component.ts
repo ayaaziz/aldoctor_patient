@@ -943,11 +943,11 @@ presentContOrderConfirm(order_id,remark,contDate) {
        var ourDate = yydate[0]+" "+zzdate[0];
        
       let alert = this.alertCtrl.create({
-        title: this.translate.instant("contorder"),
+        title: "اكمال الطلب",
         message: remark+"<br/>"+ourDate+"<br>"+" هل تريد تأكيد الموعد؟",
         buttons: [
           {
-            text: this.translate.instant("disagree"),
+            text: "الغاء",
             role: 'cancel',
             handler: () => {
               console.log('confirm contorder  disagree clicked');
@@ -970,7 +970,7 @@ presentContOrderConfirm(order_id,remark,contDate) {
             }
           },
           {
-            text: this.translate.instant("agree"),
+            text: "موافق",
             handler: () => {
               console.log('confirm contorder agree clicked');
 
