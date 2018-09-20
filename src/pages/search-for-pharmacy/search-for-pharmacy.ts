@@ -39,7 +39,7 @@ export class SearchForPharmacyPage {
   tostClass ;
   locFlag= 0;
 
-// locFlag= 1;
+//locFlag= 1;
 
 //dplc reviews in doctor profile ...........................................
   //handle resp from upadte status to 3 running
