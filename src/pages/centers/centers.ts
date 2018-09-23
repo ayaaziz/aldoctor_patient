@@ -131,18 +131,21 @@ this.accessToken = localStorage.getItem('user_token');
             this.specializations1.push({id:0
               ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
               ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
-              ,value:"أخري"});
+              ,value:"أخري",
+              spClass:"spUnselceted"});
           }else if (this.specializations1.length > this.specializations2.length)        
           {
             this.specializations2.push({id:0
               ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
               ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
-              ,value:"أخري"});
+              ,value:"أخري",
+              spClass:"spUnselceted"});
           }else {
             this.specializations1.push({id:0
               ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
               ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
-              ,value:"أخري"});
+              ,value:"أخري",
+              spClass:"spUnselceted"});
           }
     
 
