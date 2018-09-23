@@ -138,4 +138,13 @@
     <button *ngIf="offline == '1'" disabled type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
     <button *ngIf="offline == '0'" type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
   </ion-item>
+
+
+  <ion-item style="text-align:center;" no-lines>
+
+    <button  type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="viewRates()"> مشاهدة التقييم</button>  
+      
+  </ion-item>
+
+  
 </ion-content>

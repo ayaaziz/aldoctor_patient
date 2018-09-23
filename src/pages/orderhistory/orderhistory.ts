@@ -32,7 +32,7 @@ export class OrderhistoryPage {
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
 "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
 "diabledesign":false,"addressSign":true,"type_id":"","diabledRate":false,
-"contorder":"","remark":"","contDate":""};
+"contorder":"","remark":"","contDate":"","disableRatebtn":true};
 
   tostClass ;
   refresher;
@@ -154,7 +154,9 @@ export class OrderhistoryPage {
               ordersData[j].color = "green";
             }
 
-              
+             
+            if(ordersData[j].status == "8")
+              this.orderobject.disableRatebtn = false;
             // if(ordersData[j].reorder == "1")
             //   ordersData[j].color = "green";
 
@@ -268,7 +270,7 @@ export class OrderhistoryPage {
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
                   "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
                   "diabledesign":false,"addressSign":true,"type_id":"","diabledRate" :false,
-                  "contorder":"","remark":"","contDate":""};
+                  "contorder":"","remark":"","contDate":"","disableRatebtn":true};
           
                     
             }
@@ -297,7 +299,7 @@ export class OrderhistoryPage {
               "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
               "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
               "diabledesign":false ,"addressSign":true,"type_id":"","diabledRate":false,
-              "contorder":"","remark":"","contDate":""};
+              "contorder":"","remark":"","contDate":"","disableRatebtn":true};
       
            
             }

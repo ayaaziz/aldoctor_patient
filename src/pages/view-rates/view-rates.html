@@ -2,8 +2,8 @@
   <ion-navbar hideBackButton>
     <ion-row>
       <ion-col col-7>
-        <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">"مشاهدة التقييم"</ion-title>
-        <ion-title *ngIf="langDirection != 'rtl'">"مشاهدة التقييم"</ion-title>
+        <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">مشاهدة التقييم</ion-title>
+        <ion-title *ngIf="langDirection != 'rtl'">مشاهدة التقييم</ion-title>
       </ion-col>
       <ion-col col-3 >
         <ion-buttons  left>
@@ -47,13 +47,32 @@
           </ion-row>
 
           
-      <ion-item *ngFor="let item of data" >
+      <!-- <ion-item *ngFor="let item of data" >
           <ion-avatar item-start style="margin:0px;">
               <img [src]="item.notificationimage">
             </ion-avatar>
 
-        <h6 style="font-size:12px;">{{item.data.text}}</h6> 
+        <h6 style="font-size:12px;">{{item.remark}}</h6> 
         <p>{{item.notificationDate}}</p>
+      </ion-item> -->
+
+      <ion-item *ngFor="let item of data" text-wrap>
+        <ion-avatar item-start style="margin:0px;">
+          <img [src]="item.notificationimage">
+        </ion-avatar>
+        <h2>{{item.usr.name}}</h2>
+        <rating 
+        [(ngModel)]="item.rate" 
+        readOnly="true" 
+        max="5" 
+        emptyStarIconName="star-outline"
+        halfStarIconName="star-half" 
+        starIconName="star" 
+        nullable="false" 
+        ></rating>
+
+        <p>{{item.remark}}</p>
+        <ion-note item-end>{{item.notificationDate}}</ion-note>
       </ion-item>
 
       <ion-infinite-scroll   (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">

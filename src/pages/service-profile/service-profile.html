@@ -74,7 +74,13 @@
     ></rating>
   </div>
 
-  <ion-item no-lines>
+
+<div style="color:gray;text-align: right;font-size: 16px;margin-top:10px" >
+    <img src="assets/icon/location.png" class="customIcon" > 
+    <p style="color:gray;display: inline;"> {{address}} </p>
+    </div>
+
+  <!-- <ion-item no-lines> -->
     <!-- <ion-label  *ngIf="langDirection != 'rtl'" class="right" > {{address}}  <img src="assets/icon/location.png" class="customIcon"> </ion-label>
     <ion-label  *ngIf="langDirection == 'rtl'" ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label> -->
 
@@ -85,14 +91,21 @@
     <!-- <div style="text-align: right;padding-right: 2px;padding-top:10px"> -->
         <!-- <img src="assets/icon/location.png" class="customIcon">  -->
         <!-- <p style="color:gray;display: inline;"> {{address}} </p> -->
-<ion-item style="color:gray;display: inline;padding-top:10px;text-align: right;font-size: 16px;" text-wrap no-lines>
-  <img src="assets/icon/location.png" class="customIcon"> 
-                       {{address}} 
-        </ion-item>
+
+<!-- true -->
+        <!-- <ion-item style="color:gray;display: inline;padding-top:10px;text-align: right;font-size: 16px;" text-wrap no-lines>
+    <ion-label  ><img src="assets/icon/location.png" class="customIcon"> 
+                     <p text-wrap>  {{address}} </p> 
+                    </ion-label>
+        </ion-item> -->
+
+
 
     <!-- </div> -->
 
-  </ion-item>
+  <!-- </ion-item> -->
+
+
 
    <!-- <ion-label *ngIf="langDirection != 'rtl'" class="right" > {{phone}} <img src="assets/icon/phonegreen.png" class="customIcon">  </ion-label>
     <ion-label *ngIf="langDirection == 'rtl'" ><img src="assets/icon/phonegreen.png" class="customIcon">  {{phone}}  </ion-label>
@@ -210,11 +223,11 @@
       <button *ngIf="offline == '1'" disabled type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
       <button *ngIf="offline == '0'" type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
     </ion-item>
-<!-- 
+
     <ion-item style="text-align:center;" no-lines>
 
         <button  type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="viewRates()"> مشاهدة التقييم</button>  
           
-      </ion-item> -->
+      </ion-item>
 
 </ion-content>

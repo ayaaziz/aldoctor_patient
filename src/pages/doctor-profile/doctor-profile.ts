@@ -31,6 +31,7 @@ export class DoctorProfilePage {
   offline;
   bio;
   location;
+  serviceId;
 
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, public app:App,
@@ -58,6 +59,7 @@ export class DoctorProfilePage {
     this.bio = this.doctorProfile.bio;
     this.location = this.doctorProfile.address;
     this.services = this.doctorProfile.speciality_services;
+    this.serviceId = this.doctorProfile.id;
     
     if(this.doctorProfile.offline == true)
       this.offline = "1";
@@ -126,6 +128,10 @@ export class DoctorProfilePage {
       cssClass: this.tostClass
     });
     toast.present();
+  }
+  viewRates(){
+    console.log("viewRates");
+    this.navCtrl.push('view-rates',{data:this.serviceId});
   }
 
 }

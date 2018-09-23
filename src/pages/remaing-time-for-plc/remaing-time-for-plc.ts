@@ -108,10 +108,18 @@ export class RemaingTimeForPlcPage {
           console.log("update status resp from remaining time for plc",resp);
           if(JSON.parse(JSON.stringify(resp)).running == 1)
           {
-            this.presentToast("تم قبول الطلب لمتابعه الطلب من هنا ");
+            this.presentToast("تم قبول طلبك .. لمتابعه الطلب من هنا ");
             this.events.publish('enableTabs', true);
-            this.navCtrl.setRoot(TabsPage);
-            this.navCtrl.parent.select(1);   
+            // this.navCtrl.setRoot(TabsPage);
+            // this.navCtrl.parent.select(1); 
+            
+            this.navCtrl.setRoot('follow-order-for-plc',
+            {data:
+              { "orderId":this.orderId, 
+                "doctorId":JSON.parse(JSON.stringify(resp)).serviceprofileid,
+                
+              }
+            });  
                   
           }else{
             this.events.publish('enableTabs', true);

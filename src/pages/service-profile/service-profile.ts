@@ -44,6 +44,7 @@ export class ServiceProfilePage {
   phone2;
   phone2Apear =  true;
   center_id = "";
+  serviceId;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
@@ -69,6 +70,7 @@ export class ServiceProfilePage {
     this.image = data.profile_pic;
     this.name = data.name;
     this.rate = data.rate;
+    this.serviceId = data.id;
     //this.phone="0123456";
     //this.address="address";
     
@@ -276,7 +278,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
   }
   viewRates(){
     console.log("viewRates");
-    this.navCtrl.push('view-rates');
+    this.navCtrl.push('view-rates',{data:this.serviceId});
   }
 
 }

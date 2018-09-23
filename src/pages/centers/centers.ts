@@ -126,6 +126,29 @@ this.accessToken = localStorage.getItem('user_token');
           // console.log("sp1 ",this.specializations1);
           // console.log("sp2 ",this.specializations2);
 
+          if(this.specializations1.length == this.specializations2.length)
+          {
+            this.specializations1.push({id:0
+              ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
+              ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
+              ,value:"أخري"});
+          }else if (this.specializations1.length > this.specializations2.length)        
+          {
+            this.specializations2.push({id:0
+              ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
+              ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
+              ,value:"أخري"});
+          }else {
+            this.specializations1.push({id:0
+              ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
+              ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
+              ,value:"أخري"});
+          }
+    
+
+            
+
+          
           for(var j=0;j<this.specializations1.length;j++){
             this.specializations1[j].status = '0';
           }
