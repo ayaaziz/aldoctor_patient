@@ -35,6 +35,8 @@ export class RemainingTimeToAcceptPage {
       
       this.helper.view = "remaining-time-to-accept";
 
+      this.events.publish('enableTabs', false);
+
       this.accessToken = localStorage.getItem('user_token');
       this.orderId = this.navParams.get('orderId');
 
@@ -75,11 +77,19 @@ export class RemainingTimeToAcceptPage {
             resp=>{
               console.log("update status",resp);
               this.helper.removeOrder(this.helper.orderIdForUpdate);
+
+            if(JSON.parse(JSON.stringify(resp)).running == 1)
+            {
+            this.presentToast("تم قبول الطلب لمتابعه الطلب من هنا ");
+            this.navCtrl.parent.select(1);         
+            }
+
             },err=>{
               console.log("uppdate status",err);
             }
           );
         // });
+        this.events.publish('enableTabs', true);
         this.navCtrl.setRoot('order-not-accepted');
          
         }
@@ -124,6 +134,7 @@ export class RemainingTimeToAcceptPage {
       console.log("status0",data);
       // this.helper.removeNetworkDisconnectionListener(); 
       clearTimeout(this.timer);
+      this.events.publish('enableTabs', true);
       this.navCtrl.setRoot('order-not-accepted');
     });
 
@@ -131,6 +142,7 @@ export class RemainingTimeToAcceptPage {
       console.log("status2",data);
       this.acceptOrder = true;
       clearTimeout(this.timer);
+      this.events.publish('enableTabs', true);
       this.navCtrl.setRoot('follow-order',
       {data:
         { "orderId":data.orderId, 
@@ -164,11 +176,11 @@ export class RemainingTimeToAcceptPage {
 
   }
   
-  ionViewWillLeave(){
-    console.log("remaing time for plc will leave");
-    if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
-      this.presentCancelConfirm();
-  }
+  // ionViewWillLeave(){
+  //   console.log("remaing time for plc will leave");
+  //   if(this.time > 0 && this.acceptOrder == false && this.net == true && this.stopAlert == false)
+  //     this.presentCancelConfirm();
+  // }
 
   presentCancelConfirm() {
     let alert = this.alertCtrl.create({

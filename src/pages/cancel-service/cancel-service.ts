@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController , Events} from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -32,7 +32,7 @@ export class CancelServicePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public helper:HelperProvider, 
-    public srv : ProvidedServicesProvider,
+    public srv : ProvidedServicesProvider,public events: Events,
     public service:LoginserviceProvider,public translate: TranslateService,
     public toastCtrl: ToastController) {
 
@@ -40,6 +40,7 @@ export class CancelServicePage {
       this.langDirection = this.helper.lang_direction;
       this.helper.view = "";
       this.helper.view = "pop";
+      this.events.publish('enableTabs', true);
 
       this.accessToken = localStorage.getItem('user_token');
       

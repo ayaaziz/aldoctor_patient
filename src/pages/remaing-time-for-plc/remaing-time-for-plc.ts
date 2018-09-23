@@ -106,15 +106,26 @@ export class RemaingTimeForPlcPage {
       this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
         resp=>{
           console.log("update status resp from remaining time for plc",resp);
-          
+          if(JSON.parse(JSON.stringify(resp)).running == 1)
+          {
+            this.presentToast("تم قبول الطلب لمتابعه الطلب من هنا ");
+            this.events.publish('enableTabs', true);
+            this.navCtrl.setRoot(TabsPage);
+            this.navCtrl.parent.select(1);   
+                  
+          }else{
+            this.events.publish('enableTabs', true);
+            this.navCtrl.setRoot('order-not-accepted');
+          }
           // this.helper.removeOrder(this.helper.orderIdForUpdate);
         },err=>{
           console.log("update status err from remaining time for plc",err);
         }
       );
     // });
-        this.events.publish('enableTabs', true);
-        this.navCtrl.setRoot('order-not-accepted');
+
+        // this.events.publish('enableTabs', true);
+        // this.navCtrl.setRoot('order-not-accepted');
        
       }   
     
@@ -162,6 +173,7 @@ export class RemaingTimeForPlcPage {
   if(this.alertApear == false ){
     console.log("form if alertApear: ",this.alertApear);
     this.alertApear = true;
+    console.log("set alertApear to true ");
     this.backpresentCancelConfirm();
   }
     
@@ -259,6 +271,8 @@ export class RemaingTimeForPlcPage {
             console.log('disagree clicked');
             //this.navCtrl.parent.select(0);
             this.alertApear = false;
+            console.log("set alertApear to false");
+
             this.helper.backBtnInHelper = false;
             
             
@@ -273,6 +287,7 @@ export class RemaingTimeForPlcPage {
 
             this.helper.backBtnInHelper = false;
             this.alertApear = false;
+            console.log("set alertApear to false");
             // this.navCtrl.pop();
             //this.navCtrl.parent.select(0);
             this.stopAlert = true;

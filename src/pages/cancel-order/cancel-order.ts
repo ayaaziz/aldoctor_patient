@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {ToastController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import {ToastController, IonicPage, NavController, NavParams , Events} from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -35,9 +35,11 @@ export class CancelOrderPage {
   constructor(public storage: Storage,public helper:HelperProvider, 
     public service:LoginserviceProvider,public translate: TranslateService,
     public navCtrl: NavController, public navParams: NavParams,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController, public events: Events) {
    this.orderId =  this.navParams.get('orderId');
    this.langDirection = this.helper.lang_direction;
+
+   this.events.publish('enableTabs', true);
 
    this.helper.view = "";
    this.helper.view = "pop";

@@ -647,7 +647,8 @@ export class MyApp {
           console.log("notification from android",notification);
           
           if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3"){
-
+            // this.alert(notification);
+            
             console.log("notification from type_id",notification.additionalData.type_id);
 
             this.helper.type_id = notification.additionalData.type_id;
@@ -1005,6 +1006,17 @@ presentContOrderConfirm(order_id,remark,contDate) {
       });
       toast.present();
     }
-
+    alert(notification) {
+      
+      
+     let alert = this.alertCtrl.create({
+       title:"details",
+       message: notification,
+       buttons: [
+         "ok"
+       ]
+     });
+     alert.present();
+   }
 }
 
