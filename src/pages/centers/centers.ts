@@ -30,6 +30,14 @@ export class CentersPage {
   tostClass ;
   searchValue;
   showLoading=true;
+  helpersArr=[{phone:12,fabDir:"top"},{phone:34,fabDir:"top"},{phone:56,fabDir:"top"}];
+
+top="right";
+helpers2 = true;
+helpers3 = true;
+phone;
+phone2;
+phone3;
 
   constructor(public helper: HelperProvider,
     public navCtrl: NavController, public navParams: NavParams,
@@ -56,7 +64,9 @@ export class CentersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CentersPage');
+    this.initializeHelper();
     this.initializeSpecializations();
+    
   }
 
   ionViewWillEnter(){
@@ -72,7 +82,38 @@ export class CentersPage {
       
     }
   }
+  initializeHelper(){
+    //top bottom right left 
+    if(this.helpersArr.length == 1)
+    {
+      this.helpersArr[0].fabDir="right";
+      this.phone = 12;
+    }
+    else if (this.helpersArr.length == 2)
+    {
+      this.helpersArr[0].fabDir="right";
+      this.helpersArr[1].fabDir="left ";
+      this.helpers2 = false;
+      this.helpers3 = true;
+      this.phone = 12;
+      this.phone2 = 34;
+
+    }
+    else if (this.helpersArr.length == 3)
+    {
+      this.helpersArr[0].fabDir="right";
+      this.helpersArr[1].fabDir="left ";
+      this.helpersArr[2].fabDir="top";
+      this.helpers2 = false;
+      this.helpers3 = false;
+      this.phone = 12;
+      this.phone2 = 34;
+      this.phone3 = 65;
+    }
+  }
   initializeSpecializations() {
+  
+ 
   //   this.specializations = [
   //   {"name":"specialization1","image":""},
   //   {"name":"specialization2","image":""},
@@ -126,30 +167,31 @@ this.accessToken = localStorage.getItem('user_token');
           // console.log("sp1 ",this.specializations1);
           // console.log("sp2 ",this.specializations2);
 
-          if(this.specializations1.length == this.specializations2.length)
-          {
-            this.specializations1.push({id:0
-              ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
-              ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
-              ,value:"أخري",
-              spClass:"spUnselceted"});
-          }else if (this.specializations1.length > this.specializations2.length)        
-          {
-            this.specializations2.push({id:0
-              ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
-              ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
-              ,value:"أخري",
-              spClass:"spUnselceted"});
-          }else {
-            this.specializations1.push({id:0
-              ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
-              ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
-              ,value:"أخري",
-              spClass:"spUnselceted"});
-          }
+          // if(this.specializations1.length == this.specializations2.length)
+          // {
+          //   this.specializations2.push({id:0
+          //     ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
+          //     ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
+          //     ,value:"أخري",
+          //     spClass:"spUnselceted"});
+          // }else if (this.specializations1.length > this.specializations2.length)        
+          // {
+          //   this.specializations2.push({id:0
+          //     ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
+          //     ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
+          //     ,value:"أخري",
+          //     spClass:"spUnselceted"});
+          // }else {
+          //   this.specializations1.push({id:0
+          //     ,image:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc1.png"
+          //     ,image_selected:"http://aldoctor-app.com/aldoctortest/public/images/specialities/etc2.png"
+          //     ,value:"أخري",
+          //     spClass:"spUnselceted"});
+          // }
     
 
-            
+              console.log("sp1 ",this.specializations1);
+          console.log("sp2 ",this.specializations2);
 
           
           for(var j=0;j<this.specializations1.length;j++){
@@ -229,6 +271,7 @@ console.log("sp item search val ",val);
     console.log("item",item);
     console.log("event: ",ev);
     //this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
+    console.log("item.id",item.id);
     this.navCtrl.push('order-service',{data:{
           type_id:2,
           lat:this.helper.lat,

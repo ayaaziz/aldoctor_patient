@@ -93,7 +93,8 @@ export class ServiceProfilePage {
       
     
     this.address = this.doctorProfile.extraInfo.address;
-    // this.services = this.doctorProfile.speciality_services;
+    // this.services = this.doctorProfile.entity.speciality_services;
+    
     this.type_id = this.doctorProfile.type_id;
     
     if(this.doctorProfile.offline == true)

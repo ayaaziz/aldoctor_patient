@@ -69,6 +69,10 @@ export class FollowOrderForPlcPage {
   editFlag =false;
   orderFiles = [];
   disabled2btn ;
+  refreshOrderStatus;
+  refresher;
+  refreshOrderMsg;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -814,5 +818,156 @@ private presentToast(text) {
     console.log("image clicked",index)
     this.navCtrl.push('full-screen',{data:this.photos[index]});
   }
+
+  doRefresh(ev){
+
+  this.refresher = ev;
+  this.getOrderStatus();
+    
+  }
+
+  getOrderStatus(){
+
+
+    this.srv.getOrderDetails(this.orderId,this.accessToken).subscribe(
+      resp=>{
+        console.log("orderDetails ",resp);
+        var myorder = JSON.parse(JSON.stringify(resp)).order;
+        
+        this.refreshOrderStatus = myorder.status;
+
+        if(this.refreshOrderStatus == "11")
+        {
+          console.log("status 11 from refresh");
+          this.presentAlert("تطبيق الدكتور",this.refreshOrderMsg);
+          this.helper.removeNetworkDisconnectionListener();
+          this.storage.remove("orderImages");      
+        }
+        if(this.refreshOrderStatus == "8")
+        {
+          //بدء التوصيل
+          this.presentdelivaryAlert("تطبيق الدكتور",this.refreshOrderMsg);
+          this.events.publish('status8ForPLC');
+        }
+        if(this.refreshOrderStatus == "12")
+        {
+          this.presentContOrderConfirm(this.orderId,myorder.remark,myorder.date);
+        }
+        if(this.refreshOrderStatus == "5")
+        { 
+          this.helper.removeNetworkDisconnectionListener();
+          this.storage.remove("orderImages");
+          this.helper.dontSendNotification = true;
+
+          this.navCtrl.setRoot(TabsPage);
+          this.navCtrl.push('rate-service',{
+            data:{
+              doctorId:this.doctorId,
+              orderId:this.orderId
+            }
+          });
+        }
+
+        if(this.refresher){
+          this.refresher.complete();
+        }  
+      },
+      err=>{
+        console.log("orderDetailsErr",err);
+        this.presentToast("خطأ فى الاتصال");
+        if(this.refresher){
+          this.refresher.complete();
+        }
+
+      }
+    );
+    
+  }
+
+  presentAlert(title,msg) {
+    console.log("refresh enter presentAlert");
+    this.navCtrl.setRoot(TabsPage);
+        let alert = this.alertCtrl.create({
+          title: title,
+          subTitle: msg,
+          buttons: ['موافق']
+        });
+        alert.present();
+  }
+
+  presentdelivaryAlert(title,msg) {
+    console.log("refresh enter presentdelivaryAlert");
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      buttons: ['موافق']
+    });
+    alert.present();
+  }
+
+  
+  presentContOrderConfirm(order_id,remark,contDate) {
+    var token = localStorage.getItem('user_token');
+    
+    var xxdate = contDate;
+    var yydate = xxdate.split('T');
+    var zzdate = yydate[1].split('.');
+    console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
+    var ourDate = yydate[0]+" "+zzdate[0];
+    
+   let alert = this.alertCtrl.create({
+     title: "اكمال الطلب",
+     message: remark+"<br/>"+ourDate+"<br>"+" هل تريد تأكيد الموعد؟",
+     buttons: [
+       {
+         text: "الغاء",
+         role: 'cancel',
+         handler: () => {
+           console.log('confirm contorder  disagree clicked');
+
+           this.service.updateOrderStatusToCancel(order_id,token).subscribe(
+             resp=>{
+               console.log("resp cancel contOrder",resp);
+               if(JSON.parse(JSON.stringify(resp)).success)
+               {
+                 this.presentToast("تم الغاء الموعد");
+                 console.log("الغاء")
+                 this.events.publish('x');
+               }
+                 
+             },err=>{
+               console.log("err cancel contOrder",err);
+               this.presentToast("خطأ فى الاتصال");
+             }
+           );
+         }
+       },
+       {
+         text: "موافق",
+         handler: () => {
+           console.log('confirm contorder agree clicked');
+
+           this.service.updateOrderStatusToAgreeTime(order_id,token).subscribe(
+             resp=>{
+               console.log("resp cancel contOrder",resp);
+               if(JSON.parse(JSON.stringify(resp)).success)
+               {
+                 this.presentToast("تم تأكيد الموعد");
+                 console.log("تاكيد");
+                 this.events.publish('y');
+               }
+                 
+             },err=>{
+               console.log("err cancel contOrder",err);
+               this.presentToast("خطأ فى الاتصال");
+             }
+           );
+         }
+       }
+     ]
+   });
+   alert.present();
+ }
+
 
 }

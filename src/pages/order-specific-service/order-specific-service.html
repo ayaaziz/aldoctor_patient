@@ -129,6 +129,7 @@
                 <!-- <h3 >{{item.extraInfo.address}}</h3> -->
                 
                 <!-- <h4 >{{"cost"|translate}} : {{item.price}} {{"pound"|translate}}</h4> -->
+                <h5 style="font-size:12px;">{{"cost"|translate}} : {{item.discount}}{{"pound"|translate}}</h5>
                 <rating 
                       [(ngModel)]="item.rate" 
                       readOnly="true" 
@@ -138,6 +139,7 @@
                       starIconName="star" 
                       nullable="false" 
                       ></rating>
+                      
               </ion-item>
             </ion-col>
             <!-- fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->

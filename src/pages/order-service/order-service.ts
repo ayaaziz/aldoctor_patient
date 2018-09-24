@@ -114,8 +114,17 @@ export class OrderServicePage {
 
       this.helper.type_id = this.type_id;
       
+      console.log("recievedData.center_id",recievedData.center_id);
+
       if(recievedData.center_id)
+      {console.log("from if recievedData.center_id",recievedData.center_id);
         this.center_id = recievedData.center_id;
+      }else if(recievedData.center_id == 0)
+      {
+        console.log("else if recievedData.center_id == 0 ");
+        this.center_id = recievedData.center_id;
+      }
+      
       // this.spId = datafromsp.id;
       // this.spValue = datafromsp.sp;
       // this.Specialization = this.spValue;
@@ -472,7 +481,9 @@ Loadfunc(){
             else 
             doctorData["result"][i].doctorName = doctorData["result"][i].name;
 
-      
+            if(! doctorData["result"][i].rate)
+              doctorData["result"][i].rate = 5;
+
 
           if(doctorData["result"][i].busy == "1")
           {

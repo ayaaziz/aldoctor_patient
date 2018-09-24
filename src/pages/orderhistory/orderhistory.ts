@@ -155,7 +155,7 @@ export class OrderhistoryPage {
             }
 
              
-            if(ordersData[j].status == "8")
+            if(ordersData[j].status == "8" || ordersData[j].status == "5" || ordersData[j].status =="6" || ordersData[j].status == "7")
               this.orderobject.disableRatebtn = false;
             // if(ordersData[j].reorder == "1")
             //   ordersData[j].color = "green";

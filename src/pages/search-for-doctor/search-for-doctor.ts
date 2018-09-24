@@ -37,8 +37,8 @@ export class SearchForDoctorPage {
   doctorsLoc=[];
   langDirection;
   tostClass ;
-  // locFlag= 0;
-   locFlag= 1;
+  locFlag= 0;
+  // locFlag= 1;
 
   toastFlag= false;
   allMarkers = [] ;
