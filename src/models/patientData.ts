@@ -13,6 +13,7 @@ export class PatientData{
     gender:number;
     img:string;
     terms:number;
+    city_id:number;
     constructor( ){
 
     }

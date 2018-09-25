@@ -45,6 +45,7 @@ export class ServiceProfilePage {
   phone2Apear =  true;
   center_id = "";
   serviceId;
+  hideServices = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, 
@@ -93,7 +94,7 @@ export class ServiceProfilePage {
       
     
     this.address = this.doctorProfile.extraInfo.address;
-    // this.services = this.doctorProfile.entity.speciality_services;
+    this.services = this.doctorProfile.speciality_services;
     
     this.type_id = this.doctorProfile.type_id;
     
@@ -107,16 +108,19 @@ export class ServiceProfilePage {
         // this.title = this.translate.instant("pharmacy");
         // this.serviceTitle = this.translate.instant("nearbyPharmacy");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
+        this.hideServices = true;
       }else if(this.type_id == "3")
       {
         // this.title = this.translate.instant("lap");
         // this.serviceTitle = this.translate.instant("nearbyLab");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
+        this.hideServices = false;
       }else if(this.type_id == "2")
       {
         // this.title = this.translate.instant("center");
         // this.serviceTitle = this.translate.instant("nearbyCenter");
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
+        this.hideServices = false;
       }
 
   }

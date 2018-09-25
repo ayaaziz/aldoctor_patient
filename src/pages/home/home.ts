@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController , ToastController, Platform, Events} from 'ionic-angular';
+import { NavController , ToastController, Platform, Events, AlertController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -26,7 +26,11 @@ xxrate;
   DoctorsArray = [{distanceVal:5,offline:false},{distanceVal:1000,offline:true},{distanceVal:3,offline:false},{distanceVal:1,offline:true}];
 
   constructor(public service: LoginserviceProvider,public events: Events,
-    public platform:Platform,public translate:TranslateService,public helper:HelperProvider,public toastCtrl: ToastController, public storage: Storage, public navCtrl: NavController) {
+    public platform:Platform, public alertCtrl: AlertController,
+    public translate:TranslateService,
+    public helper:HelperProvider,public toastCtrl: ToastController,
+     public storage: Storage, public navCtrl: NavController) 
+     {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
     var xxdate = "2018-09-20T11:58:00.000Z"
@@ -35,6 +39,7 @@ var zzdate = yydate[1].split('.');
 console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
     
     this.accessToken = localStorage.getItem('user_token');
+
     this.helper.view = "HomePage";
 this.parseArabic();
     // this.helper.userId=114;
@@ -195,6 +200,21 @@ this.storage.get("rate_doctor").then(data=>{
     //   this.langDirection = "ltr";
     //   this.platform.setDir('ltr',true)
     // }
+    this.service.getpendingOrders("1",this.accessToken).subscribe(resp=>{
+      console.log("resp from getpendingOrders ",resp);
+      var pendingOrders = JSON.parse(JSON.stringify(resp)).orders;
+      for(var  k=0; k<pendingOrders.length; k++)
+      {
+        if(! pendingOrders.remark)
+          pendingOrders.remark="";
+        
+        if(! pendingOrders.date)
+          pendingOrders.date="";
+
+        this.presentContOrderConfirm(pendingOrders.id,pendingOrders.remark, pendingOrders.date);
+      }
+
+    })
   }
  
   sortDoctors(){
@@ -365,5 +385,69 @@ ionViewDidEnter(){
   ;
   console.log("yas2:",yas);
 }
+
+presentContOrderConfirm(order_id,remark,contDate) {
+  var token = localStorage.getItem('user_token');
+  
+  var xxdate = contDate;
+  var yydate = xxdate.split('T');
+  var zzdate = yydate[1].split('.');
+  console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
+  var ourDate = yydate[0]+" "+zzdate[0];
+  
+ let alert = this.alertCtrl.create({
+   title: "اكمال الطلب",
+   message: remark+"<br/>"+ourDate+"<br>"+" هل تريد تأكيد الموعد؟",
+   buttons: [
+     {
+       text: "الغاء",
+       role: 'cancel',
+       handler: () => {
+         console.log('confirm contorder  disagree clicked');
+
+         this.service.updateOrderStatusToCancel(order_id,token).subscribe(
+           resp=>{
+             console.log("resp cancel contOrder",resp);
+             if(JSON.parse(JSON.stringify(resp)).success)
+             {
+               this.presentToast("تم الغاء الموعد");
+               console.log("الغاء")
+               //this.events.publish('x');
+             }
+               
+           },err=>{
+             console.log("err cancel contOrder",err);
+             this.presentToast("خطأ فى الاتصال");
+           }
+         );
+       }
+     },
+     {
+       text: "موافق",
+       handler: () => {
+         console.log('confirm contorder agree clicked');
+
+         this.service.updateOrderStatusToAgreeTime(order_id,token).subscribe(
+           resp=>{
+             console.log("resp cancel contOrder",resp);
+             if(JSON.parse(JSON.stringify(resp)).success)
+             {
+               this.presentToast("تم تأكيد الموعد");
+               console.log("تاكيد");
+              //  this.events.publish('y');
+             }
+               
+           },err=>{
+             console.log("err cancel contOrder",err);
+             this.presentToast("خطأ فى الاتصال");
+           }
+         );
+       }
+     }
+   ]
+ });
+ alert.present();
+}
+
 
 }

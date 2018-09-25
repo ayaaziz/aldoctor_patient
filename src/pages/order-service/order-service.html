@@ -120,7 +120,7 @@
                 <!-- <h3 >{{item.extraInfo.address}}</h3> -->
                 
                 <!-- <h4 >{{"cost"|translate}} : {{item.price}} {{"pound"|translate}}</h4> -->
-                <h5 style="font-size:12px;">{{"cost"|translate}} : {{item.discount}}{{"pound"|translate}}</h5>
+                <h5 [hidden]="hidePrice" style="font-size:12px;">{{"cost"|translate}} : {{item.price}}{{"pound"|translate}}</h5>
                 <rating 
                       [(ngModel)]="item.rate" 
                       readOnly="true" 

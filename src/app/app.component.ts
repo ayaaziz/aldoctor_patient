@@ -686,6 +686,12 @@ export class MyApp {
             }
             if(orderStatus == "12")
             {
+              if(! notification.additionalData.remark)
+                notification.additionalData.remark="";
+                
+              if(! notification.additionalData.date)
+                notification.additionalData.date = "";
+            
               this.presentContOrderConfirm(notification.additionalData.orderId,notification.additionalData.remark,notification.additionalData.date);
             }
             

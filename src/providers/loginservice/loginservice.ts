@@ -62,13 +62,14 @@ userRegister(userData,access_token,SuccessCallback,FailureCallback) {
   console.log("gender: ",userData.gender);
   console.log("fname: ",userData.firstname);
   console.log("lname: ",userData.secondname);
+  console.log("userData.city_id: ",userData.city_id);
   let headers = new HttpHeaders();
   let parameter = new HttpParams().set('name',userData.firstname+" "+userData.secondname+" "+userData.surname)
   .set('phone','2'+userData.phone).set('birth_date',userData.birthdate)
   .set('address',userData.address+"-"+userData.city+"-"+userData.country)
   .set('password',userData.password).set('city',userData.city)
   .set('country',userData.country).set('gender',userData.gender)
-  .set('terms',"1").set('email',userData.email)
+  .set('terms',"1").set('email',userData.email).set('city_id',userData.city_id)
   .set("profile_pic",userData.img ).set('profile_pic_ext','jpeg');
 
       
@@ -564,6 +565,25 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.get(serviceUrl,{headers: headers });
     
   }
+  getpendingOrders(page,access_token){
+  
+    var lang = this.helper.currentLang;
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('page',page)
+    .set('lang',lang).set('status',"12");
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/users/my-orders';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+    
+  }
+
+  getHelperTelephones(id,access_token){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl+ 'api/get/lkps/cities-phone?city_id='+id;
+    return this.http.get(serviceUrl,{headers: headers });
+  }
+
 
 }
 

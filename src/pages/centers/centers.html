@@ -110,11 +110,13 @@
 
       </ion-fab-list>
       <ion-fab-list [hidden]="helpers3" side="top">
-          <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone3}}" >
+   
+        <a button ion-fab  href="tel:+{{phone3}}" >
+          <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
+          
+        <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone3}}" >
             <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
    
-            <a button ion-fab  href="tel:+{{phone3}}" >
-                <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
 
       </ion-fab-list>
       <!-- <ion-fab-list side="right">

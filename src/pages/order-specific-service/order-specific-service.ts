@@ -62,6 +62,7 @@ export class OrderSpecificServicePage {
 
   center_id= "";
   imageExt=[];
+  hidePrice = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public translate: TranslateService,  public events: Events,
@@ -106,16 +107,19 @@ export class OrderSpecificServicePage {
         this.title = this.translate.instant("specificpharmacy");
         this.servicetitle = this.translate.instant("pharmacyName");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
+        this.hidePrice = true;
       }else  if(this.type_id == "3")
       {
         this.title = this.translate.instant("specificlab");
         this.servicetitle = this.translate.instant("labName");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
+        this.hidePrice = true;
       } else  if(this.type_id == "2")
       {
         this.title = this.translate.instant("specificcenter");
         this.servicetitle = this.translate.instant("centerName");
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
+        this.hidePrice = false;
       }
 
 

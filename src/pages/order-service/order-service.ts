@@ -37,6 +37,7 @@ export class OrderServicePage {
   third;
   fourth
   last;
+  hidePrice = true;
   
    //DoctorsArray=[{"moreTxt":"xx","id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"}];
   //  ,
@@ -139,16 +140,19 @@ export class OrderServicePage {
         this.title = this.translate.instant("pharmacy");
         this.serviceTitle = this.translate.instant("nearbyPharmacy");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
+        this.hidePrice = true;
       }else if(this.type_id == "3")
       {
         this.title = this.translate.instant("lap");
         this.serviceTitle = this.translate.instant("nearbyLab");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
+        this.hidePrice = true;
       }else if(this.type_id == "2")
       {
         this.title = this.translate.instant("center");
         this.serviceTitle = this.translate.instant("nearbyCenter");
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
+        this.hidePrice = false;
       }
 
 

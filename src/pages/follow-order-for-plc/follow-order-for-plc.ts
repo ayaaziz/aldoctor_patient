@@ -839,18 +839,23 @@ private presentToast(text) {
         if(this.refreshOrderStatus == "11")
         {
           console.log("status 11 from refresh");
-          this.presentAlert("تطبيق الدكتور",this.refreshOrderMsg);
+          this.presentAlert("تطبيق الدكتور","تم الالغاء من قبل" + this.doctorName);
           this.helper.removeNetworkDisconnectionListener();
           this.storage.remove("orderImages");      
         }
         if(this.refreshOrderStatus == "8")
         {
           //بدء التوصيل
-          this.presentdelivaryAlert("تطبيق الدكتور",this.refreshOrderMsg);
+          this.presentdelivaryAlert("تطبيق الدكتور","تم بدء التوجه من المتخصص لدي " + this.doctorName + "اليك");
           this.events.publish('status8ForPLC');
         }
         if(this.refreshOrderStatus == "12")
         {
+          if(! myorder.remark)
+            myorder.remark="";
+          if(! myorder.date)
+            myorder.date = "";
+            
           this.presentContOrderConfirm(this.orderId,myorder.remark,myorder.date);
         }
         if(this.refreshOrderStatus == "5")

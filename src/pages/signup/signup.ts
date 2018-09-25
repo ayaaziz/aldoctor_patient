@@ -68,6 +68,8 @@ export class SignupPage {
   
   tostClass;
   xxx;
+  citiesObjects=[];
+  cityId;
 
   constructor(private platform: Platform,public alerCtrl: AlertController,
      //private imagePicker: ImagePicker,private base64: Base64,
@@ -156,10 +158,12 @@ y;
           if (this.helper.currentLang == 'en') {
           console.log(this.y[i].value);
           this.cities.push(this.y[i].value);
+          this.citiesObjects.push(this.y[i]);
           }
           else{
             console.log(this.y[i].translation.value);
             this.cities.push(this.y[i].translation.value); 
+            this.citiesObjects.push(this.y[i]);
           }
         }
           }
@@ -280,6 +284,18 @@ if(this.patientRegisterForm.controls["email"].errors){
       this.patient.img=this.profileImg;
       console.log(this.patient);
       //this.presentToast("patient data from get data: "+JSON.stringify(this.patient));
+      
+      console.log("this.citiesObjects",this.citiesObjects);
+      console.log("this.city",this.city);
+
+
+      for(var i=0;i<this.citiesObjects.length;i++)
+      {
+        console.log("this.citiesObjects[i].translation.name",this.citiesObjects[i].translation.name);
+        if(this.citiesObjects[i].translation.value == this.city)
+          this.patient.city_id = this.citiesObjects[i].id;
+      }
+
       return this.patient;
   }
 
