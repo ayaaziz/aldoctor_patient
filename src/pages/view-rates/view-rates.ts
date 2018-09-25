@@ -45,7 +45,7 @@ export class ViewRatesPage {
 
   ionViewWillEnter(){
     console.log('ionViewWillEnter ViewRatesPage');
-    this.helper.view = "NotificationPage"; 
+    this.helper.view = "pop"; 
     this.accessToken = localStorage.getItem('user_token');
       
     this.data=[];

@@ -158,6 +158,10 @@ select option[selected]{
     .center{
         text-align: center;
     }
+    .ion-md-star-half:before{
+        transform: scale(-1,1);
+      }
+      
     
 }
 .toastRight{

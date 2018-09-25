@@ -46,6 +46,10 @@ page-orderhistory {
         border-color: #016a38;
         
     }
+    
+    .ion-md-star-half:before{
+      transform: scale(-1,1);
+    }
 
       .btn-primary:focus {
         -webkit-box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);

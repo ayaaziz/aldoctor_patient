@@ -202,7 +202,9 @@ page-order-service {
       }
 
         
-
+      .ion-md-star-half:before{
+        transform: scale(-1,1);
+      }
 }
 .toastRight{
   text-align: right;

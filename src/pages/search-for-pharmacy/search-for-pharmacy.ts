@@ -39,7 +39,7 @@ export class SearchForPharmacyPage {
   tostClass ;
   locFlag= 0;
 
-//locFlag= 1;
+// locFlag= 1;
 
 
 center_id = "";

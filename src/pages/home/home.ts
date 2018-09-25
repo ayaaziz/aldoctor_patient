@@ -205,13 +205,14 @@ this.storage.get("rate_doctor").then(data=>{
       var pendingOrders = JSON.parse(JSON.stringify(resp)).orders;
       for(var  k=0; k<pendingOrders.length; k++)
       {
-        if(! pendingOrders.remark)
-          pendingOrders.remark="";
+        console.log("pendingOrders[k].remark",pendingOrders[k].remark);
+        if(! pendingOrders[k].remark)
+          pendingOrders[k].remark="";
         
-        if(! pendingOrders.date)
-          pendingOrders.date="";
+        if(! pendingOrders[k].date)
+          pendingOrders[k].date="";
 
-        this.presentContOrderConfirm(pendingOrders.id,pendingOrders.remark, pendingOrders.date);
+        this.presentContOrderConfirm(pendingOrders[k].id,pendingOrders[k].remark, pendingOrders[k].date);
       }
 
     })
@@ -387,17 +388,18 @@ ionViewDidEnter(){
 }
 
 presentContOrderConfirm(order_id,remark,contDate) {
+
   var token = localStorage.getItem('user_token');
   
-  var xxdate = contDate;
-  var yydate = xxdate.split('T');
-  var zzdate = yydate[1].split('.');
-  console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
-  var ourDate = yydate[0]+" "+zzdate[0];
+  // var xxdate = contDate;
+  // var yydate = xxdate.split('T');
+  // var zzdate = yydate[1].split('.');
+  // console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
+  // var ourDate = yydate[0]+" "+zzdate[0];
   
  let alert = this.alertCtrl.create({
    title: "اكمال الطلب",
-   message: remark+"<br/>"+ourDate+"<br>"+" هل تريد تأكيد الموعد؟",
+   message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",
    buttons: [
      {
        text: "الغاء",

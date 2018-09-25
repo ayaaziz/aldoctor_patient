@@ -245,8 +245,9 @@ export class FollowOrderForPlcPage {
             this.plcimage= tempData.profile_pic;
             
             console.log("phone",this.phone);          
-   
-           
+            
+            this.locationNode(tempData.locationNode);
+            
             this.helper.getDoctorlocation(this.doctorId);
 
           },err=>{
@@ -914,15 +915,15 @@ private presentToast(text) {
   presentContOrderConfirm(order_id,remark,contDate) {
     var token = localStorage.getItem('user_token');
     
-    var xxdate = contDate;
-    var yydate = xxdate.split('T');
-    var zzdate = yydate[1].split('.');
-    console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
-    var ourDate = yydate[0]+" "+zzdate[0];
+    // var xxdate = contDate;
+    // var yydate = xxdate.split('T');
+    // var zzdate = yydate[1].split('.');
+    // console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
+    // var ourDate = yydate[0]+" "+zzdate[0];
     
    let alert = this.alertCtrl.create({
      title: "اكمال الطلب",
-     message: remark+"<br/>"+ourDate+"<br>"+" هل تريد تأكيد الموعد؟",
+     message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",
      buttons: [
        {
          text: "الغاء",
@@ -973,6 +974,52 @@ private presentToast(text) {
    });
    alert.present();
  }
+ locationNode(docLocation){
+  if(docLocation){
+    this.doctorLocation = docLocation;
+    this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
+      resp=>{
 
+        var respObj = JSON.parse(JSON.stringify(resp));  
+        console.log("duration txt",respObj.routes[0].legs[0].duration.text);
+        
+        var number = 0;
+        if(this.type_id == "1")
+          number = 30*60;
+        else if (this.type_id == "2" || this.type_id == "3")
+          number = 30*60;
+        
+        console.log("duration value",respObj.routes[0].legs[0].duration.value);
+        var dur = respObj.routes[0].legs[0].duration.value;
+        
+        var d = Number(dur+number);
+        var h = Math.floor(d/3600);
+        var m = Math.floor(d % 3600 /60);
+        var s = Math.floor(d % 3600 % 60);
+        console.log("h ", h,"m: ",m,"s: ",s);  
+        
+        var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+        var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+        console.log(" time : ",hdisplay+mdisplay);
+        this.duration  = hdisplay+mdisplay;
+        console.log("doc name from distance & duration",this.doctorName);
+        if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
+        {
+          console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+          this.scheduleNotification(m);
+        }  
+
+        
+      },
+      err=>{
+        console.log("err from getDurationAndDistance: ",err);
+      }
+    );
+
+    
+  }
+  
+ }
 
 }

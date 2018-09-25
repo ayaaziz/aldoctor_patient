@@ -17,4 +17,7 @@ page-view-rates {
     .row{
         margin: 0px;
     }
+    .ion-md-star-half:before{
+      transform: scale(-1,1);
+    }
 }

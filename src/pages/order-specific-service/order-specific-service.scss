@@ -250,6 +250,10 @@ page-order-specific-service {
   border-color: #016a38 !important;
 }
 
+.ion-md-star-half:before{
+  transform: scale(-1,1);
+}
+
 }
 .toastRight{
   text-align: right;

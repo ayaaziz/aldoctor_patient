@@ -62,7 +62,10 @@ page-doctor-profile {
         border-color: #dddddd  !important;
     }
     
-
+    .ion-md-star-half:before{
+        transform: scale(-1,1);
+      }
+      
     .row{
         margin: 0px;
         padding: 0px;

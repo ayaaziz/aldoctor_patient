@@ -60,7 +60,9 @@
         <ion-avatar item-start style="margin:0px;">
           <img [src]="item.notificationimage">
         </ion-avatar>
-        <h2>{{item.usr.name}}</h2>
+        
+        <h2>  {{item.usr.name}}  </h2>
+        
         <rating 
         [(ngModel)]="item.rate" 
         readOnly="true" 
@@ -71,13 +73,15 @@
         nullable="false" 
         ></rating>
 
-        <p>{{item.remark}}</p>
-        <ion-note item-end>{{item.notificationDate}}</ion-note>
+        <p>   ملاحظات : {{item.remark}}</p>
+        
+       
+        
       </ion-item>
 
       <ion-infinite-scroll   (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">
         <ion-infinite-scroll-content></ion-infinite-scroll-content>
       </ion-infinite-scroll>
 
-
+      <!-- <ion-note item-end>{{item.notificationDate}}</ion-note> -->
 </ion-content>
