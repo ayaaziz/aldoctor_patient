@@ -669,7 +669,11 @@ export class MyApp {
             } 
          
             if(orderStatus == "2")
+            {
+              this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
               this.events.publish('status2ForPLC',data );
+            }
+              
             
             if(orderStatus == "11")
             {
