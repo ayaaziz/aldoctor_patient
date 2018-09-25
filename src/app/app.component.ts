@@ -644,12 +644,13 @@ export class MyApp {
         else {
 
           console.log("android");
+
           console.log("notification from android",notification);
           
           if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3"){
-            // this.alert(notification);
+             this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
             
-            console.log("notification from type_id",notification.additionalData.type_id);
+            console.log("notification from type_id",notification.additionalData.order_status);
 
             this.helper.type_id = notification.additionalData.type_id;
 

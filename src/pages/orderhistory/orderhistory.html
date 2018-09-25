@@ -194,9 +194,9 @@
         <button *ngIf="item.rated == '0'" [disabled]="item.disableRatebtn"  class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="rateagain(item)" >{{"rateOrder" | translate}}</button>
         <button *ngIf="item.reorder == '1'" [disabled]="item.reorderBtn" class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="reorder(item)">{{"reorder" | translate}}</button>
 
-        <button *ngIf="item.contorder == '1'" [disabled]="item.reorderBtn" class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="contorder(item)">{{"contorder" | translate}}</button>
+        <button *ngIf="item.contorder == '1'"  class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="contorder(item)">{{"contorder" | translate}}</button>
 
-
+        <!-- [disabled]="item.reorderBtn" -->
         <!-- <button *ngIf="item.is_reorder == '1'" class="btn btn-primary " style="margin-top:5px;width:90px" (click)="reorder(item)">{{"reorder" | translate}}</button> -->
 
         <!-- <h3 style="padding-top:0px;margin-top:0px;font-size:15px;">{{item.orderDate}}</h3>   -->
