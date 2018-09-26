@@ -101,6 +101,8 @@ import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-inte
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Network } from '@ionic-native/network';
+import { FollowOrderForPlcPage} from '../pages/follow-order-for-plc/follow-order-for-plc';
+
 
 // export const firebaseConfig = {
 //   apiKey: "AIzaSyDnAX0CQbbsMYuOTJ66ox_F0GwzPM4XPXY",
@@ -138,6 +140,7 @@ export function createTranslateLoader(http: HttpClient) {
     ProfilePage,
    // SignupPage,
     OrderhistoryPage,
+    FollowOrderForPlcPage
     //VerifycodePage,
     //ConditionsPage,
   //  OrderDoctorPage,
@@ -183,6 +186,7 @@ export function createTranslateLoader(http: HttpClient) {
     HomePage,
     TabsPage,
     NotificationPage,
+    FollowOrderForPlcPage,
     LoginPage,
     ProfilePage,
     //SignupPage,

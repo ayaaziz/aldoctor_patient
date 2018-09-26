@@ -33,6 +33,7 @@ import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-inte
 import * as firebase from 'firebase/app';
 import { HomePage } from '../pages/home/home';
 
+
 var firebaseConfig  = {
   apiKey: "AIzaSyBPvbu83CtqeV67AihfGfwxKRzq4ExENNo",
   authDomain: "aldoctor-b33ed.firebaseapp.com",
@@ -555,16 +556,17 @@ export class MyApp {
     }
 
     pushnotification() {
+      // android options
+       //senderID: "403805018537",
+       //      icon: "drawable-ldpi-icon", //icon
+       //  iconColor: "#64B5F6",
+       //  forceShow: false,
+       //  clearNotifications: false
+       //  sound: true
+
       let options: PushOptions
         options = {
-          android: {
-            //senderID: "403805018537",
-     //      icon: "drawable-ldpi-icon", //icon
-          //  iconColor: "#64B5F6",
-          //  forceShow: false,
-          //  clearNotifications: false
-           sound: true
-          },
+          android: {},
           ios: {
             alert: 'true',
             badge: true,
@@ -648,7 +650,7 @@ export class MyApp {
           console.log("notification from android",notification);
           
           if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3"){
-             this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
+             //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
             
             console.log("notification from type_id",notification.additionalData.order_status);
 
@@ -664,13 +666,13 @@ export class MyApp {
             if(orderStatus == "10" || orderStatus == "3") 
             {
               console.log("status 10 or 3");
-              this.storage.remove("orderImages"); 
+              // this.storage.remove("orderImages"); 
               this.events.publish('status0ForPLC');
             } 
          
             if(orderStatus == "2")
             {
-              this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
+              //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
               this.events.publish('status2ForPLC',data );
             }
               
@@ -680,7 +682,7 @@ export class MyApp {
               console.log("status 11");
               this.presentAlert(notification.title,notification.message);
               this.helper.removeNetworkDisconnectionListener();
-              this.storage.remove("orderImages");
+              // this.storage.remove("orderImages");
               
             }
             if(orderStatus == "8")

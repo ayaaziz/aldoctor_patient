@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { OrderhistoryPage } from '../orderhistory/orderhistory';
 import { TranslateService } from '@ngx-translate/core';
 import { TabsPage } from '../tabs/tabs';
+import { FollowOrderForPlcPage } from '../follow-order-for-plc/follow-order-for-plc';
 
 
 // import { Network } from '@ionic-native/network';
@@ -27,7 +28,7 @@ export class RemaingTimeForPlcPage {
   notification;
   orderStatus;
   accessToken;
-  receivedImage;
+  // receivedImage;
   langDirection;
   tostClass;
   orderId;
@@ -67,10 +68,10 @@ export class RemaingTimeForPlcPage {
      if(data == 1)
      {
         this.time = 120;
-        this.receivedImage = 1;
+        // this.receivedImage = 1;
      }else if (data == 0){
        this.time = 45;
-       this.receivedImage = 0;
+      //  this.receivedImage = 0;
      }
 
     //  this.platformObj.registerBackButtonAction(()=>{
@@ -112,8 +113,8 @@ export class RemaingTimeForPlcPage {
             this.events.publish('enableTabs', true);
             // this.navCtrl.setRoot(TabsPage);
             // this.navCtrl.parent.select(1); 
-            
-            this.navCtrl.setRoot('follow-order-for-plc',
+            // console.log("before setRoot of follow plc");
+            this.navCtrl.setRoot(FollowOrderForPlcPage,
             {data:
               { "orderId":this.orderId, 
                 "doctorId":JSON.parse(JSON.stringify(resp)).serviceprofileid,
@@ -164,12 +165,12 @@ export class RemaingTimeForPlcPage {
     this.helper.stillCount = false;
     
     this.events.publish('enableTabs', true);
-    
-    this.navCtrl.setRoot('follow-order-for-plc',
+
+    console.log("before setRoot of follow plc");
+    this.navCtrl.setRoot(FollowOrderForPlcPage,
     {data:
       { "orderId":data.orderId, 
-        "doctorId":data.doctorId,
-        "receivedImage":this.receivedImage
+        "doctorId":data.doctorId
       }
     });
   });

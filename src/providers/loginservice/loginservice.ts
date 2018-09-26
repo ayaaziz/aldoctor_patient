@@ -201,7 +201,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&speciality_id='+id+'&lat='+this.helper.lat+'&long='+this.helper.lon;
+    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&speciality_id='+id+'&lat='+this.helper.lat+'&long='+this.helper.lon+'&city_id='+this.helper.city_id;
     return this.http.get(serviceUrl,{headers: headers });
 
   }
@@ -210,7 +210,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&name='+doctorName+'&speciality_id='+speciality_id+'&lat='+this.helper.lat+'&long='+this.helper.lon;
+    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&name='+doctorName+'&speciality_id='+speciality_id+'&lat='+this.helper.lat+'&long='+this.helper.lon+'&city_id='+this.helper.city_id;
     return this.http.get(serviceUrl,{headers: headers });
 
   }
@@ -584,6 +584,16 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.get(serviceUrl,{headers: headers });
   }
 
+  getUserZone(lat , lng , access_token){
+    
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('lat',lat)
+    .set('lng',lng);
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/user/zone';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+    
+  }
 
 }
 

@@ -62,6 +62,8 @@ export class HelperProvider {
   backBtnInHelper = false;
   stillCount = false;
 
+  public city_id;
+  
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
     public events: Events, private network: Network) {

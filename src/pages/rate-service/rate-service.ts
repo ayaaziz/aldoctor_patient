@@ -35,6 +35,8 @@ export class RateServicePage {
   rateWordsWithId=[];
   
   type_id = "";
+
+  ratedisabledbtn = false;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,public service: LoginserviceProvider,
@@ -229,7 +231,7 @@ export class RateServicePage {
   rateDoctor(){
     if(this.rate){
 
-    
+    this.ratedisabledbtn = true;
     this.review += " ";
     this.review += this.moreReview;
     console.log("all review ",this.review);
@@ -238,6 +240,7 @@ export class RateServicePage {
     this.service.rateDoctor(this.doctorId,this.rate,this.review,this.userId,this.orderId,this.accessToken).subscribe(
       resp=>{
         console.log("resp from rate :",resp); 
+        this.ratedisabledbtn = false;
         this.helper.orderRated = 1;
         this.presentToast(this.translate.instant("done"));
         if(this.helper.dontSendNotification == false)
@@ -257,7 +260,9 @@ export class RateServicePage {
         
       },err=>{
         console.log("err from rate: ",err);
-        this.presentToast(this.translate.instant("serverError"))
+        this.ratedisabledbtn = false;
+        this.presentToast(this.translate.instant("serverError"));
+        
       }
     );
     

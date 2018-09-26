@@ -45,6 +45,7 @@ export class SearchForPharmacyPage {
 center_id = "";
   toastFlag = false;
   allMarkers = [] ;
+  city_id ;
 
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
@@ -145,7 +146,26 @@ center_id = "";
         {
           this.lat = this.helper.lat;
           this.lng = this.helper.lon;
-          this.locFlag = 1;
+          //this.locFlag = 1;
+          this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
+            resp=>{
+              console.log("resp from getUserZone",resp);
+              if(JSON.parse(JSON.stringify(resp)).success == true)
+              {
+                this.locFlag = 1;  
+                this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+                console.log("city_id",this.city_id);
+                this.helper.city_id = this.city_id;
+              } 
+              else if (JSON.parse(JSON.stringify(resp)).success == false)
+                this.locFlag = -1; 
+            },err=>{
+              console.log("err from getUserZone",err);
+  
+            }
+          );
+
+
           this.handleuserLocattion();
         }
 
@@ -202,7 +222,26 @@ center_id = "";
         this.helper.lat= this.lat;
         this.helper.lon = this.lng;
 
-        this.locFlag = 1;
+        this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp from getUserZone",resp);
+            if(JSON.parse(JSON.stringify(resp)).success == true)
+            {
+              this.locFlag = 1;  
+              this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+              console.log("city_id",this.city_id);
+              this.helper.city_id = this.city_id;
+            } 
+            else if (JSON.parse(JSON.stringify(resp)).success == false)
+              this.locFlag = -1; 
+          },err=>{
+            console.log("err from getUserZone",err);
+
+          }
+        );
+        
+
+
         this.helper.detectLocation = true;
 
         console.log("resp: ", resp);
@@ -288,8 +327,25 @@ center_id = "";
       this.lng = ev.latLng.lng();
       this.helper.lon = this.lng;
       this.helper.lat = this.lat;
-    
-      this.locFlag = 1;
+      this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
+        resp=>{
+          console.log("resp from getUserZone",resp);
+          if(JSON.parse(JSON.stringify(resp)).success == true)
+          {
+            this.locFlag = 1;  
+            this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+            console.log("city_id",this.city_id);
+            this.helper.city_id = this.city_id;
+          } 
+          else if (JSON.parse(JSON.stringify(resp)).success == false)
+            this.locFlag = -1; 
+        },err=>{
+          console.log("err from getUserZone",err);
+
+        }
+      );
+
+      //this.locFlag = 1;
       this.helper.detectLocation = true;
       console.log("loc flag form err ",this.locFlag , "flag from helper",this.helper.detectLocation);
   
@@ -475,7 +531,10 @@ center_id = "";
 
     }
     
-  } else
+  }else if(this.locFlag == -1){
+    this.presentToast("انت خارج المنطقه ");
+  }
+   else
   {
     console.log("toast flag ",this.toastFlag);
     if(this.toastFlag == true)
@@ -523,7 +582,10 @@ center_id = "";
       
 
     }  
-  }else
+  }else if(this.locFlag == -1){
+    this.presentToast("انت خارج المنطقه ");
+  }
+  else
   {
     console.log("toast flag ",this.toastFlag);
 

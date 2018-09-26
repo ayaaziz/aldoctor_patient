@@ -13,10 +13,10 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 import { HomePage } from '../home/home';
 
-
-@IonicPage({
-  name:'follow-order-for-plc'
-})
+// {
+//   name:'follow'
+// }
+// @IonicPage()
 @Component({
   selector: 'page-follow-order-for-plc',
   templateUrl: 'follow-order-for-plc.html',
@@ -65,14 +65,16 @@ export class FollowOrderForPlcPage {
   imageExt=[];
   UpdateorderBTn = false;
   plcimage;
-  receivedImage = "0";
+  // receivedImage = "0";
   editFlag =false;
   orderFiles = [];
   disabled2btn ;
   refreshOrderStatus;
   refresher;
   refreshOrderMsg;
-
+  status11alertDisabled = false;
+  status8alertdiabled = false;
+  status12alertdisabled = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -150,11 +152,11 @@ export class FollowOrderForPlcPage {
           console.log("orderDetailsErr",err);
         }
       );
-      if(this.doctorData.receivedImage){
+      // if(this.doctorData.receivedImage){
 
-        this.receivedImage = this.doctorData.receivedImage;
-        console.log("received image",this.receivedImage);
-      }
+      //   this.receivedImage = this.doctorData.receivedImage;
+      //   console.log("received image",this.receivedImage);
+      // }
       console.log("doctorid: ",this.doctorId," orderid: ",this.doctorData.orderId);
       // if(this.doctorData.order_status && this.doctorData.order_status == "7")
       //   this.disableCancelBtn = true;
@@ -668,7 +670,7 @@ private presentToast(text) {
               );
               
               this.presentToast("تم الارسال");
-              this.receivedImage = "1";
+              // this.receivedImage = "1";
      //         this.photosForApi = [];
     //          this.photos = [];
               this.UpdateorderBTn = false;
@@ -728,7 +730,7 @@ private presentToast(text) {
               );
               
               this.presentToast("تم الارسال");
-              this.receivedImage = "1";
+              // this.receivedImage = "1";
      //         this.photosForApi = [];
     //          this.photos = [];
               this.UpdateorderBTn = false;
@@ -837,21 +839,25 @@ private presentToast(text) {
         
         this.refreshOrderStatus = myorder.status;
 
-        if(this.refreshOrderStatus == "11")
+        if(this.refreshOrderStatus == "11" && this.status11alertDisabled == false)
         {
+          this.status11alertDisabled = true;
           console.log("status 11 from refresh");
           this.presentAlert("تطبيق الدكتور","تم الالغاء من قبل" + this.doctorName);
           this.helper.removeNetworkDisconnectionListener();
           this.storage.remove("orderImages");      
         }
-        if(this.refreshOrderStatus == "8")
+        if(this.refreshOrderStatus == "8" && this.status8alertdiabled == false)
         {
           //بدء التوصيل
+          this.status8alertdiabled = true;
           this.presentdelivaryAlert("تطبيق الدكتور","تم بدء التوجه من المتخصص لدي " + this.doctorName + "اليك");
           this.events.publish('status8ForPLC');
         }
-        if(this.refreshOrderStatus == "12")
+        if(this.refreshOrderStatus == "12" && this.status12alertdisabled== false)
         {
+          this.status12alertdisabled = true;
+          
           if(! myorder.remark)
             myorder.remark="";
           if(! myorder.date)

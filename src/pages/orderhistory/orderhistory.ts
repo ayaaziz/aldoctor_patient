@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { HelperProvider } from '../../providers/helper/helper';
+import { FollowOrderForPlcPage } from '../follow-order-for-plc/follow-order-for-plc';
 
 
 // @IonicPage()
@@ -773,7 +774,7 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
 if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
 {
   this.helper.type_id  = item.type_id;
-  this.navCtrl.setRoot('follow-order-for-plc',
+  this.navCtrl.setRoot(FollowOrderForPlcPage,
   {data:
     {"orderId":item.orderId, 
       "doctorId":item.doctor_id,

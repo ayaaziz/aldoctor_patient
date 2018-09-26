@@ -34,7 +34,8 @@ export class DoctorEvaluationPage {
   rateArray=[];
   tostClass ;
   rateWordsWithId=[];
-  
+  ratedisabledbtn = false;
+
   constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider,public translate: TranslateService,
     public navCtrl: NavController, public navParams: NavParams) {
@@ -324,18 +325,21 @@ export class DoctorEvaluationPage {
     }
   }
   rateDoctor(){
-    
+
+    this.ratedisabledbtn = true;
     this.review += " ";
     this.review += this.moreReview;
     console.log("all review ",this.review);
     this.service.rateDoctor(this.doctorId,this.rate,this.review,this.userId,this.orderId,this.accessToken).subscribe(
       resp=>{
+        this.ratedisabledbtn = false;
         console.log("resp from rate :",resp); 
         this.helper.orderRated = 1;
         this.presentToast(this.translate.instant("done"));
         this.navCtrl.setRoot(TabsPage);
         
       },err=>{
+        this.ratedisabledbtn = false;
         console.log("err from rate: ",err);
         this.presentToast(this.translate.instant("serverError"))
       }
