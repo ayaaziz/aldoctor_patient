@@ -167,6 +167,8 @@ export class RemaingTimeForPlcPage {
     this.events.publish('enableTabs', true);
 
     console.log("before setRoot of follow plc");
+    console.log("this.app.getRootNav()",this.app.getRootNav());
+    // this.navCtrl.setRoot(TabsPage);
     this.navCtrl.setRoot(FollowOrderForPlcPage,
     {data:
       { "orderId":data.orderId, 

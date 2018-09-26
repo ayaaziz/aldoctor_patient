@@ -269,7 +269,13 @@ export class NotificationPage {
     console.log("notificationClicked , item: ",item)
     if(item.orderstatus && item.orderstatus == "12" || item.orderstatus == "13")
     {
+      if(! item.remark)
+        item.remark="";
+
       this.presentContOrderConfirm(item.remark,item.date);
+    }else if (item.orderstatus && item.orderstatus == "8")
+    {
+      this.presentlong(item.data.text);
     }
   }
 
@@ -300,5 +306,16 @@ export class NotificationPage {
    alert.present();
  }
 
+ presentlong(data) {
+    
+  let alert = this.alertCtrl.create({
+    title: "تطبيق الدكتور",
+    message: data,
+    buttons: ['حسنا']
+     //  }
+    
+  });
+  alert.present();
+}
 
 }

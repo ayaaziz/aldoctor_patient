@@ -851,13 +851,13 @@ private presentToast(text) {
         {
           //بدء التوصيل
           this.status8alertdiabled = true;
-          this.presentdelivaryAlert("تطبيق الدكتور","تم بدء التوجه من المتخصص لدي " + this.doctorName + "اليك");
+          this.presentdelivaryAlert("تطبيق الدكتور","تم بدء التوجه من المتخصص لدي " + this.doctorName + "اليك للطلب رقم "+this.orderId);
           this.events.publish('status8ForPLC');
         }
         if(this.refreshOrderStatus == "12" && this.status12alertdisabled== false)
         {
           this.status12alertdisabled = true;
-          
+
           if(! myorder.remark)
             myorder.remark="";
           if(! myorder.date)
