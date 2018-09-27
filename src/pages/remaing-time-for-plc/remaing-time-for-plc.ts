@@ -9,6 +9,7 @@ import { OrderhistoryPage } from '../orderhistory/orderhistory';
 import { TranslateService } from '@ngx-translate/core';
 import { TabsPage } from '../tabs/tabs';
 import { FollowOrderForPlcPage } from '../follow-order-for-plc/follow-order-for-plc';
+import { HomePage } from '../home/home';
 
 
 // import { Network } from '@ionic-native/network';
@@ -48,6 +49,7 @@ export class RemaingTimeForPlcPage {
     public app:App
   ) {
     
+    console.log("this.navCtrl from rtime constractor",this.navCtrl);
       this.helper.view = "remaining-time-for-plc";
       this.events.publish('enableTabs', false);
       this.helper.stillCount = true;
@@ -115,7 +117,7 @@ export class RemaingTimeForPlcPage {
             // this.navCtrl.parent.select(1); 
             // console.log("before setRoot of follow plc");
             this.navCtrl.setRoot(FollowOrderForPlcPage,
-            {data:
+            {data2:
               { "orderId":this.orderId, 
                 "doctorId":JSON.parse(JSON.stringify(resp)).serviceprofileid,
                 
@@ -167,14 +169,17 @@ export class RemaingTimeForPlcPage {
     this.events.publish('enableTabs', true);
 
     console.log("before setRoot of follow plc");
-    console.log("this.app.getRootNav()",this.app.getRootNav());
+    console.log("this.navCtrl",this.navCtrl);
     // this.navCtrl.setRoot(TabsPage);
-    this.navCtrl.setRoot(FollowOrderForPlcPage,
-    {data:
-      { "orderId":data.orderId, 
-        "doctorId":data.doctorId
-      }
-    });
+
+    // this.navCtrl.setRoot(FollowOrderForPlcPage,
+    //   {data2:
+    //     { "orderId":data.orderId, 
+    //       "doctorId":data.doctorId
+    //     }
+    //   });
+
+  //  this.pushFollowPage(data.orderId,data.doctorId);
   });
   
   this.events.subscribe('cancelOrder', () => {
@@ -340,5 +345,20 @@ export class RemaingTimeForPlcPage {
   // ionViewCanLeave(){
   //   console.log("view will leave r plc");
   // }
+  pushFollowPage(orderId,doctorId){
+    console.log("push follow page ","oderId",orderId,"docId",doctorId);
+    // this.navCtrl.parent.select(0);
+    // this.navCtrl.setRoot(HomePage);
+    
+console.log("this.navCtrl setroot home page",this.navCtrl);
+    this.navCtrl.push(FollowOrderForPlcPage,
+      {data2:
+        { "orderId":orderId, 
+          "doctorId":doctorId
+        }
+      });
+      console.log("after push page");
+  }
+  
 
 }

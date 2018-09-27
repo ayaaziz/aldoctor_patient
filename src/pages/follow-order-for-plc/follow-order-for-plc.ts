@@ -100,7 +100,7 @@ export class FollowOrderForPlcPage {
 
       console.log("langdir: ",this.langDirection);
       this.translate.use(this.helper.currentLang);
-      this.doctorData = this.navParams.get('data');
+      this.doctorData = this.navParams.get('data2');
       console.log("data from follow order:",this.doctorData);
     
       this.doctorId = this.doctorData.doctorId;
@@ -451,13 +451,13 @@ export class FollowOrderForPlcPage {
     // });
     this.events.subscribe('x',()=>{
       console.log("x fired");
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(TabsPage);
       
     });
 
     this.events.subscribe('y',()=>{
       console.log("y fired");
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(TabsPage);
     });
 
     this.events.subscribe('status8ForPLC', (data) => {

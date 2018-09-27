@@ -32,6 +32,7 @@ import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-inte
 
 import * as firebase from 'firebase/app';
 import { HomePage } from '../pages/home/home';
+import { FollowOrderForPlcPage } from '../pages/follow-order-for-plc/follow-order-for-plc';
 
 
 var firebaseConfig  = {
@@ -651,18 +652,22 @@ export class MyApp {
           
           if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3"){
              //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
-            
+             var orderId = notification.additionalData.OrderID;
+             
             console.log("notification from type_id",notification.additionalData.order_status);
+            console.log("id of order",notification.additionalData.OrderID, "xorderId",orderId);
+            console.log("data",data);
 
             this.helper.type_id = notification.additionalData.type_id;
 
             var orderStatus = notification.additionalData.order_status;
             
+
             var data = {
               doctorId:notification.additionalData.doctorId,
-              orderId:notification.additionalData.orderId
+              orderId:orderId
             };
-
+            
             if(orderStatus == "10" || orderStatus == "3") 
             {
               console.log("status 10 or 3");
@@ -674,6 +679,19 @@ export class MyApp {
             {
               //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
               this.events.publish('status2ForPLC',data );
+              console.log("back to notification status 2 after publish");
+              console.log("data to follow order","orderId",orderId 
+              ,"doctorId",notification.additionalData.doctorId);
+              this.nav.setRoot(TabsPage);
+              this.nav.push(FollowOrderForPlcPage,
+                {data2:
+                  { "orderId":orderId, 
+                    "doctorId":notification.additionalData.doctorId
+                  }
+                });
+
+                console.log("after set pages home , followorderforplc");
+
             }
               
             
@@ -699,7 +717,7 @@ export class MyApp {
               if(! notification.additionalData.date)
                 notification.additionalData.date = "";
             
-              this.presentContOrderConfirm(notification.additionalData.orderId,notification.additionalData.remark,notification.additionalData.date);
+              this.presentContOrderConfirm(notification.additionalData.OrderID,notification.additionalData.remark,notification.additionalData.date);
             }
             
             
@@ -708,9 +726,10 @@ export class MyApp {
               // if(this.helper.orderRated == 0)
               // {
                // this.events.publish('status5');
-               this.helper.removeNetworkDisconnectionListener();
 
-               this.storage.remove("orderImages");
+              //  this.helper.removeNetworkDisconnectionListener();
+
+              //  this.storage.remove("orderImages");
                 this.helper.dontSendNotification = true;
                 
                 this.nav.setRoot(TabsPage);
@@ -718,7 +737,7 @@ export class MyApp {
                 this.nav.push('rate-service',{
                   data:{
                     doctorId:notification.additionalData.doctorId,
-                    orderId:notification.additionalData.orderId
+                    orderId:notification.additionalData.OrderID
                   }
                 });
               //}
@@ -770,6 +789,19 @@ export class MyApp {
         console.log("registrationId " + registration.registrationId)
         this.helper.registration = registration.registrationId;
 
+
+        if(localStorage.getItem("firebaseRegNoti")){
+          if(localStorage.getItem("firebaseRegNoti") == registration.registrationId){
+            localStorage.setItem("regChanged","0")
+          }
+          else{
+            localStorage.setItem("regChanged","1")
+            localStorage.setItem("firebaseRegNoti",registration.registrationId)
+          
+          }
+        }
+
+
       });
   
       pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
@@ -784,7 +816,7 @@ export class MyApp {
         
       var data = {
         doctorId:notifications.additionalData.doctorId,
-        orderId:notifications.additionalData.orderId
+        orderId:notifications.additionalData.OrderID
       };
 
       if (notifications.additionalData.type_id == "1" || notifications.additionalData.type_id == "2" || notifications.additionalData.type_id == "3"){

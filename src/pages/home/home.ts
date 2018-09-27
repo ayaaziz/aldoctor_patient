@@ -319,6 +319,20 @@ this.storage.get("rate_doctor").then(data=>{
   }
 
   ionViewDidLoad(){
+
+    if(localStorage.getItem("regChanged") == "1"){
+      var firebaseRegNoti= localStorage.getItem("firebaseRegNoti");
+      this.accessToken = localStorage.getItem('user_token');
+
+      this.service.registerFirebase(firebaseRegNoti,this.accessToken).subscribe(
+        resp=>{
+          console.log("registerFirebase resp from home",resp);
+        },err=>{
+          console.log("registerFirebase err from home",err);
+        }
+      );
+      
+    }
     // if(!navigator.onLine)
     //   this.presentToast(this.translate.instant("checkNetwork"));
 
@@ -331,6 +345,10 @@ this.storage.get("rate_doctor").then(data=>{
 
   // });
   }
+
+
+
+
 //   ionViewDidEnter(){
 //     console.log("did enter");
 //   this.storage.get('language').then((val) => {

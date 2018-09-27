@@ -775,7 +775,7 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
 {
   this.helper.type_id  = item.type_id;
   this.navCtrl.setRoot(FollowOrderForPlcPage,
-  {data:
+  {data2:
     {"orderId":item.orderId, 
       "doctorId":item.doctor_id,
       "order_status":item.order_status
