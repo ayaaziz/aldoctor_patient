@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , Platform, ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams , Platform, ToastController,Events} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -28,7 +28,8 @@ export class LoginPage {
   
   constructor( public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
     public formBuilder: FormBuilder,public navCtrl: NavController, 
-    public navParams: NavParams, public platform: Platform) {
+    public navParams: NavParams, public platform: Platform,
+    public events: Events) {
       this.langDirection = this.helper.lang_direction;
       
       
@@ -154,7 +155,10 @@ export class LoginPage {
           "profile_pic":jsonUserData.profile_pic
         }).then(data=>{
           console.log("set data to storage from login ",data);
-         this.navCtrl.setRoot(TabsPage);
+          this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
+
+          this.navCtrl.setRoot(TabsPage);
+
 
         }).catch(data=>{
           console.log("catch data from login",data);

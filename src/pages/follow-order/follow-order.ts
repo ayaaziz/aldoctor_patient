@@ -56,7 +56,7 @@ export class FollowOrderPage {
      public events: Events,private localNotifications: LocalNotifications) {
        console.log("follow order");
     this.langDirection = this.helper.lang_direction;
-    this.helper.view = "";
+    this.helper.view = "follow";
     
     this.accessToken = localStorage.getItem('user_token');
     
@@ -653,6 +653,8 @@ private presentToast(text) {
   }
   dismiss(){
     this.navCtrl.pop();
+    this.navCtrl.parent.select(0);
+    // this.navCtrl.setRoot(TabsPage);
   }
   
   scheduleNotification() {

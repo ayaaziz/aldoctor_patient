@@ -16,10 +16,17 @@ export class HelperProvider {
   //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
   
   //production
-  public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
+  //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
   
   //test
   //public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+
+    //test
+  //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
+  
+  //production
+  public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+
 
   public registration;
   public device_type;

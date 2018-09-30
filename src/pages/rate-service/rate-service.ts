@@ -243,13 +243,16 @@ export class RateServicePage {
         this.ratedisabledbtn = false;
         this.helper.orderRated = 1;
         this.presentToast(this.translate.instant("done"));
+        console.log("this.helper.dontSendNotification from rate: ",this.helper.dontSendNotification);
         if(this.helper.dontSendNotification == false)
         {
           this.srv.updateOrderStatus(this.orderId,this.accessToken,this.type_id).subscribe(
             resp=>{
               console.log("resp updateOrderStatus",resp);
+              // this.helper.dontSendNotification  = false;
             },err=>{
               console.log("err updateOrderStatus",err);
+              // this.helper.dontSendNotification  = false;
             }
           );
           

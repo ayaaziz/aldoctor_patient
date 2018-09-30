@@ -473,6 +473,7 @@ export class OrderSpecificServicePage {
             this.helper.orderIdForUpdate = newOrder.order.id;
             
             this.presentToast(this.translate.instant("ordersent"));
+            this.helper.dontSendNotification = false;
             
             // this.navCtrl.push('remaining-time-to-accept');
             if(this.photosForApi.length == 0)

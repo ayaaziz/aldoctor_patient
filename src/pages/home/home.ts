@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { SpecializationsPage } from '../specializations/specializations';
 import { LoginPage } from '../login/login';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
+import { subscribeOn } from 'rxjs/operator/subscribeOn';
 //import { CancelorderPage } from '../cancelorder/cancelorder';
 //import { FolloworderPage } from '../followorder/followorder';
 
@@ -425,27 +426,72 @@ presentContOrderConfirm(order_id,remark,contDate) {
        handler: () => {
          console.log('confirm contorder  disagree clicked');
 
-         this.service.updateOrderStatusToCancel(order_id,token).subscribe(
+         this.service.getOrderDetails(order_id,token).subscribe(
            resp=>{
-             console.log("resp cancel contOrder",resp);
-             if(JSON.parse(JSON.stringify(resp)).success)
-             {
-               this.presentToast("تم الغاء الموعد");
-               console.log("الغاء")
-               //this.events.publish('x');
-             }
-               
+              console.log("getOrderStatus resp",resp);
+              var myOrderStatus = JSON.parse(JSON.stringify(resp)).order.status;
+              if(myOrderStatus == "4" )
+                this.presentToast("لقد تم الغاء الطلب");
+              else if(myOrderStatus == "13")
+                this.presentToast("لقد تم تأكيد الموعد");
+              else
+              {
+                this.service.updateOrderStatusToCancel(order_id,token).subscribe(
+                  resp=>{
+                    console.log("resp cancel contOrder",resp);
+                    if(JSON.parse(JSON.stringify(resp)).success)
+                    {
+                      this.presentToast("تم الغاء الموعد");
+                      console.log("الغاء")
+                      //this.events.publish('x');
+                    }
+                      
+                  },err=>{
+                    console.log("err cancel contOrder",err);
+                    this.presentToast("خطأ فى الاتصال");
+                  }
+                );
+
+              }
            },err=>{
-             console.log("err cancel contOrder",err);
-             this.presentToast("خطأ فى الاتصال");
+            console.log("getOrderStatus err",err);
+            this.presentToast("خطأ فى الاتصال");
            }
          );
+        //  this.service.updateOrderStatusToCancel(order_id,token).subscribe(
+        //    resp=>{
+        //      console.log("resp cancel contOrder",resp);
+        //      if(JSON.parse(JSON.stringify(resp)).success)
+        //      {
+        //        this.presentToast("تم الغاء الموعد");
+        //        console.log("الغاء")
+        //        //this.events.publish('x');
+        //      }
+               
+        //    },err=>{
+        //      console.log("err cancel contOrder",err);
+        //      this.presentToast("خطأ فى الاتصال");
+        //    }
+        //  );
        }
      },
      {
        text: "موافق",
        handler: () => {
          console.log('confirm contorder agree clicked');
+
+         this.service.getOrderDetails(order_id,token).subscribe(
+          resp=>{
+             console.log("getOrderStatus resp",resp);
+             var myOrderStatus = JSON.parse(JSON.stringify(resp)).order.status;
+             if(myOrderStatus == "4" )
+               this.presentToast("لقد تم الغاء الطلب");
+             else if(myOrderStatus == "13")
+               this.presentToast("لقد تم تأكيد الموعد");
+             else
+              {
+
+              
 
          this.service.updateOrderStatusToAgreeTime(order_id,token).subscribe(
            resp=>{
@@ -462,6 +508,13 @@ presentContOrderConfirm(order_id,remark,contDate) {
              this.presentToast("خطأ فى الاتصال");
            }
          );
+        }
+          },err=>{
+
+            console.log("getOrderStatus err",err);
+            this.presentToast("خطأ فى الاتصال");
+            
+          });
        }
      }
    ]

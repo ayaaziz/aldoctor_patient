@@ -51,6 +51,8 @@ export class EditProfilePage {
   tostClass;
   emailErr="";
 
+  maxDate ; 
+
 
   constructor(public toastCtrl: ToastController,
     public storage: Storage, public translate: TranslateService,
@@ -86,6 +88,11 @@ export class EditProfilePage {
                   
     
     });
+
+
+    this.maxDate  = new Date().toISOString().split('T')[0];
+    console.log("this.maxDate",this.maxDate);
+    
     
   }
 

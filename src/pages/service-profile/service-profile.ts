@@ -173,6 +173,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           this.helper.orderIdForUpdate = newOrder.order.id;
           
           this.presentToast(this.translate.instant("ordersent"));
+          this.helper.dontSendNotification = false;
+          
           this.offline = "0";
           // this.navCtrl.pop();
           // this.navCtrl.setRoot('remaining-time-to-acceptfor');

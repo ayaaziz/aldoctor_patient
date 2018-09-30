@@ -720,6 +720,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
             this.helper.orderIdForUpdate = newOrder.order.id;
             
           this.presentToast(this.translate.instant("ordersent"));
+          this.helper.dontSendNotification = false;
           // this.navCtrl.pop();
           // this.navCtrl.push('remaining-time-to-accept');
           

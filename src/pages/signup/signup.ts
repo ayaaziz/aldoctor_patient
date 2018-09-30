@@ -1,7 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { Content } from 'ionic-angular';
 
-import { Platform, IonicPage, NavController, NavParams, ToastController, ActionSheetController ,AlertController} from 'ionic-angular';
+import { Platform, IonicPage, NavController, NavParams, ToastController, ActionSheetController ,AlertController,Events} from 'ionic-angular';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -71,9 +71,11 @@ export class SignupPage {
   citiesObjects=[];
   cityId;
 
+  maxDate ; 
+
   constructor(private platform: Platform,public alerCtrl: AlertController,
      //private imagePicker: ImagePicker,private base64: Base64,
-    public camera: Camera,
+    public camera: Camera,public events: Events,
     public actionSheetCtrl: ActionSheetController, public storage: Storage,public loginservice:LoginserviceProvider, public toastCtrl: ToastController, public translate: TranslateService,public helper: HelperProvider, public navCtrl: NavController, public navParams: NavParams,public formBuilder: FormBuilder) {
     this.langDirection = this.helper.lang_direction;
     this.helper.view = "pop";
@@ -105,7 +107,9 @@ export class SignupPage {
                   
     
     });
-    
+   
+    this.maxDate  = new Date().toISOString().split('T')[0];
+    console.log("this.maxDate",this.maxDate);
   }
 x;
 y;
@@ -427,6 +431,7 @@ if(this.patientRegisterForm.controls["email"].errors){
                 });
                    
   
+          this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
         },
         err=>{
           

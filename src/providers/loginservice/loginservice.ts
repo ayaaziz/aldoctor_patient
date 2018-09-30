@@ -595,5 +595,47 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     
   }
 
+  getContactEmail(access_token){
+    var lang = this.helper.currentLang;
+    let headers = new HttpHeaders();
+
+      headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/contact-users-email?lang='+lang;
+      return this.http.get(serviceUrl,{headers: headers })
+      
+  }
+  getContactPhone(access_token){
+    var lang = this.helper.currentLang;
+    let headers = new HttpHeaders();
+
+      headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/contact-users-phone?lang='+lang;
+      return this.http.get(serviceUrl,{headers: headers })
+      
+  }
+  getContactMobile(access_token){
+    var lang = this.helper.currentLang;
+    let headers = new HttpHeaders();
+
+      headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/contact-users-mobile?lang='+lang;
+      return this.http.get(serviceUrl,{headers: headers })
+      
+  }
+
+
+  getOrderDetails(id,access_token){
+  
+    let headers = new HttpHeaders();
+  
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+       
+    let serviceUrl = this.helper.serviceUrl +'api/orders/get/'+id;
+  
+    return this.http.get(serviceUrl,{headers: headers });
+  }
+
+  
+
 }
 

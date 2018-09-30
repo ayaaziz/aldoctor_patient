@@ -38,6 +38,7 @@ helpers3 = true;
 phone;
 phone2;
 phone3;
+centersId = [];
 
   constructor(public helper: HelperProvider,
     public navCtrl: NavController, public navParams: NavParams,
@@ -71,6 +72,7 @@ phone3;
 
   ionViewWillEnter(){
     console.log("will enter");
+    
     for(var j=0;j<this.specializations1.length;j++){
       this.specializations1[j].spClass = "spUnselceted";
       this.specializations1[j].status = '0';
@@ -287,29 +289,50 @@ console.log("sp item search val ",val);
     if(item.status == '0')
     {
       console.log("ev from status 0 ",ev);
-    
+      item.spClass = "spSelected";
       item.status = '1';
+      this.centersId.push(item.id);
  
     }
     else if(item.status == '1')
     {
       console.log("ev from status 1 ",ev);
       item.status = '0';
+      item.spClass = "spUnselceted";
+      for(var g=0;g<this.centersId.length;g++)
+      {
+        if(this.centersId[g] == item.id)
+        this.centersId.splice(this.centersId[g], 1);
+      }
       
       
     }
-    item.spClass = "spSelected";
+    // item.spClass = "spSelected";
+
     console.log("item",item);
     console.log("event: ",ev);
     //this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
     console.log("item.id",item.id);
+    // this.navCtrl.push('order-service',{data:{
+    //       type_id:2,
+    //       lat:this.helper.lat,
+    //       lng:this.helper.lon,
+    //       center_id : item.id
+    //     }});
+  }
+
+  chooseCenters(){
+    
+
     this.navCtrl.push('order-service',{data:{
           type_id:2,
           lat:this.helper.lat,
           lng:this.helper.lon,
-          center_id : item.id
+          center_id : this.centersId.join(",")
         }});
+        this.centersId = [];
   }
+
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,

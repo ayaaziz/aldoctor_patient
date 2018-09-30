@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { OrderhistoryPage } from '../orderhistory/orderhistory';
 import 'rxjs/add/operator/timeout';
 import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
 
 
 
@@ -128,9 +129,14 @@ export class CancelOrderPage {
             this.helper.updateCancelOrderStatus(this.orderId);
             this.presentToast(this.translate.instant("orderCancled"));     
             // this.navCtrl.setRoot(OrderhistoryPage);
-            this.navCtrl.pop();
-            this.navCtrl.setRoot(HomePage);
+         
+            // this.navCtrl.pop();
+            // this.navCtrl.setRoot(HomePage);
+            // this.navCtrl.parent.select(1);
+            
+            this.navCtrl.setRoot(TabsPage);
             this.navCtrl.parent.select(1);
+
           }
         },
         err=>{

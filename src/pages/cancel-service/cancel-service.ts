@@ -9,6 +9,7 @@ import 'rxjs/add/operator/timeout';
 
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
 
 
 @IonicPage({
@@ -128,10 +129,15 @@ reasonChecked(item , event){
             // this.helper.updateCancelOrderStatus(this.orderId);
             this.presentToast(this.translate.instant("orderCancled"));     
             // this.navCtrl.setRoot(OrderhistoryPage);
-            this.navCtrl.pop();
-            this.navCtrl.setRoot(HomePage);
-            this.navCtrl.parent.select(1);
-
+            
+            
+         //   this.navCtrl.pop();
+            // this.navCtrl.setRoot(HomePage);
+            // this.navCtrl.setRoot()
+            // this.navCtrl.parent.select(1);
+            
+           this.navCtrl.setRoot(TabsPage);
+           this.navCtrl.parent.select(1);
           }
         },
         err=>{

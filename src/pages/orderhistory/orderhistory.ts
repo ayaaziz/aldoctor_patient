@@ -774,7 +774,7 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
 if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
 {
   this.helper.type_id  = item.type_id;
-  this.navCtrl.setRoot(FollowOrderForPlcPage,
+  this.navCtrl.push(FollowOrderForPlcPage,
   {data2:
     {"orderId":item.orderId, 
       "doctorId":item.doctor_id,

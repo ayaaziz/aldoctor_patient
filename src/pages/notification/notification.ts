@@ -267,16 +267,20 @@ export class NotificationPage {
 
   notificationClickd(item){
     console.log("notificationClicked , item: ",item)
-    if(item.orderstatus && item.orderstatus == "12" || item.orderstatus == "13")
-    {
-      if(! item.remark)
-        item.remark="";
+    // if(item.orderstatus && item.orderstatus == "12" || item.orderstatus == "13")
+    // {
+    //   if(! item.remark)
+    //     item.remark="";
 
+    //   this.presentContOrderConfirm(item.remark,item.date);
+    // }else if (item.orderstatus && item.orderstatus == "8")
+    // {
+    //   this.presentlong(item.data.text);
+    // }
+    if(item.remark)
       this.presentContOrderConfirm(item.remark,item.date);
-    }else if (item.orderstatus && item.orderstatus == "8")
-    {
+    else
       this.presentlong(item.data.text);
-    }
   }
 
   presentContOrderConfirm(remark,contDate) {

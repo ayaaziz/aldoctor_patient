@@ -72,19 +72,58 @@ export class ContactusPage {
     this.accessToken = localStorage.getItem('user_token');
 
       if(navigator.onLine){
-      this.service.ContactUs(this.accessToken)
+      // this.service.ContactUs(this.accessToken)
+      // .timeout(10000).subscribe(
+      //   resp=>{
+      //     this.contactusdata = JSON.parse(JSON.stringify(resp));
+      //     this.email = this.contactusdata[0].value;
+      //     this.mobile = this.contactusdata[1].value;
+      //     this.phone = this.contactusdata[2].value;
+      //     console.log("resp from contact us",resp);
+      //   },err=>{
+      //     console.log("err from contact us: ",err);
+      //     this.presentToast(this.translate.instant("serverError"));
+      //   }
+      // );
+
+      this.service.getContactEmail(this.accessToken)
       .timeout(10000).subscribe(
         resp=>{
-          this.contactusdata = JSON.parse(JSON.stringify(resp));
-          this.email = this.contactusdata[0].value;
-          this.mobile = this.contactusdata[1].value;
-          this.phone = this.contactusdata[2].value;
+          
+          this.email =  JSON.parse(JSON.stringify(resp))[0].value;
+          
           console.log("resp from contact us",resp);
         },err=>{
           console.log("err from contact us: ",err);
           this.presentToast(this.translate.instant("serverError"));
         }
       );
+      this.service.getContactMobile(this.accessToken)
+      .timeout(10000).subscribe(
+        resp=>{
+          
+          
+          this.mobile = JSON.parse(JSON.stringify(resp))[0].value;
+          
+          console.log("resp from contact us",resp);
+        },err=>{
+          console.log("err from contact us: ",err);
+          this.presentToast(this.translate.instant("serverError"));
+        }
+      );
+      this.service.getContactPhone(this.accessToken)
+      .timeout(10000).subscribe(
+        resp=>{
+          
+          this.phone = JSON.parse(JSON.stringify(resp))[0].value;
+          console.log("resp from contact us",resp);
+        },err=>{
+          console.log("err from contact us: ",err);
+          this.presentToast(this.translate.instant("serverError"));
+        }
+      );
+
+
     }else{
       this.presentToast(this.translate.instant("checkNetwork"));
     }

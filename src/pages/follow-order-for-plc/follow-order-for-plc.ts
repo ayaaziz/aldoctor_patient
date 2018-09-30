@@ -87,7 +87,7 @@ export class FollowOrderForPlcPage {
     private localNotifications: LocalNotifications)
     {  
       this.accessToken = localStorage.getItem('user_token');
-      this.helper.view = "";
+      this.helper.view = "follow";
       
       this.langDirection = this.helper.lang_direction;
     
@@ -248,9 +248,10 @@ export class FollowOrderForPlcPage {
             
             console.log("phone",this.phone);          
             
-            this.locationNode(tempData.locationNode);
+            // this.locationNode(tempData.locationNode);
+            this.locationNode(tempData.extraInfo.extra_info);
             
-            this.helper.getDoctorlocation(this.doctorId);
+            // this.helper.getDoctorlocation(this.doctorId);
 
           },err=>{
             console.log("error from getserviceprofile in followorder:",err);
@@ -258,163 +259,166 @@ export class FollowOrderForPlcPage {
   
         );
       // });
-      this.events.subscribe('location', (data) => {
-        console.log(" event location ",data);
-        if(data.location){
-          this.doctorLocation = data.location;
-          this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
-            resp=>{
+      
+      // this.events.subscribe('location', (data) => {
+      //   console.log(" event location ",data);
+      //   if(data.location){
+      //     this.doctorLocation = data.location;
+      //     this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
+      //       resp=>{
   
-              var respObj = JSON.parse(JSON.stringify(resp));  
-              console.log("duration txt",respObj.routes[0].legs[0].duration.text);
-              // var dur = respObj.routes[0].legs[0].duration.text;
-              // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+      //         var respObj = JSON.parse(JSON.stringify(resp));  
+      //         console.log("duration txt",respObj.routes[0].legs[0].duration.text);
+      //         // var dur = respObj.routes[0].legs[0].duration.text;
+      //         // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
 
-              // if(dur.includes("hours"))
-              //   dur = dur.replace("hours","س");
+      //         // if(dur.includes("hours"))
+      //         //   dur = dur.replace("hours","س");
 
-              // if(dur.includes("mins"))
-              //   dur = dur.replace("mins","د");
+      //         // if(dur.includes("mins"))
+      //         //   dur = dur.replace("mins","د");
 
-              // if(dur.includes("min"))
-              //   dur = dur.replace("min","د");
+      //         // if(dur.includes("min"))
+      //         //   dur = dur.replace("min","د");
     
-              // if (dur.includes("hour"))
-              //   dur = dur.replace("hour","س");
+      //         // if (dur.includes("hour"))
+      //         //   dur = dur.replace("hour","س");
 
-              // this.duration = dur;
-              var number = 0;
-              if(this.type_id == "1")
-                number = 30*60;
-              else if (this.type_id == "2" || this.type_id == "3")
-                number = 30*60;
+      //         // this.duration = dur;
+      //         var number = 0;
+      //         if(this.type_id == "1")
+      //           number = 30*60;
+      //         else if (this.type_id == "2" || this.type_id == "3")
+      //           number = 30*60;
               
-              console.log("duration value",respObj.routes[0].legs[0].duration.value);
-              var dur = respObj.routes[0].legs[0].duration.value;
+      //         console.log("duration value",respObj.routes[0].legs[0].duration.value);
+      //         var dur = respObj.routes[0].legs[0].duration.value;
               
-              var d = Number(dur+number);
-              var h = Math.floor(d/3600);
-              var m = Math.floor(d % 3600 /60);
-              var s = Math.floor(d % 3600 % 60);
-              console.log("h ", h,"m: ",m,"s: ",s);  
-              // var hdisplay = h > 0 ? h + (h == 1 ? "hour, ":"hours, "):"";
-              // var mdisplay = m > 0 ? m + (m == 1 ? "minute, ":"minutes, "):"";
-              // var sdisplay = s > 0 ? s + (s == 1 ? "second, ":"seconds, "):"";
+      //         var d = Number(dur+number);
+      //         var h = Math.floor(d/3600);
+      //         var m = Math.floor(d % 3600 /60);
+      //         var s = Math.floor(d % 3600 % 60);
+      //         console.log("h ", h,"m: ",m,"s: ",s);  
+      //         // var hdisplay = h > 0 ? h + (h == 1 ? "hour, ":"hours, "):"";
+      //         // var mdisplay = m > 0 ? m + (m == 1 ? "minute, ":"minutes, "):"";
+      //         // var sdisplay = s > 0 ? s + (s == 1 ? "second, ":"seconds, "):"";
 
-              var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
-              var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+      //         var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+      //         var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
 
-              console.log(" time : ",hdisplay+mdisplay);
-              this.duration  = hdisplay+mdisplay;
-              console.log("doc name from distance & duration",this.doctorName);
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
-              {
-                console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-                this.scheduleNotification(m);
-              }  
+      //         console.log(" time : ",hdisplay+mdisplay);
+      //         this.duration  = hdisplay+mdisplay;
+      //         console.log("doc name from distance & duration",this.doctorName);
+      //         if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
+      //         {
+      //           console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+      //           this.scheduleNotification(m);
+      //         }  
 
-              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
-              // {
-              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-              //   this.scheduleNotification(m);
-              // }  
+      //         // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
+      //         // {
+      //         //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+      //         //   this.scheduleNotification(m);
+      //         // }  
               
-              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
-              // {
-              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-              //   this.scheduleNotification(m);
-              // } 
+      //         // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
+      //         // {
+      //         //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+      //         //   this.scheduleNotification(m);
+      //         // } 
 
-            },
-            err=>{
-              console.log("err from getDurationAndDistance: ",err);
-            }
-          );
+      //       },
+      //       err=>{
+      //         console.log("err from getDurationAndDistance: ",err);
+      //       }
+      //     );
     
           
-        }
-        });
-        this.events.subscribe('locationChanged', (data) => {
-          console.log(" event location changed",data);
-          if(data.location){
-            this.doctorLocation = data.location;
-            console.log("doctor location",this.doctorLocation);
-            this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
-            resp=>{
-              var respObj = JSON.parse(JSON.stringify(resp));
-              console.log("duration",respObj.routes[0].legs[0].duration.text);
-              var dur = respObj.routes[0].legs[0].duration.text;
-              console.log("distance txt: ",respObj.routes[0].legs[0].distance.text);
+      //   }
+      //   });
 
-              // if(dur.includes("hours"))
-              //   dur = dur.replace("hours","س");
 
-              // if(dur.includes("mins"))
-              //   dur = dur.replace("mins","د");
+      //   this.events.subscribe('locationChanged', (data) => {
+      //     console.log(" event location changed",data);
+      //     if(data.location){
+      //       this.doctorLocation = data.location;
+      //       console.log("doctor location",this.doctorLocation);
+      //       this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
+      //       resp=>{
+      //         var respObj = JSON.parse(JSON.stringify(resp));
+      //         console.log("duration",respObj.routes[0].legs[0].duration.text);
+      //         var dur = respObj.routes[0].legs[0].duration.text;
+      //         console.log("distance txt: ",respObj.routes[0].legs[0].distance.text);
 
-              // if(dur.includes("min"))
-              //   dur = dur.replace("min","د");
+      //         // if(dur.includes("hours"))
+      //         //   dur = dur.replace("hours","س");
+
+      //         // if(dur.includes("mins"))
+      //         //   dur = dur.replace("mins","د");
+
+      //         // if(dur.includes("min"))
+      //         //   dur = dur.replace("min","د");
     
-              // if (dur.includes("hour"))
-              //   dur = dur.replace("hour","س");
+      //         // if (dur.includes("hour"))
+      //         //   dur = dur.replace("hour","س");
 
-              // this.duration = dur;
-              var number = 0;
-              if(this.type_id == "1")
-                number = 30*60;
-              else if (this.type_id == "2" || this.type_id == "3")
-                number = 30*60;
+      //         // this.duration = dur;
+      //         var number = 0;
+      //         if(this.type_id == "1")
+      //           number = 30*60;
+      //         else if (this.type_id == "2" || this.type_id == "3")
+      //           number = 30*60;
               
-              console.log("duration value",respObj.routes[0].legs[0].duration.value);
-              var dur = respObj.routes[0].legs[0].duration.value;
+      //         console.log("duration value",respObj.routes[0].legs[0].duration.value);
+      //         var dur = respObj.routes[0].legs[0].duration.value;
               
-              var d = Number(dur+number);
-              var h = Math.floor(d/3600);
-              var m = Math.floor(d % 3600 /60);
-              var s = Math.floor(d % 3600 % 60);
-              console.log("h ", h,"m: ",m,"s: ",s);  
+      //         var d = Number(dur+number);
+      //         var h = Math.floor(d/3600);
+      //         var m = Math.floor(d % 3600 /60);
+      //         var s = Math.floor(d % 3600 % 60);
+      //         console.log("h ", h,"m: ",m,"s: ",s);  
               
-              var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
-              var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+      //         var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+      //         var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
 
-              console.log(" time : ",hdisplay+mdisplay);
-              this.duration  = hdisplay+mdisplay;
+      //         console.log(" time : ",hdisplay+mdisplay);
+      //         this.duration  = hdisplay+mdisplay;
 
-              // if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
-              //   this.scheduleNotification(m);
-              // if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
-              //   this.scheduleNotification(m);
+      //         // if(this.notificationFlag == false && h == 0 && m <= 20 || m <= 30)
+      //         //   this.scheduleNotification(m);
+      //         // if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
+      //         //   this.scheduleNotification(m);
 
-              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
-              //   this.scheduleNotification(m);
-              if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
-              {
-                console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-                this.scheduleNotification(m);
-              }  
+      //         // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" || this.type_id == "3") //|| m <= 30
+      //         //   this.scheduleNotification(m);
+      //         if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
+      //         {
+      //           console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+      //           this.scheduleNotification(m);
+      //         }  
 
-              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
-              // {
-              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-              //   this.scheduleNotification(m);
-              // }  
+      //         // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "2" ) //|| m <= 30 , || this.type_id == "3"
+      //         // {
+      //         //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+      //         //   this.scheduleNotification(m);
+      //         // }  
               
-              // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
-              // {
-              //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-              //   this.scheduleNotification(m);
-              // }
+      //         // if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "3" ) //|| m <= 30 , || this.type_id == "3"
+      //         // {
+      //         //   console.log("30-- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+      //         //   this.scheduleNotification(m);
+      //         // }
                 
 
-        },
-        err=>{
-          console.log("err from getDurationAndDistance: ",err);
-        }
-      );
+      //   },
+      //   err=>{
+      //     console.log("err from getDurationAndDistance: ",err);
+      //   }
+      // );
 
-          }
+      //     }
 
-          });
+      //     });
     
   }
 
@@ -566,6 +570,8 @@ private presentToast(text) {
   }
   dismiss(){
     this.navCtrl.pop();
+    this.navCtrl.parent.select(0); 
+    // this.navCtrl.setRoot(TabsPage);
   }
   presentActionSheet() { 
     
@@ -843,7 +849,7 @@ private presentToast(text) {
         {
           this.status11alertDisabled = true;
           console.log("status 11 from refresh");
-          this.presentAlert("تطبيق الدكتور","تم الالغاء من قبل" + this.doctorName);
+          this.presentAlert("تطبيق الدكتور"," تم الالغاء من قبل " + this.doctorName);
           this.helper.removeNetworkDisconnectionListener();
           this.storage.remove("orderImages");      
         }
@@ -851,7 +857,7 @@ private presentToast(text) {
         {
           //بدء التوصيل
           this.status8alertdiabled = true;
-          this.presentdelivaryAlert("تطبيق الدكتور","تم بدء التوجه من المتخصص لدي " + this.doctorName + "اليك للطلب رقم "+this.orderId);
+          this.presentdelivaryAlert("تطبيق الدكتور"," تم بدء التوجه من المتخصص لدي " + this.doctorName + " اليك للطلب رقم "+this.orderId);
           this.events.publish('status8ForPLC');
         }
         if(this.refreshOrderStatus == "12" && this.status12alertdisabled== false)
@@ -1027,5 +1033,9 @@ private presentToast(text) {
   }
   
  }
+
+ 
+
+
 
 }
