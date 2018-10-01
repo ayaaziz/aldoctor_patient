@@ -66,7 +66,7 @@ export class RemainingTimeToAcceptPage {
         this.time--;
         if(this.time <= 0){
           console.log("timer off");
-          // this.helper.removeNetworkDisconnectionListener();
+         this.helper.removeNetworkDisconnectionListener();
           clearTimeout(this.timer);
           
           // this.storage.get("access_token").then(data=>{
@@ -132,7 +132,7 @@ export class RemainingTimeToAcceptPage {
 
     this.events.subscribe('status0', (data) => {
       console.log("status0",data);
-      // this.helper.removeNetworkDisconnectionListener(); 
+       this.helper.removeNetworkDisconnectionListener(); 
       clearTimeout(this.timer);
       this.events.publish('enableTabs', true);
       this.navCtrl.setRoot('order-not-accepted');
@@ -143,12 +143,12 @@ export class RemainingTimeToAcceptPage {
       this.acceptOrder = true;
       clearTimeout(this.timer);
       this.events.publish('enableTabs', true);
-      this.navCtrl.setRoot('follow-order',
-      {data:
-        { "orderId":data.orderId, 
-          "doctorId":data.doctorId
-        }
-      });
+      // this.navCtrl.push('follow-order',
+      // {data:
+      //   { "orderId":data.orderId, 
+      //     "doctorId":data.doctorId
+      //   }
+      // });
     });
 
     this.events.subscribe('networkError',(data)=>{

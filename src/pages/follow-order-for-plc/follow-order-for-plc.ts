@@ -870,6 +870,7 @@ private presentToast(text) {
             myorder.date = "";
             
           this.presentContOrderConfirm(this.orderId,myorder.remark,myorder.date);
+          this.helper.removeNetworkDisconnectionListener();
         }
         if(this.refreshOrderStatus == "5")
         { 

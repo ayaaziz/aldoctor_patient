@@ -22,6 +22,8 @@ export class ViewRatesPage {
   tostClass ;
   data = [];
   serviceId;
+  hideReview = true;
+
 
   constructor(
     public navCtrl: NavController, public navParams: NavParams
@@ -79,10 +81,20 @@ export class ViewRatesPage {
             else
             notificatoionResp[i].notificationimage="assets/imgs/default-avatar.png";
           
-  
+            notificatoionResp[i].hideReview = false;
             notificatoionResp[i].notificationDate = notificatoionResp[i].created_at.split(" ")[0];
             this.data.push(notificatoionResp[i]);
      
+          }else {
+            if(notificatoionResp[i].usr)
+              notificatoionResp[i].notificationimage=notificatoionResp[i].usr.profile_pic;
+            else
+            notificatoionResp[i].notificationimage="assets/imgs/default-avatar.png";
+          
+            notificatoionResp[i].remark = "";
+            notificatoionResp[i].hideReview  = true;
+            notificatoionResp[i].notificationDate = notificatoionResp[i].created_at.split(" ")[0];
+            this.data.push(notificatoionResp[i]);
           }
                
         }

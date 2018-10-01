@@ -234,67 +234,72 @@ createOrderForPLC(typeId, orderId, serviceId, doctorsNumber){
   orderData.child(orderId).set({orderStatus:{status:1},serviceProfileId:serviceId,doctorsNo:doctorsNumber,typeID:typeId});
 
 }
-orderStatusChanged(orderId){
-  firebase.database().ref(`orders/${orderId}/orderStatus`).on('child_changed',(snap)=>{
+// orderStatusChanged(orderId){
+//   firebase.database().ref(`orders/${orderId}/orderStatus`).on('child_changed',(snap)=>{
    
-    console.log("order status changed",snap.val(),"order id: ",orderId)
+//     console.log("order status changed",snap.val(),"order id: ",orderId)
    
-    if(snap.val() == "10" ) //cancelled by doctor 0 || snap.val() == "0"
-    {
-      this.removeOrder(orderId);
-      this.events.publish('status0');
-    } 
-    else if (snap.val() == "2") //accepted by doctor
-      this.getServiceProfileIdToFollowOrder(orderId);
-    else if (snap.val() == "3") //no respond
-    {
-      this.removeOrder(orderId);
-      this.events.publish('status0');
-    } 
-    else if (snap.val() == "5" || snap.val() == "6") //5->finished , 6->finished with reorder
-      this.getServiceProfileIdToRate(orderId);        
-    else if (snap.val() == "7") //start detection
-      this.events.publish('status7');
-    else if (snap.val() == "8") // move to patient
-      this.events.publish('status8'); 
+//     if(snap.val() == "10" ) //cancelled by doctor 0 || snap.val() == "0"
+//     { 
+//       console.log("doc status 10 , don't do nay thing");
+//       // this.removeOrder(orderId);
+//       // this.events.publish('status0');
+//     } 
+//     else if (snap.val() == "2") //accepted by doctor
+//       this.getServiceProfileIdToFollowOrder(orderId);
+//     else if (snap.val() == "3") //no respond
+//     {
+//       this.removeOrder(orderId);
+//       this.events.publish('status0');
+//     } 
+//     else if (snap.val() == "5" || snap.val() == "6") //5->finished , 6->finished with reorder
+//       this.getServiceProfileIdToRate(orderId);        
+//     else if (snap.val() == "7") //start detection
+//       this.events.publish('status7');
+//     else if (snap.val() == "8") // move to patient
+//       this.events.publish('status8'); 
+//     else if (snap.val() == "11")
+//     {
+//       //alert appear here
+
+//     }
+   
+ 
+
+//   });
+// }
+
+// orderStatusChangedForPLC(orderId){
+//   firebase.database().ref(`orders/${orderId}/orderStatus`).on('child_changed',(snap)=>{
+   
+//     console.log("order status changed",snap.val(),"order id: ",orderId)
+
+    
+    
+//     if(snap.val() == "10" ) //cancelled by doctor 0 || snap.val() == "0"
+//     {
+//       this.removeOrder(orderId);
+//       this.events.publish('status0ForPLC');
+//     } 
+//     else if (snap.val() == "2") //accepted by doctor
+//       this.getServiceProfileIdToFollowOrder(orderId);
+//     else if (snap.val() == "3") //no respond
+//     {
+//       this.removeOrder(orderId);
+//       this.events.publish('status0ForPLC');
+//     } 
+//     // else if (snap.val() == "5" || snap.val() == "6") //5->finished , 6->finished with reorder
+//     //   this.getServiceProfileIdToRate(orderId);        
+//     // else if (snap.val() == "7") //start detection
+//     //   this.events.publish('status7');
+//     // else if (snap.val() == "8") // move to patient
+//     //   this.events.publish('status8'); 
 
    
  
 
-  });
-}
-
-orderStatusChangedForPLC(orderId){
-  firebase.database().ref(`orders/${orderId}/orderStatus`).on('child_changed',(snap)=>{
-   
-    console.log("order status changed",snap.val(),"order id: ",orderId)
-
-    
-    
-    if(snap.val() == "10" ) //cancelled by doctor 0 || snap.val() == "0"
-    {
-      this.removeOrder(orderId);
-      this.events.publish('status0ForPLC');
-    } 
-    else if (snap.val() == "2") //accepted by doctor
-      this.getServiceProfileIdToFollowOrder(orderId);
-    else if (snap.val() == "3") //no respond
-    {
-      this.removeOrder(orderId);
-      this.events.publish('status0ForPLC');
-    } 
-    // else if (snap.val() == "5" || snap.val() == "6") //5->finished , 6->finished with reorder
-    //   this.getServiceProfileIdToRate(orderId);        
-    // else if (snap.val() == "7") //start detection
-    //   this.events.publish('status7');
-    // else if (snap.val() == "8") // move to patient
-    //   this.events.publish('status8'); 
-
-   
- 
-
-  });
-}
+//   });
+// }
 
 getServiceProfileIdToRate(orderid){
 
@@ -314,6 +319,7 @@ getServiceProfileIdToFollowOrder(orderid){
     console.log("getServiceProfileIdToFollowOrder "+snap.val(),"id: ",orderid);
     var data = {orderId:orderid, doctorId:snap.val()};
     this.events.publish('status2',data);
+    
     
 
   });
@@ -394,7 +400,8 @@ console.log("listenToNetworkDisconnection");
 }
 removeNetworkDisconnectionListener(){
   console.log("removeNetworkDisconnectionListener");
-  this.disconnectSubscription.unsubscribe(); 
+  if(this.disconnectSubscription)
+    this.disconnectSubscription.unsubscribe(); 
 }
 listenToNetworkConnection(){
   this.connectSubscription = this.network.onConnect().subscribe(
@@ -410,7 +417,8 @@ listenToNetworkConnection(){
   });
 }
 removeNetworkConnectionListener(){
-  this.connectSubscription.unsubscribe(); 
+  if(this.connectSubscription)
+    this.connectSubscription.unsubscribe(); 
 }
 
 

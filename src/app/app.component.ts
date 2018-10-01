@@ -715,7 +715,7 @@ export class MyApp {
             {
               console.log("status 11");
               this.presentAlert(notification.title,notification.message);
-              //this.helper.removeNetworkDisconnectionListener();
+              this.helper.removeNetworkDisconnectionListener();
               // this.storage.remove("orderImages");
               
             }
@@ -732,8 +732,9 @@ export class MyApp {
                 
               if(! notification.additionalData.date)
                 notification.additionalData.date = "";
-            
+                
               this.presentContOrderConfirm(notification.additionalData.OrderID,notification.additionalData.remark,notification.additionalData.date);
+              this.helper.removeNetworkDisconnectionListener();
             }
             
             
@@ -743,7 +744,7 @@ export class MyApp {
               // {
                // this.events.publish('status5');
 
-              //  this.helper.removeNetworkDisconnectionListener();
+               this.helper.removeNetworkDisconnectionListener();
 
               //  this.storage.remove("orderImages");
                 this.helper.dontSendNotification = true;
@@ -762,24 +763,86 @@ export class MyApp {
           else{
           this.helper.notification=notification;
           var orderStatus = notification.additionalData.order_status;
-          if(orderStatus == "8")
-            this.events.publish('status8');
-          // if(orderStatus == "5")
-          //   this.events.publish('status5');
-          if(orderStatus == "7")
-            this.events.publish('status7');
-          if(orderStatus == "5" || orderStatus == "6")
-          { //
-            if(this.helper.orderRated == 0)
-            {
-            this.events.publish('status5'); //
-            // this.nav.push('rate-doctor',{
-            //   data:{
-            //     doctorId:notification.additionalData.doctorId,
-            //     orderId:notification.additionalData.orderId}
-            // });
-            }
-          } //
+          var data = {
+            doctorId:notification.additionalData.doctorId,
+            orderId:notification.additionalData.OrderID
+          };
+
+          if(orderStatus == "10" ) //cancelled by doctor 0 || snap.val() == "0"
+          { 
+            console.log("doc status 10 , don't do nay thing");
+            // this.removeOrder(orderId);
+            // this.events.publish('status0');
+          } 
+          else if(orderStatus == "2")
+          {
+            this.nav.setRoot(TabsPage);
+            this.nav.push('follow-order',
+              {data:
+                { "orderId":data.orderId, 
+                  "doctorId":data.doctorId
+                }
+            });
+          }
+          else if (orderStatus == "3") //no respond
+          {
+            // this.removeOrder(orderId);
+            // this.events.publish('status0');
+            console.log("dooc status 3");
+          } 
+          else if (orderStatus == "5" || orderStatus == "6" ) //5->finished , 6->finished with reorder
+          { 
+            //this.getServiceProfileIdToRate(orderId);        
+            this.nav.setRoot(TabsPage);
+            this.nav.push('rate-doctor',{
+              data:{
+                doctorId:notification.additionalData.doctorId,
+                orderId:notification.additionalData.OrderID
+              }
+            });
+
+          }
+        else if (orderStatus == "7") //start detection
+          this.events.publish('status7');
+        else if (orderStatus == "8") // move to patient
+          this.events.publish('status8'); 
+        else if (orderStatus == "11")
+        {
+          console.log("doc status 11 ")
+          this.presentAlert(notification.title,notification.message);
+
+        }
+
+          
+          // if(orderStatus == "8")
+          //   this.events.publish('status8');
+          // // if(orderStatus == "5")
+          // //   this.events.publish('status5');
+          // if(orderStatus == "7")
+          //   this.events.publish('status7');
+          // if(orderStatus == "5" || orderStatus == "6")
+          // { //
+          //   if(this.helper.orderRated == 0)
+          //   {
+          //   // this.events.publish('status5',data);
+
+          //   this.nav.setRoot(TabsPage);
+          //   this.nav.push('rate-doctor',{
+          //     data:{
+          //       doctorId:notification.additionalData.doctorId,
+          //       orderId:notification.additionalData.OrderID
+          //     }
+          //   });
+
+            
+          //   //
+          //   // this.nav.push('rate-doctor',{
+          //   //   data:{
+          //   //     doctorId:notification.additionalData.doctorId,
+          //   //     orderId:notification.additionalData.orderId}
+          //   // });
+          //   }
+          // } //
           // if (notification.additionalData.type == "0" || notification.additionalData.type == "1" || notification.additionalData.type == "3") {
           //   // this.storage.get('access_token').then((val) => {
   
@@ -1124,6 +1187,38 @@ presentContOrderConfirm(order_id,remark,contDate) {
       });
       alert.present();
     }
+
+    // presentReorderConfirm(msg,orderId,custom_date,date_id) {
+    //   let alert = this.alertCtrl.create({
+    //     title: "تأكيد موعد الاعادة",
+    //     message: msg,
+    //     buttons: [
+    //       {
+    //         text: this.translate.instant("disagree"),
+    //         role: 'cancel',
+    //         handler: () => {
+    //           console.log('disagree clicked');
+    //         }
+    //       },
+    //       {
+    //         text: this.translate.instant("agree"),
+    //         handler: () => {
+    //           console.log('confirm reorder agree clicked');
+    //           this.service.reorder(orderId,custom_date,date_id,accessToken).subscribe(
+    //             resp=>{
+    //               console.log("reorder resp",resp);
+    //               this.presentToast( this.translate.instant("sendReorder"));
+    //             },
+    //             err=>{
+    //               console.log("reorder err",err);
+    //             }
+    //           );            
+    //         }
+    //       }
+    //     ]
+    //   });
+    //   alert.present();
+    // }
 
     private presentToast(text) {
       let toast = this.toastCtrl.create({

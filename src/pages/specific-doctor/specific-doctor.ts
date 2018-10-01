@@ -320,10 +320,14 @@ this.events.subscribe('location', (data) => {
         this.doctors=[];  
         for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
+            
             if(doctorData["results"][i].nickname)
             doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
             else 
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
+
+            if(! doctorData["result"][i].rate)
+              doctorData["result"][i].rate = 5;
 
             if(doctorData["results"][i].busy == "1")
             {
@@ -533,10 +537,14 @@ this.events.subscribe('location', (data) => {
           this.doctors=[];  
           for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
+            
             if(doctorData["results"][i].nickname)
             doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
             else 
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
+
+            if(! doctorData["results"][i].rate)
+              doctorData["results"][i].rate = 5;
 
             if(doctorData["results"][i].busy == "1")
             {
@@ -682,7 +690,7 @@ this.events.subscribe('location', (data) => {
           this.helper.orderIdForUpdate = newOrder.order.id;
 
           this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-          this.helper.orderStatusChanged(newOrder.order.id);
+          //this.helper.orderStatusChanged(newOrder.order.id);
 
           this.presentToast(this.translate.instant("ordersent"));
           this.helper.dontSendNotification = false;

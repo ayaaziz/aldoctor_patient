@@ -379,10 +379,14 @@ export class OrderDoctorPage {
         this.DoctorsArray=[];  
         for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
+            
             if(doctorData["results"][i].nickname)
             doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
             else 
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
+
+            if(! doctorData["results"][i].rate)
+              doctorData["results"][i].rate = 5;
 
 /**/            
 
@@ -635,7 +639,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
          
           this.helper.orderIdForUpdate = newOrder.order.id;
           this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-          this.helper.orderStatusChanged(newOrder.order.id);
+          //this.helper.orderStatusChanged(newOrder.order.id);
 
           
           this.presentToast(this.translate.instant("ordersent"));

@@ -222,12 +222,12 @@ export class FollowOrderPage {
     });
     this.events.subscribe('status5', (data) => {
       console.log("notification event status 5",data);
-      this.navCtrl.push(TabsPage);
+      this.navCtrl.setRoot(TabsPage);
       // this.navCtrl.pop();
       this.navCtrl.push('rate-doctor',{
         data:{
           doctorId:data.doctorId,
-          orderId:data.orderId
+          orderId:data.OrderID
         }
       });
       

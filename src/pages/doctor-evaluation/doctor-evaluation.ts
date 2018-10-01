@@ -348,7 +348,9 @@ export class DoctorEvaluationPage {
     
   }
   dismiss(){
+    // this.navCtrl.pop();
     this.navCtrl.pop();
+    this.navCtrl.parent.select(0);
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({

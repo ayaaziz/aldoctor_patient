@@ -98,7 +98,7 @@ export class RemaingTimeForPlcPage {
       this.time--;
       if(this.time <= 0){
         console.log("timer off");
-        // this.helper.removeNetworkDisconnectionListener();
+         this.helper.removeNetworkDisconnectionListener();
        clearTimeout(this.timer);
         this.helper.stillCount = false;
 
@@ -116,7 +116,7 @@ export class RemaingTimeForPlcPage {
             // this.navCtrl.setRoot(TabsPage);
             // this.navCtrl.parent.select(1); 
             // console.log("before setRoot of follow plc");
-            this.navCtrl.setRoot(FollowOrderForPlcPage,
+            this.navCtrl.push(FollowOrderForPlcPage,
             {data2:
               { "orderId":this.orderId, 
                 "doctorId":JSON.parse(JSON.stringify(resp)).serviceprofileid,
@@ -152,7 +152,7 @@ export class RemaingTimeForPlcPage {
 
   this.events.subscribe('status0ForPLC', (data) => {
     console.log("status0ForPLC",data);
-    // this.helper.removeNetworkDisconnectionListener();    
+    this.helper.removeNetworkDisconnectionListener();    
     clearTimeout(this.timer);
     this.helper.stillCount = false;
     this.events.publish('enableTabs', true);

@@ -301,8 +301,9 @@ console.log("sp item search val ",val);
       item.spClass = "spUnselceted";
       for(var g=0;g<this.centersId.length;g++)
       {
+        console.log("item removed : ",item.id);
         if(this.centersId[g] == item.id)
-        this.centersId.splice(this.centersId[g], 1);
+          this.centersId.splice(g, 1);
       }
       
       
@@ -322,15 +323,19 @@ console.log("sp item search val ",val);
   }
 
   chooseCenters(){
-    
+    if(this.centersId.length <= 0)
+      this.presentToast("اختر نوع اشعه");
+    else{
+      this.navCtrl.push('order-service',{data:{
+        type_id:2,
+        lat:this.helper.lat,
+        lng:this.helper.lon,
+        center_id : this.centersId.join(",")
+      }});
+      this.centersId = [];
+    }
 
-    this.navCtrl.push('order-service',{data:{
-          type_id:2,
-          lat:this.helper.lat,
-          lng:this.helper.lon,
-          center_id : this.centersId.join(",")
-        }});
-        this.centersId = [];
+    
   }
 
   private presentToast(text) {
