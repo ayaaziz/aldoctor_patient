@@ -581,6 +581,7 @@ initMapWithDoctorsLocation(){
 
   var markers, i;
 
+  console.log("all markers",this.allMarkers);
   for(var j=0;j<this.allMarkers.length;j++)
   {
     this.allMarkers[j].setMap(null);

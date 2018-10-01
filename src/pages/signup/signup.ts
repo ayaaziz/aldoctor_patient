@@ -257,7 +257,8 @@ if(this.patientRegisterForm.controls["email"].errors){
         this.presentToast(this.translate.instant('checkAgreement'))
       }
       if(this.termsStatus){
-        this.presentToast(this.translate.instant("register"));
+        // this.presentToast(this.translate.instant("register"));
+        this.presentToast(" تسجيل البيانات وإنشاء الحساب");
      console.log(this.getFormData());
      //this.navCtrl.setRoot(LoginPage);
 

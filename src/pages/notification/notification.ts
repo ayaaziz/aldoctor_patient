@@ -277,14 +277,23 @@ export class NotificationPage {
     // {
     //   this.presentlong(item.data.text);
     // }
-    if(item.remark)
+    if(item.remark && item.user.service_id == "3")
       this.presentContOrderConfirm(item.remark,item.date);
-    else
+    else if( !item.remark && item.user.service_id == "3")
       this.presentlong(item.data.text);
+
+    if(item.date)
+    {
+      if(item.user.service_id == "2")
+        this.presentlong2(item.data.text,item.date);
+    }
+
   }
 
   presentContOrderConfirm(remark,contDate) {
     
+    if(! remark)
+      remark = "";
    let alert = this.alertCtrl.create({
      title: this.translate.instant("contorder"),
      message: remark+"<br/>"+contDate,
@@ -315,6 +324,17 @@ export class NotificationPage {
   let alert = this.alertCtrl.create({
     title: "تطبيق الدكتور",
     message: data,
+    buttons: ['حسنا']
+     //  }
+    
+  });
+  alert.present();
+}
+presentlong2(data,date) {
+    
+  let alert = this.alertCtrl.create({
+    title: "تطبيق الدكتور",
+    message: data  + " <br> موعد الاعاده :  "+date,
     buttons: ['حسنا']
      //  }
     
