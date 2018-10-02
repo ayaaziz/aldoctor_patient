@@ -57,9 +57,9 @@
       </ion-item> -->
 
       <ion-item *ngFor="let item of data" text-wrap>
-        <ion-avatar item-start style="margin:0px;">
+        <!-- <ion-avatar item-start style="margin:0px;">
           <img [src]="item.notificationimage">
-        </ion-avatar>
+        </ion-avatar> -->
         
         <h2>  {{item.usr.name}}  </h2>
         <p> {{item.notificationDate}} </p>
@@ -73,7 +73,7 @@
         nullable="false" 
         ></rating>
 
-        <p [hidden]="item.hideReview">   ملاحظات : {{item.remark}}</p>
+        <p [hidden]="item.hideReview">{{item.remark}}</p>
         
        
         

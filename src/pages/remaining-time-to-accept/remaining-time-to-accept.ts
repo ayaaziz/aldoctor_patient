@@ -81,7 +81,7 @@ export class RemainingTimeToAcceptPage {
             if(JSON.parse(JSON.stringify(resp)).running == 1)
             {
             this.presentToast("تم قبول الطلب لمتابعه الطلب من هنا ");
-            this.navCtrl.parent.select(1);         
+            this.navCtrl.parent.select(2);   //1      
             }
 
             },err=>{
@@ -132,10 +132,12 @@ export class RemainingTimeToAcceptPage {
 
     this.events.subscribe('status0', (data) => {
       console.log("status0",data);
-       this.helper.removeNetworkDisconnectionListener(); 
+       
       clearTimeout(this.timer);
       this.events.publish('enableTabs', true);
       this.navCtrl.setRoot('order-not-accepted');
+      this.helper.removeNetworkDisconnectionListener(); 
+      
     });
 
     this.events.subscribe('status2', (data) => {
@@ -143,6 +145,8 @@ export class RemainingTimeToAcceptPage {
       this.acceptOrder = true;
       clearTimeout(this.timer);
       this.events.publish('enableTabs', true);
+      this.helper.removeNetworkDisconnectionListener();
+
       // this.navCtrl.push('follow-order',
       // {data:
       //   { "orderId":data.orderId, 
@@ -160,7 +164,7 @@ export class RemainingTimeToAcceptPage {
       this.helper.removeNetworkDisconnectionListener();
       clearTimeout(this.timer);
       this.navCtrl.setRoot(TabsPage);  
-      this.navCtrl.parent.select(1);
+      this.navCtrl.parent.select(2); //1
       //this.events.publish("changeIndex",{index:"1"});
       
       

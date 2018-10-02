@@ -24,9 +24,11 @@ export class HelperProvider {
     //test
   //public serviceUrl: string = "http://aldoctor-app.com/aldoctortest/public/";
   
-  //production
-  public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+  // final production
+ // public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
 
+  // final test
+  public serviceUrl: string = "http://aldoctor-app.com/aldoctor2/public/";
 
   public registration;
   public device_type;

@@ -37,6 +37,7 @@ export class RateServicePage {
   type_id = "";
 
   ratedisabledbtn = false;
+  ratesIDS=[];
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,public service: LoginserviceProvider,
@@ -178,7 +179,7 @@ export class RateServicePage {
             console.log(rateCriteriea.length);
             
             for(var i=0;i<rateCriteriea.length;i++){
-              this.rateArray.push({value:rateCriteriea[i].value,status:0}); //translation.value
+              this.rateArray.push({value:rateCriteriea[i].value,id:rateCriteriea[i].id,status:0}); //translation.value
             }
 
           },err=>{
@@ -222,10 +223,17 @@ export class RateServicePage {
       event.target.classList.remove('unselected');
       event.target.classList.add('selected');
       item.status = 1 ;
+      this.ratesIDS.push(item.id);
     }else{
       event.target.classList.remove('selected');
       event.target.classList.add('unselected');
       item.status = 0;
+      for(var g=0;g<this.ratesIDS.length;g++)
+      {
+        console.log("item removed : ",item.id);
+        if(this.ratesIDS[g] == item.id)
+          this.ratesIDS.splice(g, 1);
+      }
     }
   }
   rateDoctor(){
@@ -235,9 +243,11 @@ export class RateServicePage {
     this.review += " ";
     this.review += this.moreReview;
     console.log("all review ",this.review);
+    console.log("ratesIds",this.ratesIDS,"more review",this.moreReview);
+
     this.accessToken = localStorage.getItem('user_token');
 
-    this.service.rateDoctor(this.doctorId,this.rate,this.review,this.userId,this.orderId,this.accessToken).subscribe(
+    this.service.rateDoctor(this.doctorId,this.rate,this.moreReview,this.ratesIDS.join(","),this.userId,this.orderId,this.accessToken).subscribe(
       resp=>{
         console.log("resp from rate :",resp); 
         this.ratedisabledbtn = false;

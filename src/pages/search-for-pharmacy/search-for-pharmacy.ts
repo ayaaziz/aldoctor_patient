@@ -279,9 +279,11 @@ center_id = "";
                console.log("doctorsLoc",this.doctorsLoc);
               //  this.initMapWithDoctorsLocation();
               this.initMapWithDoctorsLocation();
+              this.allowUserToChooseHisLocation();
   
             },err=>{
               console.log("err from nearby doctors: ",err);
+              this.allowUserToChooseHisLocation();
             }
           );
        
@@ -400,9 +402,10 @@ center_id = "";
            console.log("doctorsLoc",this.doctorsLoc);
   
            this.initMapWithDoctorsLocation();
-  
+           this.allowUserToChooseHisLocation();
         },err=>{
           console.log("err from nearby doctors: ",err);
+          this.allowUserToChooseHisLocation();
         }
       );
    

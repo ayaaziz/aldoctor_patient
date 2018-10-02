@@ -152,12 +152,14 @@ export class RemaingTimeForPlcPage {
 
   this.events.subscribe('status0ForPLC', (data) => {
     console.log("status0ForPLC",data);
-    this.helper.removeNetworkDisconnectionListener();    
+    
     clearTimeout(this.timer);
     this.helper.stillCount = false;
     this.events.publish('enableTabs', true);
 
     this.navCtrl.setRoot('order-not-accepted');
+    this.helper.removeNetworkDisconnectionListener();    
+
   });
 
   this.events.subscribe('status2ForPLC', (data) => {
@@ -170,6 +172,8 @@ export class RemaingTimeForPlcPage {
 
     console.log("before setRoot of follow plc");
     console.log("this.navCtrl",this.navCtrl);
+    this.helper.removeNetworkDisconnectionListener();    
+   
     // this.navCtrl.setRoot(TabsPage);
 
     // this.navCtrl.setRoot(FollowOrderForPlcPage,
@@ -205,7 +209,7 @@ export class RemaingTimeForPlcPage {
     this.helper.stillCount = false;
 
     this.navCtrl.setRoot(TabsPage);
-    this.navCtrl.parent.select(1);
+    this.navCtrl.parent.select(2); //1
     // this.events.publish("changeIndex",{index:"1"});
     
     

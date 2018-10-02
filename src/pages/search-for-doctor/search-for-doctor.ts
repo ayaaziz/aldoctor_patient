@@ -320,9 +320,10 @@ getUserLocation(){
             //   if(docsData[i].location != null)
             //     this.doctorsLoc.push( docsData[i].location);
             // }
-
+            this.allowUserToChooseHisLocation();
           },err=>{
             console.log("err from nearby doctors: ",err);
+            this.allowUserToChooseHisLocation();
           }
         );
      
@@ -491,9 +492,10 @@ handleuserLocattion(){
          console.log("doctorsLoc",this.doctorsLoc);
         //  this.initMapWithDoctorsLocation();
         
-
+         this.allowUserToChooseHisLocation();
       },err=>{
         console.log("err from nearby doctors: ",err);
+        this.allowUserToChooseHisLocation();
       }
     );
  

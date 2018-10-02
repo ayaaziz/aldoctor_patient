@@ -135,7 +135,7 @@ export class CancelOrderPage {
             // this.navCtrl.parent.select(1);
             
             this.navCtrl.setRoot(TabsPage);
-            this.navCtrl.parent.select(1);
+            this.navCtrl.parent.select(2); //1
 
           }
         },
