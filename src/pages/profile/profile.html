@@ -110,13 +110,18 @@
     <ion-label ><img src="assets/icon/calendergreen.png" class="customIcon"> {{dob}} </ion-label>
   </ion-item>
   
-  <ion-item no-lines>
-    <!-- <ion-label  *ngIf="langDirection != 'rtl'" class="right" > {{address}}  <img src="assets/icon/location.png" class="customIcon"> </ion-label>
+   <!-- <ion-label  *ngIf="langDirection != 'rtl'" class="right" > {{address}}  <img src="assets/icon/location.png" class="customIcon"> </ion-label>
     <ion-label  *ngIf="langDirection == 'rtl'" ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label> -->
-    <ion-label ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label>
-  </ion-item>
+
+  <!-- <ion-item no-lines>
+       <ion-label ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label>
+  </ion-item> -->
   
   
+  <div style="text-align: right;padding-right: 8px;padding-top:10px">
+    <img src="assets/icon/location.png" class="customIcon"> 
+    <p style="color:gray;display: inline;"> {{address}} </p>
+    </div>
 
 
    <ion-item no-lines>

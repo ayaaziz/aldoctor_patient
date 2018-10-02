@@ -43,6 +43,8 @@ export class SpecificDoctorPage {
   showLoading=true;
 
   orderBTn = false;
+  searchValForRefresh="";
+  refresher;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
     public storage: Storage,  public events: Events,public app:App,
@@ -505,13 +507,19 @@ this.events.subscribe('location', (data) => {
   }
 
   getItems(ev) {
-    var searchVal = ev.target.value;
-    var id ;
+    var searchVal= ev.target.value;
+      
+    
     this.searchValue = searchVal;
 
+    console.log("search value: ",this.searchValue); 
+    this.loadFuncForDoc();
+  }
+  loadFuncForDoc(){
+    var id ;
     if(this.searchValue)
     {
-    console.log("search value: ",searchVal);
+  
     for(var i=0;i<this.SpecializationArray.length;i++){
       if(this.Specialization == this.SpecializationArray[i].value)
       {
@@ -526,8 +534,13 @@ this.events.subscribe('location', (data) => {
     //   this.accessToken = data;
     this.accessToken = localStorage.getItem('user_token');
 
+  //    this.showLoading = false;
+  if(this.refresher)
+      this.showLoading = true;
+    else
       this.showLoading = false;
-      this.service.getDoctorsByName(searchVal,id,this.accessToken).subscribe(
+
+      this.service.getDoctorsByName(this.searchValue,id,this.accessToken).subscribe(
         resp=>{
           this.showLoading = true;
           this.choosenDoctors=[];
@@ -628,11 +641,17 @@ this.events.subscribe('location', (data) => {
           //   this.presentToast(this.translate.instant("noSearchResult"));
           // }
 
+
+          if(this.refresher)
+          this.refresher.complete();
+
         },
         err=>{
           this.showLoading = true;
           console.log("getDoctorsByName error: ",err);
           this.presentToast(this.translate.instant("serverError"));
+          if(this.refresher)
+          this.refresher.complete();
         }
       );
     // });
@@ -645,8 +664,13 @@ this.events.subscribe('location', (data) => {
           }else{
             this.scrollHeight = "260px";
           }
+          if(this.refresher)
+          this.refresher.complete();
   }
+
   }
+
+
 
   doctorChecked(item , event){
     if(item.checked == true)
@@ -765,4 +789,15 @@ this.events.subscribe('location', (data) => {
     else if (!this.searchValue && !this.Specialization)
       this.presentToast(this.translate.instant('enterDoctorAndSpecilaization'));
   }
+
+  doRefresh(ev){
+    console.log("refresh",ev);
+    // this.photos =[];
+    // this.photosForApi = [];
+    this.choosenDoctors = [];
+    this.refresher = ev;
+    this.loadFuncForDoc();
+    
+  }
+
 }

@@ -93,6 +93,7 @@ export class MyApp {
     this.events.subscribe('changeProfilePic', (data) => {
       console.log(" event change profile pic  ",data);
       this.image = data.pic;
+      
       storage.get("user_info").then((val) => {
         if (val){
           console.log(" get name for side menu",val);

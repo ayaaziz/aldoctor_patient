@@ -425,14 +425,14 @@ if(this.patientRegisterForm.controls["email"].errors){
                 }).then(data=>{
                   console.log("set data to storage from signup ",data);
                   // this.navCtrl.setRoot(TabsPage);
-
+                  this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
                   this.navCtrl.setRoot('verification-code',{data:0});
                 }).catch(data=>{
                   console.log("catch data from login",data);
                 });
                    
   
-          this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
+          // this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
         },
         err=>{
           

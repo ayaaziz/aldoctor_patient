@@ -63,7 +63,8 @@ export class OrderSpecificServicePage {
   center_id= "";
   imageExt=[];
   hidePrice = true;
-
+  searchvalForRefresh = "";
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public translate: TranslateService,  public events: Events,
     public helper:HelperProvider, public toastCtrl: ToastController, 
@@ -628,6 +629,7 @@ export class OrderSpecificServicePage {
   }
   getItems(ev) {
     var searchVal = ev.target.value;
+    this.searchvalForRefresh = searchVal;
     var id ;
     console.log("search value ",searchVal);
     if(searchVal)

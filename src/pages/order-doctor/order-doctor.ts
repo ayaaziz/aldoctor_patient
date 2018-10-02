@@ -55,6 +55,7 @@ export class OrderDoctorPage {
 
   cost:number=0;
   choosenDoctors=[];
+  refresher;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController, 
     public storage: Storage, public events: Events,
@@ -366,7 +367,11 @@ export class OrderDoctorPage {
     }
     console.log("get doctor sp id: ",id);
     // this.presentLoadingCustom();
-    this.showLoading = false;
+    //this.showLoading = false;
+    if(this.refresher)
+      this.showLoading = true;
+    else
+      this.showLoading = false;
 
     this.service.getDoctorInSpecificSpecialization(id,this.accessToken).subscribe(
       resp =>{
@@ -476,11 +481,16 @@ export class OrderDoctorPage {
             console.log("if = 0");
             this.presentToast(this.translate.instant("noSearchResult"));
           }
+          if(this.refresher)
+          this.refresher.complete();
+
       },
       err=>{
         this.showLoading = true;
         this.presentToast(this.translate.instant("serverError"));
         console.log("getDoctorInSpecificSpecialization error: ",err);
+        if(this.refresher)
+        this.refresher.complete();
       }
     );
     
@@ -719,5 +729,16 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
   
     this.loading.present();
   }
+
+  doRefresh(ev){
+    console.log("refresh",ev);
+    // this.photos =[];
+    // this.photosForApi = [];
+    this.choosenDoctors = [];
+    this.refresher = ev;
+    this.SpecializationChecked();
+    
+  }
+
 
 }

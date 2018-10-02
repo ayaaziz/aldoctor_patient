@@ -1,5 +1,5 @@
 import { Component ,ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams,Content,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Content,ToastController ,Events} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -54,7 +54,7 @@ export class EditProfilePage {
   maxDate ; 
 
 
-  constructor(public toastCtrl: ToastController,
+  constructor(public toastCtrl: ToastController,public events: Events,
     public storage: Storage, public translate: TranslateService,
      public loginservice:LoginserviceProvider, public helper: HelperProvider, public formBuilder: FormBuilder , public navCtrl: NavController, public navParams: NavParams) {
     this.langDirection = this.helper.lang_direction;
@@ -258,6 +258,8 @@ addArr;
           resp =>{
             console.log("edit resp: ",resp);
             this.presentToast("تم تعديل البيانات");
+            
+
             this.storage.ready().then(() => {
               console.log("storage");
               console.log("user data before edit",this.userprofileData); 
@@ -270,12 +272,13 @@ addArr;
                 this.userprofileData.dob=this.birthdate;
                 this.userprofileData.add=this.add;
                 this.userprofileData.email=this.email;
-
+                console.log("this.name",this.name,"this.userprofileData.name",this.userprofileData.name);
                 
              console.log("user data after edit",this.userprofileData); 
              this.storage.set("user_info",this.userprofileData).then(
                resp=>{
                  console.log("data saved");
+                 this.events.publish('changeProfilePic',{pic:this.userprofileData.profile_pic});
                  this.navCtrl.pop();
                }
              );
