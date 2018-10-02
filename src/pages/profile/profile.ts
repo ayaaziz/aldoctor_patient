@@ -103,7 +103,9 @@ myRate;
         this.name = data.name;
         this.phone = data.phone+"+";
         this.dob = data.dob;
-        this.address = data.add;
+        var addArr = data.add.split("-");
+        // this.address = data.add;
+        this.address = addArr[0];
         if(data.profile_pic)
           this.image = data.profile_pic;
        // this.image = "http://itrootsdemos.com/aldoctor/public/images/default-avatar.png";
@@ -134,7 +136,7 @@ myRate;
                   this.name = this.newuserData.name;
                   this.dob =this.newuserData.user_info.birth_date;
                   this.phone = this.newuserData.phone + "+";
-                  this.address =this.newuserData.extraInfo.address;
+                  this.address =this.newuserData.extraInfo.address.split("-")[0];
                  this.image = this.newuserData.profile_pic;
 
                 },err=>{
