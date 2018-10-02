@@ -324,7 +324,7 @@ console.log("sp item search val ",val);
 
   chooseCenters(){
     if(this.centersId.length <= 0)
-      this.presentToast("اختر نوع اشعه");
+      this.presentToast("اختر نوع أشعه");
     else{
       this.navCtrl.push('order-service',{data:{
         type_id:2,
