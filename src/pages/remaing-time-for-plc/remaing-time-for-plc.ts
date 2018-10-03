@@ -115,7 +115,7 @@ export class RemaingTimeForPlcPage {
           {
             this.presentToast("تم قبول طلبك .. لمتابعه الطلب من هنا ");
             this.events.publish('enableTabs', true);
-            // this.navCtrl.setRoot(TabsPage);
+            this.navCtrl.setRoot(TabsPage);
             // this.navCtrl.parent.select(1); 
             // console.log("before setRoot of follow plc");
             this.navCtrl.push(FollowOrderForPlcPage,

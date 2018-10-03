@@ -134,6 +134,8 @@ export class CancelOrderPage {
             // this.navCtrl.setRoot(HomePage);
             // this.navCtrl.parent.select(1);
             
+            // this.events.publish('cancelDoctorOrder');
+            
             this.navCtrl.setRoot(TabsPage);
             this.navCtrl.parent.select(2); //1
 

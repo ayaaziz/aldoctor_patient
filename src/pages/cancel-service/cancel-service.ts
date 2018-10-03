@@ -128,6 +128,7 @@ reasonChecked(item , event){
             this.helper.view = "";
             // this.helper.updateCancelOrderStatus(this.orderId);
             this.presentToast(this.translate.instant("orderCancled"));     
+            
             // this.navCtrl.setRoot(OrderhistoryPage);
             
             
@@ -135,6 +136,9 @@ reasonChecked(item , event){
             // this.navCtrl.setRoot(HomePage);
             // this.navCtrl.setRoot()
             // this.navCtrl.parent.select(1);
+            
+            // this.events.publish('cancelOrder');
+            //this.nav.setRoot(TabsPage);
             
            this.navCtrl.setRoot(TabsPage);
            this.navCtrl.parent.select(2); //1

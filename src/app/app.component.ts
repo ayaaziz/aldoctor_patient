@@ -897,37 +897,163 @@ export class MyApp {
       this.helper.notification=notifications;      
       var orderStatus = notifications.additionalData.order_status;
         
-      var data = {
+      var data2 = {
         doctorId:notifications.additionalData.doctorId,
         orderId:notifications.additionalData.OrderID
       };
 
       if (notifications.additionalData.type_id == "1" || notifications.additionalData.type_id == "2" || notifications.additionalData.type_id == "3"){
+        //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
+        var orderId = notifications.additionalData.OrderID;
+        
+       console.log("notification from type_id",notifications.additionalData.order_status);
+       console.log("id of order",notifications.additionalData.OrderID, "xorderId",orderId);
+       console.log("data",data);
 
-        this.helper.type_id = notifications.additionalData.type_id;
+       this.helper.type_id = notifications.additionalData.type_id;
 
-        if(orderStatus == "10" || orderStatus == "3") 
-          this.events.publish('status0ForPLC');
+       var orderStatus = notifications.additionalData.order_status;
+       
+
+       var data = {
+         doctorId:notifications.additionalData.doctorId,
+         orderId:orderId
+       };
+       
+       if(orderStatus == "10" || orderStatus == "3") 
+       {
+         console.log("status 10 or 3");
+         // this.storage.remove("orderImages"); 
+         this.events.publish('status0ForPLC');
+       } 
+    
+       if(orderStatus == "2")
+       {
+         //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
+         this.events.publish('status2ForPLC',data );
+         console.log("back to notification status 2 after publish");
+         console.log("data to follow order","orderId",orderId 
+         ,"doctorId",notifications.additionalData.doctorId);
+         this.nav.setRoot(TabsPage);
+         this.nav.push(FollowOrderForPlcPage,
+           {data2:
+             { "orderId":orderId, 
+               "doctorId":notifications.additionalData.doctorId
+             }
+           });
+
+           console.log("after set pages home , followorderforplc");
+
+       }
+         
+       
+       if(orderStatus == "11")
+       {
+         console.log("status 11");
+         this.presentAlert(notifications.title,notifications.message);
+         this.helper.removeNetworkDisconnectionListener();
+         // this.storage.remove("orderImages");
+         
+       }
+       if(orderStatus == "8")
+       {
+         //بدء التوصيل
+         this.presentdelivaryAlert(notifications.title,notifications.message);
+         this.events.publish('status8ForPLC');
+       }
+       if(orderStatus == "12")
+       {
+         if(! notifications.additionalData.remark)
+         notifications.additionalData.remark="";
+           
+         if(! notifications.additionalData.date)
+         notifications.additionalData.date = "";
+           
+         this.presentContOrderConfirm(notifications.additionalData.OrderID,notifications.additionalData.remark,notifications.additionalData.date);
+         this.helper.removeNetworkDisconnectionListener();
+       }
+       
+       
+       if(orderStatus == "5")
+       { 
+         // if(this.helper.orderRated == 0)
+         // {
+          // this.events.publish('status5');
+
+          this.helper.removeNetworkDisconnectionListener();
+
+         //  this.storage.remove("orderImages");
+           this.helper.dontSendNotification = true;
+           
+           this.nav.setRoot(TabsPage);
+
+           this.nav.push('rate-service',{
+             data:{
+               doctorId:notifications.additionalData.doctorId,
+               orderId:notifications.additionalData.OrderID
+             }
+           });
+         //}
+     }  
+     }
+     else{
+     this.helper.notification=notifications;
+     var orderStatus = notifications.additionalData.order_status;
+     var data3 = {
+       doctorId:notifications.additionalData.doctorId,
+       orderId:notifications.additionalData.OrderID
+     };
+
+     if(orderStatus == "10" ) //cancelled by doctor 0 || snap.val() == "0"
+     { 
+       console.log("doc status 10 , don't do nay thing");
+       // this.removeOrder(orderId);
+       // this.events.publish('status0');
+     } 
+     else if(orderStatus == "2")
+     {
+       this.nav.setRoot(TabsPage);
+       this.nav.push('follow-order',
+         {data:
+           { "orderId":data3.orderId, 
+             "doctorId":data3.doctorId
+           }
+       });
+     }
+     else if (orderStatus == "3") //no respond
+     {
+       // this.removeOrder(orderId);
+       // this.events.publish('status0');
+       console.log("dooc status 3");
+     } 
+     else if (orderStatus == "5" || orderStatus == "6" ) //5->finished , 6->finished with reorder
+     { 
+       //this.getServiceProfileIdToRate(orderId);        
+       this.nav.setRoot(TabsPage);
+       this.nav.push('rate-doctor',{
+         data:{
+           doctorId:notifications.additionalData.doctorId,
+           orderId:notifications.additionalData.OrderID
+         }
+       });
+
+     }
+   else if (orderStatus == "7") //start detection
+     this.events.publish('status7');
+   else if (orderStatus == "8") // move to patient
+     this.events.publish('status8'); 
+   else if (orderStatus == "11")
+   {
+     console.log("doc status 11 ")
+     this.presentAlert(notifications.title,notifications.message);
+
+   }
+
      
-        if(orderStatus == "2")
-          this.events.publish('status2ForPLC',data );
+    
+    
 
-        if(orderStatus == "5" )
-          this.nav.push('rate-service',data);  
-      }
-      else{
-
-        if(orderStatus == "8")
-          this.events.publish('status8');
-        if(orderStatus == "7")
-          this.events.publish('status7');
-        if(orderStatus == "5" || orderStatus == "6")
-        { 
-          if(this.helper.orderRated == 0)
-            this.events.publish('status5'); 
-        } 
-
-      }
+   }
 
 
     }
@@ -1273,19 +1399,33 @@ presentContOrderConfirm(order_id,remark,contDate) {
           text: this.translate.instant("agree"),
           handler: () => {
             console.log('cancel order agree clicked');
-            // clearTimeout(this.timer);
-          //  this.helper.stillCount = false;
-
-            //this.helper.backBtnInHelper = false;
-            //this.alertApear = false;
-            console.log("set alertApear to false");
-            // this.navCtrl.pop();
-            //this.navCtrl.parent.select(0);
-            //this.stopAlert = true;
-            this.events.publish('cancelOrder');
-            this.nav.setRoot(TabsPage);
+            var token = localStorage.getItem('user_token');
+            this.events.publish('cancelDoctorOrder');
+            this.service.cancelorder(this.helper.idForOrderToCancelItFromBack,"","", token).timeout(10000).subscribe(
+              resp => {
+                console.log("cancel order resp: ",resp);
+                if(JSON.parse(JSON.stringify(resp)).success)
+                {
+                  
+                  this.presentToast(this.translate.instant("orderCancled"));     
+                  
+                  this.events.publish('cancelOrder');       
+                 this.nav.setRoot(TabsPage);
+                 this.nav.parent.select(2); //1
+                }
+              },
+              err=>{
+                console.log("cancel order err: ", err);
+                this.presentToast(this.translate.instant("serverError"));
+              }
+            );
             
-            this.nav.push('cancel-service',{orderId:this.helper.idForOrderToCancelItFromBack});
+            
+            
+            
+            // this.nav.setRoot(TabsPage);
+            
+            // this.nav.push('cancel-service',{orderId:this.helper.idForOrderToCancelItFromBack});
             
           } 
         }
@@ -1304,23 +1444,37 @@ presentContOrderConfirm(order_id,remark,contDate) {
           role: 'cancel',
           handler: () => {
             console.log('cancel disagree clicked');
-            //this.helper.backBtnInHelper = false;
-            // this.navCtrl.setRoot(TabsPage);
-     //       this.navCtrl.parent.select(0);
+            
           }
         },
         {
           text: this.translate.instant("agree"),
           handler: () => {
             console.log('cancel order agree clicked');
-           // clearTimeout(this.timer);
-            //this.helper.backBtnInHelper = false;
-            // this.navCtrl.pop();
-            // this.navCtrl.parent.select(0);
-            //this.stopAlert = true;
+          
+            var token = localStorage.getItem('user_token');
             this.events.publish('cancelDoctorOrder');
-            this.nav.setRoot(TabsPage);
-            this.nav.push('cancel-order',{orderId:this.helper.idForOrderToCancelItFromBack});
+            this.service.cancelorder(this.helper.idForOrderToCancelItFromBack,"","", token).timeout(10000).subscribe(
+              resp => {
+                console.log("cancel order resp: ",resp);
+                if(JSON.parse(JSON.stringify(resp)).success)
+                {
+                  
+                  this.presentToast(this.translate.instant("orderCancled"));     
+                  this.events.publish('cancelDoctorOrder');
+                 this.nav.setRoot(TabsPage);
+                 this.nav.parent.select(2); //1
+                }
+              },
+              err=>{
+                console.log("cancel order err: ", err);
+                this.presentToast(this.translate.instant("serverError"));
+              }
+            );
+            
+            
+          
+            //this.nav.push('cancel-order',{orderId:this.helper.idForOrderToCancelItFromBack});
             
           }
         }
