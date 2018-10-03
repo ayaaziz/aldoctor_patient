@@ -253,21 +253,24 @@ export class MyApp {
       console.log("nav: ",nav)
       console.log("view : ",this.helper.view)
       this.backBtnFlag  = this.helper.backBtnInHelper;
-
-      if(this.helper.view == "remaining-time-for-plc" && this.backBtnFlag == false)
+      // && this.backBtnFlag == false
+      // && this.backBtnFlag == false
+      if(this.helper.view == "remaining-time-for-plc" )
       {
         //this.backBtnFlag = true;
         // this.helper.backBtnInHelper = true;
         console.log("if to fire cancelOrder event");
-        this.events.publish('cancelOrder');
+        
+        this.backpresentCancelConfirm();
         
       } 
-      else if (this.helper.view == "remaining-time-to-accept" && this.backBtnFlag == false)
+      else if (this.helper.view == "remaining-time-to-accept" )
       {
         //this.backBtnFlag = true;
         // this.helper.backBtnInHelper = true;
         console.log("if to fire cancelDoctorOrder event");
-        this.events.publish('cancelDoctorOrder');
+        // this.events.publish('cancelDoctorOrder');
+        this.backpresentCancelConfirmForDoc();
         
       } 
       else if (this.helper.view == "HomePage" || this.helper.view == "LoginPage" || this.helper.view == "NotificationPage" || this.helper.view == "OrderhistoryPage" ||this.helper.view == "ProfilePage")
@@ -1012,8 +1015,12 @@ export class MyApp {
 
 presentAlert(title,msg) {
   console.log("enter presentAlert");
-  this.navctrl.setRoot(TabsPage);
-      let alert = this.alertCtrl.create({
+  // this.navctrl.setRoot(TabsPage);
+  
+  if(this.helper.view == "follow")
+    this.navctrl.setRoot(TabsPage);
+
+  let alert = this.alertCtrl.create({
         title: title,
         subTitle: msg,
         buttons: ['موافق']
@@ -1242,5 +1249,87 @@ presentContOrderConfirm(order_id,remark,contDate) {
      });
      alert.present();
    }
+
+   backpresentCancelConfirm() {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmCancelOrder"),
+      message: "هل تريد الغاء الطلب ؟ ",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+            //this.navCtrl.parent.select(0);
+  //          this.alertApear = false;
+            console.log("set alertApear to false");
+
+    //        this.helper.backBtnInHelper = false;
+            
+            
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('cancel order agree clicked');
+            // clearTimeout(this.timer);
+          //  this.helper.stillCount = false;
+
+            //this.helper.backBtnInHelper = false;
+            //this.alertApear = false;
+            console.log("set alertApear to false");
+            // this.navCtrl.pop();
+            //this.navCtrl.parent.select(0);
+            //this.stopAlert = true;
+            this.events.publish('cancelOrder');
+            this.nav.setRoot(TabsPage);
+            
+            this.nav.push('cancel-service',{orderId:this.helper.idForOrderToCancelItFromBack});
+            
+          } 
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  backpresentCancelConfirmForDoc() {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmCancelOrder"),
+      message: "هل تريد الغاء الطلب ؟ ",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('cancel disagree clicked');
+            //this.helper.backBtnInHelper = false;
+            // this.navCtrl.setRoot(TabsPage);
+     //       this.navCtrl.parent.select(0);
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('cancel order agree clicked');
+           // clearTimeout(this.timer);
+            //this.helper.backBtnInHelper = false;
+            // this.navCtrl.pop();
+            // this.navCtrl.parent.select(0);
+            //this.stopAlert = true;
+            this.events.publish('cancelDoctorOrder');
+            this.nav.setRoot(TabsPage);
+            this.nav.push('cancel-order',{orderId:this.helper.idForOrderToCancelItFromBack});
+            
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+
 }
 

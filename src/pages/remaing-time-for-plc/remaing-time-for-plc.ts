@@ -65,6 +65,8 @@ export class RemaingTimeForPlcPage {
 
      var data =  this.navParams.get('data');
       this.orderId = this.navParams.get('orderId');
+      this.helper.idForOrderToCancelItFromBack = this.orderId;
+      
       console.log("data from remaing time for plc",data , "orderId: ",this.orderId);
      
      if(data == 1)
@@ -188,14 +190,18 @@ export class RemaingTimeForPlcPage {
   
   this.events.subscribe('cancelOrder', () => {
    console.log("cancel order from event");
+   if(this.timer)
+   {  console.log("clear timer to cancel");
+     clearTimeout(this.timer);
+   }
   //  this.presentCancelConfirm();
-  console.log("alertApear: ",this.alertApear);
-  if(this.alertApear == false ){
-    console.log("form if alertApear: ",this.alertApear);
-    this.alertApear = true;
-    console.log("set alertApear to true ");
-    this.backpresentCancelConfirm();
-  }
+  // console.log("alertApear: ",this.alertApear);
+  // if(this.alertApear == false ){
+  //   console.log("form if alertApear: ",this.alertApear);
+  //   this.alertApear = true;
+  //   console.log("set alertApear to true ");
+  //   this.backpresentCancelConfirm();
+  // }
     
   });
   

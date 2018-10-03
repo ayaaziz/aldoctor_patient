@@ -39,6 +39,8 @@ export class RemainingTimeToAcceptPage {
 
       this.accessToken = localStorage.getItem('user_token');
       this.orderId = this.navParams.get('orderId');
+      
+      this.helper.idForOrderToCancelItFromBack = this.orderId;
 
       this.langDirection = this.helper.lang_direction;
     
@@ -126,7 +128,12 @@ export class RemainingTimeToAcceptPage {
       console.log("cancel order from event doc");
 
       // this.presentCancelConfirm();
-      this.backpresentCancelConfirm();
+      if(this.timer)
+      {  console.log("clear timer to cancel");
+          clearTimeout(this.timer);
+      }
+
+   //   this.backpresentCancelConfirm();
      });
 
 

@@ -73,6 +73,8 @@ export class HelperProvider {
 
   public city_id;
   
+  public idForOrderToCancelItFromBack;
+  
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
     public events: Events, private network: Network) {
