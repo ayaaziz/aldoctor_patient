@@ -181,7 +181,9 @@ page-order-doctor {
       transform: scale(-1,1);
     }
 
-    
+    ion-label{
+      overflow: initial;
+    }
 
   }
   .toastRight{

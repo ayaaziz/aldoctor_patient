@@ -34,6 +34,12 @@ xxrate;
      {
     // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
+
+    // var xphone = "01123659846";
+    // if( xphone.toString()[0] != "2")
+    //   xphone = "2"+xphone;
+    //console.log("xphone: ",xphone);
+    
     var xxdate = "2018-09-20T11:58:00.000Z"
 var yydate = xxdate.split('T');
 var zzdate = yydate[1].split('.');

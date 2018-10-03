@@ -92,6 +92,10 @@ export class FollowOrderPage {
               this.doctorName = tempData.name;
               
             this.doctorRate = tempData.rate;
+            if(! tempData.rate)
+              this.doctorRate = 5;
+
+            
             this.doctorSpecialization = tempData.speciality; 
             this.OrderCost = tempData.extraInfo.discount;
             this.phone = tempData.phone;

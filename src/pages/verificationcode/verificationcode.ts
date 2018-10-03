@@ -217,7 +217,10 @@ phone="";
     
     if(this.from)
     {
-      this.phone = '2'+this.phone;
+      if( this.phone.toString()[0] != "2")
+        this.phone= '2'+this.phone;
+
+      // this.phone = '2'+this.phone;
       this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
         resp=>{
           console.log("resp from resend activation code",resp);

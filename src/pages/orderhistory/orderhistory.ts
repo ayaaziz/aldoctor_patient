@@ -121,7 +121,7 @@ export class OrderhistoryPage {
             else if(ordersData[j].status == "5") //finished
               ordersData[j].color="grey";
             
-            if(ordersData[j].is_reorder == "1")
+            if(ordersData[j].reorder == "1") // is_reorder
               ordersData[j].color = "green";
             
             // if(ordersData[j].rated == "0")
@@ -215,8 +215,8 @@ export class OrderhistoryPage {
               
               this.orderobject.doctor_id = serviceProfile.id;
               this.orderobject.color = ordersData[j].color;
-              // this.orderobject.reorder = ordersData[j].reorder;
-              this.orderobject.reorder = ordersData[j].is_reorder;
+              // this.orderobject.reorder = ordersData[j].is_reorder;
+              this.orderobject.reorder = ordersData[j].reorder;
               this.orderobject.contorder = ordersData[j].contorder;
               
               if (ordersData[j].status == "12")
@@ -234,14 +234,15 @@ export class OrderhistoryPage {
               this.orderobject.orderId = ordersData[j].id;
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
-              this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
+              //.split(" ")[0]
+              this.orderobject.orderDate = ordersData[j].created_at;
               
               if(ordersData[j].date)
                 this.orderobject.contDate = ordersData[j].date;
               // console.log("ordersData[j].date ",ordersData[j].date);
 
-              // if(ordersData[j].reorder == "1")
-              if(ordersData[j].is_reorder == "1" || ordersData[j].contorder == "1")
+              // if(ordersData[j].is_reorder == "1")
+              if(ordersData[j].reorder == "1" || ordersData[j].contorder == "1")
               {
                 console.log("ordersData[j].date ",ordersData[j].date);
                 console.log("order date only",ordersData[j].date.split(" ")[0]);
@@ -264,7 +265,7 @@ export class OrderhistoryPage {
                 this.orderobject.custom_date ="";
                 this.orderobject.date_id = "";
               } 
-
+              console.log("id",this.orderobject.orderId,"item.reorder",this.orderobject.reorder); 
               this.data.push(this.orderobject);
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
@@ -293,7 +294,7 @@ export class OrderhistoryPage {
                 this.orderobject.name = "ملغى";
                 
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
-              this.orderobject.orderDate = ordersData[j].created_at.split(" ")[0];
+              this.orderobject.orderDate = ordersData[j].created_at; //.split(" ")[0]
               this.data.push(this.orderobject);
               console.log("ordres data",this.data);
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
@@ -855,6 +856,8 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
           text: this.translate.instant("agree"),
           handler: () => {
             console.log('confirm reorder agree clicked');
+            if(! item.custom_date)
+              item.custom_date="";
             this.service.reorder(item.orderId,item.custom_date,item.date_id,this.accessToken).subscribe(
               resp=>{
                 console.log("reorder resp",resp);
