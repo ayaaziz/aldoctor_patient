@@ -508,6 +508,7 @@ export class MyApp {
     setting(){
       this.navctrl.push('settings');
       this.menu.close();
+      // this.platform.setDir('ltr',true);
     }
 
     logout()

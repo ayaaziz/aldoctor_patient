@@ -152,7 +152,7 @@ export class NotificationPage {
           notificationsData[i].notificationimage="assets/imgs/default-avatar.png";
           
           
-          notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
+          notificationsData[i].notificationDate = notificationsData[i].created_at;//.split(" ")[0]
           this.data.push(notificationsData[i]);
           
         }
@@ -213,7 +213,7 @@ export class NotificationPage {
           notificationsData[i].notificationimage="assets/imgs/default-avatar.png";
           
 
-          notificationsData[i].notificationDate = notificationsData[i].created_at.split(" ")[0];
+          notificationsData[i].notificationDate = notificationsData[i].created_at;//.split(" ")[0]
           this.data.push(notificationsData[i]);
           
         }

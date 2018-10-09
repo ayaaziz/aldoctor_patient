@@ -156,7 +156,9 @@ this.storage.get("rate_doctor").then(data=>{
       resp=>{
         console.log("resp count of notifications",resp);
          this.events.publish('lengthdata', JSON.parse(JSON.stringify(resp)).count);
-      },
+         if(JSON.parse(JSON.stringify(resp)).user_status != "1")
+          this.navCtrl.setRoot(LoginPage);
+        },
       err=>{
         console.log("err count of notifications",err);
       }

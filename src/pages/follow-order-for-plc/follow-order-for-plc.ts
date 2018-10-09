@@ -998,7 +998,7 @@ private presentToast(text) {
         
         var number = 0;
         if(this.type_id == "1")
-          number = 30*60;
+          number = 20*60;
         else if (this.type_id == "2" || this.type_id == "3")
           number = 30*60;
         
@@ -1017,7 +1017,7 @@ private presentToast(text) {
         console.log(" time : ",hdisplay+mdisplay);
         this.duration  = hdisplay+mdisplay;
         console.log("doc name from distance & duration",this.doctorName);
-        if(this.notificationFlag == false && h == 0 && m == 30 && this.type_id == "1") //|| m <= 30
+        if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
         {
           console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
           this.scheduleNotification(m);
