@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController,AlertController} from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -40,7 +40,7 @@ phone2;
 phone3;
 centersId = [];
 
-  constructor(public helper: HelperProvider,
+  constructor(public helper: HelperProvider,public alertCtrl:AlertController,
     public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage, public srv : ProvidedServicesProvider,
     public service:LoginserviceProvider,public toastCtrl: ToastController,
@@ -286,40 +286,40 @@ console.log("sp item search val ",val);
   chooseSp(ev,i,item){
     console.log("i = ",i);
     console.log("item",item);
-    if(item.status == '0')
-    {
-      console.log("ev from status 0 ",ev);
-      item.spClass = "spSelected";
-      item.status = '1';
-      this.centersId.push(item.id);
+    // if(item.status == '0')
+    // {
+    //   console.log("ev from status 0 ",ev);
+    //   item.spClass = "spSelected";
+    //   item.status = '1';
+    //   this.centersId.push(item.id);
  
-    }
-    else if(item.status == '1')
-    {
-      console.log("ev from status 1 ",ev);
-      item.status = '0';
-      item.spClass = "spUnselceted";
-      for(var g=0;g<this.centersId.length;g++)
-      {
-        console.log("item removed : ",item.id);
-        if(this.centersId[g] == item.id)
-          this.centersId.splice(g, 1);
-      }
+    // }
+    // else if(item.status == '1')
+    // {
+    //   console.log("ev from status 1 ",ev);
+    //   item.status = '0';
+    //   item.spClass = "spUnselceted";
+    //   for(var g=0;g<this.centersId.length;g++)
+    //   {
+    //     console.log("item removed : ",item.id);
+    //     if(this.centersId[g] == item.id)
+    //       this.centersId.splice(g, 1);
+    //   }
       
       
-    }
-    // item.spClass = "spSelected";
+    // }
+    // // item.spClass = "spSelected";
 
-    console.log("item",item);
-    console.log("event: ",ev);
-    //this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
-    console.log("item.id",item.id);
-    // this.navCtrl.push('order-service',{data:{
-    //       type_id:2,
-    //       lat:this.helper.lat,
-    //       lng:this.helper.lon,
-    //       center_id : item.id
-    //     }});
+    // console.log("item",item);
+    // console.log("event: ",ev);
+    // //this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
+    // console.log("item.id",item.id);
+    this.navCtrl.push('order-service',{data:{
+          type_id:2,
+          lat:this.helper.lat,
+          lng:this.helper.lon,
+          center_id : item.id
+        }});
   }
 
   chooseCenters(){
@@ -401,5 +401,39 @@ console.log("sp item search val ",val);
     //
   }
 
+helpersAlert(){
+  let alert = this.alertCtrl.create({
+    title: 'Specify the reason',
+    inputs: [
+      {
+        type: 'radio',
+        label: `label 1 <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>`,
+        value: '0'
+      },
+      {
+        type: 'radio',
+        label: 'label 2',
+        value: '1'
+      }
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      },
+      {
+        text: 'OK',
+        handler: (data) => {
+          console.log('OK clicked: ' ,data);
+          
+        }
+      }
+    ]
+  });
+  alert.present();
 
+}
 }

@@ -314,7 +314,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
 
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/about';
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/about-us_ar';
       return this.http.get(serviceUrl,{headers: headers })
       
   }
