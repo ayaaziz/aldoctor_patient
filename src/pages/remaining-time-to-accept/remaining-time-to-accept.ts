@@ -95,7 +95,7 @@ export class RemainingTimeToAcceptPage {
         this.navCtrl.setRoot('order-not-accepted');
          
         }
-    //     console.log("time: ",this.time);
+        console.log("time: ",this.time);
     //  console.log("timer : ",this.timer);
     //  this.notification = this.helper.notification;
     // console.log("notification from remaining time :",this.notification);

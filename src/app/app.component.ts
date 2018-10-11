@@ -805,6 +805,7 @@ export class MyApp {
           } 
           else if(orderStatus == "2")
           {
+            this.events.publish("status2");
             this.nav.setRoot(TabsPage);
             this.nav.push('follow-order',
               {data:

@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>slider</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-slides  #mySlider  style="max-height:400px" (ionSlideDidChange)="slideChanged()">
+        <ion-slide *ngFor="let slide of myslides">
+          <img [src]="slide">
+        </ion-slide>
+      </ion-slides>
+
+</ion-content>

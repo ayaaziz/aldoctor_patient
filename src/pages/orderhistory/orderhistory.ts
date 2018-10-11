@@ -785,7 +785,7 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
 
 
 }else{
-  this.navCtrl.setRoot('follow-order',
+  this.navCtrl.push('follow-order',
         {data:
           {"orderId":item.orderId, 
             "doctorId":item.doctor_id,
