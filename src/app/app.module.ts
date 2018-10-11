@@ -102,7 +102,7 @@ import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-inte
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Network } from '@ionic-native/network';
 import { FollowOrderForPlcPage} from '../pages/follow-order-for-plc/follow-order-for-plc';
-import { SliderPage } from '../pages/slider/slider';
+//import { SliderPage } from '../pages/slider/slider';
 
 
 // export const firebaseConfig = {
@@ -141,8 +141,8 @@ export function createTranslateLoader(http: HttpClient) {
     ProfilePage,
    // SignupPage,
     OrderhistoryPage,
-    FollowOrderForPlcPage,
-    SliderPage
+    FollowOrderForPlcPage
+    // SliderPage
     //VerifycodePage,
     //ConditionsPage,
   //  OrderDoctorPage,
@@ -192,8 +192,8 @@ export function createTranslateLoader(http: HttpClient) {
     LoginPage,
     ProfilePage,
     //SignupPage,
-    OrderhistoryPage,
-    SliderPage
+    OrderhistoryPage
+    // SliderPage
     //OrderDoctorPage,
     //DoctorEvaluationPage,
     //SpecializationsPage,
