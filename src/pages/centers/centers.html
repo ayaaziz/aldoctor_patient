@@ -86,7 +86,7 @@
 </ion-row>
 
   <!-- center middle \n top bottom right left -->
-  <ion-fab center bottom>
+  <!-- <ion-fab center bottom>
       <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:12px">
           مساعدة
           </button>
@@ -119,7 +119,10 @@
    
 
       </ion-fab-list>
-      <!-- <ion-fab-list side="right">
+ 
+    </ion-fab> -->
+
+         <!-- <ion-fab-list side="right">
           <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
             <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
    
@@ -127,7 +130,6 @@
                 <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
 
       </ion-fab-list> -->
-    </ion-fab>
 
     <!-- <ion-fab left bottom>
       <button ion-fab style="background-color:#026938"  (click)="chooseCenters()">
@@ -143,5 +145,10 @@
       </button>
     </ion-fab> -->
 
+    <ion-fab left bottom>
+      <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:12px" (click)="openModal()">
+          مساعدة
+          </button>
 
+          </ion-fab>
 </ion-content>

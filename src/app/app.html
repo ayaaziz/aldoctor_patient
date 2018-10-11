@@ -64,6 +64,14 @@
                                                     <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"rate" | translate}}</h2>
                                                   </ion-row>
                                               </button>
+                                              <button ion-item  (click)="complaints()" [ngClass]="app_complaint">
+                                                    <ion-row style="direction: rtl;margin-right: 0px;">
+                                                       
+                                                        <img src="assets/icon/mailgreen.png"   class="customIcon">
+                                                        <h2 style="margin-right:10px ; color:gray; font-size:18px">   {{"complaints"| translate}}</h2>
+                                                      </ion-row>
+                                                  </button>
+
                                               <button ion-item  (click)="logout()" [ngClass]="app_logout">
                                                     <ion-row style="direction: rtl;margin-right: 0px;">
                                                         <!-- <ion-icon ios="ios-globe" md="ios-globe" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon> -->
@@ -139,6 +147,14 @@
                                                      <h2 style="margin-left:10px ; color:gray; font-size:18px">  {{"rate" | translate}} </h2>
                                                    </ion-row>
                                                </button>
+                                               <button ion-item  (click)="complaints()" >
+                                                    <ion-row style="direction: rtl;margin-right: 0px;">
+                                                       
+                                                        <img src="assets/icon/logout.png"   class="customIcon">
+                                                        <h2 style="margin-right:10px ; color:gray; font-size:18px">   {{"complaints"| translate}}</h2>
+                                                      </ion-row>
+                                                  </button>
+
                                                <button ion-item  (click)="logout()">
                                                      <ion-row style="direction: ltr;margin-left:10px;">
                                                          <!-- <ion-icon ios="ios-globe" md="ios-globe" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon> -->

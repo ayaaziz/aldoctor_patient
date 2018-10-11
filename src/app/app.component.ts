@@ -63,6 +63,7 @@ export class MyApp {
   app_about = "item_unselected";
   app_contact = "item_unselected";
   app_conditions = "item_unselected";
+  app_complaint = "item_unselected";
 
   backBtnFlag = false;
   tostClass;
@@ -307,6 +308,7 @@ export class MyApp {
     this.app_about = "item_unselected";
     this.app_contact = "item_unselected";
     this.app_conditions = "item_unselected";
+    this.app_complaint = "item_unselected";
   }
   
   openPage(page) {
@@ -319,6 +321,7 @@ export class MyApp {
     this.app_about = "item_unselected";
     this.app_contact = "item_unselected";
     this.app_conditions = "item_unselected";
+    this.app_complaint = "item_unselected";
 
     if(this.helper.currentLang == 'ar'){
       this.dir="right";
@@ -339,6 +342,7 @@ export class MyApp {
       this.app_contact = "item_unselected";
       this.app_logout = "item_unselected";
       this.app_rate = "item_unselected";
+      this.app_complaint = "item_unselected";
     }
       
     console.log("share app");
@@ -379,6 +383,7 @@ export class MyApp {
       this.app_contact = "item_unselected";
       this.app_logout = "item_unselected";
       this.app_share = "item_unselected";
+      this.app_complaint = "item_unselected";
     }
 
     this.appRate.preferences.useLanguage = "ar";
@@ -497,6 +502,7 @@ export class MyApp {
         this.app_conditions = "item_unselected";
         this.app_contact = "item_unselected";
         this.app_logout = "item_unselected";
+        this.app_complaint = "item_unselected";
         this.app_rate = "item_unselected";
       }
 
@@ -511,6 +517,22 @@ export class MyApp {
       // this.platform.setDir('ltr',true);
     }
 
+    complaints(){
+      if(this.app_complaint == "item_unselected")
+      {
+        this.app_complaint = "item_selected";
+        this.app_about = "item_unselected";
+        this.app_conditions = "item_unselected";
+        this.app_contact = "item_unselected";
+        this.app_share = "item_unselected";
+        this.app_rate = "item_unselected";
+        this.app_logout = "item_unselected";
+      }
+      this.navctrl.push('Complaints');
+      this.menu.close();
+     
+    }
+    
     logout()
     {
       if(this.app_logout == "item_unselected")
@@ -521,6 +543,7 @@ export class MyApp {
         this.app_contact = "item_unselected";
         this.app_share = "item_unselected";
         this.app_rate = "item_unselected";
+        this.app_complaint = "item_unselected";
       }
 
       this.storage.get("access_token").then(data=>{
@@ -570,6 +593,7 @@ export class MyApp {
        this.app_contact = "item_unselected";
        this.app_logout = "item_unselected";
        this.app_rate = "item_unselected";
+       this.app_complaint = "item_unselected";
      }
 
       this.navctrl.push('conditions')

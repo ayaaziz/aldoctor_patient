@@ -1,5 +1,5 @@
 import { Component,ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController ,ModalController} from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
@@ -43,7 +43,7 @@ export class SpecializationsPage {
   constructor(public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public storage: Storage,
      public service:LoginserviceProvider,public toastCtrl: ToastController,
-     public translate: TranslateService
+     public translate: TranslateService,public modalCtrl: ModalController
     ) {
 
       this.accessToken = localStorage.getItem('user_token');
@@ -355,4 +355,10 @@ console.log("sp item search val ",val);
     
   }
 
+  openModal(){
+  
+    var modalPage = this.modalCtrl.create('ModalPage');
+    modalPage.present();
+  }
+  
 }

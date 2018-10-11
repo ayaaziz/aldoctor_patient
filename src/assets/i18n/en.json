@@ -276,7 +276,9 @@
       "atleastOneimageforpharmacy":"atleastOneimageforpharmacy",
       "maxNumberOFIMages":"Choose only 2 images",
       "serviceRate":"rate service",
-      "contorder":"contorder"
+      "contorder":"Contorder",
+      "complaints":"Complaints",
+      "send":"Send"
 
 
       

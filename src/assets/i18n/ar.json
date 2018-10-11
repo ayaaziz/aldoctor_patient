@@ -280,5 +280,7 @@
       "atleastOneimageforpharmacy":"أدخل صورة الروشتة",
       "maxNumberOFIMages":"إختر صورتين فقط",
       "serviceRate":"تقييم الخدمه",
-      "contorder":"إكمال الطلب"
+      "contorder":"إكمال الطلب",
+      "complaints":"الشكاوى",
+      "send":"ارسل"
 }

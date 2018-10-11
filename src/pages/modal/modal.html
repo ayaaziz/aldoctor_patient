@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-navbar hideBackButton>
+    <!-- <ion-row>
+      <ion-col col-7>
+      </ion-col>
+      <ion-col col-3 >
+      </ion-col>    
+      <ion-col col-2>
+        <ion-buttons  left>
+          <button ion-button (click)="closeModal()">
+            <img src="assets/icon/leftarrow.png"  (click)="closeModal()" class="customIcon" >
+          </button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+  </ion-navbar> -->
+
+  <ion-row>
+      <ion-col col-7>
+            <ion-title  style="text-align: right;">مساعدة</ion-title>
+            <!-- <ion-title *ngIf="langDirection != 'rtl'">مساعدة</ion-title> -->
+      </ion-col>
+      <ion-col col-3 >
+        <ion-buttons  left>
+          <button ion-button>
+            <img src="assets/imgs/dlogo.png" style="width:40px;" >         
+          </button>
+        </ion-buttons>
+      </ion-col>
+      <ion-col col-2>
+          <ion-buttons  left>
+            <button ion-button (click)="closeModal()">
+              <img src="assets/icon/leftarrow.png"  (click)="closeModal()" class="customIcon" >
+            </button>
+          </ion-buttons>
+        </ion-col>
+    </ion-row>
+  
+    </ion-navbar>
+  
+
+</ion-header>
+<ion-content padding>
+
+  <ion-item *ngFor="let item of helpersArr" >
+    <!-- <p style="display:inline-block;" > +{{item.value}} </p>
+    <a button   href="tel:+{{item.value}}" >
+      <ion-icon   style="color:#026938;" name="call"></ion-icon>
+    </a>
+          
+    <a button   href="https://api.whatsapp.com/send?phone={{item.value}}" >
+      <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon>
+    </a> -->
+    <ion-row>
+      <ion-col col-8>
+          <p style="display:inline-block;" > {{item.value}}+ </p>
+      </ion-col>
+      <ion-icon col-2>
+          <a button   href="tel:+{{item.value}}" >
+              <ion-icon   style="color:#026938;" name="call"></ion-icon>
+            </a>
+      </ion-icon>
+      <ion-icon col-2>
+          <a button   href="https://api.whatsapp.com/send?phone={{item.value}}" >
+            <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon>
+          </a>
+      </ion-icon> 
+    </ion-row>
+   
+  </ion-item>
+
+
+</ion-content>

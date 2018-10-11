@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController,AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController,AlertController, ModalController} from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -44,7 +44,7 @@ centersId = [];
     public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage, public srv : ProvidedServicesProvider,
     public service:LoginserviceProvider,public toastCtrl: ToastController,
-    public translate: TranslateService) {
+    public translate: TranslateService,public modalCtrl: ModalController) {
 
       this.langDirection = this.helper.lang_direction;
       console.log("lang ffrom centers",this.langDirection);
@@ -436,4 +436,10 @@ helpersAlert(){
   alert.present();
 
 }
+openModal(){
+  
+  var modalPage = this.modalCtrl.create('ModalPage');
+  modalPage.present();
+}
+
 }
