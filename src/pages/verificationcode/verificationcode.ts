@@ -194,6 +194,7 @@ phone="";
             "profile_pic":newuserData.profile_pic
           }).then((data)=>{
             this.navCtrl.setRoot(TabsPage);
+            this.navCtrl.push('slider');
           },(error)=>{
           //  this.presentToast("set then error from signup: "+error)
           });

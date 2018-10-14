@@ -158,7 +158,7 @@ export class LoginPage {
           this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
 
           this.navCtrl.setRoot(TabsPage);
-
+          this.navCtrl.push('slider');
 
         }).catch(data=>{
           console.log("catch data from login",data);
