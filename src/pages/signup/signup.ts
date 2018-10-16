@@ -33,16 +33,16 @@ export class SignupPage {
 
   signUpForm;
   firstname;
-  secondname;
-  surname;
+  secondname="";
+  surname="";
   passwrodTxt;
   email="";
   phone;
-  birthdate;
+  birthdate="";
   patientRegisterForm;
   gender;
-  city;
-  country;
+  city="";
+  country="";
   submitAttempt = false;
   langDirection: string = 'rtl';
   cancelTxt;
@@ -50,7 +50,7 @@ export class SignupPage {
   registerAttempt = false;
   profile_pic_ext = [];
   profileImg = "";
-  address;
+  address="";
   termsStatus = false;
   termsError = false;
   patient;
@@ -69,7 +69,7 @@ export class SignupPage {
   tostClass;
   xxx;
   citiesObjects=[];
-  cityId;
+  cityId="";
 
   maxDate ; 
 
@@ -88,21 +88,27 @@ export class SignupPage {
     this.patientRegisterForm = formBuilder.group({
 
       firstname: ['', Validators.required],
-      secondname: ['', Validators.required],
-      surname: ['', Validators.required],
+      // secondname: ['', Validators.required],
+      // surname: ['', Validators.required],
+      secondname: ['', ''],
+      surname: ['', ''],
       //email: ['', Validators.compose([Validators.required,Validators.email])],
       // email:[],
-      // email:['',Validators.email],
-      email: ['', Validators.compose([Validators.required,emailValidator.isValid])],
+       //email:['',Validators.email],
+      //email: ['', Validators.compose([Validators.required,emailValidator.isValid])],
       //phone: ['', Validators.required],
       phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
-      address: ['', Validators.required],
-      password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid])],
-      confirmpassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid, matchOtherValidator('password')])],
-      birthdate: ['', Validators.required],
+      // address: ['', Validators.required],
+      address: ['', ''],
+      password: ['', Validators.compose([Validators.minLength(4), Validators.maxLength(30), Validators.required])],//, passwordValidator.isValid,8
+      confirmpassword: ['', Validators.compose([Validators.minLength(4), Validators.maxLength(30), Validators.required, matchOtherValidator('password')])],//passwordValidator.isValid
+      birthdate: ['', ''],
+      // birthdate: ['', Validators.required],
       gender: ['', Validators.required],
-      city:['',Validators.required],
-      country:['',Validators.required]
+      // city:['',Validators.required],
+      // country:['',Validators.required]
+      city:['',''],
+      country:['','']
     
                   
     
@@ -235,18 +241,18 @@ y;
         console.log("phone errors:",this.patientRegisterForm.controls["phone"].errors);
       }
     }
-console.log("email err",this.patientRegisterForm.controls["email"].errors);
+// console.log("email err",this.patientRegisterForm.controls["email"].errors);
     
-if(this.patientRegisterForm.controls["email"].errors){
-  if(this.patientRegisterForm.controls["email"].errors['required'])
-  {
-    this.emailErr = this.translate.instant("enterEmail");
-  }else if(this.patientRegisterForm.controls["email"].errors['invalidChars']) {
-    this.emailErr = this.translate.instant("invalidEmailAddress");
-  }else{
-    console.log("phone errors:",this.patientRegisterForm.controls["email"].errors);
-  }
-}
+// if(this.patientRegisterForm.controls["email"].errors){
+//   if(this.patientRegisterForm.controls["email"].errors['required'])
+//   {
+//     this.emailErr = this.translate.instant("enterEmail");
+//   }else if(this.patientRegisterForm.controls["email"].errors['invalidChars']) {
+//     this.emailErr = this.translate.instant("invalidEmailAddress");
+//   }else{
+//     console.log("phone errors:",this.patientRegisterForm.controls["email"].errors);
+//   }
+// }
 
 
 
@@ -284,7 +290,8 @@ if(this.patientRegisterForm.controls["email"].errors){
       this.patient.country=this.patientRegisterForm.controls.country.value;
       this.patient.gender=this.patientRegisterForm.controls.gender.value;
       this.patient.terms=this.termsStatus;   
-     this.patient.email=this.patientRegisterForm.controls.email.value;
+     //this.patient.email=this.patientRegisterForm.controls.email.value;
+     this.patient.email="";
     //  this.patient.email = this.email;
       this.patient.img=this.profileImg;
       console.log(this.patient);
@@ -293,12 +300,14 @@ if(this.patientRegisterForm.controls["email"].errors){
       console.log("this.citiesObjects",this.citiesObjects);
       console.log("this.city",this.city);
 
+      this.patient.city_id="";
 
       for(var i=0;i<this.citiesObjects.length;i++)
       {
         console.log("this.citiesObjects[i].translation.name",this.citiesObjects[i].translation.name);
         if(this.citiesObjects[i].translation.value == this.city)
           this.patient.city_id = this.citiesObjects[i].id;
+        
       }
 
       return this.patient;
@@ -346,7 +355,7 @@ if(this.patientRegisterForm.controls["email"].errors){
     this.storage.set("user_info",{
       "id":data.user.id,
       "name":data.user.name,
-      "email":data.user.email,
+      // "email":data.user.email,
       "phone":data.user.phone,
       "dob":data.user.user_info.birth_date,
       "add":data.user.extraInfo.address+"-"+this.city+"-"+this.country,
@@ -378,10 +387,10 @@ if(this.patientRegisterForm.controls["email"].errors){
     
      if (JSON.parse(JSON.stringify(data)).success == false){
       var errorsFromApi = JSON.parse(JSON.stringify(data)).errors;
-      if(errorsFromApi.email)
-      {
-        this.presentToast(errorsFromApi.email);
-      }
+      // if(errorsFromApi.email)
+      // {
+      //   this.presentToast(errorsFromApi.email);
+      // }
       if(errorsFromApi.phone)
       {
         this.presentToast(errorsFromApi.phone);
@@ -417,7 +426,7 @@ if(this.patientRegisterForm.controls["email"].errors){
           this.storage.set("user_info",{
                   "id":jsonUserData.id,
                   "name":jsonUserData.name,
-                  "email":jsonUserData.email,
+                  // "email":jsonUserData.email,
                   "phone":jsonUserData.phone,
                   "dob":jsonUserData.user_info.birth_date,
                   "add":jsonUserData.extraInfo.address,
@@ -549,6 +558,62 @@ if(this.patientRegisterForm.controls["email"].errors){
     });
     alert.present()
   }
+
+  changeTxt(){
+    console.log("phone...",this.phone);
+    this.phone = this.textArabicNumbersReplacment(this.phone);
+    console.log("phone after replacement: ",this.phone); 
+  
+  }
+
+  textArabicNumbersReplacment(strText) {
+    // var strTextFiltered = strText.Trim().replace(" ", "");
+   
+    var strTextFiltered = strText.trim();
+    strTextFiltered = strText;
+    // //
+    // // strTextFiltered = strTextFiltered.replace('ي', 'ى');
+    // strTextFiltered = strTextFiltered.replace(/[\ي]/g, 'ى');
+    // // strTextFiltered = strTextFiltered.replace('ئ', 'ى');
+    // strTextFiltered = strTextFiltered.replace(/[\ئ]/g, 'ى');
+    // //
+    // // strTextFiltered = strTextFiltered.replace('أ', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\أ]/g, 'ا');
+    // // strTextFiltered = strTextFiltered.replace('إ', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\إ]/g, 'ا');
+    // // strTextFiltered = strTextFiltered.replace('آ', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\آ]/g, 'ا');
+    // // strTextFiltered = strTextFiltered.replace('ء', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\ء]/g, 'ا');
+    // //كاشيده
+    // strTextFiltered = strTextFiltered.replace(/[\u0640]/g, '');
+    // // التنوين  Unicode Position              
+    // strTextFiltered = strTextFiltered.replace(/[\u064B\u064C\u064D\u064E\u064F\u0650\u0651\u0652]/g, '');
+    // // چ
+    // strTextFiltered = strTextFiltered.replace(/[\u0686]/g, 'ج');
+    // // ڤ
+    // strTextFiltered = strTextFiltered.replace(/[\u06A4]/g, 'ف');
+    // //                
+    // // strTextFiltered = strTextFiltered.replace('ة', 'ه');
+    // strTextFiltered = strTextFiltered.replace(/[\ة]/g, 'ه');
+    // // strTextFiltered = strTextFiltered.replace('ؤ', 'و');
+    // strTextFiltered = strTextFiltered.replace(/[\ؤ]/g, 'و');
+    // //
+    strTextFiltered = strTextFiltered.replace(/[\٩]/g, '9');
+    strTextFiltered = strTextFiltered.replace(/[\٨]/g, '8');
+    strTextFiltered = strTextFiltered.replace(/[\٧]/g, '7');
+    strTextFiltered = strTextFiltered.replace(/[\٦]/g, '6');
+    strTextFiltered = strTextFiltered.replace(/[\٥]/g, '5');
+    strTextFiltered = strTextFiltered.replace(/[\٤]/g, '4');
+    strTextFiltered = strTextFiltered.replace(/[\٣]/g, '3');
+    strTextFiltered = strTextFiltered.replace(/[\٢]/g, '2');
+    strTextFiltered = strTextFiltered.replace(/[\١]/g, '1');
+    strTextFiltered = strTextFiltered.replace(/[\٠]/g, '0');
+    //
+    return strTextFiltered;
+    //
+  }
+  
 
 }
 

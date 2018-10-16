@@ -22,16 +22,16 @@ export class EditProfilePage {
 
   signUpForm;
   firstname;
-  secondname;
-  surname;
+  secondname="";
+  surname="";
   passwrodTxt;
-  email;
+  email = "";
   // phone;
-  birthdate;
+  birthdate="";
   patientRegisterForm;
   gender;
-  city  ;
-  country ;
+  city  ="";
+  country ="";
   submitAttempt = false;
   langDirection;
   cancelTxt;
@@ -39,7 +39,7 @@ export class EditProfilePage {
   registerAttempt = false;
   profile_pic_ext = [];
   profileImg = "";
-  address;
+  address="";
   termsStatus = false;
   termsError = false;
   patient;
@@ -71,19 +71,25 @@ export class EditProfilePage {
     this.patientRegisterForm = formBuilder.group({
 
       firstname: ['', Validators.required],
-      secondname: ['', Validators.required],
-      surname: ['', Validators.required],
+      // secondname: ['', Validators.required],
+      // surname: ['', Validators.required],
+      secondname: ['', ''],
+      surname:['',''],
       //email: ['', Validators.compose([Validators.required,Validators.email])],
-      email: ['', Validators.compose([Validators.required,emailValidator.isValid])],
+      //email: ['', Validators.compose([Validators.required,emailValidator.isValid])],
       // phone: ['', Validators.required],
     //  phone: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{11}")])],
-      address: ['', Validators.required],
+      // address: ['', Validators.required],
+      address: ['', ''],
       //password: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid])],
       //confirmpassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid, matchOtherValidator('password')])],
-      birthdate: ['', Validators.required],
+      // birthdate: ['', Validators.required],
+      birthdate: ['', ''],
       //gender: ['', Validators.required],
-      city:['',Validators.required],
-      country:['',Validators.required]
+      // city:['',Validators.required],
+      // country:['',Validators.required]
+      city:['',''],
+      country:['','']
     
                   
     
@@ -139,7 +145,7 @@ addArr;
         console.log("city: ",this.city,"country: ",this.country);
 
         this.address = this.addArr[0];
-        this.email = data.email;
+        // this.email = data.email;
       //  this.countryChecked();
       });
   
@@ -218,16 +224,16 @@ addArr;
       if(! this.patientRegisterForm.valid ){
       this.submitAttempt=true;
 
-      if(this.patientRegisterForm.controls["email"].errors){
-        if(this.patientRegisterForm.controls["email"].errors['required'])
-        {
-          this.emailErr = this.translate.instant("enterEmail");
-        }else if(this.patientRegisterForm.controls["email"].errors['invalidChars']) {
-          this.emailErr = this.translate.instant("invalidEmailAddress");
-        }else{
-          console.log("phone errors:",this.patientRegisterForm.controls["email"].errors);
-        }
-      }
+      // if(this.patientRegisterForm.controls["email"].errors){
+      //   if(this.patientRegisterForm.controls["email"].errors['required'])
+      //   {
+      //     this.emailErr = this.translate.instant("enterEmail");
+      //   }else if(this.patientRegisterForm.controls["email"].errors['invalidChars']) {
+      //     this.emailErr = this.translate.instant("invalidEmailAddress");
+      //   }else{
+      //     console.log("phone errors:",this.patientRegisterForm.controls["email"].errors);
+      //   }
+      // }
 
       
       
@@ -271,7 +277,7 @@ addArr;
                 // this.userprofileData.phone=this.phone;
                 this.userprofileData.dob=this.birthdate;
                 this.userprofileData.add=this.add;
-                this.userprofileData.email=this.email;
+                // this.userprofileData.email=this.email;
                 console.log("this.name",this.name,"this.userprofileData.name",this.userprofileData.name);
                 
              console.log("user data after edit",this.userprofileData); 

@@ -153,4 +153,13 @@ getUserZone(lat , lng , access_token){
   
 }
 
+ // /api/contact
+ complains(text,access_token){
+  let headers = new HttpHeaders();
+  let parameter = new HttpParams().set('text',text);
+  headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+  let serviceUrl = this.helper.serviceUrl +'api/contact';
+  return this.http.post(serviceUrl,parameter,{headers: headers });
+}
+
 }

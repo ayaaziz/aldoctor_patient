@@ -29,9 +29,9 @@ type="text"></ion-input>
 
 <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.email.valid && submitAttempt">
     <ion-label><img src="assets/icon/mob.png" style="margin: 0 2px;" height="20" width="25"></ion-label>
-    <ion-input  class="right" *ngIf="langDirection == 'rtl'" placeholder="رقم الهاتف"  [dir]="langDirection"  style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+    <ion-input  class="right" *ngIf="langDirection == 'rtl'"  (input)="changeTxt()" placeholder="رقم الهاتف"  [dir]="langDirection"  style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
     type="tel"></ion-input>
-    <ion-input *ngIf="langDirection != 'rtl'" placeholder="phone" [dir]="langDirection"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
+    <ion-input *ngIf="langDirection != 'rtl'"   (input)="changeTxt()" placeholder="phone" [dir]="langDirection"   style="border-radius: 2px;padding: 0px;" formControlName="email" [(ngModel)]="email"
  type="tel"></ion-input>
 </ion-item>
 <ion-item *ngIf="!loginForm.controls.email.valid && submitAttempt" no-lines>

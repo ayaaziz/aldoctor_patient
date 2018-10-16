@@ -54,9 +54,9 @@
             <form [formGroup]="activationForm" style="background-color: white;width: 100%">
             <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;margin-bottom: 15px;" [class.invalid]="!activationForm.controls.phone.valid && submitAttempt">
           <ion-label style="margin: 0"><img src="assets/icon/mob.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
-          <ion-input  class="right" *ngIf="langDirection == 'rtl'" placeholder=" ادخل رقم الهاتف"   style="border-radius: 2px;padding: 0px;" formControlName="phone" [(ngModel)]="phone"
+          <ion-input  class="right" *ngIf="langDirection == 'rtl'" placeholder=" ادخل رقم الهاتف"  (input)="changeTxt()"  style="border-radius: 2px;padding: 0px;" formControlName="phone" [(ngModel)]="phone"
           type="tel" [dir]="langDirection"></ion-input>
-          <ion-input *ngIf="langDirection != 'rtl'" placeholder="Enter new phone number"    style="border-radius: 2px;padding: 0px;" formControlName="phone" [(ngModel)]="phone"
+          <ion-input *ngIf="langDirection != 'rtl'" placeholder="Enter new phone number"   (input)="changeTxt()"  style="border-radius: 2px;padding: 0px;" formControlName="phone" [(ngModel)]="phone"
       type="tel" [dir]="langDirection"></ion-input>
       </ion-item>
       <ion-item *ngIf="!activationForm.controls.phone.valid && submitAttempt" no-lines>

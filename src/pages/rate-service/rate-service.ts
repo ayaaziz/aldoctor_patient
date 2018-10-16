@@ -38,6 +38,7 @@ export class RateServicePage {
 
   ratedisabledbtn = false;
   ratesIDS=[];
+  hideText = true;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController,public service: LoginserviceProvider,
@@ -209,6 +210,7 @@ export class RateServicePage {
       this.rateWordsFromApi(0);
       this.note = this.translate.instant("notes");
     }
+    this.hideText = false;
    
 
   }

@@ -158,7 +158,7 @@ export class LoginPage {
           this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
 
           this.navCtrl.setRoot(TabsPage);
-          this.navCtrl.push('slider');
+          // this.navCtrl.push('slider');
 
         }).catch(data=>{
           console.log("catch data from login",data);
@@ -230,6 +230,62 @@ export class LoginPage {
   ionViewDidEnter(){
     this.helper.view = "LoginPage"; 
   }
+
+  changeTxt(){
+    console.log("phone...",this.email);
+    this.email = this.textArabicNumbersReplacment(this.email);
+    console.log("phone after replacement: ",this.email); 
+  
+  }
+
+  textArabicNumbersReplacment(strText) {
+    // var strTextFiltered = strText.Trim().replace(" ", "");
+   
+    var strTextFiltered = strText.trim();
+    strTextFiltered = strText;
+    // //
+    // // strTextFiltered = strTextFiltered.replace('ي', 'ى');
+    // strTextFiltered = strTextFiltered.replace(/[\ي]/g, 'ى');
+    // // strTextFiltered = strTextFiltered.replace('ئ', 'ى');
+    // strTextFiltered = strTextFiltered.replace(/[\ئ]/g, 'ى');
+    // //
+    // // strTextFiltered = strTextFiltered.replace('أ', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\أ]/g, 'ا');
+    // // strTextFiltered = strTextFiltered.replace('إ', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\إ]/g, 'ا');
+    // // strTextFiltered = strTextFiltered.replace('آ', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\آ]/g, 'ا');
+    // // strTextFiltered = strTextFiltered.replace('ء', 'ا');
+    // strTextFiltered = strTextFiltered.replace(/[\ء]/g, 'ا');
+    // //كاشيده
+    // strTextFiltered = strTextFiltered.replace(/[\u0640]/g, '');
+    // // التنوين  Unicode Position              
+    // strTextFiltered = strTextFiltered.replace(/[\u064B\u064C\u064D\u064E\u064F\u0650\u0651\u0652]/g, '');
+    // // چ
+    // strTextFiltered = strTextFiltered.replace(/[\u0686]/g, 'ج');
+    // // ڤ
+    // strTextFiltered = strTextFiltered.replace(/[\u06A4]/g, 'ف');
+    // //                
+    // // strTextFiltered = strTextFiltered.replace('ة', 'ه');
+    // strTextFiltered = strTextFiltered.replace(/[\ة]/g, 'ه');
+    // // strTextFiltered = strTextFiltered.replace('ؤ', 'و');
+    // strTextFiltered = strTextFiltered.replace(/[\ؤ]/g, 'و');
+    // //
+    strTextFiltered = strTextFiltered.replace(/[\٩]/g, '9');
+    strTextFiltered = strTextFiltered.replace(/[\٨]/g, '8');
+    strTextFiltered = strTextFiltered.replace(/[\٧]/g, '7');
+    strTextFiltered = strTextFiltered.replace(/[\٦]/g, '6');
+    strTextFiltered = strTextFiltered.replace(/[\٥]/g, '5');
+    strTextFiltered = strTextFiltered.replace(/[\٤]/g, '4');
+    strTextFiltered = strTextFiltered.replace(/[\٣]/g, '3');
+    strTextFiltered = strTextFiltered.replace(/[\٢]/g, '2');
+    strTextFiltered = strTextFiltered.replace(/[\١]/g, '1');
+    strTextFiltered = strTextFiltered.replace(/[\٠]/g, '0');
+    //
+    return strTextFiltered;
+    //
+  }
+  
 
   
 }

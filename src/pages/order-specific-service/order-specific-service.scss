@@ -257,6 +257,12 @@ page-order-specific-service {
 .ion-md-star-half:before{
   transform: scale(-1,1);
 }
+.fab[mini] {
+  // margin: 8px;
+  width: 80px;
+  height: 80px;
+//   line-height: 40px;
+}
 
 }
 .toastRight{

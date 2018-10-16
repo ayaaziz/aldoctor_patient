@@ -33,7 +33,11 @@ export class ProfilePage {
   
   tostClass ;
 xxx;
+
 myRate;
+
+NODob = true;
+NOAddress = true;
 
   constructor(//private imagePicker: ImagePicker,
     //private base64: Base64,
@@ -103,9 +107,19 @@ myRate;
         this.name = data.name;
         this.phone = data.phone+"+";
         this.dob = data.dob;
+        if(!this.dob)
+            this.NODob = true;
+        else
+            this.NODob = false;
+            
         var addArr = data.add.split("-");
         // this.address = data.add;
         this.address = addArr[0];
+        if(!this.address)
+            this.NOAddress = true;
+        else
+            this.NOAddress = false;
+
         if(data.profile_pic)
           this.image = data.profile_pic;
        // this.image = "http://itrootsdemos.com/aldoctor/public/images/default-avatar.png";

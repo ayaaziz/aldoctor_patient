@@ -36,7 +36,7 @@ export class DoctorEvaluationPage {
   rateWordsWithId=[];
   ratedisabledbtn = false;
   ratesIDS=[];
-
+  hideText = true;
 
   constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider,public translate: TranslateService,
@@ -306,7 +306,7 @@ export class DoctorEvaluationPage {
 */
 
     }
-   
+    this.hideText = false;
 
   }
   rateClicked(event,item){

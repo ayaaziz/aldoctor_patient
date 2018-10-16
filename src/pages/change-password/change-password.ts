@@ -54,8 +54,8 @@ validPass=false;
       currentPass: ['', Validators.required],
       //newPass: ['', Validators.required],
       //confirmPassword: ['',matchOtherValidator('newPass')]
-      newPass: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid])],
-      confirmPassword: ['', Validators.compose([Validators.minLength(8), Validators.maxLength(30), Validators.required, passwordValidator.isValid, matchOtherValidator('newPass')])],
+      newPass: ['', Validators.compose([Validators.minLength(4), Validators.maxLength(30), Validators.required])],//, passwordValidator.isValid ,8
+      confirmPassword: ['', Validators.compose([Validators.minLength(4), Validators.maxLength(30), Validators.required , matchOtherValidator('newPass')])],//, passwordValidator.isValid
 
     }); 
   

@@ -13,11 +13,13 @@ export class ComplaintsPage {
   ratedisabledbtn ;
   moreReview;
   tostClass;
+  accessToken;
 
   constructor(public srv: ProvidedServicesProvider,public toastCtrl: ToastController,
     public navCtrl: NavController, public navParams: NavParams) {
     this.ratedisabledbtn = false;
     this.tostClass = "toastRight";
+    this.accessToken = localStorage.getItem('user_token');
     
   }
 
@@ -32,8 +34,25 @@ export class ComplaintsPage {
     console.log("moreREview",this.moreReview);
     if(!this.moreReview)
       this.presentToast("ادخل رسالتك");
-    else    
+    else 
+    {
       this.ratedisabledbtn = true;
+      this.srv.complains(this.moreReview,this.accessToken).subscribe(resp=>{
+        console.log("resp from compalins",resp);
+        if(JSON.parse(JSON.stringify(resp)).success == true)
+        {
+          this.presentToast("تم الارسال");
+          this.ratedisabledbtn = false;
+          this.navCtrl.pop();
+        } 
+      },err=>{
+        console.log("err from compalins",err);
+        this.presentToast("خطأ فى الاتصال");
+        this.ratedisabledbtn = false;
+
+      })
+    }   
+      
     
   }
   dismiss(){
