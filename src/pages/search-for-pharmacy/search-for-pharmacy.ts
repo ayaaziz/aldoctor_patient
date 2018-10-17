@@ -45,7 +45,7 @@ export class SearchForPharmacyPage {
   center_id = "";
   toastFlag = false;
   allMarkers = [] ;
-  city_id ;
+  city_id;
 
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,

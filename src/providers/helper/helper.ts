@@ -71,9 +71,10 @@ export class HelperProvider {
   backBtnInHelper = false;
   stillCount = false;
 
-  public city_id;
+  public city_id ="";
   
   public idForOrderToCancelItFromBack;
+  public myindexTobeoffline;
   
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,

@@ -38,6 +38,7 @@ export class SearchForDoctorPage {
   langDirection;
   tostClass ;
   locFlag= 0;
+  
   // locFlag= 1;
 
   toastFlag= false;

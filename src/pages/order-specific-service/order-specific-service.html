@@ -261,12 +261,24 @@
             اطلب
           </button>
         </ion-fab>
-
+<!-- <ion-icon name="add"></ion-icon> -->
+<!-- 
         <ion-fab center bottom>
           <button ion-fab mini style="background-color:#026938"  (click)="presentActionSheet()" >
-            <!-- <ion-icon name="add"></ion-icon> -->
+            
             {{medicalprescriptionImage}}
           </button>
-        </ion-fab>
+        </ion-fab> -->
+
+        <ion-item class="xx form-group" no-lines center bottom>
+          <button type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="color:#fff;background-color: #016a38 ; border-color: #016a38;margin:10px auto;" > 
+           
+            <ion-icon name="camera" style="color:#fff;font-size:20px;vertical-align: middle;"></ion-icon>
+            {{medicalprescriptionImage}}
+            
+          </button> 
+          
+        </ion-item>
+      
         
 </ion-content>

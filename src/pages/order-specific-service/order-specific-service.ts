@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {  ToastController, ActionSheetController , IonicPage, NavController, NavParams ,Events, App} from 'ionic-angular';
+import {  ToastController, ActionSheetController , IonicPage,AlertController, NavController, NavParams ,Events, App} from 'ionic-angular';
 import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -45,7 +45,7 @@ export class OrderSpecificServicePage {
   // doctors=[{"id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"},
   // {"id":2,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 2","color":"grey","offline":true,"place":"mansoura","cost":"300","rate":"3","specialization":"specialization2","profile_pic":"assets/imgs/default-avatar.png"},
   // {"id":3,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 3","color":"grey","offline":true,"place":"mansoura","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/default-avatar.png"}];
-
+  myindexTobeoffline;
 
   cost:number=0;
   choosenDoctors=[];
@@ -57,7 +57,7 @@ export class OrderSpecificServicePage {
   offline=false;
   searchValue;
   showLoading=true;
-  orderBTn = false;
+  orderBTn = true;//false
   imageFlag = true;
 
   center_id= "";
@@ -68,7 +68,7 @@ export class OrderSpecificServicePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public translate: TranslateService,  public events: Events,
     public helper:HelperProvider, public toastCtrl: ToastController, 
-    public storage: Storage,public camera: Camera, public app:App,
+    public storage: Storage,public camera: Camera, public app:App,public alertCtrl: AlertController,
     public srv:ProvidedServicesProvider,public service:LoginserviceProvider,
     public actionSheetCtrl: ActionSheetController) {
 
@@ -109,12 +109,14 @@ export class OrderSpecificServicePage {
         this.servicetitle = this.translate.instant("pharmacyName");
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
         this.hidePrice = true;
+        this.orderBTn = false;
       }else  if(this.type_id == "3")
       {
         this.title = this.translate.instant("specificlab");
         this.servicetitle = this.translate.instant("labName");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
         this.hidePrice = true;
+        this.orderBTn = false;
       } else  if(this.type_id == "2")
       {
         this.title = this.translate.instant("specificcenter");
@@ -329,6 +331,8 @@ export class OrderSpecificServicePage {
     if(item.checked == true)
       {
         this.choosenDoctors.push(item);
+        if(this.type_id == "2")
+          this.checkfund(item.price,item.id);
       }
     else
       {
@@ -402,6 +406,95 @@ export class OrderSpecificServicePage {
     
     console.log("doc after sort ",this.doctors);
   }
+
+  checkfund(itemPrice,itemId){
+    this.accessToken = localStorage.getItem('user_token');
+   
+    this.orderBTn = true;
+    // this.doctors[itemId].offline=true;
+    for(var g=0;g<this.doctors.length;g++){
+      if(itemId == this.doctors[g].id)
+      {this.myindexTobeoffline= g;
+        this.helper.myindexTobeoffline = g;
+      //  this.doctors[g].offline=true;
+      // localStorage.setItem('user_token', data.access_token)
+      }
+       
+    }
+
+    this.service.getFund(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getFund",resp);
+        var pfunds = JSON.parse(JSON.stringify(resp)).data;
+      
+        if(this.type_id == "2" )
+          {
+           
+            if(pfunds.order_count == 0)
+            {
+              this.orderBTn = false;
+              //this.doctors[this.myindexTobeoffline].offline=false;
+            }
+          else if(pfunds.order_count>0 && pfunds.order_count<3)
+            this.fundAlert(pfunds.forfeit_patient,itemPrice,this.myindexTobeoffline);
+          else if(pfunds.order_count >= 3)          
+            this.fundStopAlert(pfunds.forfeit_patient,itemPrice,this.myindexTobeoffline);
+
+          }
+
+       
+        
+        
+      },err=>{
+        console.log("err from getFund",err);
+      });
+  }
+  fundAlert(mony,price,id){
+    if(!price)
+    price="";
+    console.log("id or index",id);
+    
+    let alert = this.alertCtrl.create({
+      title: "تطبيق الدكتور",
+      message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+            this.orderBTn = true;
+            //this.doctors[this.myindexTobeoffline].offline=true;
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('agree clicked');
+            this.orderBTn = false;
+            //this.doctors[this.myindexTobeoffline].offline=false;
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  fundStopAlert(mony,price,id){
+    if(!price)
+    price="";
+
+    this.orderBTn = true;
+    //this.doctors[id].offline=true;
+      let alert = this.alertCtrl.create({
+        title: "تطبيق الدكتور",
+        message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+        buttons: ["حسنا"
+        ]
+      });
+      alert.present();
+    
+  }
+
 
 
   sendOrder(){

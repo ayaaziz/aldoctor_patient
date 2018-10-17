@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import {ToastController, IonicPage, NavController, NavParams,LoadingController ,App} from 'ionic-angular';
+import {ToastController, IonicPage, NavController, NavParams,LoadingController,AlertController ,App} from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -40,7 +40,7 @@ export class OrderDoctorPage {
   loading;
   showLoading=true;
 
-  orderBTn = false;
+  orderBTn = true; //fasle
   
 
   @ViewChild('fireSElect') sElement;
@@ -56,9 +56,10 @@ export class OrderDoctorPage {
   cost:number=0;
   choosenDoctors=[];
   refresher;
+  myindexTobeoffline;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController, 
-    public storage: Storage, public events: Events,
+    public storage: Storage, public events: Events,public alertCtrl: AlertController,
     public service:LoginserviceProvider,public navCtrl: NavController, 
     public navParams: NavParams,  public translate: TranslateService,
     public loadingCtrl: LoadingController, public app:App) {
@@ -607,6 +608,7 @@ export class OrderDoctorPage {
       {
   //      this.cost += parseInt(item.cost);
         this.choosenDoctors.push(item);
+        this.checkfund(item.discount,item.id);
       }
     else
       {
@@ -619,6 +621,105 @@ export class OrderDoctorPage {
 
   
   }
+
+
+  checkfund(itemPrice,itemId){
+
+    this.accessToken = localStorage.getItem('user_token');
+   
+    this.orderBTn = true;
+    // console.log("checked itemid",itemId,"object: ",this.DoctorsArray[itemId]);
+    // console.log("array",this.DoctorsArray);
+   
+
+   for(var g=0;g<this.DoctorsArray.length;g++){
+     if(itemId == this.DoctorsArray[g].id)
+     {
+      this.myindexTobeoffline= g;
+      this.helper.myindexTobeoffline = g;
+      // this.DoctorsArray[g].offline=true;
+
+      // localStorage.setItem('myindexTobeoffline',g);
+     }
+      
+   }
+    this.service.getFund(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getFund",resp);
+        var pfunds = JSON.parse(JSON.stringify(resp)).data;
+      
+       
+           
+            if(pfunds.order_count == 0)
+            {
+              this.orderBTn = false;
+      //        this.DoctorsArray[this.helper.myindexTobeoffline].offline=false;
+            }
+          else if(pfunds.order_count>0 && pfunds.order_count<3)
+            this.fundAlert(pfunds.forfeit_patient,itemPrice,this.helper.myindexTobeoffline);
+          else if(pfunds.order_count >= 3)          
+            this.fundStopAlert(pfunds.forfeit_patient,itemPrice,this.helper.myindexTobeoffline);
+
+          
+
+       
+        
+        
+      },err=>{
+        console.log("err from getFund",err);
+      });
+  }
+  fundAlert(mony,price,id){
+    if(!price)
+    price="";
+
+    console.log("id or index",id);
+    let alert = this.alertCtrl.create({
+      title: "تطبيق الدكتور",
+      message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+            this.orderBTn = true;
+
+        //    this.DoctorsArray[this.helper.myindexTobeoffline].offline=true;
+
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('agree clicked');
+            this.orderBTn = false;
+          //  this.DoctorsArray[this.helper.myindexTobeoffline].offline=false;
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  fundStopAlert(mony,price,id){
+    if(!price)
+      price="";
+
+    this.orderBTn = true;
+    //this.DoctorsArray[this.helper.myindexTobeoffline].offline=true;
+      let alert = this.alertCtrl.create({
+        title: "تطبيق الدكتور",
+        message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+        buttons: ["حسنا"
+        ]
+      });
+
+      alert.present();
+    
+  }
+
+
+
   sendOrder(){
     console.log("first: ",this.first);
     console.log("second: ",this.second);
@@ -648,7 +749,7 @@ export class OrderDoctorPage {
 console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.service_profile_id)
          
           this.helper.orderIdForUpdate = newOrder.order.id;
-          this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+          //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
           //this.helper.orderStatusChanged(newOrder.order.id);
 
           

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController, IonicPage, NavController, NavParams, Events, App } from 'ionic-angular';
+import { AlertController, ToastController, IonicPage, NavController, NavParams, Events, App } from 'ionic-angular';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,6 +18,7 @@ import { HelperProvider } from '../../providers/helper/helper';
 export class SpecificDoctorPage {
   
   // disableButton=true;
+  myindexTobeoffline;
   Specialization="";
   spText;
   SpecializationArray=[];
@@ -42,12 +43,12 @@ export class SpecificDoctorPage {
   searchValue;
   showLoading=true;
 
-  orderBTn = false;
+  orderBTn = true; //fasle
   searchValForRefresh="";
   refresher;
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
-    public storage: Storage,  public events: Events,public app:App,
+    public storage: Storage,  public events: Events,public app:App,public alertCtrl: AlertController,
     public service:LoginserviceProvider, public navCtrl: NavController,
      public navParams: NavParams, public translate: TranslateService) {
 
@@ -677,6 +678,7 @@ this.events.subscribe('location', (data) => {
     {
       //this.cost += parseInt(item.cost);
       this.choosenDoctors.push(item);
+      this.checkfund(item.discount,item.id);
     }
     else
     {
@@ -689,6 +691,98 @@ this.events.subscribe('location', (data) => {
 
       
   }
+
+  checkfund(itemPrice,itemId){
+    this.accessToken = localStorage.getItem('user_token');
+   
+    this.orderBTn = true;
+   
+//    this.doctors[itemId].offline=true;
+
+for(var g=0;g<this.doctors.length;g++){
+  if(itemId == this.doctors[g].id)
+  {this.myindexTobeoffline= g;
+     this.helper.myindexTobeoffline = g;
+    //this.doctors[g].offline=true;
+
+  }
+   
+}
+
+    this.service.getFund(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getFund",resp);
+        var pfunds = JSON.parse(JSON.stringify(resp)).data;
+      
+       
+           
+            if(pfunds.order_count == 0)
+            {
+              this.orderBTn = false;
+      //        this.doctors[this.helper.myindexTobeoffline].offline=false;
+            }
+            
+          else if(pfunds.order_count>0 && pfunds.order_count<3)
+            this.fundAlert(pfunds.forfeit_patient,itemPrice,this.helper.myindexTobeoffline);
+          else if(pfunds.order_count >= 3)          
+            this.fundStopAlert(pfunds.forfeit_patient,itemPrice,this.helper.myindexTobeoffline);
+
+          
+
+       
+        
+        
+      },err=>{
+        console.log("err from getFund",err);
+      });
+  }
+  fundAlert(mony,price,id){
+    if(!price)
+    price="";
+    
+    console.log("id or index",id);
+
+    let alert = this.alertCtrl.create({
+      title: "تطبيق الدكتور",
+      message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+            this.orderBTn = true;
+        //    this.doctors[this.helper.myindexTobeoffline].offline=true;
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('agree clicked');
+            this.orderBTn = false;
+          //  this.doctors[this.helper.myindexTobeoffline].offline=false;
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  fundStopAlert(mony,price,id){
+    if(!price)
+    price="";
+    this.orderBTn = true;
+    //this.doctors[id].offline=true;
+      let alert = this.alertCtrl.create({
+        title: "تطبيق الدكتور",
+        message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+        buttons: ["حسنا"
+        ]
+      });
+      alert.present();
+    
+  }
+
+
   sendOrder(){
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
@@ -713,7 +807,7 @@ this.events.subscribe('location', (data) => {
           
           this.helper.orderIdForUpdate = newOrder.order.id;
 
-          this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+          //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
           //this.helper.orderStatusChanged(newOrder.order.id);
 
           this.presentToast(this.translate.instant("ordersent"));

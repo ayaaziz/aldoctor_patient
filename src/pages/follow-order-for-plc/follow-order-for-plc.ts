@@ -849,7 +849,7 @@ private presentToast(text) {
         {
           this.status11alertDisabled = true;
           console.log("status 11 from refresh");
-          this.presentAlert("#)تطبيق الدكتور"+this.orderId+" ) "," تم الغاء الطلب من قبل " + this.doctorName);
+          this.presentAlert("تطبيق الدكتور (#"+this.orderId+" ) "," تم الغاء الطلب من قبل " + this.doctorName);
           this.helper.removeNetworkDisconnectionListener();
           this.storage.remove("orderImages");      
         }
@@ -857,7 +857,7 @@ private presentToast(text) {
         {
           //بدء التوصيل
           this.status8alertdiabled = true;
-          this.presentdelivaryAlert("#)تطبيق الدكتور"+this.orderId+" ) "," تم بدء توجه المتخصص لدي " + this.doctorName + "  اليك "); //+this.orderId
+          this.presentdelivaryAlert("تطبيق الدكتور (#"+this.orderId+" ) "," تم بدء توجه المتخصص لدي " + this.doctorName + "  اليك "); //+this.orderId
           this.events.publish('status8ForPLC');
         }
         if(this.refreshOrderStatus == "12" && this.status12alertdisabled== false)

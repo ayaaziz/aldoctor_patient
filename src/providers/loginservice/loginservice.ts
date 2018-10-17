@@ -636,5 +636,16 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.get(serviceUrl,{headers: headers });
   } 
 
+  getFund(access_token){
+
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('','');
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/patient/forfeit';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+   
+    
+  }
+
 }
 

@@ -124,11 +124,22 @@ addArr;
      
         this.nameArr = data.name.split(" ");
         this.firstname = this.nameArr[0];
-        this.secondname = this.nameArr[1];
-        this.surname = this.nameArr[2];
+        if(this.nameArr[1])
+          this.secondname = this.nameArr[1];
+        else
+        this.secondname = "";
+          
+        if(this.nameArr[2])
+          this.surname = this.nameArr[2];
+        else 
+          this.surname ="";
       //  this.phone = data.phone;
-        this.birthdate = data.dob;
-        this.addArr = data.add.split("-");
+        if(data.dob)
+          this.birthdate = data.dob;
+        else
+          this.birthdate = "";
+        
+          this.addArr = data.add.split("-");
 
         // this.countries.push({name:this.addArr[2]});
         // this.cities.push({name:this.addArr[1]});
@@ -137,7 +148,6 @@ addArr;
         
         //  debugger;
 
-        
         this.country = this.addArr[2];
         this.city = this.addArr[1];
         this.cities.push(this.city);
