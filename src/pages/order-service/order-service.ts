@@ -174,7 +174,7 @@ export class OrderServicePage {
               this.DoctorsArray[k].moreTxt = "متوافر";
               console.log("offline false ",this.DoctorsArray[k]);
               console.log("call sort function from status changed");
-              this.sortDoctors();
+              //r this.sortDoctors();
 
             }else if (data.status == "0")
             {
@@ -183,7 +183,7 @@ export class OrderServicePage {
               this.DoctorsArray[k].moreTxt="غير متوافر";
 
               console.log("call sort function from status changed");
-              this.sortDoctors();
+              //r this.sortDoctors();
             }
           }
           
@@ -206,7 +206,7 @@ export class OrderServicePage {
               this.DoctorsArray[k].moreTxt = "متوافر";
               console.log("offline false ",this.DoctorsArray[k]);
               console.log("call sort function from status");
-              this.sortDoctors();
+              //r this.sortDoctors();
 
             }else if (data.status == "0")
             {
@@ -215,7 +215,7 @@ export class OrderServicePage {
               this.DoctorsArray[k].moreTxt="غير متوافر";
 
               console.log("call sort function whenfrom status");
-              this.sortDoctors();
+             //r  this.sortDoctors();
             }
           } 
         }
@@ -288,7 +288,7 @@ export class OrderServicePage {
           this.DoctorsArray[k].moreTxt="غير متوافر";
 
           console.log("call sort function from get busy red");
-              this.sortDoctors();
+          //r    this.sortDoctors();
 
         }else if (data.status == "0")
         {
@@ -299,7 +299,7 @@ export class OrderServicePage {
           console.log("offline false ",this.DoctorsArray[k]);
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from get busy green");
-              this.sortDoctors();
+          //r    this.sortDoctors();
         }
   
       } 
@@ -321,7 +321,7 @@ export class OrderServicePage {
           this.DoctorsArray[k].moreTxt="غير متوافر";
 
           console.log("call sort function from get busy changed");
-              this.sortDoctors();
+          //r    this.sortDoctors();
 
         } else if (data.status == "0")
         {
@@ -331,7 +331,7 @@ export class OrderServicePage {
           console.log("offline false ",this.DoctorsArray[k]);
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from get busy changed");
-              this.sortDoctors();
+          //r    this.sortDoctors();
         }
 
   
@@ -626,7 +626,7 @@ Loadfunc(){
         if(i == (this.DoctorsArray.length -1))
         {
           console.log("call sort function");
-          this.sortDoctors();
+         //r this.sortDoctors();
         }
 
       },
