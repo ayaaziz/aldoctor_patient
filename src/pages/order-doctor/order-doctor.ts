@@ -637,7 +637,7 @@ export class OrderDoctorPage {
      {
       this.myindexTobeoffline= g;
       this.helper.myindexTobeoffline = g;
-      // this.DoctorsArray[g].offline=true;
+      //this.DoctorsArray[g].offlineFororders=true;
 
       // localStorage.setItem('myindexTobeoffline',g);
      }
@@ -653,7 +653,12 @@ export class OrderDoctorPage {
             if(pfunds.order_count == 0)
             {
               this.orderBTn = false;
-      //        this.DoctorsArray[this.helper.myindexTobeoffline].offline=false;
+            //   for(var k=0;k<this.DoctorsArray.length;k++)
+            // {
+            //   this.DoctorsArray[k].offlineFororders=false;
+            // }
+
+            //  this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=false;
             }
           else if(pfunds.order_count>0 && pfunds.order_count<3)
             this.fundAlert(pfunds.forfeit_patient,itemPrice,this.helper.myindexTobeoffline);
@@ -685,7 +690,12 @@ export class OrderDoctorPage {
             console.log('disagree clicked');
             this.orderBTn = true;
 
-        //    this.DoctorsArray[this.helper.myindexTobeoffline].offline=true;
+            // for(var k=0;k<this.DoctorsArray.length;k++)
+            // {
+            //   this.DoctorsArray[k].offlineFororders=true;
+            // }
+
+          //  this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=true;
 
           }
         },
@@ -694,7 +704,13 @@ export class OrderDoctorPage {
           handler: () => {
             console.log('agree clicked');
             this.orderBTn = false;
-          //  this.DoctorsArray[this.helper.myindexTobeoffline].offline=false;
+
+            // for(var k=0;k<this.DoctorsArray.length;k++)
+            // {
+            //   this.DoctorsArray[k].offlineFororders=false;
+            // }
+
+            // this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=false;
           }
         }
       ]
@@ -706,7 +722,12 @@ export class OrderDoctorPage {
       price="";
 
     this.orderBTn = true;
-    //this.DoctorsArray[this.helper.myindexTobeoffline].offline=true;
+    // for(var k=0;k<this.DoctorsArray.length;k++)
+    // {
+    //   this.DoctorsArray[k].offlineFororders=true;
+    // }
+    
+    // this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=true;
       let alert = this.alertCtrl.create({
         title: "تطبيق الدكتور",
         message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",

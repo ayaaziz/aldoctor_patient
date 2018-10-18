@@ -331,7 +331,7 @@ export class OrderSpecificServicePage {
     if(item.checked == true)
       {
         this.choosenDoctors.push(item);
-        if(this.type_id == "2")
+        // if(this.type_id == "2")
           this.checkfund(item.price,item.id);
       }
     else
@@ -427,8 +427,8 @@ export class OrderSpecificServicePage {
         console.log("resp from getFund",resp);
         var pfunds = JSON.parse(JSON.stringify(resp)).data;
       
-        if(this.type_id == "2" )
-          {
+        // if(this.type_id == "2" )
+        //   {
            
             if(pfunds.order_count == 0)
             {
@@ -440,7 +440,7 @@ export class OrderSpecificServicePage {
           else if(pfunds.order_count >= 3)          
             this.fundStopAlert(pfunds.forfeit_patient,itemPrice,this.myindexTobeoffline);
 
-          }
+        //  }
 
        
         
@@ -454,9 +454,15 @@ export class OrderSpecificServicePage {
     price="";
     console.log("id or index",id);
     
+    var msg; 
+    if(this.type_id == "2")
+      msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+    else 
+      msg =  "مبلغ الغرامه: "+mony +"<br>";
+
     let alert = this.alertCtrl.create({
       title: "تطبيق الدكتور",
-      message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+      message:msg,
       buttons: [
         {
           text: this.translate.instant("disagree"),
@@ -483,11 +489,17 @@ export class OrderSpecificServicePage {
     if(!price)
     price="";
 
+    var msg; 
+    if(this.type_id == "2")
+      msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+    else 
+      msg =  "مبلغ الغرامه: "+mony +"<br>";
+      // "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>"
     this.orderBTn = true;
     //this.doctors[id].offline=true;
       let alert = this.alertCtrl.create({
         title: "تطبيق الدكتور",
-        message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+        message:msg,
         buttons: ["حسنا"
         ]
       });

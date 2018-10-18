@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController ,ActionSheetController, App} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController ,ActionSheetController, App,AlertController} from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -48,7 +48,7 @@ export class ServiceProfilePage {
   hideServices = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public toastCtrl: ToastController, 
+    public toastCtrl: ToastController, public alertCtrl: AlertController,
     public storage: Storage, public app:App,
     public service:LoginserviceProvider,public srv:ProvidedServicesProvider,
     public helper: HelperProvider,public translate: TranslateService,
@@ -139,9 +139,17 @@ export class ServiceProfilePage {
     {
       this.presentToast(this.translate.instant("doctoroffline"));
     }else{
+      // if(this.type_id == "2")
+        this.checkfund();
+      // else
+      //   this.completeOrders();
+    }
+  
+  }
 
-    
-      this.offline = "1";
+  completeOrders(){
+
+    this.offline = "1";
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
     // this.storage.get("access_token").then(data=>{
@@ -193,12 +201,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           console.log("saveOrder error: ",err);
           this.presentToast(this.translate.instant("serverError"));
         }
-      );  
-
-  // });
-
-}
-  
+      );
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({
@@ -287,5 +290,104 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     console.log("viewRates");
     this.navCtrl.push('view-rates',{data:this.serviceId});
   }
+
+
+  checkfund(){
+
+    this.accessToken = localStorage.getItem('user_token');
+   
+    this.service.getFund(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getFund",resp);
+        var pfunds = JSON.parse(JSON.stringify(resp)).data;
+      
+       
+           
+            if(pfunds.order_count == 0)
+              this.completeOrders();
+            else if(pfunds.order_count>0 && pfunds.order_count<3)
+              this.fundAlert(pfunds.forfeit_patient,this.doctorProfile.price);
+          else if(pfunds.order_count >= 3)          
+            this.fundStopAlert(pfunds.forfeit_patient,this.doctorProfile.price);
+
+          
+
+       
+        
+        
+      },err=>{
+        console.log("err from getFund",err);
+      });
+  }
+  fundAlert(mony,price){
+    if(!price)
+    price="";
+    var msg;
+  
+  if(this.type_id == "2")
+    msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+  else 
+    msg =  "مبلغ الغرامه: "+mony +"<br>";
+
+    let alert = this.alertCtrl.create({
+      title: "تطبيق الدكتور",
+      message:msg,
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+  
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('agree clicked');
+   //         this.orderBTn = false;
+
+            // for(var k=0;k<this.DoctorsArray.length;k++)
+            // {
+            //   this.DoctorsArray[k].offlineFororders=false;
+            // }
+
+            // this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=false;
+            this.completeOrders();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  fundStopAlert(mony,price){
+    if(!price)
+      price="";
+
+     var msg; 
+    if(this.type_id == "2")
+      msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+    else 
+      msg =  "مبلغ الغرامه: "+mony +"<br>";
+
+    // this.orderBTn = true;
+    // for(var k=0;k<this.DoctorsArray.length;k++)
+    // {
+    //   this.DoctorsArray[k].offlineFororders=true;
+    // }
+    
+    // this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=true;
+      let alert = this.alertCtrl.create({
+        title: "تطبيق الدكتور",
+        message:msg,
+        buttons: ["حسنا"
+        ]
+      });
+
+      alert.present();
+    
+  }
+
+
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController,App } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController,App,AlertController } from 'ionic-angular';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
@@ -32,10 +32,11 @@ export class DoctorProfilePage {
   bio;
   location;
   serviceId;
+  offlinefororders;
 
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, public app:App,
-    public service:LoginserviceProvider,
+    public service:LoginserviceProvider,public alertCtrl: AlertController,
     public helper: HelperProvider, public navCtrl: NavController,
      public navParams: NavParams,public translate: TranslateService) {
 
@@ -61,7 +62,7 @@ export class DoctorProfilePage {
     this.services = this.doctorProfile.speciality_services;
     this.serviceId = this.doctorProfile.id;
     
-    if(this.doctorProfile.offline == true)
+    if(this.doctorProfile.offline == true )//|| this.doctorProfile.offlineFororders == true
       this.offline = "1";
     else
       this.offline = "0";
@@ -82,9 +83,17 @@ export class DoctorProfilePage {
     if(this.offline == "1")
     {
       this.presentToast(this.translate.instant("doctoroffline"));
-    }else{
+    }
+    else{
+     this.checkfund();
+     // this.completeOrders();
+     }
+  }
 
-    
+
+  completeOrders(){
+
+
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
     // this.storage.get("access_token").then(data=>{
@@ -116,11 +125,8 @@ export class DoctorProfilePage {
         console.log("saveOrder error: ",err);
         this.presentToast(this.translate.instant("serverError"));
       }
-    ); 
+    );
 
-  // });
-
-}
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({
@@ -135,5 +141,99 @@ export class DoctorProfilePage {
     console.log("viewRates");
     this.navCtrl.push('view-rates',{data:this.serviceId});
   }
+
+  checkfund(){
+
+    this.accessToken = localStorage.getItem('user_token');
+   
+    this.service.getFund(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getFund",resp);
+        var pfunds = JSON.parse(JSON.stringify(resp)).data;
+      
+       
+           
+            if(pfunds.order_count == 0)
+              this.completeOrders();
+            else if(pfunds.order_count>0 && pfunds.order_count<3)
+              this.fundAlert(pfunds.forfeit_patient,this.doctorProfile.discount);
+          else if(pfunds.order_count >= 3)          
+            this.fundStopAlert(pfunds.forfeit_patient,this.doctorProfile.discount);
+
+          
+
+       
+        
+        
+      },err=>{
+        console.log("err from getFund",err);
+      });
+  }
+  fundAlert(mony,price){
+    if(!price)
+    price="";
+
+  
+    let alert = this.alertCtrl.create({
+      title: "تطبيق الدكتور",
+      message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+  //          this.orderBTn = true;
+
+            // for(var k=0;k<this.DoctorsArray.length;k++)
+            // {
+            //   this.DoctorsArray[k].offlineFororders=true;
+            // }
+
+          //  this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=true;
+
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('agree clicked');
+   //         this.orderBTn = false;
+
+            // for(var k=0;k<this.DoctorsArray.length;k++)
+            // {
+            //   this.DoctorsArray[k].offlineFororders=false;
+            // }
+
+            // this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=false;
+            this.completeOrders();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+  fundStopAlert(mony,price){
+    if(!price)
+      price="";
+
+    // this.orderBTn = true;
+    // for(var k=0;k<this.DoctorsArray.length;k++)
+    // {
+    //   this.DoctorsArray[k].offlineFororders=true;
+    // }
+    
+    // this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=true;
+      let alert = this.alertCtrl.create({
+        title: "تطبيق الدكتور",
+        message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+        buttons: ["حسنا"
+        ]
+      });
+
+      alert.present();
+    
+  }
+
 
 }
