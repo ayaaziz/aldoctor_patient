@@ -499,7 +499,9 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-rate-criteriea';
+    
+    // let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-rate-criteriea';
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-doctor-rate-criteriea';
     
     return this.http.get(serviceUrl,{headers: headers });
   }
@@ -507,8 +509,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-rate-criteriea?rate='+rateId;
-    
+    // let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-rate-criteriea?rate='+rateId;
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-doctor-rate-criteriea?rate='+rateId;
     return this.http.get(serviceUrl,{headers: headers });
   }
 

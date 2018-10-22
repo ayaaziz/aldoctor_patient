@@ -64,14 +64,21 @@ export class ProvidedServicesProvider {
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
   
     var serviceUrl;
-    if(type_id == "1")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/pharmacy-rate-criteriea';
-    else if (type_id == "2")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/center-rate-criteriea';
-    else if (type_id == "3")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/xray-rate-criteriea';
+    // if(type_id == "1")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/pharmacy-rate-criteriea';
+    // else if (type_id == "2")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/center-rate-criteriea';
+    // else if (type_id == "3")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/xray-rate-criteriea';
 
-    
+      if(type_id == "1")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-pharmacy-rate-criteriea';
+    else if (type_id == "2")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea';
+    else if (type_id == "3")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-xray-rate-criteriea';
+
+      
     return this.http.get(serviceUrl,{headers: headers });
   }
   reteWordsComments(rateId,type_id,access_token){
@@ -80,14 +87,20 @@ export class ProvidedServicesProvider {
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     // let serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-rate-criteriea?rate='+rateId;
     var serviceUrl;
-    if(type_id == "1")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/pharmacy-rate-criteriea?rate='+rateId;
-    else if (type_id == "2")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/center-rate-criteriea?rate='+rateId;
-    else if (type_id == "3")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/xray-rate-criteriea?rate='+rateId;
+    // if(type_id == "1")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/pharmacy-rate-criteriea?rate='+rateId;
+    // else if (type_id == "2")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/center-rate-criteriea?rate='+rateId;
+    // else if (type_id == "3")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/xray-rate-criteriea?rate='+rateId;
 
-    
+    if(type_id == "1")
+    serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-pharmacy-rate-criteriea?rate='+rateId;
+  else if (type_id == "2")
+    serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea?rate='+rateId;
+  else if (type_id == "3")
+    serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-xray-rate-criteriea?rate='+rateId;
+  
     return this.http.get(serviceUrl,{headers: headers });
   }
   cancelreasons(type_id,access_token){
