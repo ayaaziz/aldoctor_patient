@@ -63,7 +63,7 @@
     <form [formGroup]="patientRegisterForm" [hidden]="first">
         <!-- style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;margin-bottom: 15px;" -->
         <ion-item  [class.invalid]="!patientRegisterForm.controls.firstname.valid && submitAttempt">
-            <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+            <ion-label><span style="color:red;font-size: 20px;">*</span><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
             <ion-input *ngIf="langDirection != 'rtl'" placeholder="First Name"   style="border-radius: 2px;padding: 0px;" formControlName="firstname" [(ngModel)]="firstname"
             type="text" [dir]="langDirection" ></ion-input>
             <ion-input *ngIf="langDirection == 'rtl'"  class="right"  placeholder="الاسم الاول"    style="border-radius: 2px;padding: 0px;" formControlName="firstname" [(ngModel)]="firstname"

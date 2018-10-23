@@ -111,13 +111,22 @@ export class ProvidedServicesProvider {
      
       // let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-cancel-reasons?lang='+lang;
       var serviceUrl;
-    if(type_id == "1")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/pharma-cancel-reasons?lang='+lang;
-    else if (type_id == "2")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/t7alel-cancel-reasons?lang='+lang;
-    else if (type_id == "3")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/ashe3a-cancel-reasons?lang='+lang;
+    // if(type_id == "1")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/pharma-cancel-reasons?lang='+lang;
+    // else if (type_id == "2")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/t7alel-cancel-reasons?lang='+lang;
+    // else if (type_id == "3")
+    //   serviceUrl = this.helper.serviceUrl +'api/get/lkps/ashe3a-cancel-reasons?lang='+lang;
 
+    
+      if(type_id == "1")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-pharmacy-cancel-reasons?lang='+lang;
+    else if (type_id == "2")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-center-cancel-reasons?lang='+lang;
+    else if (type_id == "3")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-xray-cancel-reasons?lang='+lang;
+
+    
       return this.http.get(serviceUrl,{headers: headers })
       
   }

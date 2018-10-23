@@ -343,7 +343,9 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       //let serviceUrl = this.helper.serviceUrl +'api/get/lkps/cancel-reasons';
-      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-cancel-reasons?lang='+lang;
+      //let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-cancel-reasons?lang='+lang;
+      // users-doctor-cancel-reasons
+      let serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-doctor-cancel-reasons?lang='+lang;
       return this.http.get(serviceUrl,{headers: headers })
       
   }
@@ -481,7 +483,10 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   changePhoneNumber(phone,access_token){
     console.log("access token from change phone",access_token);
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('phone','2'+phone);
+    if( phone.toString()[0] != "2")
+        phone= '2'+phone;
+
+    let parameter = new HttpParams().set('phone',phone);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/change-phone';
@@ -526,7 +531,13 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
   checkPhoneWithCode(phone,code,access_token){
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set("phone",'2'+phone).set("code",code);
+    console.log("phone from checkPhoneWithCode",phone);
+    if( phone.toString()[0] != "2")
+        phone= '2'+phone;
+    
+    console.log("phone from checkPhoneWithCode after if",phone);
+
+    let parameter = new HttpParams().set("phone",phone).set("code",code);
     // console.log("parameters from service: ",parameter);
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/change-phone-code';
