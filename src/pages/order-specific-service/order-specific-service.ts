@@ -57,7 +57,7 @@ export class OrderSpecificServicePage {
   offline=false;
   searchValue;
   showLoading=true;
-  orderBTn = true;//false
+  orderBTn = false;//true
   imageFlag = true;
 
   center_id= "";
@@ -332,7 +332,7 @@ export class OrderSpecificServicePage {
       {
         this.choosenDoctors.push(item);
         // if(this.type_id == "2")
-          this.checkfund(item.price,item.id);
+         // this.checkfund(item.price,item.id);
       }
     else
       {
@@ -455,10 +455,15 @@ export class OrderSpecificServicePage {
     console.log("id or index",id);
     
     var msg; 
+    // if(this.type_id == "2")
+    //   msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+    // else 
+    //   msg =  "مبلغ الغرامه: "+mony +"<br>";
     if(this.type_id == "2")
-      msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"+ " قيمة الأشعه: "+price+" جنيه مصرى<br>";
     else 
-      msg =  "مبلغ الغرامه: "+mony +"<br>";
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"
+
 
     let alert = this.alertCtrl.create({
       title: "تطبيق الدكتور",
@@ -490,11 +495,19 @@ export class OrderSpecificServicePage {
     price="";
 
     var msg; 
+    // if(this.type_id == "2")
+    //   msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+    // else 
+    //   msg =  "مبلغ الغرامه: "+mony +"<br>";
+
+
     if(this.type_id == "2")
-      msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"+ " قيمة الأشعه: "+price+" جنيه مصرى<br>";
     else 
-      msg =  "مبلغ الغرامه: "+mony +"<br>";
-      // "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>"
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"
+
+
+    // "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>"
     this.orderBTn = true;
     //this.doctors[id].offline=true;
       let alert = this.alertCtrl.create({
@@ -778,7 +791,9 @@ searchFunc(searchVal){
         else 
         doctorData["result"][i].doctorName = doctorData["result"][i].name;
 
-  
+        if(! doctorData["result"][i].rate)
+          doctorData["result"][i].rate = 5;
+
 
       if(doctorData["result"][i].busy == "1")
       {

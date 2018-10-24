@@ -254,7 +254,7 @@
       "chooseLocationB2a":"الرجاء تحديد موقعك علي الخريطة",
       "invalidData":"رقم الهاتف أو كلمه المرور غير صحيحة",
       "passNotCorrect":"كلمه المرور الحاليه غير صحيحة",
-      "phoneAlreadyExist":"رقم الهاتف موجود",
+      "phoneAlreadyExist":"  رقم الهاتف موجود من قبل ",
       "codeErr":"كود التفعيل يجب أن يكون 5 أرقام",
       "fromGreaterThanTo":"الفتره من تسبق الفتره إلى  ",
       "invalidEmailAddress":"البريد الالكترونى غير صحيح",
@@ -281,6 +281,6 @@
       "maxNumberOFIMages":"إختر صورتين فقط",
       "serviceRate":"تقييم الخدمه",
       "contorder":"إكمال الطلب",
-      "complaints":"الشكاوى",
+      "complaints":"إرسال شكوى",
       "send":"ارسل"
 }

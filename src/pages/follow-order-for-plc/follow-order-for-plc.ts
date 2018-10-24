@@ -808,14 +808,15 @@ private presentToast(text) {
     //   txt = "سوف يصلك الطلب ف خلال "+m+" دقيقه";
     if(this.type_id == "1")
       txt =  " سوف يصلك الطلب من قبل " + this.doctorName ;
-    else if (this.type_id == "2" || this.type_id == "3")
-      txt =  " سوف يصلك الطلب من قبل " + this.doctorName ;
+    
+    // else if (this.type_id == "2" || this.type_id == "3")
+    //   txt =  " سوف يصلك الطلب من قبل " + this.doctorName ;
 
 //+ 1 * 1000
 
     this.localNotifications.schedule({
       id: 1,
-      title: "تطبيق الدكتور",
+      title: "تطبيق الدكتور (#"+this.orderId+" ) ",
       text:txt,
       data: { mydata: 'My hidden message' },
       trigger:{ at: new Date(new Date().getTime())}

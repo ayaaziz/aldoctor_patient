@@ -71,7 +71,7 @@
   
   <ion-col col-4 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">
     <ion-datetime displayFormat="DD/MM/YYYY" style="height:35px;background-color: #e8f1ed;text-align:right"
-      [(ngModel)]="from" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateFromChanged($event)"></ion-datetime> 
+      [(ngModel)]="from" [max]="maxDate" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateFromChanged($event)"></ion-datetime> 
       <div *ngIf="langDirection != 'rtl'" style="text-align:right">
       <img src="assets/icon/arrow.png" style="margin-top:-55px;width:15px;height:15px;padding-left:2px">  
     </div>

@@ -44,14 +44,14 @@
         <img src="assets/imgs/dlogo.png" class="rounded mx-auto d-block" style="max-width:40%;margin-top: 35px;">
       </div>
     
-      <h4  style="text-align: right;margin-right:5px;" >اترك رسالتك</h4>
+      <!-- <h4  style="text-align: right;margin-right:5px;" >اترك رسالتك</h4> -->
       <div class="form-group">
-        <textarea class="form-control" [(ngModel)]="moreReview" rows="5" id="comment" style="background-color: #e8f1ed"></textarea>  
+        <textarea class="form-control" [(ngModel)]="moreReview" rows="5" id="comment" style="background-color: #e8f1ed" placeholder="اترك رسالتك ..."></textarea>  
       </div>
         
       <ion-item style="text-align:center;" no-lines>
-        <button  [disabled]="ratedisabledbtn"  type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="send()"> {{"send" | translate}}</button>  
+        <button  [disabled]="ratedisabledbtn"  type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="send()">إرسال</button>  
       </ion-item>
   
-    
+      <!-- {{"send" | translate}} -->
 </ion-content>

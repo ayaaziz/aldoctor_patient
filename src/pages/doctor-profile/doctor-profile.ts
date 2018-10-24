@@ -176,7 +176,7 @@ export class DoctorProfilePage {
   
     let alert = this.alertCtrl.create({
       title: "تطبيق الدكتور",
-      message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+      message:" قيمة الغرامه: "+mony +" جنيه مصرى <br>"+ " قيمه الكشف: "+price+" جنيه مصرى<br>",
       buttons: [
         {
           text: this.translate.instant("disagree"),
@@ -226,7 +226,7 @@ export class DoctorProfilePage {
     // this.DoctorsArray[this.helper.myindexTobeoffline].offlineFororders=true;
       let alert = this.alertCtrl.create({
         title: "تطبيق الدكتور",
-        message:"مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>",
+        message:" قيمة الغرامه: "+mony +" جنيه مصرى <br>"+ " قيمه الكشف: "+price+" جنيه مصرى<br>",
         buttons: ["حسنا"
         ]
       });

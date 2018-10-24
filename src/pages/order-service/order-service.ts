@@ -65,7 +65,7 @@ export class OrderServicePage {
   loading;
   showLoading=true;
 
-  orderBTn = true; //fasle
+  orderBTn = false; //true
   
   photosForApi=[];
   //photos = ["assets/imgs/empty-image.png","assets/imgs/empty-image.png"];
@@ -655,7 +655,7 @@ Loadfunc(){
       {
         this.choosenDoctors.push(item);
         // if(this.type_id == "2")
-          this.checkfund(item.price,item.id);
+         // this.checkfund(item.price,item.id);
       }
     else
       {
@@ -714,11 +714,12 @@ Loadfunc(){
     price="";
     console.log("id or index",id);
 
-    var msg; 
+    var msg;
+    // msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>"; 
     if(this.type_id == "2")
-      msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"+ " قيمة الأشعه: "+price+" جنيه مصرى<br>";
     else 
-      msg =  "مبلغ الغرامه: "+mony +"<br>";
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"
 
       // "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>"
     let alert = this.alertCtrl.create({
@@ -752,10 +753,15 @@ Loadfunc(){
 
 
     var msg; 
+    // if(this.type_id == "2")
+    //   msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+    // else 
+    //   msg =  "مبلغ الغرامه: "+mony +"<br>";
+
     if(this.type_id == "2")
-      msg = "مبلغ الغرامه: "+mony +"<br>"+ " مبلغ الخدمه: "+price+"<br>";
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"+ " قيمة الأشعه: "+price+" جنيه مصرى<br>";
     else 
-      msg =  "مبلغ الغرامه: "+mony +"<br>";
+      msg = " قيمة الغرامه: "+mony +" جنيه مصرى <br>"
 
 
     this.orderBTn = true;

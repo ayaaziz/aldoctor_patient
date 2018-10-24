@@ -7,6 +7,8 @@ import { SpecializationsPage } from '../specializations/specializations';
 import { LoginPage } from '../login/login';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { subscribeOn } from 'rxjs/operator/subscribeOn';
+import { FollowOrderForPlcPage } from '../follow-order-for-plc/follow-order-for-plc';
+import { FollowOrderPage } from '../follow-order/follow-order';
 //import { CancelorderPage } from '../cancelorder/cancelorder';
 //import { FolloworderPage } from '../followorder/followorder';
 
@@ -290,7 +292,7 @@ this.storage.get("rate_doctor").then(data=>{
   }
 
   follow(){
-  this.navCtrl.setRoot('follow-order',
+  this.navCtrl.setRoot(FollowOrderPage,
   {data:
     {"orderId":201, 
       "doctorId":22
@@ -300,7 +302,7 @@ this.storage.get("rate_doctor").then(data=>{
   }
   followOrderForPlc(){
     this.helper.type_id="1";
-    this.navCtrl.setRoot('follow-order-for-plc',
+    this.navCtrl.setRoot(FollowOrderForPlcPage,
   {data:
     {"orderId":678, 
       "doctorId":61

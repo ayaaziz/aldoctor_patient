@@ -159,7 +159,7 @@ export class FollowOrderPage {
           // console.log("duration",respObj.routes[0].legs[0].duration.text);
           // this.duration = respObj.routes[0].legs[0].duration.text;
           // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-          console.log("resp from getDurationAndDistance -> doctor map: ", resp);
+          console.log("resp from getDurationAndDistance from location changed-> doctor map: ", resp);
           var respObj = JSON.parse(JSON.stringify(resp));
           
           
@@ -167,8 +167,10 @@ export class FollowOrderPage {
           console.log("duration",respObj.routes[0].legs[0].duration.text);
           var dur = respObj.routes[0].legs[0].duration.text;
           var durVal = respObj.routes[0].legs[0].duration.value;
-          console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-      
+          console.log("dur val after set",durVal);
+
+          console.log("routes resp: ",respObj.routes[0].legs[0]);
+          
       if(dur.includes("hours"))
           dur = dur.replace("hours","س");
       
@@ -182,7 +184,12 @@ export class FollowOrderPage {
           dur = dur.replace("hour","س");
       
           this.duration = dur;
-          if(this.notificationFlag == false && durVal <= (2*60))
+
+
+
+          console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
+
+          if(this.notificationFlag == false && durVal == (2*60))
             this.scheduleNotification();
         },
         err=>{
@@ -415,7 +422,7 @@ let marker = new google.maps.Marker({
 
 this.service.getDurationAndDistance(this.lat,this.lng,xlat,xlon).subscribe(
   resp=>{
-    console.log("resp from getDurationAndDistance -> doctor map: ", resp);
+    console.log("resp from getDurationAndDistance from init map with doc loc-> doctor map: ", resp);
     var respObj = JSON.parse(JSON.stringify(resp));
     
     
@@ -423,7 +430,8 @@ this.service.getDurationAndDistance(this.lat,this.lng,xlat,xlon).subscribe(
     console.log("duration",respObj.routes[0].legs[0].duration.text);
     var dur = respObj.routes[0].legs[0].duration.text;
     var durVal = respObj.routes[0].legs[0].duration.value;
-    console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+    console.log("dur val after set",durVal);
+    console.log("routes resp : ",respObj.routes[0].legs[0]);
 
 if(dur.includes("hours"))
     dur = dur.replace("hours","س");
@@ -438,7 +446,12 @@ if (dur.includes("hour"))
     dur = dur.replace("hour","س");
 
     this.duration = dur;
-    if(this.notificationFlag == false && durVal <= (2*60))
+    
+
+
+    console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
+
+    if(this.notificationFlag == false && durVal == (2*60)) //<=
       this.scheduleNotification();
   },
   err=>{
@@ -594,7 +607,7 @@ for(var j=0;j<this.allMarkers.length;j++)
 
           // this.duration = respObj.routes[0].legs[0].duration.text;
           // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-          console.log("resp from getDurationAndDistance -> doctor map: ", resp);
+          console.log("resp from getDurationAndDistance from follow doctor func-> doctor map: ", resp);
           var respObj = JSON.parse(JSON.stringify(resp));
           
           
@@ -602,7 +615,8 @@ for(var j=0;j<this.allMarkers.length;j++)
           console.log("duration",respObj.routes[0].legs[0].duration.text);
           var dur = respObj.routes[0].legs[0].duration.text;
           var durVal = respObj.routes[0].legs[0].duration.value;
-          console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+          console.log("dur val after set",durVal);
+          console.log("routes resp : ",respObj.routes[0].legs[0]);
       
       if(dur.includes("hours"))
           dur = dur.replace("hours","س");
@@ -617,8 +631,9 @@ for(var j=0;j<this.allMarkers.length;j++)
           dur = dur.replace("hour","س");
       
           this.duration = dur;
-
-      if(this.notificationFlag == false && durVal <= (2*60))
+          
+          console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
+      if(this.notificationFlag == false && durVal == (2*60))
         this.scheduleNotification();
 
         },
@@ -668,7 +683,7 @@ private presentToast(text) {
     this.notificationFlag = true;
     this.localNotifications.schedule({
       id: 1,
-      title: "تطبيق الدكتور",
+      title: "تطبيق الدكتور (#"+this.doctorData.orderId+" ) ",
       text:  " سوف يصلك الطلب من قبل "+this.doctorName ,
       data: { mydata: 'My hidden message this is' },
       trigger:{ at: new Date(new Date().getTime())}

@@ -45,7 +45,8 @@ export class OrderhistoryPage {
   scroll = 1;
   showLoading=true;
   myId;
-  
+  maxDate ; 
+
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage,  public alertCtrl: AlertController,
     public translate: TranslateService, public navCtrl: NavController,
@@ -60,6 +61,8 @@ export class OrderhistoryPage {
       else
         this.tostClass="toastLeft";
 
+      this.maxDate  = new Date().toISOString().split('T')[0];
+      console.log("this.maxDate",this.maxDate);
       
       console.log("langdir:",this.langDirection);
       this.translate.use(this.helper.currentLang);

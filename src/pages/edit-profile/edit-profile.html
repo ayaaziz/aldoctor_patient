@@ -74,7 +74,7 @@
         </ion-item>
     
      <ion-item [class.invalid]="!patientRegisterForm.controls.secondname.valid && submitAttempt">
-        <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+        <ion-label><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
         <ion-input *ngIf="langDirection != 'rtl'" placeholder="Second Name"   style="border-radius: 2px;padding: 0px;" formControlName="secondname" [(ngModel)]="secondname"
         type="text" [dir]="langDirection"></ion-input>
         <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="الاسم الثاني"    style="border-radius: 2px;padding: 0px;" formControlName="secondname" [(ngModel)]="secondname"
@@ -85,7 +85,7 @@
     </ion-item>
     
     <ion-item [class.invalid]="!patientRegisterForm.controls.surname.valid && submitAttempt">
-    <ion-label><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+    <ion-label><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
     <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="الجد أو اللقب"   style="border-radius: 2px;padding: 0px;" formControlName="surname" [(ngModel)]="surname"
     type="text" [dir]="langDirection" ></ion-input>
     <ion-input *ngIf="langDirection != 'rtl'" placeholder="Grandpa or Surname"    style="border-radius: 2px;padding: 0px;" formControlName="surname" [(ngModel)]="surname"
@@ -126,8 +126,8 @@ type="text" [dir]="langDirection"></ion-input>
 
 
     <ion-item>
-        <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Country" | translate}}</ion-label>
-        <ion-label floating *ngIf="langDirection != 'rtl'" ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Country" | translate}}</ion-label>
+        <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Country" | translate}}</ion-label>
+        <ion-label floating *ngIf="langDirection != 'rtl'" ><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Country" | translate}}</ion-label>
 
         <ion-select [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
         [(ngModel)]="country" >
@@ -142,8 +142,8 @@ type="text" [dir]="langDirection"></ion-input>
     
     
         <ion-item >
-        <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
-        <ion-label floating *ngIf="langDirection != 'rtl'" ><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
+        <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
+        <ion-label floating *ngIf="langDirection != 'rtl'" ><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}}</ion-label>
         <ion-select [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" formControlName="city" interface="popover"
         [(ngModel)]="city">
         <ion-option value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
@@ -156,7 +156,7 @@ type="text" [dir]="langDirection"></ion-input>
         
             <br>
             <ion-item [class.invalid]="!patientRegisterForm.controls.address.valid && submitAttempt">
-                <ion-label><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
+                <ion-label><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
                 <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="العنوان"   style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
                 type="text" [dir]="langDirection"></ion-input>
                 <ion-input *ngIf="langDirection != 'rtl'" placeholder="address"    style="border-radius: 2px;padding: 0px;" formControlName="address" [(ngModel)]="address"
@@ -168,8 +168,8 @@ type="text" [dir]="langDirection"></ion-input>
     
 
                 <ion-item>
-                    <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
-                    <ion-label floating *ngIf="langDirection != 'rtl'"><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
+                    <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
+                    <ion-label floating *ngIf="langDirection != 'rtl'"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
                     
                     <ion-datetime  [max]="maxDate" [class.invalid]="!patientRegisterForm.controls.birthdate.valid && submitAttempt" formControlName="birthdate" displayFormat="DD/MM/YYYY"
                             [(ngModel)]="birthdate" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}"></ion-datetime>
