@@ -8,6 +8,7 @@ import { OrderhistoryPage } from '../orderhistory/orderhistory';
 import 'rxjs/add/operator/timeout';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
+import { LoginPage } from '../login/login';
 
 
 
@@ -32,6 +33,7 @@ export class CancelOrderPage {
   langDirection;
   tostClass ;
   CancelBtn =true;
+  logout ;
 
   constructor(public storage: Storage,public helper:HelperProvider, 
     public service:LoginserviceProvider,public translate: TranslateService,
@@ -39,6 +41,8 @@ export class CancelOrderPage {
     public toastCtrl: ToastController, public events: Events) {
    this.orderId =  this.navParams.get('orderId');
    this.langDirection = this.helper.lang_direction;
+
+   this.logout = this.helper.logout;
 
    this.events.publish('enableTabs', true);
 
@@ -126,7 +130,7 @@ export class CancelOrderPage {
           if(JSON.parse(JSON.stringify(resp)).success)
           {
             this.helper.view = "";
-            this.helper.updateCancelOrderStatus(this.orderId);
+          //  this.helper.updateCancelOrderStatus(this.orderId);
             this.presentToast(this.translate.instant("orderCancled"));     
             // this.navCtrl.setRoot(OrderhistoryPage);
          
@@ -136,9 +140,16 @@ export class CancelOrderPage {
             
             // this.events.publish('cancelDoctorOrder');
             
-            this.navCtrl.setRoot(TabsPage);
-            this.navCtrl.parent.select(2); //1
-
+            if(this.logout == false)
+            {
+              this.navCtrl.setRoot(TabsPage);
+              this.navCtrl.parent.select(2); //1
+  
+            }else if (this.logout == true)
+            {
+              this.userLogout();
+            }
+           
           }
         },
         err=>{
@@ -174,4 +185,25 @@ export class CancelOrderPage {
       // this.CancelBtn = true;
     }
 
+    userLogout(){
+
+      this.accessToken = localStorage.getItem('user_token');
+
+      this.service.updateNotification(0,this.accessToken).subscribe(
+        resp=>{
+          console.log("resp from updateNotification for logout ",resp);
+          this.storage.remove("access_token");
+          this.storage.remove("refresh_token");
+          this.storage.remove("user_info");
+          this.storage.remove("language");
+          
+          this.navCtrl.setRoot(LoginPage);
+          
+          
+        },err=>{
+          console.log("err from updateNotification for logout ",err);
+        }
+      );
+
+    }
 }

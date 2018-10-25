@@ -19,6 +19,7 @@ import { HelperProvider } from '../providers/helper/helper';
 //import { VerifycodePage } from '../pages/verifycode/verifycode';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { AppRate } from '@ionic-native/app-rate';
+import { Market } from '@ionic-native/market';
 //import { AboutAppPage } from '../pages/about-app/about-app';
 //import { ConditionsPage } from '../pages/conditions/conditions';
 //import { ContactusPage } from '../pages/contactus/contactus';
@@ -76,7 +77,7 @@ export class MyApp {
     public platform: Platform, private appRate: AppRate,
     public actionSheetCtrl: ActionSheetController,
     statusBar: StatusBar, splashScreen: SplashScreen,
-    public translate: TranslateService,
+    public translate: TranslateService,private market: Market,
   public app:App, public toastCtrl: ToastController) {
 
   
@@ -386,41 +387,41 @@ export class MyApp {
       this.app_complaint = "item_unselected";
     }
 
-    this.appRate.preferences.useLanguage = "ar";
-    this.appRate.preferences = {
-      // openStoreInApp: false,
-      useLanguage:"ar",
-      displayAppName: 'الدكتور',
-      // usesUntilPrompt: 2,
-//      promptAgainForEachNewVersion: false,
-      simpleMode:true,
-      storeAppURL: {
-        // ios: '1216856883',
-        android: 'market://details?id=net.ITRoots.Patient'
-      }
-      ,
-      customLocale: {
-        title: 'هل يعجبك تطبيق الدكتور؟',
-        message: 'اذا اعجبك تطبيق الدكتور , هل تمانع من اخذ دقيقه لتقيمه؟ شكرا لدعمك',
-        cancelButtonLabel: 'الغاء',
-        laterButtonLabel:" ",
-        rateButtonLabel: 'قيم الآن'
-      },
-      callbacks: {
-        onRateDialogShow: function(callback){
-          console.log('rate dialog shown!');
-        },
-        onButtonClicked: function(buttonIndex){
-          console.log('Selected index: -> ' + buttonIndex);
-          //in order
-        }
-      }
-    };
+//     this.appRate.preferences.useLanguage = "ar";
+//     this.appRate.preferences = {
+//       // openStoreInApp: false,
+//       useLanguage:"ar",
+//       displayAppName: 'الدكتور',
+//       // usesUntilPrompt: 2,
+// //      promptAgainForEachNewVersion: false,
+//       simpleMode:true,
+//       storeAppURL: {
+//         // ios: '1216856883',
+//         android: 'market://details?id=net.ITRoots.Patient'
+//       }
+//       ,
+//       customLocale: {
+//         title: 'هل يعجبك تطبيق الدكتور؟',
+//         message: 'اذا اعجبك تطبيق الدكتور , هل تمانع من اخذ دقيقه لتقيمه؟ شكرا لدعمك',
+//         cancelButtonLabel: 'الغاء',
+//         laterButtonLabel:" ",
+//         rateButtonLabel: 'قيم الآن'
+//       },
+//       callbacks: {
+//         onRateDialogShow: function(callback){
+//           console.log('rate dialog shown!');
+//         },
+//         onButtonClicked: function(buttonIndex){
+//           console.log('Selected index: -> ' + buttonIndex);
+//           //in order
+//         }
+//       }
+//     };
 
-    // Opens the rating immediately no matter what preferences you set
-    this.appRate.promptForRating(true);
+//     // Opens the rating immediately no matter what preferences you set
+//     this.appRate.promptForRating(true);
 
-
+this.market.open('net.ITRoots.Patient');
     // this.platform.ready().then(()=>{
     //   this.appRate.preferences.storeAppURL = {
     //     ios: 'app id',
@@ -546,9 +547,10 @@ export class MyApp {
         this.app_complaint = "item_unselected";
       }
 
-      this.storage.get("access_token").then(data=>{
+      // this.storage.get("access_token").then(data=>{
+        var accessToken = localStorage.getItem('user_token');
         //this.accessToken = data;
-        this.service.updateNotification(0,data).subscribe(
+        this.service.updateNotification(0,accessToken).subscribe(
           resp=>{
             console.log("resp from updateNotification ",resp);
             this.storage.remove("access_token");
@@ -563,7 +565,7 @@ export class MyApp {
             console.log("err from updateNotification ",err);
           }
         );
-      });
+      // });
 
      
     }
@@ -743,7 +745,7 @@ export class MyApp {
             if(orderStatus == "11")
             {
               console.log("status 11");
-              this.presentAlert(notification.title,notification.message);
+              this.presentAlert(notification.title,notification.message + "<br> للأسباب التالية: <br>"+notification.additionalData.reasons);
               this.helper.removeNetworkDisconnectionListener();
               // this.storage.remove("orderImages");
               
@@ -839,7 +841,7 @@ export class MyApp {
         else if (orderStatus == "11")
         {
           console.log("doc status 11 ")
-          this.presentAlert(notification.title,notification.message);
+          this.presentAlert(notification.title,notification.message + "<br> للأسباب التالية: <br>"+notification.additionalData.reasons);
 
         }
 
@@ -976,7 +978,7 @@ export class MyApp {
        if(orderStatus == "11")
        {
          console.log("status 11");
-         this.presentAlert(notifications.title,notifications.message);
+         this.presentAlert(notifications.title,notifications.message + "<br> للأسباب التالية: <br>"+notifications.additionalData.reasons);
          this.helper.removeNetworkDisconnectionListener();
          // this.storage.remove("orderImages");
          
@@ -1071,7 +1073,7 @@ export class MyApp {
    else if (orderStatus == "11")
    {
      console.log("doc status 11 ")
-     this.presentAlert(notifications.title,notifications.message);
+     this.presentAlert(notifications.title,notifications.message+ "<br> للأسباب التالية: <br>"+notifications.additionalData.reasons);
 
    }
 
@@ -1168,7 +1170,7 @@ export class MyApp {
 presentAlert(title,msg) {
   console.log("enter presentAlert");
   // this.navctrl.setRoot(TabsPage);
-  
+  console.log("helper view",this.helper.view);
   if(this.helper.view == "follow")
     this.navctrl.setRoot(TabsPage);
 

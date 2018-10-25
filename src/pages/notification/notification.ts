@@ -277,9 +277,9 @@ export class NotificationPage {
     // {
     //   this.presentlong(item.data.text);
     // }
-    if(item.remark && item.user.service_id == "3")
+    if(item.remark && item.data.type == "set-date"  && item.user.service_id == "3")
       this.presentContOrderConfirm(item.remark,item.date);
-    else if( !item.remark && item.user.service_id == "3")
+    else if( !item.remark && item.data.type == "new-order" && item.user.service_id == "3")
       this.presentlong(item.data.text);
 
     if(item.date)

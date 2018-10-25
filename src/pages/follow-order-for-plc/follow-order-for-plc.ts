@@ -75,6 +75,10 @@ export class FollowOrderForPlcPage {
   status11alertDisabled = false;
   status8alertdiabled = false;
   status12alertdisabled = false;
+  hideCont = true;
+  hidenote = true;
+  contDate = "";
+  contNotes = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
@@ -110,13 +114,41 @@ export class FollowOrderForPlcPage {
       {
         console.log("order status from navParams",this.doctorData.order_status);
         this.disableCancelBtn = true;
+        
       }  
 
       this.srv.getOrderDetails(this.orderId,this.accessToken).subscribe(
         resp=>{
           console.log("orderDetails ",resp);
           var myorder = JSON.parse(JSON.stringify(resp)).order;
-          
+       
+          if(myorder.status == 13 )
+          {
+            
+            
+            if(myorder.date)
+            {
+              this.hideCont = false;
+              this.contDate = myorder.date;
+            }
+            else
+            {
+              this.hideCont = true;
+              this.contDate = "";
+            }
+
+            if(myorder.remark)
+            {
+              this.hidenote = false;
+              this.contNotes = myorder.remark;
+            }
+            else
+            {
+              this.hidenote = true;
+              this.contNotes ="";
+            }
+              
+          }
           if(myorder.files)
           {
             //this.disabled2btn = true;
@@ -424,7 +456,7 @@ export class FollowOrderForPlcPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FollowOrderForPlcPage');
-
+this.helper.view = "follow";
     if(!navigator.onLine)
       this.presentToast(this.translate.instant("checkNetwork"));
 
@@ -608,7 +640,7 @@ private presentToast(text) {
     var options = {
       targetWidth: 600,
       targetHeight: 600,
-      quality: 20,
+      quality: 40, //20
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,

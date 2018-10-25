@@ -28,6 +28,7 @@
     "@ionic-native/geolocation": "^4.8.0",
     "@ionic-native/local-notifications": "^4.11.0",
     "@ionic-native/location-accuracy": "^4.8.0",
+    "@ionic-native/market": "^4.16.0",
     "@ionic-native/network": "^4.12.2",
     "@ionic-native/push": "^4.15.0",
     "@ionic-native/social-sharing": "^4.8.0",
@@ -51,6 +52,7 @@
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
+    "cordova-plugin-market": "^1.2.0",
     "cordova-plugin-nativestorage": "^2.3.2",
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-request-location-accuracy": "^2.2.3",
@@ -98,7 +100,8 @@
       "phonegap-plugin-push": {
         "ANDROID_SUPPORT_V13_VERSION": "27.+",
         "FCM_VERSION": "11.6.2"
-      }
+      },
+      "cordova-plugin-market": {}
     },
     "platforms": [
       "android",

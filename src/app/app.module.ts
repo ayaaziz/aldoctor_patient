@@ -77,6 +77,7 @@ import { Ionic2RatingModule } from 'ionic2-rating';
 import { LoginserviceProvider } from '../providers/loginservice/loginservice';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
+import { Market } from '@ionic-native/market';
 //import { OrderDoctorPage } from '../pages/order-doctor/order-doctor';
 //import { DoctorEvaluationPage } from '../pages/doctor-evaluation/doctor-evaluation';
 //import {SpecializationsPage} from '../pages/specializations/specializations';
@@ -220,7 +221,8 @@ export function createTranslateLoader(http: HttpClient) {
     // AngularFireAuth,
     // AngularFireDatabase,
     {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptorProvider, multi: true },
-    Network
+    Network,
+    Market
   ]
 })
 export class AppModule {}

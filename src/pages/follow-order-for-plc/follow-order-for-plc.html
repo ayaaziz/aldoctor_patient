@@ -97,6 +97,9 @@
             
     </ion-item> -->
 
+    <p [hidden]="hideCont" style="color:#016a38;text-align:right;font-size:16px">  الموعد المحدد :<span style="color:grey;"> {{contDate}}</span></p>
+    <p [hidden]="hidenote" style="color:#016a38;text-align:right;font-size:16px">  الملاحظات :<span style="color:grey;"> {{contNotes}}</span></p>
+
     <ion-row>
         <ion-col col-2></ion-col>
         <ion-col col-4 *ngFor="let photo of photos; let id = index" style="text-align:right">

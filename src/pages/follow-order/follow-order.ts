@@ -208,6 +208,7 @@ export class FollowOrderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FollowOrderPage');
+    this.helper.view = "follow";
     if(!navigator.onLine)
       this.presentToast(this.translate.instant("checkNetwork"));
 
@@ -663,12 +664,9 @@ private presentToast(text) {
 
   cancelOrder(){
     //this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
-    this.service.cancelMsg(this.accessToken).subscribe(
-      resp=>{
-        console.log("cancel msg resp",resp);
-        this.presentCancelConfirm(JSON.parse(JSON.stringify(resp)).message);
-      }
-    );
+    this.checkfund();
+
+    
   }
   dismiss(){
     this.navCtrl.pop();
@@ -689,6 +687,65 @@ private presentToast(text) {
       trigger:{ at: new Date(new Date().getTime())}
     });
   }
+
+
+
+
+checkfund(){
+
+  this.accessToken = localStorage.getItem('user_token');  
+  this.service.getFund(this.accessToken).subscribe(
+    resp=>{
+      console.log("resp from getFund",resp);
+      var pfunds = JSON.parse(JSON.stringify(resp)).data;   
+   
+      if(pfunds.order_count >= 2)          
+        this.confirmCancel();
+      else
+        {
+          this.service.cancelMsg(this.accessToken).subscribe(
+            resp=>{
+              console.log("cancel msg resp",resp);
+              this.presentCancelConfirm(JSON.parse(JSON.stringify(resp)).message);
+            }
+          );
+        }
+                  
+        },err=>{
+          console.log("err from getFund",err);
+        });
+}
+
+confirmCancel(){
+  
+  let alert = this.alertCtrl.create({
+    title: this.translate.instant("confirmCancelOrder"),
+    message:"فى حالة إلغاء الطلب سوف يتم إيقاف الحساب الخاص بك ",
+    buttons: [
+      {
+        text: this.translate.instant("disagree"),
+        role: 'cancel',
+        handler: () => {
+          console.log('disagree clicked');
+         
+        }
+      },
+      {
+        text: this.translate.instant("agree"),
+        handler: () => {
+          console.log('agree clicked');
+          console.log('cancel order agree clicked');
+          this.helper.logout = true;
+          this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
+        
+        }
+      }
+    ]
+  });
+  alert.present();
+}
+
+
 
   
 }

@@ -25,6 +25,7 @@ export class LoginPage {
   email;
   password;
   tostClass ;
+  access_token;
   
   constructor( public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
     public formBuilder: FormBuilder,public navCtrl: NavController, 
@@ -132,16 +133,38 @@ export class LoginPage {
     {
       this.presentToast(this.translate.instant("invalidData"));
     }else{
+      
+      this.access_token = data.access_token;
+
     this.loginservice.registerFirebase(this.helper.registration,data.access_token).subscribe(
       resp=>{
         console.log("from registerFirebase resp: ",resp);
         var jsonUserData  = JSON.parse(JSON.stringify(resp)).user;
         console.log("json ",jsonUserData);
         
+        // else if (jsonUserData.status == "-1")
+        //   this.presentToast("الحساب غير مفعل");
+
         if (jsonUserData.status == "0")
           this.navCtrl.setRoot('verification-code',{data:0});
         else if (jsonUserData.status == "-1")
-          this.presentToast("الحساب غير مفعل");
+        {
+          this.loginservice.getContactMobile(this.access_token)
+          .timeout(10000).subscribe(
+            resp=>{
+              console.log("resp from contact us",resp);
+              var mobile = JSON.parse(JSON.stringify(resp))[0].value;
+              this.presentToast("تم إيقاف حسابك .. تواصل مع الأدمن "+mobile);    
+              
+            },err=>{
+              console.log("err from contact us: ",err);
+              this.presentToast(this.translate.instant("serverError"));
+            }
+          );
+
+        }
+
+          
         else if(jsonUserData.status == "1")
         {
 
@@ -212,7 +235,7 @@ export class LoginPage {
   private presentToast(text) {
     let toast = this.toastCtrl.create({
       message: text,
-      duration: 3000,
+      duration: 4000,
       position: 'bottom',
       cssClass: this.tostClass
     });

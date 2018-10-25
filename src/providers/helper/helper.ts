@@ -81,6 +81,9 @@ export class HelperProvider {
   public idForOrderToCancelItFromBack;
   public myindexTobeoffline;
   
+  public logout = false;
+
+  
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,
     public events: Events, private network: Network) {
