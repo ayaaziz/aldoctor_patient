@@ -97,18 +97,27 @@ validPass=false;
     this.accessToken = localStorage.getItem('user_token');
 
     if (navigator.onLine) {
-      this.service.changePassword(this.currentPass,this.newPass,this.confirmTxt,this.accessToken).timeout(10000).subscribe(
-        resp => {
-          
-          console.log("cp resp: ",resp);
-          // this.navCtrl.setRoot(LoginPage);
-          this.app.getRootNav().setRoot(LoginPage);
-          
-        },
-        err=>{
-          this.presentToast(this.translate.instant("serverError"));
-        }
-      );
+      if(this.currentPass == this.newPass)
+      {
+        this.presentToast("كلمة المرور الحالية والجديدة متشابهين");
+      }else{
+
+        this.service.changePassword(this.currentPass,this.newPass,this.confirmTxt,this.accessToken).timeout(10000).subscribe(
+          resp => {
+            
+            console.log("cp resp: ",resp);
+            // this.navCtrl.setRoot(LoginPage);
+            this.app.getRootNav().setRoot(LoginPage);
+            
+          },
+          err=>{
+            this.presentToast(this.translate.instant("serverError"));
+          }
+        );
+
+      }
+
+      
     }else{
       this.presentToast(this.translate.instant("checkNetwork"));
     }
