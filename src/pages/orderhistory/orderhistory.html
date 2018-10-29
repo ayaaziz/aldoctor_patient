@@ -66,7 +66,7 @@
 <ion-row style="margin:0px;width:100%;padding-bottom:7px; border-bottom:2px solid rgb(205, 219, 205);">
   <ion-col col-3 col-sm-3 col-md-3 >
       <!-- fixed class="customItem3" -->
-    <ion-label style="margin:0px;text-align:right;">{{"From" | translate}}</ion-label>
+    <ion-label style="margin:0px;text-align:right;margin-top:5px">{{"From" | translate}}</ion-label>
   </ion-col>
   
   <ion-col col-4 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">
@@ -85,7 +85,7 @@
 
   <ion-col col-1 col-sm-1 col-md-1>
       <!-- fixe1 class="customItem3"  -->
-    <ion-label style="margin:0px;text-align:right;padding-right:2px">{{"To" | translate}}</ion-label>
+    <ion-label style="margin:0px;text-align:right;padding-right:2px;margin-top:5px">{{"To" | translate}}</ion-label>
   </ion-col>
 
   <ion-col col-4 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">    
@@ -192,7 +192,7 @@
       </div>
 
         <button *ngIf="item.rated == '0'" [disabled]="item.disableRatebtn"  class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="rateagain(item)" >{{"rateOrder" | translate}}</button>
-        <button *ngIf="item.reorder == '1'"  class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="reorder(item)">{{"reorder" | translate}}</button>
+        <button *ngIf="item.reorder == '1'" [disabled]="item.reorderBtn" class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="reorder(item)">{{"reorder" | translate}}</button>
 
         <button *ngIf="item.contorder == '1'"  class="btn btn-primary " style="width:90px;margin-bottom:7px;" (click)="contorder(item)">{{"contorder" | translate}}</button>
 

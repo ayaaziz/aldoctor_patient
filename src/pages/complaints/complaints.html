@@ -45,13 +45,17 @@
       </div>
     
       <!-- <h4  style="text-align: right;margin-right:5px;" >اترك رسالتك</h4> -->
-      <div class="form-group">
-        <textarea class="form-control" [(ngModel)]="moreReview" rows="5" id="comment" style="background-color: #e8f1ed" placeholder="اترك رسالتك ..."></textarea>  
+      <div class="form-group" style="margin-top:40px">
+        <textarea class="form-control" [(ngModel)]="moreReview" rows="5" id="comment" style="background-color: #e8f1ed; padding: 15px;" placeholder="اترك رسالتك ..."></textarea>  
       </div>
         
       <ion-item style="text-align:center;" no-lines>
-        <button  [disabled]="ratedisabledbtn"  type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="send()">إرسال</button>  
+        <button  [disabled]="ratedisabledbtn"  type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';width: 100%;" (click)="send()">إرسال</button>  
       </ion-item>
-  
+      <!-- margin:10px auto;
+      <ion-item id="btnSignIn" style="text-align:center;" no-lines>
+
+        <button type="button"   class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black'" (click)="editUser()"> {{"Edit" | translate}}</button>  
+      </ion-item> -->
       <!-- {{"send" | translate}} -->
 </ion-content>

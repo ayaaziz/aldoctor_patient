@@ -124,7 +124,7 @@ export class OrderhistoryPage {
             else if(ordersData[j].status == "5") //finished
               ordersData[j].color="grey";
             
-            if(ordersData[j].reorder == "1") // is_reorder
+            if(ordersData[j].is_reorder == "1") // is_reorder,reorder
               ordersData[j].color = "green";
             
             // if(ordersData[j].rated == "0")
@@ -218,10 +218,19 @@ export class OrderhistoryPage {
               
               this.orderobject.doctor_id = serviceProfile.id;
               this.orderobject.color = ordersData[j].color;
-              // this.orderobject.reorder = ordersData[j].is_reorder;
-              this.orderobject.reorder = ordersData[j].reorder;
+              this.orderobject.reorder = ordersData[j].is_reorder;
+              // this.orderobject.reorder = ordersData[j].reorder;
               this.orderobject.contorder = ordersData[j].contorder;
               
+
+
+              if(ordersData[j].status == "0"){
+                ordersData[j].statusTxt = "قيد التنفيذ";
+                ordersData[j].color = "green";
+              }
+
+              
+
               if (ordersData[j].status == "12")
                 this.orderobject.contorder = "1";
               else if(ordersData[j].status == "4" || ordersData[j].status == "13" || ordersData[j].status == "3" || ordersData.status == "11")
@@ -244,8 +253,8 @@ export class OrderhistoryPage {
                 this.orderobject.contDate = ordersData[j].date;
               // console.log("ordersData[j].date ",ordersData[j].date);
 
-              // if(ordersData[j].is_reorder == "1")
-              if(ordersData[j].reorder == "1" || ordersData[j].contorder == "1")
+              // if(ordersData[j].reorder == "1")
+              if(ordersData[j].is_reorder == "1" || ordersData[j].contorder == "1")
               {
                 console.log("ordersData[j].date ",ordersData[j].date);
                 console.log("order date only",ordersData[j].date.split(" ")[0]);
@@ -609,13 +618,19 @@ export class OrderhistoryPage {
     console.log("to: ",this.to);
     console.log("from: ",this.from);
     
-    var date1 = new Date(this.to);
-    var date2 = new Date(this.from);
+    if(! this.from)
+      this.presentToast(this.translate.instant("enterfrom"));
+    else{
+      var date1 = new Date(this.to);
+      var date2 = new Date(this.from);
     
-    if(date2 > date1)
-      this.presentToast(this.translate.instant("fromGreaterThanTo"));
-    else
-      this.respFromFilterOrders();
+      if(date2 > date1)
+        this.presentToast(this.translate.instant("fromGreaterThanTo"));
+      else
+        this.respFromFilterOrders();
+    }
+    
+      
 
 
     //this.respFromFilterOrders();
