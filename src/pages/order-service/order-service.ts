@@ -1000,4 +1000,35 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     this.navCtrl.push('full-screen',{data:this.photos[index]});
   }
 
+
+  presentActionSheet2() { 
+    if(this.imageFlag == true)
+    {
+    let actionSheet = this.actionSheetCtrl.create({
+      title:" اختر "+this.medicalprescriptionImage ,
+      buttons: [
+        {
+          text: this.translate.instant("LoadfromLibrary"),
+          handler: () => {
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+  
+          }
+        },
+        {
+          text: this.translate.instant("UseCamera"),
+          handler: () => {
+            this.takePicture(this.camera.PictureSourceType.CAMERA);
+          }
+        },
+       
+      ]
+    });
+    actionSheet.present();
+  }else{
+    this.presentToast(this.translate.instant("maxNumberOFIMages"));
+  }
+
+
+}
+
 }

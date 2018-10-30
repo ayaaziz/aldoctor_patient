@@ -968,11 +968,11 @@ private presentToast(text) {
     // var ourDate = yydate[0]+" "+zzdate[0];
     
    let alert = this.alertCtrl.create({
-     title: "اكمال الطلب",
+     title: "إكمال الطلب",
      message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",
      buttons: [
        {
-         text: "الغاء",
+         text: "إلغاء",
          role: 'cancel',
          handler: () => {
            console.log('confirm contorder  disagree clicked');
@@ -982,7 +982,7 @@ private presentToast(text) {
                console.log("resp cancel contOrder",resp);
                if(JSON.parse(JSON.stringify(resp)).success)
                {
-                 this.presentToast("تم الغاء الموعد");
+                 this.presentToast("تم إلغاء الموعد");
                  console.log("الغاء")
                  this.events.publish('x');
                }
@@ -1016,7 +1016,8 @@ private presentToast(text) {
            );
          }
        }
-     ]
+     ],
+     enableBackdropDismiss : false
    });
    alert.present();
  }

@@ -298,6 +298,8 @@ export class NotificationPage {
      title: this.translate.instant("contorder"),
      message: remark+"<br/>"+contDate,
      buttons: ['حسنا']
+     //,
+    //  enableBackdropDismiss : false
       //  {
       //    text: this.translate.instant("disagree"),
       //    role: 'cancel',

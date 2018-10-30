@@ -1230,11 +1230,11 @@ presentContOrderConfirm(order_id,remark,contDate) {
       //  var ourDate = yydate[0]+" "+zzdate[0];
        
       let alert = this.alertCtrl.create({
-        title: "اكمال الطلب",
+        title: "إكمال الطلب",
         message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",
         buttons: [
           {
-            text: "الغاء",
+            text: "إلغاء",
             role: 'cancel',
             handler: () => {
               console.log('confirm contorder  disagree clicked');
@@ -1244,7 +1244,7 @@ presentContOrderConfirm(order_id,remark,contDate) {
                    console.log("getOrderStatus resp",resp);
                    var myOrderStatus = JSON.parse(JSON.stringify(resp)).order.status;
                    if(myOrderStatus == "4" )
-                     this.presentToast("لقد تم الغاء الطلب");
+                     this.presentToast("لقد تم إلغاء الطلب");
                    else if(myOrderStatus == "13")
                      this.presentToast("لقد تم تأكيد الموعد");
                    else
@@ -1254,9 +1254,10 @@ presentContOrderConfirm(order_id,remark,contDate) {
                         console.log("resp cancel contOrder",resp);
                         if(JSON.parse(JSON.stringify(resp)).success)
                         {
-                          this.presentToast("تم الغاء الموعد");
-                          console.log("الغاء")
-                          this.events.publish('x');
+                          this.presentToast("تم إلغاء الموعد");
+                          console.log("الغاء");
+                          this.nav.setRoot(TabsPage);
+                          // this.events.publish('x');
                         }
                           
                       },err=>{
@@ -1299,7 +1300,7 @@ presentContOrderConfirm(order_id,remark,contDate) {
                    console.log("getOrderStatus resp",resp);
                    var myOrderStatus = JSON.parse(JSON.stringify(resp)).order.status;
                    if(myOrderStatus == "4" )
-                     this.presentToast("لقد تم الغاء الطلب");
+                     this.presentToast("لقد تم إلغاء الطلب");
                    else if(myOrderStatus == "13")
                      this.presentToast("لقد تم تأكيد الموعد");
                    else
@@ -1311,7 +1312,8 @@ presentContOrderConfirm(order_id,remark,contDate) {
                         {
                           this.presentToast("تم تأكيد الموعد");
                           console.log("تاكيد");
-                          this.events.publish('y');
+                          // this.events.publish('y');
+                          this.nav.setRoot(TabsPage);
                         }
                           
                       },err=>{
@@ -1345,7 +1347,8 @@ presentContOrderConfirm(order_id,remark,contDate) {
               // );
             }
           }
-        ]
+        ],
+         enableBackdropDismiss : false
       });
       alert.present();
     }
@@ -1407,7 +1410,7 @@ presentContOrderConfirm(order_id,remark,contDate) {
    backpresentCancelConfirm() {
     let alert = this.alertCtrl.create({
       title: this.translate.instant("confirmCancelOrder"),
-      message: "هل تريد الغاء الطلب ؟ ",
+      message: "هل تريد إلغاء الطلب ؟ ",
       buttons: [
         {
           text: this.translate.instant("disagree"),
@@ -1465,7 +1468,7 @@ presentContOrderConfirm(order_id,remark,contDate) {
   backpresentCancelConfirmForDoc() {
     let alert = this.alertCtrl.create({
       title: this.translate.instant("confirmCancelOrder"),
-      message: "هل تريد الغاء الطلب ؟ ",
+      message: "هل تريد إلغاء الطلب ؟ ",
       buttons: [
         {
           text: this.translate.instant("disagree"),

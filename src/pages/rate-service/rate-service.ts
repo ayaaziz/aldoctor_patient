@@ -261,6 +261,7 @@ export class RateServicePage {
           this.srv.updateOrderStatus(this.orderId,this.accessToken,this.type_id).subscribe(
             resp=>{
               console.log("resp updateOrderStatus",resp);
+              this.helper.dontSendNotification = false;
               // this.helper.dontSendNotification  = false;
             },err=>{
               console.log("err updateOrderStatus",err);

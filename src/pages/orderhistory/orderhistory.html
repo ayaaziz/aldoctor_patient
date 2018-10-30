@@ -89,7 +89,7 @@
   </ion-col>
 
   <ion-col col-4 col-sm-4 col-md-4 style="background-color: #e8f1ed;height:35px;">    
-    <ion-datetime style="background-color: #e8f1ed;height:35px;text-align:right" displayFormat="DD/MM/YYYY"
+    <ion-datetime [max]="maxDate" style="background-color: #e8f1ed;height:35px;text-align:right" displayFormat="DD/MM/YYYY"
         [(ngModel)]="to" cancelText="{{cancelTxt}}" doneText="{{doneTxt}}" (ionChange)="dateToChanged($event)" ></ion-datetime>
         
         <div *ngIf="langDirection != 'rtl'" style="text-align:right">
