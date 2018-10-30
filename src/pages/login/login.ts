@@ -154,7 +154,7 @@ export class LoginPage {
             resp=>{
               console.log("resp from contact us",resp);
               var mobile = JSON.parse(JSON.stringify(resp))[0].value;
-              this.presentToast("تم إيقاف حسابك .. تواصل مع الأدمن "+mobile);    
+              this.presentToast2("عذرا , تم إيقاف حسابك لتجاوزك  عدد المرات المسموح بها للإلغاء ... من فضلك تواصل مع خدمة العملاء "+mobile);    
               
             },err=>{
               console.log("err from contact us: ",err);
@@ -241,6 +241,18 @@ export class LoginPage {
     });
     toast.present();
   }
+
+
+  private presentToast2(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 8000,
+      position: 'bottom',
+      cssClass: this.tostClass
+    });
+    toast.present();
+  }
+
 
   register(){
     //this.navCtrl.setRoot(SignupPage);
