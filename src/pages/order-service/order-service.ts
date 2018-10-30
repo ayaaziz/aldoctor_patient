@@ -946,7 +946,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     var options = {
       targetWidth: 600,
       targetHeight: 600,
-      quality: 50, //20,40
+      quality: 80, //20,40
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,

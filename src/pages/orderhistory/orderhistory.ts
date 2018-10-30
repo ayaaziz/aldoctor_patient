@@ -223,12 +223,6 @@ export class OrderhistoryPage {
               this.orderobject.contorder = ordersData[j].contorder;
               
 
-
-              if(ordersData[j].status == "0"){
-                ordersData[j].statusTxt = "قيد التنفيذ";
-                ordersData[j].color = "green";
-              }
-
               
 
               if (ordersData[j].status == "12")
@@ -246,6 +240,12 @@ export class OrderhistoryPage {
               this.orderobject.orderId = ordersData[j].id;
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
+              
+              if(ordersData[j].status == "0"){
+                this.orderobject.statusTxt = "قيد التنفيذ";
+                this.orderobject.color = "green";
+              }
+
               //.split(" ")[0]
               this.orderobject.orderDate = ordersData[j].created_at;
               
@@ -278,6 +278,11 @@ export class OrderhistoryPage {
                 this.orderobject.date_id = "";
               } 
               console.log("id",this.orderobject.orderId,"item.reorder",this.orderobject.reorder); 
+              
+              
+
+
+
               this.data.push(this.orderobject);
 
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
