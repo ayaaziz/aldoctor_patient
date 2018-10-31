@@ -149,18 +149,34 @@ export class LoginPage {
           this.navCtrl.setRoot('verification-code',{data:0});
         else if (jsonUserData.status == "-1")
         {
-          this.loginservice.getContactMobile(this.access_token)
-          .timeout(10000).subscribe(
+          // this.loginservice.getContactMobile(this.access_token)
+          // .timeout(10000).subscribe(
+          //   resp=>{
+          //     console.log("resp from contact us",resp);
+          //     var mobile = JSON.parse(JSON.stringify(resp))[0].value;
+          //     this.presentToast2("عذرا , تم إيقاف حسابك لتجاوزك  عدد المرات المسموح بها للإلغاء ... من فضلك تواصل مع خدمة العملاء "+mobile);    
+              
+          //   },err=>{
+          //     console.log("err from contact us: ",err);
+          //     this.presentToast(this.translate.instant("serverError"));
+          //   }
+          // );
+          this.loginservice.getHelperTelephones("",this.access_token).timeout(10000).
+          subscribe(
             resp=>{
-              console.log("resp from contact us",resp);
+              console.log("resp from getHelperTelephones from modal",resp);
+              // this.helpersArr = JSON.parse(JSON.stringify(resp));
               var mobile = JSON.parse(JSON.stringify(resp))[0].value;
               this.presentToast2("عذرا , تم إيقاف حسابك لتجاوزك  عدد المرات المسموح بها للإلغاء ... من فضلك تواصل مع خدمة العملاء "+mobile);    
-              
-            },err=>{
+          
+        
+            },
+            err=>{
               console.log("err from contact us: ",err);
               this.presentToast(this.translate.instant("serverError"));
-            }
-          );
+            });
+     
+  
 
         }
 

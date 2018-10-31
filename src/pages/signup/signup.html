@@ -127,7 +127,7 @@ type="tel" [dir]="langDirection"></ion-input>
 
 
 <ion-row [class.invalid]="!patientRegisterForm.controls.password.valid && submitAttempt" >
-    <ion-col col-11>
+    <ion-col col-11 style="text-align:right">
             <ion-item >
             
                     <ion-label><span style="color:red;font-size: 20px;">*</span><img src="assets/icon/pass.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
@@ -147,7 +147,7 @@ type="tel" [dir]="langDirection"></ion-input>
                     </ion-item>
                 
     </ion-col>
-    <ion-col col-1>
+    <ion-col col-1 style="text-align:right">
             <ion-icon  name="information-circle" style="color:#016a38; font-size:20px;margin-top:15px;" (click)="presentHintAlert()"></ion-icon>       
     </ion-col>
 </ion-row>

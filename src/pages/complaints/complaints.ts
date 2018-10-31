@@ -33,7 +33,7 @@ export class ComplaintsPage {
   send(){
     console.log("moreREview",this.moreReview);
     if(!this.moreReview)
-      this.presentToast("ادخل رسالتك");
+      this.presentToast("الرجاء إدخال رسالتك");
     else 
     {
       this.ratedisabledbtn = true;
@@ -41,7 +41,7 @@ export class ComplaintsPage {
         console.log("resp from compalins",resp);
         if(JSON.parse(JSON.stringify(resp)).success == true)
         {
-          this.presentToast("تم الارسال");
+          this.presentToast("تم الإرسال");
           this.ratedisabledbtn = false;
           this.navCtrl.pop();
         } 

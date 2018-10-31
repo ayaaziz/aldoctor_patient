@@ -278,10 +278,10 @@ export class NotificationPage {
     //   this.presentlong(item.data.text);
     // }
     
-    if(item.data.text.includes('<br>'))
-    {
-      console.log("data splited",item.data.text.split("<br>"));
-    }  
+    // if(item.data.text.includes('<br>'))
+    // {
+    //   console.log("data splited",item.data.text.split("<br>"));
+    // }  
     
     if(item.remark && item.data.type == "set-date"  && item.user.service_id == "3")
       this.presentContOrderConfirm(item.remark,item.date);
@@ -293,8 +293,26 @@ export class NotificationPage {
       if(item.user.service_id == "2")
         this.presentlong2(item.data.text,item.date);
     }
+    var ncancel = "";
+    if(item.data.type == "cancel-order")
+    {
+      console.log("item.reasons.lenght",item.reasons.lenght);
+      for(var k=0;k<item.reasons.lenght;k++)
+      {
+        ncancel+=item.reasons[k].value+"<br>";
+        console.log("ncancel item in for",item.reasons[k].value);
+        console.log("ncancel item in for with br",ncancel);
+      }
+      
+    //  console.log("ncancel.join(<br>)",ncancel.join("<br>"));
+    console.log("ncancel.join(<br>)",ncancel);
+      this.cancelAlert(item.data.text + "<br> للأسباب التالية: <br>"+ncancel);
+      
+    }
+    
 
   }
+  
 
   presentContOrderConfirm(remark,contDate) {
     
@@ -343,6 +361,16 @@ presentlong2(data,date) {
   let alert = this.alertCtrl.create({
     title: "تطبيق الدكتور",
     message: data  + " <br> موعد الاعاده :  "+date,
+    buttons: ['حسنا']
+     //  }
+    
+  });
+  alert.present();
+}
+cancelAlert(msg){
+  let alert = this.alertCtrl.create({
+    title: "تطبيق الدكتور",
+    message: msg,
     buttons: ['حسنا']
      //  }
     
