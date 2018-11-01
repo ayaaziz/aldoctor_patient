@@ -146,6 +146,17 @@ export class SearchForPharmacyPage {
         {
           this.lat = this.helper.lat;
           this.lng = this.helper.lon;
+
+
+          this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+            resp=>{
+              console.log("resp from updateUserLocation",resp);
+            },err=>{
+              console.log("err from updateUserLocation",err);
+            }
+          );
+
+
           //this.locFlag = 1;
           this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
             resp=>{
@@ -221,6 +232,14 @@ export class SearchForPharmacyPage {
         this.lng = resp.coords.longitude;
         this.helper.lat= this.lat;
         this.helper.lon = this.lng;
+
+        this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp from updateUserLocation",resp);
+          },err=>{
+            console.log("err from updateUserLocation",err);
+          }
+        );
 
         this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
           resp=>{
@@ -329,6 +348,15 @@ export class SearchForPharmacyPage {
       this.lng = ev.latLng.lng();
       this.helper.lon = this.lng;
       this.helper.lat = this.lat;
+
+      this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+        resp=>{
+          console.log("resp from updateUserLocation",resp);
+        },err=>{
+          console.log("err from updateUserLocation",err);
+        }
+      );
+      
       this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
         resp=>{
           console.log("resp from getUserZone",resp);

@@ -184,4 +184,13 @@ getUserZone(lat , lng , access_token){
   return this.http.post(serviceUrl,parameter,{headers: headers });
 }
 
+updateUserLocation(location,access_token){
+  let headers = new HttpHeaders();
+  let parameter = new HttpParams().set('address',location);
+  headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+  let serviceUrl = this.helper.serviceUrl +'api/updateLocation';
+  return this.http.post(serviceUrl,parameter,{headers: headers });
+}
+
+
 }

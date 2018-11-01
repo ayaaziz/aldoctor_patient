@@ -282,31 +282,43 @@ export class NotificationPage {
     // {
     //   console.log("data splited",item.data.text.split("<br>"));
     // }  
-    
-    if(item.remark && item.data.type == "set-date"  && item.user.service_id == "3")
-      this.presentContOrderConfirm(item.remark,item.date);
-    else if( !item.remark && item.data.type == "new-order" && item.user.service_id == "3")
+    //item.remark && 
+    // !item.remark &&
+    if(item.data.type == "set-date"  && item.user.service_id == "3")
+      this.presentContOrderConfirm(item.data.text,item.remark,item.date);
+    else if( item.data.type == "new-order" && item.user.service_id == "3")
       this.presentlong(item.data.text);
 
-    if(item.date)
-    {
-      if(item.user.service_id == "2")
-        this.presentlong2(item.data.text,item.date);
-    }
-    var ncancel = "";
+    // if(item.date)
+    // {
+    //   if(item.user.service_id == "2")
+    //     this.presentlong2(item.data.text,item.date);
+    // }else{
+    //   if(item.user.service_id == "2")
+    //     this.presentlong(item.data.text);
+    // }
+    if(item.data.type == "set-date"  && item.user.service_id == "2")
+      this.presentlong2(item.data.text,item.date);
+    else if(item.data.type == "new-order"  && item.user.service_id == "2")
+      this.presentlong(item.data.text);
+   
+   
+    var ncancel = [];
     if(item.data.type == "cancel-order")
     {
-      console.log("item.reasons.lenght",item.reasons.lenght);
-      for(var k=0;k<item.reasons.lenght;k++)
+      console.log("item.reasons",item.reasons);
+      console.log("item.reasons.lenght",item.reasons.length);
+      for(var k=0;k<item.reasons.length;k++)
       {
-        ncancel+=item.reasons[k].value+"<br>";
-        console.log("ncancel item in for",item.reasons[k].value);
-        console.log("ncancel item in for with br",ncancel);
+        
+        ncancel.push(item.reasons[k].value);
+        
       }
       
-    //  console.log("ncancel.join(<br>)",ncancel.join("<br>"));
+      console.log("ncancel.join(<br>)",ncancel.join("<br>"));
+
     console.log("ncancel.join(<br>)",ncancel);
-      this.cancelAlert(item.data.text + "<br> للأسباب التالية: <br>"+ncancel);
+      this.cancelAlert(item.data.text + "<br> للأسباب التالية: <br>"+ncancel.join("<br>"));
       
     }
     
@@ -314,13 +326,13 @@ export class NotificationPage {
   }
   
 
-  presentContOrderConfirm(remark,contDate) {
+  presentContOrderConfirm(txt,remark,contDate) {
     
     if(! remark)
       remark = "";
    let alert = this.alertCtrl.create({
-     title: this.translate.instant("contorder"),
-     message: remark+"<br/>"+contDate,
+     title:  "تطبيق الدكتور", //this.translate.instant("contorder")
+     message: txt+"<br/>"+remark+"<br/>"+contDate,
      buttons: ['حسنا']
      //,
     //  enableBackdropDismiss : false
