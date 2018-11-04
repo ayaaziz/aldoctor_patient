@@ -112,9 +112,11 @@ NOAddress = true;
         else
             this.NODob = false;
             
-        var addArr = data.add.split("-");
         // this.address = data.add;
+        var addArr = data.add.split("-");
         this.address = addArr[0];
+            
+
         if(!this.address)
             this.NOAddress = true;
         else
