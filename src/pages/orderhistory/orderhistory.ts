@@ -241,8 +241,13 @@ export class OrderhistoryPage {
               this.orderobject.order_status = ordersData[j].status;
               this.orderobject.statusTxt = ordersData[j].statusTxt;
               
+              // if(ordersData[j].status == "0"){
+              //   this.orderobject.statusTxt = "قيد التنفيذ";
+              //   this.orderobject.color = "green";
+              // }
+              
               if(ordersData[j].status == "0"){
-                this.orderobject.statusTxt = "قيد التنفيذ";
+                this.orderobject.statusTxt = "تم الإرسال";
                 this.orderobject.color = "green";
               }
 
@@ -790,7 +795,9 @@ export class OrderhistoryPage {
       7 start detection
       8 move to paient 
     */
-if(item.order_status == "0"||item.order_status == "2" || item.order_status=="8" || item.order_status =="7" || item.order_status =="13" ||item.order_status =="12")
+
+    //item.order_status == "0"||
+if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7" || item.order_status =="13" ||item.order_status =="12")
 {
   // this.navCtrl.setRoot('follow-order',{
   //   data:item

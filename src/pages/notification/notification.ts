@@ -289,18 +289,20 @@ export class NotificationPage {
     else if( item.data.type == "new-order" && item.user.service_id == "3")
       this.presentlong(item.data.text);
 
-    // if(item.date)
-    // {
-    //   if(item.user.service_id == "2")
-    //     this.presentlong2(item.data.text,item.date);
-    // }else{
-    //   if(item.user.service_id == "2")
-    //     this.presentlong(item.data.text);
-    // }
-    if(item.data.type == "set-date"  && item.user.service_id == "2")
-      this.presentlong2(item.data.text,item.date);
-    else if(item.data.type == "new-order"  && item.user.service_id == "2")
-      this.presentlong(item.data.text);
+    if(item.date)
+    { console.log("with date",item.date);
+      if(item.user.service_id == "2")
+        this.presentlong2(item.data.text,item.date);
+    }else{
+       console.log("without date",item.date);
+      if(item.data.type == "new-order"  && item.user.service_id == "2" )
+        this.presentlong(item.data.text);
+    }
+    // if(item.data.type == "set-date"  && item.user.service_id == "2")
+    // if(item.date && item.user.service_id == "2" && item.data.type == "new-order")
+    //   this.presentlong2(item.data.text,item.date);
+    // else if(item.data.type == "new-order"  && item.user.service_id == "2")
+    //   this.presentlong(item.data.text);
    
    
     var ncancel = [];
@@ -372,7 +374,7 @@ presentlong2(data,date) {
     
   let alert = this.alertCtrl.create({
     title: "تطبيق الدكتور",
-    message: data  + " <br> موعد الاعاده :  "+date,
+    message: data  + " <br> موعد الإعادة :  "+date,
     buttons: ['حسنا']
      //  }
     

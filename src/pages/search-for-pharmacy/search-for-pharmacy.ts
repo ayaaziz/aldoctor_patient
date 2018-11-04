@@ -148,13 +148,25 @@ export class SearchForPharmacyPage {
           this.lng = this.helper.lon;
 
 
-          this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+          this.service.getaddress(this.lat,this.lng).subscribe(
             resp=>{
-              console.log("resp from updateUserLocation",resp);
+              console.log("resp from get address",resp);
+              var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
+            
+              this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+                resp=>{
+                  console.log("resp from updateUserLocation",resp);
+                },err=>{
+                  console.log("err from updateUserLocation",err);
+                }
+              );
+
             },err=>{
-              console.log("err from updateUserLocation",err);
+              console.log("err from get address",err);
             }
           );
+
+          
 
 
           //this.locFlag = 1;
@@ -233,13 +245,32 @@ export class SearchForPharmacyPage {
         this.helper.lat= this.lat;
         this.helper.lon = this.lng;
 
-        this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+        // this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+        //   resp=>{
+        //     console.log("resp from updateUserLocation",resp);
+        //   },err=>{
+        //     console.log("err from updateUserLocation",err);
+        //   }
+        // );
+
+        this.service.getaddress(this.lat,this.lng).subscribe(
           resp=>{
-            console.log("resp from updateUserLocation",resp);
+            console.log("resp from get address",resp);
+            var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
+          
+            this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+              resp=>{
+                console.log("resp from updateUserLocation",resp);
+              },err=>{
+                console.log("err from updateUserLocation",err);
+              }
+            );
+
           },err=>{
-            console.log("err from updateUserLocation",err);
+            console.log("err from get address",err);
           }
         );
+
 
         this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
           resp=>{
@@ -349,11 +380,28 @@ export class SearchForPharmacyPage {
       this.helper.lon = this.lng;
       this.helper.lat = this.lat;
 
-      this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+      // this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+      //   resp=>{
+      //     console.log("resp from updateUserLocation",resp);
+      //   },err=>{
+      //     console.log("err from updateUserLocation",err);
+      //   }
+      // );
+      this.service.getaddress(this.lat,this.lng).subscribe(
         resp=>{
-          console.log("resp from updateUserLocation",resp);
+          console.log("resp from get address",resp);
+          var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
+        
+          this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+            resp=>{
+              console.log("resp from updateUserLocation",resp);
+            },err=>{
+              console.log("err from updateUserLocation",err);
+            }
+          );
+
         },err=>{
-          console.log("err from updateUserLocation",err);
+          console.log("err from get address",err);
         }
       );
       

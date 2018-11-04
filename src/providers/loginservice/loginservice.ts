@@ -668,6 +668,14 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.post(serviceUrl,parameter,{headers: headers });
   }
 
+  getaddress(lat,lng){
+    
+    var url = "https:maps.googleapis.com/maps/api/geocode/json?address="+lat+","+lng+"&key="+this.helper.key;
+    console.log("google api url ",url);
+    return this.http.get(url);
+  }
+  
+
   
 }
 
