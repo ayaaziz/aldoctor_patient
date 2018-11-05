@@ -207,7 +207,7 @@ export class FollowOrderForPlcPage {
         this.completeServiceTxt = this.translate.instant("pharmacycmpServiceTxt");
         this.hint = "";
         this.medicalprescriptionImage = this.translate.instant("medicalprescription");
-        this.sendprescription = " ارسال "+this.medicalprescriptionImage;
+        this.sendprescription = " إرسال "+this.medicalprescriptionImage;
       }  
       else if(this.type_id == "3"){
         this.callService = this.translate.instant("calllab");
@@ -216,7 +216,7 @@ export class FollowOrderForPlcPage {
         this.completeServiceTxt = this.translate.instant("pharmacycmpServiceTxt");
         this.hint = this.translate.instant("labHint");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
-        this.sendprescription = " ارسال "+this.medicalprescriptionImage;
+        this.sendprescription = " إرسال "+this.medicalprescriptionImage;
       }
       else if(this.type_id == "2"){
         this.callService = this.translate.instant("callcenter");
@@ -225,7 +225,7 @@ export class FollowOrderForPlcPage {
         this.completeServiceTxt = this.translate.instant("pharmacycmpServiceTxt");
         this.hint = this.translate.instant("labHint");
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
-        this.sendprescription = " ارسال "+this.medicalprescriptionImage;
+        this.sendprescription = " إرسال "+this.medicalprescriptionImage;
       }
       
         // this.storage.get("access_token").then(data=>{
@@ -707,7 +707,7 @@ private presentToast(text) {
                 }
               );
               
-              this.presentToast("تم الارسال");
+              this.presentToast("تم الإرسال");
               // this.receivedImage = "1";
      //         this.photosForApi = [];
     //          this.photos = [];
@@ -767,7 +767,7 @@ private presentToast(text) {
                 }
               );
               
-              this.presentToast("تم الارسال");
+              this.presentToast("تم الإرسال");
               // this.receivedImage = "1";
      //         this.photosForApi = [];
     //          this.photos = [];
