@@ -167,7 +167,7 @@ export class LoginPage {
               console.log("resp from getHelperTelephones from modal",resp);
               // this.helpersArr = JSON.parse(JSON.stringify(resp));
               var mobile = JSON.parse(JSON.stringify(resp))[0].value;
-              this.presentToast2("عذرا , تم إيقاف حسابك لتجاوزك  عدد المرات المسموح بها للإلغاء ... من فضلك تواصل مع خدمة العملاء "+mobile);    
+              this.presentToast2("عذرا , تم إيقاف حسابك لتجاوزك  عدد المرات المسموح بها للإلغاء ... من فضلك تواصل مع خدمة العملاء "+mobile+"+");    
           
         
             },

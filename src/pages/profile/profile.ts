@@ -116,11 +116,26 @@ NOAddress = true;
         var addArr = data.add.split("-");
         this.address = addArr[0];
             
-
         if(!this.address)
+        {
+          this.NOAddress = true;
+          this.accessToken = localStorage.getItem('user_token');
+          this.service.getuserProfile(this.accessToken).subscribe(resp=>{
+            console.log("get user profile resp",resp);
+            this.address  = JSON.parse(JSON.stringify(resp)).extraInfo.address_map;
+            this.NOAddress = false;
+          },err=>{
+            console.log("get user profile err",err);
             this.NOAddress = true;
+          });
+        } 
         else
             this.NOAddress = false;
+
+        // if(!this.address)
+        //     this.NOAddress = true;
+        // else
+        //     this.NOAddress = false;
 
         if(data.profile_pic)
           this.image = data.profile_pic;

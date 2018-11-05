@@ -745,7 +745,10 @@ confirmCancel(){
   alert.present();
 }
 
-
+ionViewWillEnter(){
+  console.log("will enter from follow order");
+  this.helper.view = "follow";
+}
 
   
 }

@@ -1071,6 +1071,10 @@ private presentToast(text) {
 
  
 
+ionViewWillEnter(){
+  console.log("will enter from follow order");
+  this.helper.view = "follow";
+}
 
 
 }
