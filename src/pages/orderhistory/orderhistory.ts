@@ -253,6 +253,12 @@ reorderDate:"",reorderPrice:""};
               if(ordersData[j].status == "0"){
                 this.orderobject.statusTxt = "تم الإرسال";
                 this.orderobject.color = "green";
+                this.orderobject.rated  = "1";
+              }
+              if(ordersData[j].status == "3"){
+                this.orderobject.statusTxt = "لا يوجد استجابة";
+                this.orderobject.color = "red";
+                this.orderobject.rated  = "1";
               }
 
               //.split(" ")[0]
