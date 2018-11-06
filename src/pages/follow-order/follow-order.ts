@@ -87,7 +87,7 @@ export class FollowOrderPage {
           resp=>{
             console.log("resp get order deatils",resp);
             var orderDataForPriceParsing = JSON.parse(JSON.stringify(resp)).order;
-            if(orderDataForPriceParsing.is_reorder == "1" && orderDataForPriceParsing.reorder_done == "1")
+            if(orderDataForPriceParsing.is_reorder == "0" && orderDataForPriceParsing.reorder_done == "1")
               this.reorderDetected = true;
 
     
