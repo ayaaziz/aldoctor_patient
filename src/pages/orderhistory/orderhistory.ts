@@ -913,8 +913,10 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
             this.service.reorder(item.orderId,item.custom_date,item.date_id,this.accessToken).subscribe(
               resp=>{
                 console.log("reorder resp",resp);
+                this.helper.orderIdForUpdate = JSON.parse(JSON.stringify(resp)).OrderID;
+                console.log("this.helper.orderIdForUpdate",this.helper.orderIdForUpdate);
                 this.presentToast( this.translate.instant("sendReorder"));
-                this.navCtrl.setRoot('remaining-time-to-accept',{orderId:item.orderId});
+                this.navCtrl.setRoot('remaining-time-to-accept',{orderId:JSON.parse(JSON.stringify(resp)).OrderID});
               },
               err=>{
                 console.log("reorder err",err);
