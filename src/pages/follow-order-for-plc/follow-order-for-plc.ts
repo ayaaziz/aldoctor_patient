@@ -967,6 +967,10 @@ private presentToast(text) {
     // console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
     // var ourDate = yydate[0]+" "+zzdate[0];
     
+
+    if(!remark )
+      remark = "";
+      
    let alert = this.alertCtrl.create({
      title: "إكمال الطلب",
      message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",

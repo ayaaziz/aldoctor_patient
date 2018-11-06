@@ -76,6 +76,7 @@ export class ViewRatesPage {
           console.log("remark ",notificatoionResp[i].remark);
           
           if(notificatoionResp[i].remark){
+            console.log("with remark");
             if(notificatoionResp[i].usr)
               notificatoionResp[i].notificationimage=notificatoionResp[i].usr.profile_pic;
             else
@@ -83,9 +84,12 @@ export class ViewRatesPage {
           
             notificatoionResp[i].hideReview = false;
             notificatoionResp[i].notificationDate = notificatoionResp[i].created_at.split(" ")[0];
+            
+            console.log("with notificatoionResp[i]",notificatoionResp[i]);
             this.data.push(notificatoionResp[i]);
-     
+
           }else {
+            console.log("without remark");
             if(notificatoionResp[i].usr)
               notificatoionResp[i].notificationimage=notificatoionResp[i].usr.profile_pic;
             else
@@ -94,11 +98,13 @@ export class ViewRatesPage {
             notificatoionResp[i].remark = "";
             notificatoionResp[i].hideReview  = true;
             notificatoionResp[i].notificationDate = notificatoionResp[i].created_at.split(" ")[0];
+            console.log("with out notificatoionResp[i]",notificatoionResp[i]);
             this.data.push(notificatoionResp[i]);
           }
                
         }
-        
+        console.log("rates data: ",this.data);
+
     
 
         if(this.data.length == 0)
@@ -133,22 +139,54 @@ export class ViewRatesPage {
         if (notificatoionResp.last_pag)
           this.maximumPages = notificatoionResp.last_page;
        
-        for(var i=0;i<notificatoionResp.length;i++){
+        // for(var i=0;i<notificatoionResp.length;i++){
           
+        //   console.log("remark ",notificatoionResp[i].remark);
+          
+        //   if(notificatoionResp[i].remark){
+
+        //     if(notificatoionResp[i].usr)
+        //       notificatoionResp[i].notificationimage=notificatoionResp[i].usr.profile_pic;
+        //     else
+        //       notificatoionResp[i].notificationimage="assets/imgs/default-avatar.png";
+                
+        //     notificatoionResp[i].notificationDate = notificatoionResp[i].created_at.split(" ")[0];
+        //     this.data.push(notificatoionResp[i]);
+        //   }
+          
+        // }
+        for(var i=0;i<notificatoionResp.length;i++){
           console.log("remark ",notificatoionResp[i].remark);
           
           if(notificatoionResp[i].remark){
-
+            console.log("with remark");
             if(notificatoionResp[i].usr)
               notificatoionResp[i].notificationimage=notificatoionResp[i].usr.profile_pic;
             else
-              notificatoionResp[i].notificationimage="assets/imgs/default-avatar.png";
-                
+            notificatoionResp[i].notificationimage="assets/imgs/default-avatar.png";
+          
+            notificatoionResp[i].hideReview = false;
             notificatoionResp[i].notificationDate = notificatoionResp[i].created_at.split(" ")[0];
+            
+            console.log("with notificatoionResp[i]",notificatoionResp[i]);
+            this.data.push(notificatoionResp[i]);
+
+          }else {
+            console.log("without remark");
+            if(notificatoionResp[i].usr)
+              notificatoionResp[i].notificationimage=notificatoionResp[i].usr.profile_pic;
+            else
+            notificatoionResp[i].notificationimage="assets/imgs/default-avatar.png";
+          
+            notificatoionResp[i].remark = "";
+            notificatoionResp[i].hideReview  = true;
+            notificatoionResp[i].notificationDate = notificatoionResp[i].created_at.split(" ")[0];
+            console.log("with out notificatoionResp[i]",notificatoionResp[i]);
             this.data.push(notificatoionResp[i]);
           }
-          
+               
         }
+        
         if(this.data.length == 0)
         {
           this.presentToast("لا يوجد تعليقات"); 

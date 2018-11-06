@@ -95,6 +95,7 @@ export class ServiceProfilePage {
     
     this.address = this.doctorProfile.extraInfo.address;
     this.services = this.doctorProfile.speciality_services;
+    // this.services[0].price = "";
     
     this.type_id = this.doctorProfile.type_id;
     

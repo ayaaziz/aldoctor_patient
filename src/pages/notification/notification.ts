@@ -291,7 +291,7 @@ export class NotificationPage {
 
     if(item.date)
     { console.log("with date",item.date);
-      if(item.user.service_id == "2")
+      if(item.data.type == "new-reorder"  && item.user.service_id == "2")
         this.presentlong2(item.data.text,item.date);
     }else{
        console.log("without date",item.date);

@@ -490,6 +490,16 @@ Loadfunc(){
             if(! doctorData["result"][i].rate)
               doctorData["result"][i].rate = 5;
 
+              for(var a = 0;a<doctorData["result"][i].speciality_services.length;a++)
+              {
+                 if(doctorData["result"][i].speciality_services[a].id == this.center_id )
+                  doctorData["result"][i].servicePrice = doctorData["result"][i].speciality_services[a].price;
+                 break;
+              }
+            
+
+
+
 
           if(doctorData["result"][i].busy == "1")
           {

@@ -41,7 +41,8 @@ xxrate;
     // if( xphone.toString()[0] != "2")
     //   xphone = "2"+xphone;
     //console.log("xphone: ",xphone);
-    
+    console.log("27-10-2018 helllo hhh split","27-10-2018 00:00:00:00".substring(length, 10));
+    console.log("27-10-2018 helllo hhh split 11 :","27-10-2018 00:00:00:00".substring(0, 11));
     var xxdate = "2018-09-20T11:58:00.000Z"
 var yydate = xxdate.split('T');
 var zzdate = yydate[1].split('.');
@@ -292,17 +293,17 @@ this.storage.get("rate_doctor").then(data=>{
   }
 
   follow(){
-  this.navCtrl.setRoot(FollowOrderPage,
+  this.navCtrl.setRoot('follow-order',
   {data:
-    {"orderId":201, 
-      "doctorId":22
+    {"orderId":1, 
+      "doctorId":216
     }
   });
 
   }
   followOrderForPlc(){
     this.helper.type_id="1";
-    this.navCtrl.setRoot(FollowOrderForPlcPage,
+    this.navCtrl.setRoot('FollowOrderForPlcPage',
   {data:
     {"orderId":678, 
       "doctorId":61

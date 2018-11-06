@@ -69,6 +69,8 @@ export class MyApp {
   backBtnFlag = false;
   tostClass;
 
+  userLoged;
+
 
   constructor(public events: Events,public service:LoginserviceProvider, 
     private alertCtrl: AlertController, private push: Push,
@@ -79,6 +81,22 @@ export class MyApp {
     statusBar: StatusBar, splashScreen: SplashScreen,
     public translate: TranslateService,private market: Market,
   public app:App, public toastCtrl: ToastController) {
+
+
+    events.subscribe('user:userLogedout', () => {
+      this.userLoged = false;
+      console.log("user loged out");
+      this.storage.remove("language");
+      this.storage.remove("access_token");
+      this.storage.remove("refresh_token");
+      this.storage.remove("user_info").then(() => {
+            localStorage.removeItem('refresh_token');
+            localStorage.remove('access_token');
+            this.userLoged = false;
+            this.nav.setRoot(LoginPage);
+          })
+    });
+
 
   
             
@@ -1228,7 +1246,10 @@ presentContOrderConfirm(order_id,remark,contDate) {
       //  var zzdate = yydate[1].split('.');
       //  console.log("time of notification" ,yydate[0]+" "+zzdate[0]);
       //  var ourDate = yydate[0]+" "+zzdate[0];
-       
+
+      if(!remark )
+        remark = "";
+
       let alert = this.alertCtrl.create({
         title: "إكمال الطلب",
         message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",

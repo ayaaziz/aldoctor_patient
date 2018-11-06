@@ -434,6 +434,14 @@ removeNetworkConnectionListener(){
     this.connectSubscription.unsubscribe(); 
 }
 
+public userlogout(){
+  //if(this.logoutMsgStatus == 0){
+   // this.presentToast("لقد أنتهت صلاحية الجلسة الخاصة بك، يجب عليك تسجيل الدخول")
+   // this.logoutMsgStatus = 1
+  //}
+  
+  this.events.publish('user:userLogedout')
+}
 
 
 }

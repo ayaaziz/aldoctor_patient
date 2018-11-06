@@ -47,6 +47,7 @@ export class FollowOrderPage {
   allMarkers = [] ;
 
   notificationFlag=false;
+  reorderDetected = false; 
 
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
@@ -82,6 +83,15 @@ export class FollowOrderPage {
         // this.accessToken = data;
         this.accessToken = localStorage.getItem('user_token');
 
+        this.service.getOrderDetails(this.doctorData.orderId,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp get order deatils",resp);
+            var orderDataForPriceParsing = JSON.parse(JSON.stringify(resp)).order;
+            if(orderDataForPriceParsing.is_reorder == "1" && orderDataForPriceParsing.reorder_done == "1")
+              this.reorderDetected = true;
+
+    
+        
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in followorder: ",resp);
@@ -97,7 +107,11 @@ export class FollowOrderPage {
 
             
             this.doctorSpecialization = tempData.speciality; 
-            this.OrderCost = tempData.extraInfo.discount;
+            if(this.reorderDetected == false)
+              this.OrderCost = tempData.extraInfo.discount;
+            else if(this.reorderDetected == true)
+              this.OrderCost = tempData.extraInfo.price;
+
             this.phone = tempData.phone;
             
             //this.doctorLocation = tempData.location;
@@ -109,6 +123,14 @@ export class FollowOrderPage {
           }
   
         );
+
+      },err=>{
+        console.log("err get order details",err);
+      }
+    );
+
+
+
       // });
       this.events.subscribe('location', (data) => {
         console.log(" event location ",data);

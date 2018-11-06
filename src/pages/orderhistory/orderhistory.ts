@@ -33,7 +33,8 @@ export class OrderhistoryPage {
   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
 "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
 "diabledesign":false,"addressSign":true,"type_id":"","diabledRate":false,
-"contorder":"","remark":"","contDate":"","disableRatebtn":true};
+"contorder":"","remark":"","contDate":"","disableRatebtn":true,
+reorderDate:"",reorderPrice:""};
 
   tostClass ;
   refresher;
@@ -124,7 +125,7 @@ export class OrderhistoryPage {
             else if(ordersData[j].status == "5") //finished
               ordersData[j].color="grey";
             
-            if(ordersData[j].is_reorder == "1") // is_reorder,reorder
+            if(ordersData[j].is_reorder == "1")  // is_reorder,reorder
               ordersData[j].color = "green";
             
             // if(ordersData[j].rated == "0")
@@ -218,7 +219,10 @@ export class OrderhistoryPage {
               
               this.orderobject.doctor_id = serviceProfile.id;
               this.orderobject.color = ordersData[j].color;
-              this.orderobject.reorder = ordersData[j].is_reorder;
+
+              if( ordersData[j].is_reorder == "1" && ordersData[j].reorder_done == "0")
+                this.orderobject.reorder = "1";
+
               // this.orderobject.reorder = ordersData[j].reorder;
               this.orderobject.contorder = ordersData[j].contorder;
               
@@ -266,6 +270,9 @@ export class OrderhistoryPage {
                 
                 console.log("today",new Date().toISOString().split('T')[0]);
                 
+                this.orderobject.reorderDate =  ordersData[j].date;
+                this.orderobject.reorderPrice = ordersData[j].service_profile.doctor.price;
+
                 if(new Date().toISOString().split('T')[0] == ordersData[j].date.split(" ")[0] ){
                   console.log("==")
                   this.orderobject.reorderBtn = false;
@@ -294,7 +301,8 @@ export class OrderhistoryPage {
                   "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
                   "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
                   "diabledesign":false,"addressSign":true,"type_id":"","diabledRate" :false,
-                  "contorder":"","remark":"","contDate":"","disableRatebtn":true};
+                  "contorder":"","remark":"","contDate":"","disableRatebtn":true,
+                  reorderDate:"",reorderPrice:""};
           
                     
             }
@@ -323,7 +331,8 @@ export class OrderhistoryPage {
               "name":"","specialization":"","profile_pic":"","rate":"","doctor_id":"",
               "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
               "diabledesign":false ,"addressSign":true,"type_id":"","diabledRate":false,
-              "contorder":"","remark":"","contDate":"","disableRatebtn":true};
+              "contorder":"","remark":"","contDate":"","disableRatebtn":true,
+              reorderDate:"",reorderPrice:""};
       
            
             }
@@ -867,13 +876,20 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
   }
   reorder(item){
     console.log("item from reorder",item);
-    this.presentConfirm(item);
+   // this.presentConfirm(item);
+    this.checkfund(item);
   }
 
-  presentConfirm(item) {
+  presentConfirm(item , msgStatus,money) {
+
+    var msg = "";
+    if(msgStatus == 0)
+      msg= this.translate.instant("confirmReorderMsg")+"<br>"+"موعد الإعادة : "+item.reorderDate+"<br>"+" قيمة الإعادة: "+item.reorderPrice +" جنيه مصرى ";
+    else if(msgStatus == 1)
+      msg = this.translate.instant("confirmReorderMsg")+"<br>"+"موعد الإعادة : "+item.reorderDate+"<br>"+" قيمة الإعادة: "+item.reorderPrice +" جنيه مصرى "+"<br>"+"قيمة الغرامة: "+money+" جنيه مصرى ";
     let alert = this.alertCtrl.create({
       title: this.translate.instant("confirmReorder"),
-      message: this.translate.instant("confirmReorderMsg"),
+      message: msg,
       buttons: [
         {
           text: this.translate.instant("disagree"),
@@ -892,6 +908,7 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
               resp=>{
                 console.log("reorder resp",resp);
                 this.presentToast( this.translate.instant("sendReorder"));
+                this.navCtrl.setRoot('remaining-time-to-accept',{orderId:item.orderId});
               },
               err=>{
                 console.log("reorder err",err);
@@ -1005,6 +1022,42 @@ presentContOrderConfirm(item) {
   });
   alert.present();
 }
+
+
+
+checkfund(item){
+  this.accessToken = localStorage.getItem('user_token');
+  this.service.getFund(this.accessToken).subscribe(
+    resp=>{
+      console.log("resp from getFund",resp);
+      var pfunds = JSON.parse(JSON.stringify(resp)).data;
+      
+      if(pfunds.order_count == 0)
+        this.presentConfirm(item,0,0);
+      else if(pfunds.order_count>0 && pfunds.order_count<3)
+        this.presentConfirm(item,1,pfunds.forfeit_patient);
+      else if(pfunds.order_count >= 3)          
+        this.fundStopAlert(item,pfunds.forfeit_patient);
+      
+    },err=>{
+      console.log("err from getFund",err);
+    });
+}
+
+fundStopAlert(item,money){
+    let alert = this.alertCtrl.create({
+      title:  this.translate.instant("confirmReorder"),
+      message:"موعد الإعادة : "+item.reorderDate+"<br>"+" قيمة الإعادة: "+item.reorderPrice +" جنيه مصرى "+"<br>"+"قيمة الغرامة: "+money+" جنيه مصرى ",
+      buttons: ["حسنا"
+      ]
+    });
+
+    alert.present();
+  
+}
+
+
+
 
 
 }
