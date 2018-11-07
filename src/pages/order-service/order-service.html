@@ -100,7 +100,7 @@
     <ion-col col-5></ion-col>
 </ion-row>
 
-    <ion-scroll scrollY="true"  [ngStyle]="{'height': scrollHeight }"  >
+    <!-- <ion-scroll scrollY="true"  [ngStyle]="{'height': scrollHeight }"  > -->
        <ion-card *ngFor="let item of DoctorsArray"  [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" style="height:95px;" (click)="showseviceProfile(item)" >          
           <ion-row style="width: calc(100% - 5px);margin: 2px;height:95px;" >
               <!-- fixed class="customItem3" -->
@@ -142,7 +142,7 @@
             </ion-col>
           </ion-row>
       </ion-card>
-      </ion-scroll>
+      <!-- </ion-scroll> -->
       
       <!-- <ion-row style="width:100%;">
           
@@ -300,5 +300,9 @@
             <ion-icon name="camera" style="color:#fff;font-size:20px;vertical-align: middle;"></ion-icon>
           </button>
         </ion-fab>
+
+        <!-- <ion-infinite-scroll   (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Loading Users...">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll> -->
 
 </ion-content>

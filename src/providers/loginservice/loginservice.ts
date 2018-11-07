@@ -197,20 +197,20 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     
   }
   
-  getDoctorInSpecificSpecialization(id,access_token){
+  getDoctorInSpecificSpecialization(page,id,access_token){
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&speciality_id='+id+'&lat='+this.helper.lat+'&long='+this.helper.lon+'&city_id='+this.helper.city_id;
+    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&speciality_id='+id+'&lat='+this.helper.lat+'&long='+this.helper.lon+'&city_id='+this.helper.city_id+'&page='+page;
     return this.http.get(serviceUrl,{headers: headers });
 
   }
-  getDoctorsByName(doctorName,speciality_id,access_token){
+  getDoctorsByName(page,doctorName,speciality_id,access_token){
     
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&name='+doctorName+'&speciality_id='+speciality_id+'&lat='+this.helper.lat+'&long='+this.helper.lon+'&city_id='+this.helper.city_id;
+    let serviceUrl = this.helper.serviceUrl +'api/users/search?type=2&name='+doctorName+'&speciality_id='+speciality_id+'&lat='+this.helper.lat+'&long='+this.helper.lon+'&city_id='+this.helper.city_id+'&page='+page;
     return this.http.get(serviceUrl,{headers: headers });
 
   }
@@ -359,12 +359,12 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       return this.http.post(serviceUrl,parameter,{headers: headers });
 
   }
-  nearbyDooctors(lat,lon,access_token){
+  nearbyDooctors(page,lat,lon,access_token){
 
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl+ 'api/nearby?service_id=2&lat='+lat+'&lng='+lon;
+    let serviceUrl = this.helper.serviceUrl+ 'api/nearby?service_id=2&lat='+lat+'&lng='+lon+'&page='+page;
     return this.http.get(serviceUrl,{headers: headers });
 
   }

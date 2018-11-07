@@ -39,7 +39,7 @@ export class SearchForDoctorPage {
   tostClass ;
   locFlag= 0;
   
-  //locFlag= 1;
+  // locFlag= 1;
 
   toastFlag= false;
   allMarkers = [] ;
@@ -342,7 +342,7 @@ getUserLocation(){
       
       this.accessToken = localStorage.getItem('user_token');
 
-        this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
+        this.service.nearbyDooctors(0,this.lat,this.lng,this.accessToken).subscribe(
           resp =>{
             console.log("resp from nearby doctors: ",resp);
             var docsData = JSON.parse(JSON.stringify(resp)).result;
@@ -554,7 +554,7 @@ handleuserLocattion(){
   //   this.accessToken = data;
   this.accessToken = localStorage.getItem('user_token');
 
-    this.service.nearbyDooctors(this.lat,this.lng,this.accessToken).subscribe(
+    this.service.nearbyDooctors(0,this.lat,this.lng,this.accessToken).subscribe(
       resp =>{
         console.log("resp from nearby doctors: ",resp);
         var docsData = JSON.parse(JSON.stringify(resp)).result;

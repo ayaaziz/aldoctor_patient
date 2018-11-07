@@ -41,7 +41,7 @@ export class OrderDoctorPage {
   showLoading=true;
 
   orderBTn = true; //fasle
-  
+  myxid;
 
   @ViewChild('fireSElect') sElement;
 
@@ -57,6 +57,14 @@ export class OrderDoctorPage {
   choosenDoctors=[];
   refresher;
   myindexTobeoffline;
+
+  page=0;
+  maximumPages;
+  infiniteScroll;
+
+  onlinetmpArrForSorting = [];
+  offlinetmpArrForSorting = [];
+
 
   constructor(public helper:HelperProvider, public toastCtrl: ToastController, 
     public storage: Storage, public events: Events,public alertCtrl: AlertController,
@@ -98,6 +106,7 @@ export class OrderDoctorPage {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
                 this.DoctorsArray[k].moreTxt = "متوافر";
+                this.DoctorsArray[k].online = "1";
                 console.log("offline false ",this.DoctorsArray[k]);
                 console.log("call sort function from status changed");
                //r this.sortDoctors();
@@ -107,6 +116,7 @@ export class OrderDoctorPage {
                 this.DoctorsArray[k].color="grey";
                 this.DoctorsArray[k].offline=true;
                 this.DoctorsArray[k].moreTxt = "غير متوافر";
+                this.DoctorsArray[k].online = "0";
                 console.log("call sort function from status changed");
                 //r this.sortDoctors();
               }
@@ -114,7 +124,7 @@ export class OrderDoctorPage {
             
           }
 
-
+          this.sortDoctorsWithOnline();
         });
         this.events.subscribe('status', (data) => {
           console.log(" event status ",data);
@@ -131,6 +141,7 @@ export class OrderDoctorPage {
                 this.DoctorsArray[k].color="green";
                 this.DoctorsArray[k].offline=false;
                 this.DoctorsArray[k].moreTxt="متوافر";
+                this.DoctorsArray[k].online = "1";
                 console.log("offline false ",this.DoctorsArray[k]);
                 console.log("call sort function from status");
               // r this.sortDoctors();
@@ -140,11 +151,13 @@ export class OrderDoctorPage {
                 this.DoctorsArray[k].color="grey";
                 this.DoctorsArray[k].offline=true;
                 this.DoctorsArray[k].moreTxt="غير متوافر";
+                this.DoctorsArray[k].online = "0";
                 console.log("call sort function whenfrom status");
                //r this.sortDoctors();
               }
             } 
           }
+          this.sortDoctorsWithOnline();
         });
 
         this.events.subscribe('locationChanged', (data) => {
@@ -228,6 +241,7 @@ export class OrderDoctorPage {
             this.DoctorsArray[k].color="red";
             this.DoctorsArray[k].offline=true;
             this.DoctorsArray[k].moreTxt = "غير متوافر";
+            this.DoctorsArray[k].online = "0";
             console.log("call sort function from get busy red");
               //r  this.sortDoctors();
 
@@ -236,6 +250,7 @@ export class OrderDoctorPage {
             this.DoctorsArray[k].color="green";
             this.DoctorsArray[k].offline=false;
             this.DoctorsArray[k].moreTxt = "متوافر";
+            this.DoctorsArray[k].online = "1";
             console.log("doctor :(",this.DoctorsArray[k]);
             console.log("offline false ",this.DoctorsArray[k]);
             this.helper.getDoctorStatus(data.id);
@@ -248,6 +263,7 @@ export class OrderDoctorPage {
           // }
         } 
       }
+      this.sortDoctorsWithOnline();
     });
 
     this.events.subscribe('busyDoctorChanged', (data) => {
@@ -265,7 +281,7 @@ export class OrderDoctorPage {
             this.DoctorsArray[k].color="red";
             this.DoctorsArray[k].offline=true;
             this.DoctorsArray[k].moreTxt = "غير متوافر";
-
+            this.DoctorsArray[k].online = "0";
             
             console.log("call sort function from get busy changed");
               //r  this.sortDoctors();
@@ -275,6 +291,7 @@ export class OrderDoctorPage {
             this.DoctorsArray[k].color="green";
             this.DoctorsArray[k].offline=false;
             this.DoctorsArray[k].moreTxt = "متوافر";
+            this.DoctorsArray[k].online = "1";
             console.log("offline false ",this.DoctorsArray[k]);
             this.helper.getDoctorStatus(data.id);
             console.log("call sort function from get busy changed");
@@ -287,6 +304,7 @@ export class OrderDoctorPage {
           // }
         } 
       }
+      this.sortDoctorsWithOnline();
     });
 
   }
@@ -315,6 +333,7 @@ export class OrderDoctorPage {
             // this.SpecializationChecked();
 
           }
+          // this.page = 0;
           this.SpecializationChecked();
          
 
@@ -362,19 +381,31 @@ export class OrderDoctorPage {
     for(var i=0;i<this.SpecializationArray.length;i++){
       if(this.Specialization == this.SpecializationArray[i].value)
       {
-        id = this.SpecializationArray[i].id;
+        this.myxid = this.SpecializationArray[i].id;
+        this.page = 0;
+        this.DoctorsArray= [];
         break;
       }
     }
     console.log("get doctor sp id: ",id);
     // this.presentLoadingCustom();
     //this.showLoading = false;
+    this.xload();    
+  }
+
+
+  xload(){
+
+
     if(this.refresher)
       this.showLoading = true;
     else
       this.showLoading = false;
 
-    this.service.getDoctorInSpecificSpecialization(id,this.accessToken).subscribe(
+      var tempArr = [];
+      this.page ++;
+
+    this.service.getDoctorInSpecificSpecialization(this.page,this.myxid,this.accessToken).subscribe(
       resp =>{
         console.log("getDoctorInSpecificSpecialization resp: ",resp);
         // this.loading.dismiss();
@@ -382,7 +413,8 @@ export class OrderDoctorPage {
         console.log("this.showLoading: ",this.showLoading);
         let doctorData =JSON.parse(JSON.stringify(resp));
         console.log("doctors data",doctorData["results"]);
-        this.DoctorsArray=[];  
+        // this.DoctorsArray=[];  
+
         for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
             
@@ -391,39 +423,63 @@ export class OrderDoctorPage {
             else 
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
 
+            console.log("1");
+            
             if(! doctorData["results"][i].rate)
               doctorData["results"][i].rate = 5;
-
+              
+              
+            console.log("2");
 /**/            
 
           if(doctorData["results"][i].busy == "1")
           {
+            console.log("3");
+
             doctorData["results"][i].color="red";
             doctorData["results"][i].offline=true;
             doctorData["results"][i].moreTxt = "غير متوافر";
           }else if (doctorData["results"][i].busy == "0")
           {
+            console.log("4");
+
             if(doctorData["results"][i].online  == "1")
               {
+                console.log("5");
+
                 doctorData["results"][i].color="green";
                 doctorData["results"][i].offline=false;
                 doctorData["results"][i].moreTxt = "متوافر";
 
               }else if (doctorData["results"][i].online  == "0")
               {
+                console.log("6");
+
                 doctorData["results"][i].color="grey";
                 doctorData["results"][i].offline=true;
                 doctorData["results"][i].moreTxt = "غير متوافر";
                 
               }
            
+              console.log("7");
           }
 
           /* */
+          console.log("8");
 
-
+             tempArr.push(doctorData["results"][i]);
             this.DoctorsArray.push(doctorData["results"][i]);
           }
+          if(tempArr.length>0)
+          {
+            this.sortDoctorsWithOnline();
+            this.xload();
+          }
+          // else{
+          //   this.sortDoctorsWithdistance();
+          // }
+            
+          
           
         if(this.DoctorsArray.length >= 3)
         {
@@ -480,7 +536,8 @@ export class OrderDoctorPage {
           if(this.DoctorsArray.length == 0)
           {
             console.log("if = 0");
-            this.presentToast(this.translate.instant("noSearchResult"));
+            if(this.page == 1)
+              this.presentToast(this.translate.instant("noSearchResult"));
           }
           if(this.refresher)
           this.refresher.complete();
@@ -494,9 +551,10 @@ export class OrderDoctorPage {
         this.refresher.complete();
       }
     );
-    
-  }
 
+
+
+  }
   getDistanceAndDuration(i){
 
     if(this.DoctorsArray[i].offline == false){
@@ -583,25 +641,96 @@ export class OrderDoctorPage {
     );
   }
   }
-  sortDoctors(){
-    console.log("doc before sort ",this.DoctorsArray);
-    // this.DoctorsArray.sort(function(a,b){
-    //   console.log("a.distanceVal: ",a.distanceVal,"b.distanceVal: ",b.distanceVal);
-    //   return a.distanceVal - b.distanceVal;
-    // });
+  // sortDoctors(){
+  //   console.log("doc before sort ",this.DoctorsArray);
+  //   // this.DoctorsArray.sort(function(a,b){
+  //   //   console.log("a.distanceVal: ",a.distanceVal,"b.distanceVal: ",b.distanceVal);
+  //   //   return a.distanceVal - b.distanceVal;
+  //   // });
 
-    //sort by nearest
-    // this.DoctorsArray.sort((a,b)=>a.distanceVal-b.distanceVal); 
+  //   //sort by nearest
+  //   // this.DoctorsArray.sort((a,b)=>a.distanceVal-b.distanceVal); 
 
-    //sort by nearest & online
-    this.DoctorsArray.sort((a,b)=>{
-      if(a.offline == false || b.offline == false)
-        return a.distanceVal-b.distanceVal;
+  //   //sort by nearest & online
+  //   this.DoctorsArray.sort((a,b)=>{
+  //     if(a.offline == false || b.offline == false)
+  //       return a.distanceVal-b.distanceVal;
   
-    }); 
+  //   }); 
 
-    console.log("doc after sort ",this.DoctorsArray);
+  //   console.log("doc after sort ",this.DoctorsArray);
+  // }
+
+
+  sortDoctorsWithOnline(){
+    console.log("onlline doc before sort ",this.DoctorsArray);
+  
+    // this.DoctorsArray.sort((a,b)=>{
+    //   if(a.offline == false || b.offline == false)
+    //     return a.distanceVal-b.distanceVal;
+  
+    // }); 
+
+    this.DoctorsArray.sort(function(a, b) {
+      return  b["online"] - a["online"];
+  });
+
+    console.log("online doc after sort ",this.DoctorsArray);
+var tmpstore=[];
+tmpstore = this.DoctorsArray;
+this.onlinetmpArrForSorting = [];
+this.offlinetmpArrForSorting = [];
+
+    for(var jj=0;jj<tmpstore.length;jj++)
+    {
+      if(tmpstore[jj].online == "1")
+      {
+        this.onlinetmpArrForSorting.push(tmpstore[jj]);
+
+      }else{
+        this.offlinetmpArrForSorting.push(tmpstore[jj]);
+      }
+    }
+
+    this.sortDoctorsWithdistance();
+    console.log("this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
+    console.log("this.offlinetmpArrForSorting",this.offlinetmpArrForSorting);
+
+    // var sortingarrWithDistance =  this.sortDoctorsWithdistance(tmpArrForSorting);
+    // this.DoctorsArray =[];
+    // this.DoctorsArray.concat( sortingarrWithDistance , offlinetmpArrForSorting);
+    // console.log("this.DoctorsArray after all things: ",this.DoctorsArray);
   }
+  sortDoctorsWithdistance(){
+    console.log("distance doc before sort ",this.DoctorsArray);
+    console.log("distance before this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
+    
+
+    this.onlinetmpArrForSorting.sort(function(a, b) {
+      return  a["distanceval"] - b["distanceval"] ;
+    });
+
+    this.offlinetmpArrForSorting.sort(function(a, b) {
+      return  a["distanceval"] - b["distanceval"] ;
+    });
+
+    console.log("distance after this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
+    console.log("distance after this.offlinetmpArrForSorting",this.offlinetmpArrForSorting);
+    // this.DoctorsArray =[];
+    var xarray = [];
+    xarray = this.onlinetmpArrForSorting.concat(this.offlinetmpArrForSorting);
+
+    console.log("distance doc after sort ",this.DoctorsArray);
+    console.log("xarray",xarray);
+    this.DoctorsArray = xarray;
+    // var yarray=[];
+    // yarray = [3,4].concat([1,2]);
+    // console.log("yarray",yarray);
+  }
+
+
+
+
   doctorChecked(item , event){
     console.log("doctor checked",item);
     if(item.checked == true)
@@ -858,6 +987,10 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     // this.photosForApi = [];
     this.choosenDoctors = [];
     this.refresher = ev;
+
+    this.page = 0;
+    this.DoctorsArray= [];
+
     this.SpecializationChecked();
     
   }

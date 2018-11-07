@@ -312,7 +312,7 @@ this.events.subscribe('location', (data) => {
     console.log("id: ",id);
     this.showLoading = false;
     // this.service.getDoctorInSpecificSpecialization(id,this.accessToken)
-    this.service.getDoctorsByName(this.searchValue,id,this.accessToken)
+    this.service.getDoctorsByName(0,this.searchValue,id,this.accessToken)
     .subscribe(
     
       resp =>{
@@ -541,7 +541,7 @@ this.events.subscribe('location', (data) => {
     else
       this.showLoading = false;
 
-      this.service.getDoctorsByName(this.searchValue,id,this.accessToken).subscribe(
+      this.service.getDoctorsByName(0,this.searchValue,id,this.accessToken).subscribe(
         resp=>{
           this.showLoading = true;
           this.choosenDoctors=[];

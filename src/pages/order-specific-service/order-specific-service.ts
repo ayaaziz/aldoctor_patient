@@ -310,7 +310,7 @@ export class OrderSpecificServicePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad OrderSpecificServicePage');
     //this.showLoading = false;
-    this.srv.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
+    this.srv.nearbyservices(0,this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
       resp=>{
         //this.showLoading = true;
         console.log("nearbyservice resp: ",resp);
@@ -766,7 +766,7 @@ export class OrderSpecificServicePage {
 searchFunc(searchVal){
   this.showLoading = false;
 
-  this.srv.searchServiceByName(searchVal,this.type_id,this.accessToken).subscribe(
+  this.srv.searchServiceByName(0,searchVal,this.type_id,this.accessToken).subscribe(
     resp=>{
       console.log("searchServiceByName resp: ",resp);
       this.showLoading=true;

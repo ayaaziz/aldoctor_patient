@@ -301,7 +301,7 @@ export class SearchForPharmacyPage {
         this.accessToken = localStorage.getItem('user_token');
 
           this.helper.accessToken = this.accessToken;
-          this.service.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
+          this.service.nearbyservices(0,this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
             resp =>{
               console.log("resp from nearby services: ",resp);
               var docsData = JSON.parse(JSON.stringify(resp)).result;
@@ -448,7 +448,7 @@ export class SearchForPharmacyPage {
     //   this.accessToken = data;
     this.accessToken = localStorage.getItem('user_token');
 
-      this.service.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
+      this.service.nearbyservices(0,this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp =>{
           console.log("resp from nearby doctors: ",resp);
           var docsData = JSON.parse(JSON.stringify(resp)).result;

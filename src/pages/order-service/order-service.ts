@@ -76,6 +76,12 @@ export class OrderServicePage {
   imageExt=[];
   refresher;
 
+  page=0;
+  maximumPages;
+  infiniteScroll;
+
+  onlinetmpArrForSorting = [];
+  offlinetmpArrForSorting = [];
 
   constructor(public translate: TranslateService,  public events: Events,
     public navCtrl: NavController, public navParams: NavParams,
@@ -172,8 +178,10 @@ export class OrderServicePage {
               this.DoctorsArray[k].color="green";
               this.DoctorsArray[k].offline=false;
               this.DoctorsArray[k].moreTxt = "متوافر";
+              this.DoctorsArray[k].online = "1";
               console.log("offline false ",this.DoctorsArray[k]);
               console.log("call sort function from status changed");
+              
               //r this.sortDoctors();
 
             }else if (data.status == "0")
@@ -181,7 +189,7 @@ export class OrderServicePage {
               this.DoctorsArray[k].color="grey";
               this.DoctorsArray[k].offline=true;
               this.DoctorsArray[k].moreTxt="غير متوافر";
-
+              this.DoctorsArray[k].online = "0";
               console.log("call sort function from status changed");
               //r this.sortDoctors();
             }
@@ -189,7 +197,7 @@ export class OrderServicePage {
           
         }
 
-
+        this.sortDoctorsWithOnline();
       });
       this.events.subscribe('status', (data) => {
         console.log(" event status ",data);
@@ -204,6 +212,7 @@ export class OrderServicePage {
               this.DoctorsArray[k].color="green";
               this.DoctorsArray[k].offline=false;
               this.DoctorsArray[k].moreTxt = "متوافر";
+              this.DoctorsArray[k].online = "1";
               console.log("offline false ",this.DoctorsArray[k]);
               console.log("call sort function from status");
               //r this.sortDoctors();
@@ -213,12 +222,13 @@ export class OrderServicePage {
               this.DoctorsArray[k].color="grey";
               this.DoctorsArray[k].offline=true;
               this.DoctorsArray[k].moreTxt="غير متوافر";
-
+              this.DoctorsArray[k].online = "0";
               console.log("call sort function whenfrom status");
              //r  this.sortDoctors();
             }
           } 
         }
+        this.sortDoctorsWithOnline();
       });
 
       // this.events.subscribe('locationChanged', (data) => {
@@ -286,7 +296,7 @@ export class OrderServicePage {
           this.DoctorsArray[k].color="red";
           this.DoctorsArray[k].offline=true;
           this.DoctorsArray[k].moreTxt="غير متوافر";
-
+          this.DoctorsArray[k].online = "0";
           console.log("call sort function from get busy red");
           //r    this.sortDoctors();
 
@@ -295,6 +305,7 @@ export class OrderServicePage {
           this.DoctorsArray[k].color="green";
           this.DoctorsArray[k].offline=false;
           this.DoctorsArray[k].moreTxt = "متوافر";
+          this.DoctorsArray[k].online = "1";
           console.log("doctor :(",this.DoctorsArray[k]);
           console.log("offline false ",this.DoctorsArray[k]);
           this.helper.getDoctorStatus(data.id);
@@ -304,6 +315,7 @@ export class OrderServicePage {
   
       } 
     }
+    this.sortDoctorsWithOnline();
   });
 
   this.events.subscribe('busyDoctorChanged', (data) => {
@@ -319,7 +331,7 @@ export class OrderServicePage {
           this.DoctorsArray[k].color="red";
           this.DoctorsArray[k].offline=true;
           this.DoctorsArray[k].moreTxt="غير متوافر";
-
+          this.DoctorsArray[k].online = "0";
           console.log("call sort function from get busy changed");
           //r    this.sortDoctors();
 
@@ -328,6 +340,7 @@ export class OrderServicePage {
           this.DoctorsArray[k].color="green";
           this.DoctorsArray[k].offline=false;
           this.DoctorsArray[k].moreTxt = "متوافر";
+          this.DoctorsArray[k].online = "1";
           console.log("offline false ",this.DoctorsArray[k]);
           this.helper.getDoctorStatus(data.id);
           console.log("call sort function from get busy changed");
@@ -337,6 +350,7 @@ export class OrderServicePage {
   
       } 
     }
+    this.sortDoctorsWithOnline();
   });
 
 
@@ -462,8 +476,9 @@ Loadfunc(){
     
     this.accessToken = localStorage.getItem('user_token');
 
-
-      this.srv.nearbyservices(this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
+      var tempArr = [];
+      this.page ++;
+      this.srv.nearbyservices(this.page,this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp=>{
           this.showLoading=true;
           
@@ -474,7 +489,8 @@ Loadfunc(){
           
           console.log("service data",doctorData);
         console.log("doctors data",doctorData["result"]);
-        this.DoctorsArray=[];  
+        // this.DoctorsArray=[];  
+
         for(var i=0;i<doctorData["result"].length;i++){
             console.log("doctor: ",doctorData["result"][i]); 
             
@@ -528,9 +544,20 @@ Loadfunc(){
 
           
 
-
+            
+            tempArr.push(doctorData["result"][i]);
             this.DoctorsArray.push(doctorData["result"][i]);
           }
+          
+          if(tempArr.length>0)
+          {
+            this.sortDoctorsWithOnline();
+            this.Loadfunc();
+          }
+          // else{
+          //   this.sortDoctorsWithdistance();
+          // }
+            
           
         if(this.DoctorsArray.length >= 3)
         {
@@ -550,10 +577,19 @@ Loadfunc(){
           if(this.DoctorsArray.length == 0)
           {
             console.log("if = 0");
-            this.presentToast(this.translate.instant("noSearchResult"));
+            if(this.page == 1)
+              this.presentToast(this.translate.instant("noSearchResult"));
+            // if (this.infiniteScroll) 
+            //   this.infiniteScroll.enable(false);
           }
           if(this.refresher)
             this.refresher.complete();
+
+          // if (this.infiniteScroll) 
+          //   this.infiniteScroll.complete();
+
+            
+
         },
         err=>{
           console.log("nearbyservice error: ",err);
@@ -561,6 +597,9 @@ Loadfunc(){
           this.presentToast(this.translate.instant("serverError"));
           if(this.refresher)
             this.refresher.complete();
+
+          if (this.infiniteScroll) 
+            this.infiniteScroll.complete();
           
         }
       );
@@ -646,17 +685,73 @@ Loadfunc(){
     );
   }
   }
-  sortDoctors(){
-    console.log("doc before sort ",this.DoctorsArray);
+  sortDoctorsWithOnline(){
+    console.log("onlline doc before sort ",this.DoctorsArray);
   
-    this.DoctorsArray.sort((a,b)=>{
-      if(a.offline == false || b.offline == false)
-        return a.distanceVal-b.distanceVal;
+    // this.DoctorsArray.sort((a,b)=>{
+    //   if(a.offline == false || b.offline == false)
+    //     return a.distanceVal-b.distanceVal;
   
-    }); 
+    // }); 
 
-    console.log("doc after sort ",this.DoctorsArray);
+    this.DoctorsArray.sort(function(a, b) {
+      return  b["online"] - a["online"];
+  });
+
+    console.log("online doc after sort ",this.DoctorsArray);
+var tmpstore=[];
+tmpstore = this.DoctorsArray;
+this.onlinetmpArrForSorting = [];
+this.offlinetmpArrForSorting = [];
+
+    for(var jj=0;jj<tmpstore.length;jj++)
+    {
+      if(tmpstore[jj].online == "1")
+      {
+        this.onlinetmpArrForSorting.push(tmpstore[jj]);
+
+      }else{
+        this.offlinetmpArrForSorting.push(tmpstore[jj]);
+      }
+    }
+
+    this.sortDoctorsWithdistance();
+    console.log("this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
+    console.log("this.offlinetmpArrForSorting",this.offlinetmpArrForSorting);
+
+    // var sortingarrWithDistance =  this.sortDoctorsWithdistance(tmpArrForSorting);
+    // this.DoctorsArray =[];
+    // this.DoctorsArray.concat( sortingarrWithDistance , offlinetmpArrForSorting);
+    // console.log("this.DoctorsArray after all things: ",this.DoctorsArray);
   }
+  sortDoctorsWithdistance(){
+    console.log("distance doc before sort ",this.DoctorsArray);
+    console.log("distance before this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
+    
+
+    this.onlinetmpArrForSorting.sort(function(a, b) {
+      return  a["distanceval"] - b["distanceval"] ;
+    });
+
+    this.offlinetmpArrForSorting.sort(function(a, b) {
+      return  a["distanceval"] - b["distanceval"] ;
+    });
+
+    console.log("distance after this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
+    console.log("distance after this.offlinetmpArrForSorting",this.offlinetmpArrForSorting);
+    // this.DoctorsArray =[];
+    var xarray = [];
+    xarray = this.onlinetmpArrForSorting.concat(this.offlinetmpArrForSorting);
+
+    console.log("distance doc after sort ",this.DoctorsArray);
+    console.log("xarray",xarray);
+    this.DoctorsArray = xarray;
+    // var yarray=[];
+    // yarray = [3,4].concat([1,2]);
+    // console.log("yarray",yarray);
+  }
+
+  
 
   doctorChecked(item , event){
 
@@ -1000,6 +1095,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     // this.photosForApi = [];
     this.choosenDoctors = [];
     this.refresher = ev;
+    this.page = 0;
+    this.DoctorsArray= [];
     this.Loadfunc();
     
     
@@ -1040,5 +1137,20 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
 
 
 }
+
+
+
+loadMore(infiniteScroll) {
+  console.log("load more");
+  this.infiniteScroll = infiniteScroll;
+  this.page++;
+  this.Loadfunc();
+
+
+  if (this.page == this.maximumPages) {
+    infiniteScroll.enable(false);
+  }
+}
+
 
 }
