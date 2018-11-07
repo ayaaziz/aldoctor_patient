@@ -45,7 +45,7 @@ export class SearchForDoctorPage {
   allMarkers = [] ;
   city_id;
 
-  //reorder date in notification, split between data, time 
+  
   constructor(public service:LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider, public locationAccuracy: LocationAccuracy,
     public alertCtrl: AlertController,public platform: Platform,
