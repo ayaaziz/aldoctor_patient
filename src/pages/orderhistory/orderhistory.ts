@@ -277,8 +277,14 @@ reorderDate:"",reorderPrice:""};
                 console.log("today",new Date().toISOString().split('T')[0]);
                 
                 this.orderobject.reorderDate =  ordersData[j].date;
-                this.orderobject.reorderPrice = ordersData[j].service_profile.doctor.price;
-
+                console.log("ordersData[j]id:",ordersData[j].id);
+                console.log("ordersData[j].service_profile",ordersData[j].service_profile);
+                //console.log(".doctor.price",ordersData[j].service_profile.doctor.price);
+                if(ordersData[j].service_profile.service_id == "2")
+                  this.orderobject.reorderPrice = ordersData[j].service_profile.doctor.price;
+                else
+                this.orderobject.reorderPrice="";
+                
                 if(new Date().toISOString().split('T')[0] == ordersData[j].date.split(" ")[0] ){
                   console.log("==")
                   this.orderobject.reorderBtn = false;
