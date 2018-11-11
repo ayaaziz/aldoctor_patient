@@ -1,17 +1,62 @@
-<ion-header>
+<!-- <ion-header>
 
   <ion-navbar>
     <ion-title>slider</ion-title>
   </ion-navbar>
+*ngFor="let slide of myslides
+style="max-height:400px;margin-top:50px;border:2px solid red" 
+</ion-header> -->
 
-</ion-header>
+<ion-content padding style="text-align:center">
+  <img [src]="image" (click)="changeImage(image)" style="width: 90%;height: 100%;">  
+  <!-- <ion-slides  #mySlider slidesPerView="1.5" spaceBetween="10"  (ionSlideDidChange)="slideChanged()">
+        <ion-slide >
 
-
-<ion-content padding>
-    <ion-slides  #mySlider  style="max-height:400px" (ionSlideDidChange)="slideChanged()">
-        <ion-slide *ngFor="let slide of myslides">
-          <img [src]="slide">
+          <img src="assets/imgs/1.jpg" style=" width: 100%;">
         </ion-slide>
-      </ion-slides>
+
+        <ion-slide >
+
+          <img src="assets/imgs/2.jpg" style="width:100%;">
+        </ion-slide>
+        <ion-slide >
+
+          <img src="assets/imgs/3.jpg" style="width:100%;">
+        </ion-slide>
+        <ion-slide >
+
+          <img src="assets/imgs/4.jpg" style="width:100%;">
+        </ion-slide>
+      </ion-slides> -->
+<!-- <button (click)="prev()">prev</button> -->
+<!-- <button (click)="next()">next</button>  -->
+<!-- <ion-slides pager=true>
+  <ion-slide style="background-color:red" (click)="slideChanged()">
+    <h2>slide 1</h2>
+  </ion-slide>
+  <ion-slide style="background-color:blue" (click)="slideChanged()">
+    <h2>slide 2</h2>
+  </ion-slide>
+  <ion-slide style="background-color:green" (click)="slideChanged()">
+    <h2>slide 3</h2>
+  </ion-slide>
+  <ion-slide style="background-color:orange" (click)="slideChanged()">
+    <h2>slide 4</h2>
+  </ion-slide>
+</ion-slides> -->
+<!-- <div class="header-banner"> -->
+  <!-- <ion-slides class="home-slide" autoplay="3000" loop>
+    <ion-slide>
+      <img src="https://unsplash.it/400/200/?image=1080" alt="">
+    </ion-slide>
+    <ion-slide>
+      <img src="https://unsplash.it/400/200/?random" alt="">
+    </ion-slide>
+    <ion-slide>
+      <img src="https://unsplash.it/400/200/?image=976" alt="">
+    </ion-slide>
+  </ion-slides>
+  <button ion-button (click)="goToNextSlide()">Next</button> -->
+<!-- </div> -->
 
 </ion-content>

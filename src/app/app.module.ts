@@ -72,7 +72,7 @@ import { HttpClient } from '@angular/common/http';
 import { HelperProvider } from '../providers/helper/helper';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderhistoryPage } from '../pages/orderhistory/orderhistory';
-import { AppRate } from '@ionic-native/app-rate';
+// import { AppRate } from '@ionic-native/app-rate';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { LoginserviceProvider } from '../providers/loginservice/loginservice';
 import { IonicStorageModule } from '@ionic/storage';
@@ -202,7 +202,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     SocialSharing,
-    AppRate ,
+    // AppRate ,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

@@ -193,8 +193,20 @@ phone="";
             "add":newuserData.extraInfo.address,
             "profile_pic":newuserData.profile_pic
           }).then((data)=>{
-            this.navCtrl.setRoot(TabsPage);
+             this.navCtrl.setRoot(TabsPage);
             // this.navCtrl.push('slider');
+            // this.storage.get("slider").catch(err=>{
+            //   console.log("get slider err from login",err);
+            // }).then(val=>{
+            //   console.log("get slider val from login",val);
+            //   if(val && val.showSlider && val.showSlider == "1")
+            //     this.navCtrl.setRoot(TabsPage);
+            //   else if(val && val.showSlider && val.showSlider != "1")
+            //     this.navCtrl.push('slider');
+                
+            // });
+
+            
           },(error)=>{
           //  this.presentToast("set then error from signup: "+error)
           });

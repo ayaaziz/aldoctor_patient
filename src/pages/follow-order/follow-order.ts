@@ -48,6 +48,7 @@ export class FollowOrderPage {
 
   notificationFlag=false;
   reorderDetected = false; 
+  patientAdd;
 
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
@@ -90,8 +91,12 @@ export class FollowOrderPage {
             if(orderDataForPriceParsing.is_reorder == "0" && orderDataForPriceParsing.reorder_done == "1")
               this.reorderDetected = true;
 
-    
-        
+            this.patientAdd =  orderDataForPriceParsing.patient_location;
+            this.lat = this.patientAdd.split(",")[0];
+            this.lng = this.patientAdd.split(",")[1];
+            // this.initMap2();
+            this.initMapwithUserLocation();
+
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in followorder: ",resp);
@@ -137,6 +142,7 @@ export class FollowOrderPage {
         if(data.location){
           this.doctorLocation = data.location;
           this.initMapWithDoctorLocation(this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]);
+        
         }
         });
         this.events.subscribe('locationChanged', (data) => {
@@ -238,14 +244,15 @@ export class FollowOrderPage {
         
     this.initMap();
    
+//correct for user location ,, now from order details
 
-    if(this.helper.detectLocation == false)
-      this.test();
-    else{
-      this.lat = this.helper.lat;
-      this.lng = this.helper.lon;
-      this.initMapwithUserLocation();
-    }
+    // if(this.helper.detectLocation == false)
+    //   this.test();
+    // else{
+    //   this.lat = this.helper.lat;
+    //   this.lng = this.helper.lon;
+    //   this.initMapwithUserLocation();
+    // }
     
 //
 // this.helper.trackDoctor(this.doctorId); 
@@ -414,17 +421,17 @@ initMapWithDoctorLocation(xlat,xlon){
 
   console.log("init map with doctor location");
   let latlng2 = new google.maps.LatLng(xlat,xlon);
-var mapOptions={
- center:latlng2,
-  zoom:15,
-  mapTypeId:google.maps.MapTypeId.ROADMAP,
-  // controls: {
-  //   myLocationButton: true         
-  // }, 
-  // MyLocationEnabled: true,
-  // setMyLocationButtonEnabled: true,
-};
-this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+// var mapOptions={
+//  center:latlng2,
+//   zoom:15,
+//   mapTypeId:google.maps.MapTypeId.ROADMAP,
+//   // controls: {
+//   //   myLocationButton: true         
+//   // }, 
+//   // MyLocationEnabled: true,
+//   // setMyLocationButtonEnabled: true,
+// };
+// this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
 let marker = new google.maps.Marker({
   map: this.map,
   animation: google.maps.Animation.DROP,
@@ -486,8 +493,12 @@ if (dur.includes("hour"))
 }
 
 initMapwithUserLocation(){
+console.log("initMapwithUserLocation");
 
-  let latlng = new google.maps.LatLng(this.lat,this.lng);
+
+
+  
+let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
    center:latlng,
     zoom:15,

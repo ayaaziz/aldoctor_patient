@@ -153,7 +153,7 @@ export class SearchForPharmacyPage {
               console.log("resp from get address",resp);
               var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
             
-              this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+              this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
                 resp=>{
                   console.log("resp from updateUserLocation",resp);
                 },err=>{
@@ -258,7 +258,7 @@ export class SearchForPharmacyPage {
             console.log("resp from get address",resp);
             var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
           
-            this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+            this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
               resp=>{
                 console.log("resp from updateUserLocation",resp);
               },err=>{
@@ -392,7 +392,7 @@ export class SearchForPharmacyPage {
           console.log("resp from get address",resp);
           var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
         
-          this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+          this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
             resp=>{
               console.log("resp from updateUserLocation",resp);
             },err=>{
@@ -611,7 +611,7 @@ export class SearchForPharmacyPage {
     }
     
   }else if(this.locFlag == -1){
-    this.presentToast("انت خارج المنطقه ");
+    this.presentToast("أنت خارج المنطقة ");
   }
    else
   {
@@ -662,7 +662,7 @@ export class SearchForPharmacyPage {
 
     }  
   }else if(this.locFlag == -1){
-    this.presentToast("انت خارج المنطقه ");
+    this.presentToast("أنت خارج المنطقة ");
   }
   else
   {

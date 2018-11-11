@@ -369,6 +369,21 @@ export class OrderServicePage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad OrderServicePage');
+    var xxname;
+          if(this.type_id == "1")
+          {
+            xxname="الصيدليات";
+           
+          }else if(this.type_id == "3")
+          {
+            xxname="المعامل";
+          }else if(this.type_id == "2")
+          {
+            xxname="المراكز";
+          }
+
+      this.presentToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
+      
     this.Loadfunc();
     // this.showLoading = false;
     // // this.storage.get("access_token").then(data=>{
@@ -478,6 +493,9 @@ Loadfunc(){
 
       var tempArr = [];
       this.page ++;
+
+      
+      
       this.srv.nearbyservices(this.page,this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp=>{
           this.showLoading=true;
@@ -514,7 +532,8 @@ Loadfunc(){
               }
             
 
-
+              if(doctorData["results"][i].busy == "1" && doctorData["results"][i].online =="1")
+              doctorData["results"][i].online = "0";
 
 
           if(doctorData["result"][i].busy == "1")
@@ -552,6 +571,7 @@ Loadfunc(){
           if(tempArr.length>0)
           {
             this.sortDoctorsWithOnline();
+            
             this.Loadfunc();
           }
           // else{
@@ -1097,6 +1117,21 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     this.refresher = ev;
     this.page = 0;
     this.DoctorsArray= [];
+    var xxname;
+          if(this.type_id == "1")
+          {
+            xxname="الصيدليات";
+           
+          }else if(this.type_id == "3")
+          {
+            xxname="المعامل";
+          }else if(this.type_id == "2")
+          {
+            xxname="المراكز";
+          }
+
+      this.presentToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
+
     this.Loadfunc();
     
     
@@ -1151,6 +1186,8 @@ loadMore(infiniteScroll) {
     infiniteScroll.enable(false);
   }
 }
-
+ionViewWillEnter(){
+  this.page = 0;
+}
 
 }

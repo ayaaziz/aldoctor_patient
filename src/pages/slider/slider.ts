@@ -1,6 +1,7 @@
 import { Component ,ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams,Slides } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { LoginPage } from '../login/login';
 
 @IonicPage({
   name:'slider'
@@ -15,25 +16,36 @@ export class SliderPage {
 
   search:string;
   // slides:any[];
-  myslides = ["assets/imgs/avatar-ts-jessie.png","assets/imgs/default-avatar.png","assets/imgs/empty-image.png"];
-  mySlideOptions = {
-    pager:true
-  };
+  myslides = ["assets/imgs/1.jpg","assets/imgs/2.jpg","assets/imgs/3.jpg","assets/imgs/4.jpg"];
+  // mySlideOptions = {
+  //   pager:true
+  // };
 
+  image = "assets/imgs/1.jpg";
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();
+    console.log("this.slide",this.slides);
     console.log('Current index is', currentIndex);
+    
+    this.slides.slideTo(currentIndex+1);
   }
+ 
+  
 
+  goToSlide() {
+    // this.slides.slideTo(2, 500);
+  }
   constructor(public storage: Storage, public navCtrl: NavController,
      public navParams: NavParams) {
-  }
+      this.goToSlide();
+    }
 
   ionViewDidLoad() {
     
     console.log('ionViewDidLoad SliderPage');
-    this.storage.set("user_info",{
-      "showSlider":"1"
+    this.image  = "assets/imgs/1.jpg";
+    this.storage.set("slider",{
+      "sliderAppeared":"1"
     }).then(data=>{
       console.log("set storage showSlider ",data);
       
@@ -44,5 +56,23 @@ export class SliderPage {
 
     
   }
+  next(){
+    this.slides.slideNext();
+  }
+  prev(){
+    this.slides.slidePrev();
+  }
 
+  changeImage(img){
+    console.log("vchangeImage(image): ",img);
+    
+    var num = parseInt(img.split("/")[2].split(".")[0])+1;
+    console.log("num",num);
+    if(num>=0 && num <=4)
+      this.image = "assets/imgs/"+num+".jpg";
+    else
+      this.navCtrl.setRoot(LoginPage);
+    console.log("this.image",this.image);
+    
+  }
 }

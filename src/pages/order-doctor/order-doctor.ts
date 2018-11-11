@@ -390,6 +390,7 @@ export class OrderDoctorPage {
     console.log("get doctor sp id: ",id);
     // this.presentLoadingCustom();
     //this.showLoading = false;
+    this.presentToast("يرجى الإنتظار لحين ترتيب الأطباء حسب الأقرب إليك");
     this.xload();    
   }
 
@@ -405,6 +406,7 @@ export class OrderDoctorPage {
       var tempArr = [];
       this.page ++;
 
+     
     this.service.getDoctorInSpecificSpecialization(this.page,this.myxid,this.accessToken).subscribe(
       resp =>{
         console.log("getDoctorInSpecificSpecialization resp: ",resp);
@@ -430,7 +432,10 @@ export class OrderDoctorPage {
               
               
             console.log("2");
-/**/            
+/**/     
+if(doctorData["results"][i].busy == "1" && doctorData["results"][i].online =="1")
+doctorData["results"][i].online = "0";
+/**/       
 
           if(doctorData["results"][i].busy == "1")
           {
@@ -466,13 +471,15 @@ export class OrderDoctorPage {
 
           /* */
           console.log("8");
+         
 
-             tempArr.push(doctorData["results"][i]);
+            tempArr.push(doctorData["results"][i]);
             this.DoctorsArray.push(doctorData["results"][i]);
           }
           if(tempArr.length>0)
           {
             this.sortDoctorsWithOnline();
+           
             this.xload();
           }
           // else{
@@ -994,6 +1001,9 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     this.SpecializationChecked();
     
   }
-
+  ionViewWillEnter(){
+    this.page = 0;
+  }
+  
 
 }

@@ -660,9 +660,9 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     
   }
 
-  updateUserLocation(location,access_token){
+  updateUserLocation(latLng,location,access_token){
     let headers = new HttpHeaders();
-    let parameter = new HttpParams().set('address',location);
+    let parameter = new HttpParams().set('address',location).set('location',latLng);
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/updateLocation';
     return this.http.post(serviceUrl,parameter,{headers: headers });
@@ -676,6 +676,22 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
   
 
-  
+  logmeout(SuccessCallback, FailureCallback){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+ localStorage.getItem('kdkvfkhggsso'));
+    let serviceUrl = this.helper.serviceUrl +'api/logmeout';
+    this.http.get(serviceUrl,{headers: headers })
+    .timeout(10000)
+    .subscribe( 
+     data => {
+             SuccessCallback(data)
+     },
+     err => {
+       
+       FailureCallback("-2")
+     }
+   )
+  }
+
 }
 

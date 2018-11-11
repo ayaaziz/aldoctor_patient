@@ -18,7 +18,7 @@ import { OrderDoctorPage } from '../pages/order-doctor/order-doctor';
 import { HelperProvider } from '../providers/helper/helper';
 //import { VerifycodePage } from '../pages/verifycode/verifycode';
 import { SocialSharing } from '@ionic-native/social-sharing';
-import { AppRate } from '@ionic-native/app-rate';
+// import { AppRate } from '@ionic-native/app-rate';
 import { Market } from '@ionic-native/market';
 //import { AboutAppPage } from '../pages/about-app/about-app';
 //import { ConditionsPage } from '../pages/conditions/conditions';
@@ -34,6 +34,7 @@ import { RefreshTokenInterceptorProvider } from '../providers/refresh-token-inte
 import * as firebase from 'firebase/app';
 import { HomePage } from '../pages/home/home';
 import { FollowOrderForPlcPage } from '../pages/follow-order-for-plc/follow-order-for-plc';
+import { stagger } from '@angular/core/src/animation/dsl';
 
 
 var firebaseConfig  = {
@@ -71,12 +72,12 @@ export class MyApp {
 
   userLoged;
 
-
+  // private appRate: AppRate,
   constructor(public events: Events,public service:LoginserviceProvider, 
     private alertCtrl: AlertController, private push: Push,
     public storage:Storage,public socialSharing:SocialSharing,
     public helper:HelperProvider,public menu:MenuController,
-    public platform: Platform, private appRate: AppRate,
+    public platform: Platform, 
     public actionSheetCtrl: ActionSheetController,
     statusBar: StatusBar, splashScreen: SplashScreen,
     public translate: TranslateService,private market: Market,
@@ -94,6 +95,7 @@ export class MyApp {
             localStorage.remove('access_token');
             this.userLoged = false;
             this.nav.setRoot(LoginPage);
+            this.service.logmeout(()=>{},()=>{})
           })
     });
 
@@ -172,31 +174,63 @@ export class MyApp {
     //   else  
     //     this.rootPage = LoginPage;
     // });
-
+   
+      
     storage.get("verification_page").then((val) => {
       if (val){
         console.log(" verification_page from storage",val);
         this.rootPage = 'verification-code';
      
       } else{
+      
+      
+      
+      
+      
         console.log("else verification_page from storage",val);
-       // this.rootPage = TabsPage;
-       storage.get("user_info").then((val) => {
-        if (val){
-          console.log(" if get user info from storage",val);
-          this.image=val.profile_pic;
-          this.name=val.name;
-          this.rootPage = TabsPage;
+        // this.rootPage = TabsPage;
+        storage.get("user_info").then((val) => {
+         if (val){
+           console.log(" if get user info from storage",val);
+           this.image=val.profile_pic;
+           this.name=val.name;
+           this.rootPage = TabsPage;
+           
+          
+         } else{
+           console.log("else get user info from storage",val);
+           
+           // this.rootPage = 'slider';
+           // this.rootPage = LoginPage;
+           storage.get("slider").then((val) => {
+             if (val){
+               console.log(" if get slider from storage",val);
+               
+               
+               this.rootPage = LoginPage;
+               
+              
+             } else{
+               console.log("else get slider from storage",val);
+               
+               
+               
+               this.rootPage = 'slider';
+              
+             }
+ 
           
          
-        } else{
-          console.log("else get user info from storage",val);
-          this.rootPage = LoginPage;
-         
-        }
-      });
-
-        
+       });
+ 
+     }
+    });
+      
+      
+      
+      
+      
+      
       }
     }).catch(
       (err)=>{
@@ -1189,7 +1223,7 @@ presentAlert(title,msg) {
   console.log("enter presentAlert");
   // this.navctrl.setRoot(TabsPage);
   console.log("helper view",this.helper.view);
-  if(this.helper.view == "follow")
+  if(this.helper.view == "follow" || this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
     this.navctrl.setRoot(TabsPage);
 
   let alert = this.alertCtrl.create({

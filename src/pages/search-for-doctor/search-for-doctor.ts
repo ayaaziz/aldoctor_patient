@@ -181,19 +181,19 @@ test(){
           // );
           this.service.getaddress(this.lat,this.lng).subscribe(
             resp=>{
-              console.log("resp from get address",resp);
+              console.log("resp from get address1",resp);
               var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
             
-              this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+              this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
                 resp=>{
-                  console.log("resp from updateUserLocation",resp);
+                  console.log("resp from updateUserLocation1",resp);
                 },err=>{
-                  console.log("err from updateUserLocation",err);
+                  console.log("err from updateUserLocation1",err);
                 }
               );
 
             },err=>{
-              console.log("err from get address",err);
+              console.log("err from get address1",err);
             }
           );
           
@@ -299,19 +299,19 @@ getUserLocation(){
 
       this.service.getaddress(this.lat,this.lng).subscribe(
         resp=>{
-          console.log("resp from get address",resp);
+          console.log("resp from get address2",resp);
           var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
         
-          this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+          this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
             resp=>{
-              console.log("resp from updateUserLocation",resp);
+              console.log("resp from updateUserLocation2",resp);
             },err=>{
-              console.log("err from updateUserLocation",err);
+              console.log("err from updateUserLocation2",err);
             }
           );
 
         },err=>{
-          console.log("err from get address",err);
+          console.log("err from get address2",err);
         }
       );
       // this.locFlag = 1;
@@ -484,19 +484,19 @@ allowUserToChooseHisLocation(){
 
     this.service.getaddress(this.lat,this.lng).subscribe(
       resp=>{
-        console.log("resp from get address",resp);
+        console.log("resp from get address3",resp);
         var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
       
-        this.service.updateUserLocation(myLongAddress,this.accessToken).subscribe(
+        this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
           resp=>{
-            console.log("resp from updateUserLocation",resp);
+            console.log("resp from updateUserLocation3",resp);
           },err=>{
-            console.log("err from updateUserLocation",err);
+            console.log("err from updateUserLocation3",err);
           }
         );
 
       },err=>{
-        console.log("err from get address",err);
+        console.log("err from get address3",err);
       }
     );
 
@@ -697,7 +697,7 @@ initMapWithDoctorsLocation(){
     if(this.locFlag == 1)
       this.navCtrl.push('specific-doctor');
     else if(this.locFlag == -1){
-      this.presentToast("انت خارج المنطقه ");
+      this.presentToast("أنت خارج المنطقة ");
     }else
     {
       if(this.toastFlag == true)
@@ -714,7 +714,7 @@ initMapWithDoctorsLocation(){
     if(this.locFlag == 1)
       this.navCtrl.push('specializations-page');
     else if(this.locFlag == -1){
-        this.presentToast("انت خارج المنطقه ");
+        this.presentToast("أنت خارج المنطقة ");
     }
     else
     {

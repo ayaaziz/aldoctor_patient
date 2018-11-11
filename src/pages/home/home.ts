@@ -533,5 +533,8 @@ presentContOrderConfirm(order_id,remark,contDate) {
  alert.present();
 }
 
-
+slider(){
+  console.log("slider");
+  this.navCtrl.push('slider');
+}
 }

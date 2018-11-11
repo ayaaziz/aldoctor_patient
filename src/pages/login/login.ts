@@ -197,7 +197,19 @@ export class LoginPage {
           this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
 
           this.navCtrl.setRoot(TabsPage);
-          // this.navCtrl.push('slider');
+
+          // this.storage.get("slider").catch(err=>{
+          //   console.log("get slider err from login",err);
+          // }).then(val=>{
+          //   console.log("get slider val from login",val);
+          //   if(val && val.showSlider && val.showSlider == "1")
+          //     this.navCtrl.setRoot(TabsPage);
+          //   else if(val && val.showSlider && val.showSlider != "1")
+          //     this.navCtrl.push('slider');
+
+          // });
+          
+          
 
         }).catch(data=>{
           console.log("catch data from login",data);

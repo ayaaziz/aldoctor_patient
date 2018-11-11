@@ -262,7 +262,7 @@ reorderDate:"",reorderPrice:""};
               }
 
               //.split(" ")[0]
-              this.orderobject.orderDate = ordersData[j].created_at;
+              this.orderobject.orderDate = ordersData[j].created_at_new;
               
               if(ordersData[j].date)
                 this.orderobject.contDate = ordersData[j].date;
@@ -336,7 +336,7 @@ reorderDate:"",reorderPrice:""};
                 this.orderobject.name = "ملغى";
                 
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
-              this.orderobject.orderDate = ordersData[j].created_at; //.split(" ")[0]
+              this.orderobject.orderDate = ordersData[j].created_at_new; //.split(" ")[0]
               this.data.push(this.orderobject);
               console.log("ordres data",this.data);
               this.orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
@@ -889,6 +889,9 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
   reorder(item){
     console.log("item from reorder",item);
    // this.presentConfirm(item);
+    item.reorderBtn = true;
+   //
+
     this.checkfund(item);
   }
 
@@ -908,6 +911,7 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
           role: 'cancel',
           handler: () => {
             console.log('disagree clicked');
+            item.reorderBtn = true;
           }
         },
         {
