@@ -5,6 +5,12 @@ page-specific-doctor {
     .item-md h4,.item-md h3, .item-md h2{
       line-height: 1;
     }
+    ion-label{
+      margin: 0px !important;
+    }
+    .scroll-content{
+      padding: 0px !important;
+    }
     .item-md h5, .item-md h4,.item-md h3, .item-md h2{
       line-height: 1;
     }
@@ -197,7 +203,7 @@ page-specific-doctor {
       }
 
       .row{
-        margin: 0px;
+        margin: 4px 0px;
         padding: 0px;
       }
       .ion-md-star-half:before{

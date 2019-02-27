@@ -5,7 +5,7 @@
 
 
 <ion-menu [content]="content" (ionOpen)="menuOpened()"  *ngIf="this.platform.dir() =='rtl'" 
- side="right" >
+ side="right" [enabled]="userLoged">
   
     <ion-content>
           <div style="width:100%;text-align: center;" >
@@ -19,7 +19,7 @@
                     <ion-row style="direction: rtl;margin-right: 0px;">
                             <img src="assets/icon/about.png"   class="customIcon">
                         <!-- <ion-icon ios="ios-globe" md="ios-globe" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon> -->
-                        <h2 style="margin-right:10px ; color:gray; font-size:18px;"> {{"aboutApp" | translate }}</h2>
+                        <h2 style="margin-right:10px ; color:gray; font-size:18px;padding: 2px 0;"> {{"aboutApp" | translate }}</h2>
                       </ion-row>
                   </button>
                   <!-- <button ion-item  >
@@ -77,7 +77,7 @@
                                                     <ion-row style="direction: rtl;margin-right: 0px;">
                                                         <!-- <ion-icon ios="ios-globe" md="ios-globe" style="font-size:26px;color:rgba(34, 139, 34, 0.71);"></ion-icon> -->
                                                         <img src="assets/icon/logout.png"   class="customIcon">
-                                                        <h2 style="margin-right:10px ; color:gray; font-size:18px">   {{"logout"| translate}}</h2>
+                                                        <h2 style="margin-right:10px ;padding: 2px 0; color:gray; font-size:18px">   {{"logout"| translate}}</h2>
                                                       </ion-row>
                                                   </button>
       </ion-list>

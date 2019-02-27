@@ -33,6 +33,7 @@ export class DoctorProfilePage {
   location;
   serviceId;
   offlinefororders;
+  spec_id
 
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, public app:App,
@@ -56,6 +57,7 @@ export class DoctorProfilePage {
     this.image = this.doctorProfile.profile_pic;
     this.name = this.doctorProfile.doctorName;
     this.specialization = this.doctorProfile.specialization;
+    this.spec_id = this.doctorProfile.speciality_id;
     this.rate = this.doctorProfile.rate;
     this.bio = this.doctorProfile.bio;
     this.location = this.doctorProfile.address;
@@ -101,31 +103,142 @@ export class DoctorProfilePage {
     
     this.accessToken = localStorage.getItem('user_token');
 
-    this.service.saveOrder(this.doctorProfile.id,this.accessToken,1).subscribe(
-      resp => {
-        if(JSON.parse(JSON.stringify(resp)).success ){
-        console.log("saveOrder resp: ",resp);
-        var newOrder = JSON.parse(JSON.stringify(resp));
-          
-        this.helper.orderIdForUpdate = newOrder.order.id;
-        
-        this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
-        //this.helper.orderStatusChanged(newOrder.order.id);
-
-        this.presentToast(this.translate.instant("ordersent"));
-        this.helper.dontSendNotification = false;
-        
-        // this.navCtrl.pop();
-        this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
-        }else{
-          this.presentToast(this.translate.instant("serverError"));
+    const alertEdit = this.alertCtrl.create({
+      title:  'كوبون خصم',
+      inputs: [
+        { 
+          name: 'currentFees',
+          placeholder: "ادخل كود - أختياري",
+          type: 'text'
         }
-      },
-      err=>{
-        console.log("saveOrder error: ",err);
-        this.presentToast(this.translate.instant("serverError"));
-      }
-    );
+      ],
+      buttons: [
+        {
+          text: "إلغاء",
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: "أطلب الآن",
+          handler: data => {
+            if (String(data.currentFees).trim()) {
+             //alert(this.spec_id)
+              this.service.checKCoupon(this.doctorProfile.id,this.accessToken,this.spec_id,String(data.currentFees).trim(),(data)=>{
+                if(data.success){
+                  if(data.status == -1){
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                  else if(data.status == 2){
+                    this.presentToast("كوبون الخصم مستخدم من قبل")
+                  }
+                  else if(data.status == 1){
+                    let coupon_type = ""
+                    if(data.coupon.type == "percent"){
+                      coupon_type = data.coupon.discount +" % "
+                    }
+                    else{
+                      coupon_type = data.coupon.discount+ " جنيه "
+                    }
+                    let confirm = this.alertCtrl.create({
+                      title: '',
+                      subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
+                      buttons: [
+                        {
+                          text: "إلغاء",
+                          role: 'cancel',
+                          handler: data => {
+                            console.log('Cancel clicked');
+                          }
+                        },
+                        {
+                        text: "تأكيد الطلب",
+                        handler: data2 => {
+                          this.service.saveOrder(this.doctorProfile.id,this.accessToken,1,data.coupon.id).subscribe(
+                            resp => {
+                              if(JSON.parse(JSON.stringify(resp)).success ){
+                              console.log("saveOrder resp: ",resp);
+                              var newOrder = JSON.parse(JSON.stringify(resp));
+                                
+                              this.helper.orderIdForUpdate = newOrder.order.id;
+                              
+                              this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
+                              //this.helper.orderStatusChanged(newOrder.order.id);
+                      
+                              this.presentToast(this.translate.instant("ordersent"));
+                              this.helper.dontSendNotification = false;
+                              
+                              // this.navCtrl.pop();
+                              this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+                              }else{
+                                this.presentToast(this.translate.instant("serverError"));
+                              }
+                            },
+                            err=>{
+                              console.log("saveOrder error: ",err);
+                              this.presentToast(this.translate.instant("serverError"));
+                            }
+                          );
+                        }
+                      }]
+                    });
+                    confirm.present();
+                  }
+                  
+                }
+                else{
+                  if(data.status == -1){
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                  else if(data.status == 2){
+                    this.presentToast("كوبون الخصم مستخدم من قبل")
+                  }
+                  else{
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                
+                }
+               
+              },
+              (data)=>{
+                this.presentToast("خطأ في الأتصال")
+              })
+            }
+            else{
+              this.service.saveOrder(this.doctorProfile.id,this.accessToken,1,-1).subscribe(
+                resp => {
+                  if(JSON.parse(JSON.stringify(resp)).success ){
+                  console.log("saveOrder resp: ",resp);
+                  var newOrder = JSON.parse(JSON.stringify(resp));
+                    
+                  this.helper.orderIdForUpdate = newOrder.order.id;
+                  
+                  this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
+                  //this.helper.orderStatusChanged(newOrder.order.id);
+          
+                  this.presentToast(this.translate.instant("ordersent"));
+                  this.helper.dontSendNotification = false;
+                  
+                  // this.navCtrl.pop();
+                  this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+                  }else{
+                    this.presentToast(this.translate.instant("serverError"));
+                  }
+                },
+                err=>{
+                  console.log("saveOrder error: ",err);
+                  this.presentToast(this.translate.instant("serverError"));
+                }
+              );
+              
+            }
+            
+          }
+        }
+      ]
+    });   
+    alertEdit.present()
 
   }
   private presentToast(text) {

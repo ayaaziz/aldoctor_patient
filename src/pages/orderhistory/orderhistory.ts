@@ -923,10 +923,19 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
             this.service.reorder(item.orderId,item.custom_date,item.date_id,this.accessToken).subscribe(
               resp=>{
                 console.log("reorder resp",resp);
-                this.helper.orderIdForUpdate = JSON.parse(JSON.stringify(resp)).OrderID;
+                if(JSON.parse(JSON.stringify(resp)).running == "-1")
+                {
+                  this.presentToast( "لقد تم إرسال طلب إعادة الكشف بالفعل");
+                }else{
+                  this.helper.orderIdForUpdate = JSON.parse(JSON.stringify(resp)).OrderID;
                 console.log("this.helper.orderIdForUpdate",this.helper.orderIdForUpdate);
+                
                 this.presentToast( this.translate.instant("sendReorder"));
+
                 this.navCtrl.setRoot('remaining-time-to-accept',{orderId:JSON.parse(JSON.stringify(resp)).OrderID});
+
+                }
+                
               },
               err=>{
                 console.log("reorder err",err);
@@ -1000,6 +1009,9 @@ contorder(item){
 }
 
 presentContOrderConfirm(item) {
+  if (!item.remark)
+  item.remark = "";
+
   let alert = this.alertCtrl.create({
     title: this.translate.instant("contorder"),
     message: item.remark+"<br/>"+item.contDate+"<br>"+" هل تريد تأكيد الموعد؟",

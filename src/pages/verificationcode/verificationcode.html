@@ -1,10 +1,10 @@
 
-<ion-header>
+<ion-header class="{{langDirection}}">
 
   <ion-navbar>
     
-    <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{"activationCode" | translate}}</ion-title>
-    <ion-title *ngIf="langDirection != 'rtl'"  id="xxx">{{"activationCode" | translate}}</ion-title>
+   
+    <ion-title  id="xxx">{{"activationCode" | translate}}</ion-title>
   
   </ion-navbar>
 

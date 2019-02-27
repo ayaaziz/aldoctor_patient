@@ -115,7 +115,7 @@ export class ServiceProfilePage {
         // this.title = this.translate.instant("lap");
         // this.serviceTitle = this.translate.instant("nearbyLab");
         this.medicalprescriptionImage = this.translate.instant("requiredTests");
-        this.hideServices = false;
+        this.hideServices = true; //false
       }else if(this.type_id == "2")
       {
         // this.title = this.translate.instant("center");

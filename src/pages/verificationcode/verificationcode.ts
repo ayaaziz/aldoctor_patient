@@ -6,7 +6,7 @@ import { LoginserviceProvider } from '../../providers/loginservice/loginservice'
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
-
+import { LoginPage } from '../../pages/login/login';
 
 
 
@@ -26,7 +26,7 @@ export class VerificationcodePage {
   from;
   codeErrMsg;
 phone="";
-
+frgetPass;
   constructor(public storage: Storage,public translate: TranslateService, 
     public loginservice:LoginserviceProvider,
     public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
@@ -38,7 +38,8 @@ phone="";
     else
       this.tostClass="toastLeft";
 
-      if(this.navParams.get('data')){
+      //&& this.navParams.get('data') == "1"
+      if(this.navParams.get('data') ){
         this.from = this.navParams.get('data');
         console.log("activation from ",this.from);
       }
@@ -46,6 +47,11 @@ phone="";
         this.phone = this.navParams.get('phone');
         console.log("from activation phone",this.phone);
       }
+
+      // if(this.navParams.get('data') && this.navParams.get('data') == "2"){
+      //   this.frgetPass = this.navParams.get('data');
+      //   console.log("activation from ",this.from);
+      // }
 
     this.activationForm = formBuilder.group({
       // code: ['', Validators.required]
@@ -98,6 +104,26 @@ phone="";
      //   console.log("code after replacement: ",this.code);
           if(this.from)
           {
+            if(this.from == 2){
+              this.loginservice.UserForgetPassword(this.code,this.phone, (data) => {
+                if(data.success){
+                  this.presentToast("تم إرسال كلمة المرور في رسالة نصية")
+                  this.navCtrl.setRoot(LoginPage)
+                }
+                else{
+                  if(String(data.status) == "-2"){
+                    this.presentToast("رقم الموبايل غير موجود")
+                  }
+                  else if(String(data.status) == "-1"){
+                    this.presentToast("كود التحقق خطأ")
+                  }
+                }
+                
+              }, (data) => {
+                this.presentToast(this.translate.instant("serverError"))
+              })
+            }
+            else{
             this.loginservice.checkPhoneWithCode(this.phone,this.code,this.accessToken).subscribe(
               resp=>{
                 console.log("check phne with code",resp);
@@ -151,6 +177,7 @@ phone="";
 
               }
             );
+            }
           }else
           this.loginservice.activateUser(this.code,this.accessToken,(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data));
         

@@ -217,7 +217,7 @@ console.log("sp item search val ",val);
     item.spClass = "spSelected";
     console.log("item",item);
     console.log("event: ",ev);
-    this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
+    this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value,specialization_id:item.id}});
     // ev.target.style.color="white";
     // ev.target.style.background-color="#016a38";
     // console.log("event: ",ev.target);

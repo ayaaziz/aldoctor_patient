@@ -1,31 +1,16 @@
-<ion-header>
+<ion-header class="{{langDirection}}">
   <ion-navbar hideBackButton>
-    <ion-row>
-      <ion-col col-7>
-        <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">مشاهدة التقييم</ion-title>
-        <ion-title *ngIf="langDirection != 'rtl'">مشاهدة التقييم</ion-title>
-      </ion-col>
-      <ion-col col-3 >
-        <ion-buttons  left>
+    
+        <ion-title>مشاهدة التقييم</ion-title>
+      
+        <ion-buttons  right>
           <button ion-button>
-            <img src="assets/imgs/dlogo.png" style="width:40px;" >
+            <img src="assets/imgs/dlogo.png" style="width:30px;" >
           </button>
-        </ion-buttons>
-      </ion-col>
-
-      <ion-col col-2>
-        <ion-buttons *ngIf="langDirection == 'rtl'"  left>
           <button ion-button  (click)="dismiss()">
               <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">       
           </button>
-      </ion-buttons>
-      <ion-buttons *ngIf="langDirection != 'rtl'"  left>
-        <button ion-button  (click)="dismiss()">
-            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-        </button>
-    </ion-buttons>
-      </ion-col>
-    </ion-row>
+        </ion-buttons>
     </ion-navbar>
     
 

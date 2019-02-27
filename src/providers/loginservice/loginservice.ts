@@ -214,7 +214,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     return this.http.get(serviceUrl,{headers: headers });
 
   }
-  saveOrder(doctorsId ,access_token,serviceNumber){
+  
+  saveOrder(doctorsId ,access_token,serviceNumber,coupon_id){
     let headers = new HttpHeaders();
     console.log("lat from service ",this.helper.lat);
     console.log("lon from service ",this.helper.lon);
@@ -222,7 +223,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let userLocation = this.helper.lat + "," + this.helper.lon;
 
     let parameter = new HttpParams().set('doctor_id',doctorsId).
-    set('extra',userLocation).set('service_id','2').set('service_number',serviceNumber);
+    set('extra',userLocation).set('service_id','2').set('service_number',serviceNumber).set('coupon_id',coupon_id);
     
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/orders/create';
@@ -370,7 +371,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
   getDurationAndDistance(sLat,sLon,dLat,dLon){
     //https://maps.googleapis.com/maps/api/directions/json?origin=31.0657632,31.6421222&destination=31.037933,31.381523
-    var url = 'https://maps.googleapis.com/maps/api/directions/json?origin='+sLat+','+sLon+'&destination='+dLat+','+dLon+'&key='+this.helper.key;
+    var url = 'https://cors.io/?https://maps.googleapis.com/maps/api/directions/json?origin='+sLat+','+sLon+'&destination='+dLat+','+dLon+'&key='+this.helper.key;
     console.log("googlw api url ",url);
     return this.http.get(url);
   }
@@ -442,6 +443,20 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
   }
 
+  checKCoupon(docid,access_token,speciality_id,code,SuccessCallBack,FailCallBack){
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('code',code)
+    .set('speciality_id',speciality_id).set('doctor_ids',docid);
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/validateCoupon';
+    this.http.post(serviceUrl,parameter,{headers: headers }).subscribe(data=>{
+      SuccessCallBack(data)
+    },
+    err=>{
+      FailCallBack("-1")
+    })
+  }
  
   rateCriteriea(rate,access_token){
     // http://itrootsdemos.com/aldoctor/public/api/get/lkps/rate-criteriea?rate=1&type=rate-criteriea
@@ -678,7 +693,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
   logmeout(SuccessCallback, FailureCallback){
     let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+ localStorage.getItem('kdkvfkhggsso'));
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+ localStorage.getItem('user_token'));
     let serviceUrl = this.helper.serviceUrl +'api/logmeout';
     this.http.get(serviceUrl,{headers: headers })
     .timeout(10000)
@@ -693,5 +708,67 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
    )
   }
 
+  UserForgetPassword(code,phone,SuccessCallback,FailureCallback) {
+    // let loader = this.loadingCtrl.create({
+    //   content: "",
+    // });
+    //  loader.present();
+    let headers = new HttpHeaders();
+    // let params={
+    //   'email' :email,
+    //   'password' :password
+    // }
+    let parameter = new HttpParams().set('phone',phone).set('code',code)
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded')
+    let serviceUrl = this.helper.serviceUrl +'api/forget';
+    this.http.post(serviceUrl,parameter,{headers: headers })
+     .timeout(10000)
+     .subscribe(
+      data => {
+       // loader.dismiss().catch(() => console.log('ERROR CATCH: LoadingController dismiss'));
+              console.log(JSON.stringify(data))
+               SuccessCallback(data)
+      },
+      err => {
+       // loader.dismiss().catch(() => console.log('ERROR CATCH: LoadingController dismiss'));
+        FailureCallback("-2")
+      }
+    )
+ 
+  }
+
+  UserForgetPasswordSendPhone(phone,SuccessCallback,FailureCallback) {
+    // let loader = this.loadingCtrl.create({
+    //   content: "",
+    // });
+    //  loader.present();
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('phone',phone)
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded')
+    let serviceUrl = this.helper.serviceUrl +'api/changeMe';
+    this.http.post(serviceUrl,parameter,{headers: headers })
+     .timeout(10000)
+     .subscribe(
+      data => {
+        // loader.dismiss().catch(() => console.log('ERROR CATCH: LoadingController dismiss'));
+              console.log(JSON.stringify(data))
+               SuccessCallback(data)
+      },
+      err => {
+        // loader.dismiss().catch(() => console.log('ERROR CATCH: LoadingController dismiss'));
+        FailureCallback("-2")
+      }
+    )
+ 
+  }
+
+  durationbetweenDoctorAndPatient(patloc,docloc,access_token){
+    let headers = new HttpHeaders();
+     
+      let parameter = new HttpParams().set('patient_route',patloc).set('dpls_route',docloc).set('lang','ar')
+      headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+      let serviceUrl = this.helper.serviceUrl +'api/getDirection';
+      return this.http.post(serviceUrl,parameter,{headers: headers });
+  }
 }
 

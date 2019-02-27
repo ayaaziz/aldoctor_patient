@@ -26,6 +26,7 @@ export class LoginPage {
   password;
   tostClass ;
   access_token;
+  message_id
   
   constructor( public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
     public formBuilder: FormBuilder,public navCtrl: NavController, 
@@ -84,32 +85,35 @@ export class LoginPage {
 
   loginToApp() {
     
-
+console.log("loginToApp")
     if(! this.loginForm.valid)
       this.submitAttempt=true;
     else{
+      console.log("login else")
+      this.loginservice.userLogin(this.email, this.password, "", (data) => this.loginSuccessCallback(data), (data) => this.loginFailureCallback(data))
     //this.navCtrl.setRoot(TabsPage);
     
       
-    if (navigator.onLine) {
-      this.loginservice.getAccessToken((data) => this.authSuccessCallback(data), (data) => this.authFailureCallback(data));
-     
-    }
-    else {
-      this.presentToast(this.translate.instant("checkNetwork"))
-    }
+    // if (navigator.onLine) {
+      // this.loginservice.getAccessToken((data) => this.authSuccessCallback(data), (data) => this.authFailureCallback(data));
+      // this.authFailureCallback(()=>{})
+    // }
+    // else {
+    //   this.presentToast(this.translate.instant("checkNetwork"))
+    // }
   }
   }
 
   authSuccessCallback(data) {
     //localStorage.setItem('adftrmee', data.access_token)
     //this.mainService.categoriesService( this.helper.DeviceId, (data) => this.categoriesSuccessCallback(data), (data) => this.categoriesFailureCallback(data));
-    if (navigator.onLine) {
+   
+    // if (navigator.onLine) {
       this.loginservice.userLogin(this.email, this.password, data.access_token, (data) => this.loginSuccessCallback(data), (data) => this.loginFailureCallback(data))
-    }
-    else {
-      this.presentToast(this.translate.instant("checkNetwork"))
-    }
+    // }
+    // else {
+    //   this.presentToast(this.translate.instant("checkNetwork"))
+    // }
    
   }
   authFailureCallback(data) {
@@ -117,7 +121,7 @@ export class LoginPage {
   }
   loginSuccessCallback(data) {
     console.log("from logincallback: ",JSON.stringify(data))
-
+    this.events.publish("user:userLoginSucceeded")
     localStorage.setItem('user_token', data.access_token);
     localStorage.setItem('refresh_token', data.refresh_token);
     console.log("accessToken from local storage",localStorage.getItem('user_token'));

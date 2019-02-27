@@ -14,12 +14,49 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-
+.searchbar-ios{
+    background: none !important;
+}
+.ion-ios-star-half:before{
+    transform: scale(-1,1);
+  }
+  html[dir="rtl"] body > ion-app {
+    text-align: right !important;
+}
+html[dir="rtl"] body > ion-app > ion-alert > div > div > div > div > input{
+    text-align: right !important;
+}
+.checkbox-ios .checkbox-checked {
+    border-color: #016a38 !important;
+    background-color: #016a38 !important;
+}
+.searchbar-ios .searchbar-input{
+    padding: 0px !important;
+}
+.tab-badge{
+    background-color: #016a38 !important;
+}
+.checkbox-inner{
+    height: 18px !important;
+    width: 9px !important;
+    right: 9px !important;
+}
+.checkbox-icon{
+    width: 30px !important;
+    height: 30px !important;
+}
 .tabs-md .tab-button[aria-selected=true] .tab-button-icon {
     color: #016a38 !important;
     -webkit-transform: translate3d(0, -2px, 0);
     transform: translate3d(0, -2px, 0);
 }
+
+.tabs-ios .tab-button[aria-selected=true] .tab-button-icon {
+    color: #016a38 !important;
+    -webkit-transform: translate3d(0, -2px, 0);
+    transform: translate3d(0, -2px, 0);
+}
+
 .badge-md{
  background-color: #016a38;   
 }
@@ -102,9 +139,15 @@ html[dir="rtl"] body > ion-app > ion-alert .alert-button-group {
     justify-content: flex-start !important;
     
 }
+// .popover-md .popover-content{
+//      right: auto !important;
+// }
 .popover-content{
-    right: 32px !important;
+    right: auto !important;
 }
+// .popover-ios .popover-content{
+//     right: auto !important;
+// }
 html[dir="rtl"] body > ion-app > ion-picker-cmp .picker-toolbar {
     flex-direction: row-reverse !important;
     justify-content: flex-end !important;
@@ -155,8 +198,12 @@ html[dir="rtl"] body > ion-app > ion-alert .alert-button-group{
 .ion-ios-notifications-outline:after {
     font-size: 30px;
 }
-
-
+.rtl{
+    text-align: right !important;
+}
+.ltr{
+    text-align: left !important;
+}
 .item_selected{
     background-color: #e8f1ed;
     padding-right:20px;

@@ -16,6 +16,13 @@ export class OrderNotAcceptedPage {
 
   constructor(  public helper:HelperProvider,
     public navCtrl: NavController, public navParams: NavParams) {
+      document.removeEventListener('pause',()=>{
+        console.log("removeEventListener pause")
+      })
+
+      document.removeEventListener('resume',()=>{
+       console.log("removeEventListener resume")
+     })
   }
 
   ionViewDidLoad() {

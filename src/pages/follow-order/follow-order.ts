@@ -14,6 +14,7 @@ import { TabsPage } from '../tabs/tabs';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
+
 @IonicPage({
   name:'follow-order'
 })
@@ -49,6 +50,7 @@ export class FollowOrderPage {
   notificationFlag=false;
   reorderDetected = false; 
   patientAdd;
+  newduration
 
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
@@ -57,6 +59,14 @@ export class FollowOrderPage {
      public toastCtrl: ToastController, public alertCtrl: AlertController,
      public events: Events,private localNotifications: LocalNotifications) {
        console.log("follow order");
+       document.removeEventListener('pause',()=>{
+         console.log("removeEventListener pause")
+       })
+
+       document.removeEventListener('resume',()=>{
+        console.log("removeEventListener resume")
+      })
+
     this.langDirection = this.helper.lang_direction;
     this.helper.view = "follow";
     
@@ -141,10 +151,45 @@ export class FollowOrderPage {
         console.log(" event location ",data);
         if(data.location){
           this.doctorLocation = data.location;
+
+          var patientLoc  = this.lat +","+this.lng;
+var DoctorLoc = this.doctorLocation;
+this.accessToken = localStorage.getItem('user_token');  
+        this.service.durationbetweenDoctorAndPatient(patientLoc,DoctorLoc,this.accessToken).subscribe(resp=>{
+          console.log("resp from durationbetweenDoctorAndPatient",resp);
+                    var durVal = JSON.parse(JSON.stringify(resp)).routes[0].legs[0].duration.value;
+          console.log("durVal : ",durVal);
+
+var number = 30*60;
+
+
+var d = Number(durVal+number);
+var h = Math.floor(d/3600);
+var m = Math.floor(d % 3600 /60);
+var s = Math.floor(d % 3600 % 60);
+console.log("h ", h,"m: ",m,"s: ",s);  
+
+var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+console.log(" time : ",hdisplay+mdisplay);
+this.newduration  = hdisplay+mdisplay;
+console.log("doctorData[results][i].timefordelivery2: ",this.newduration)
+
+
+
+        },err=>{
+          console.log("err from durationbetweenDoctorAndPatient",err);
+        });
+
           this.initMapWithDoctorLocation(this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]);
         
         }
         });
+
+
+
+
         this.events.subscribe('locationChanged', (data) => {
           console.log(" event location changed",data);
           if(data.location){
@@ -165,7 +210,7 @@ export class FollowOrderPage {
         animation: google.maps.Animation.DROP,
         icon: { 
           url : 'assets/icon/location.png',
-          size: new google.maps.Size(71, 71),
+          //size: new google.maps.Size(71, 71),
           scaledSize: new google.maps.Size(25, 25) 
           
          },
@@ -179,51 +224,84 @@ export class FollowOrderPage {
       this.allMarkers.push(markers);
 
       console.log("markers ",markers);
-      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
-        resp=>{
-          // console.log("resp from getDurationAndDistance: ", resp);
-          // var respObj = JSON.parse(JSON.stringify(resp));
+      // this.service.getDurationAndDistance().subscribe(
+      //   resp=>{
+      //     // console.log("resp from getDurationAndDistance: ", resp);
+      //     // var respObj = JSON.parse(JSON.stringify(resp));
           
-          // console.log("duration",respObj.routes[0].legs[0].duration.text);
-          // this.duration = respObj.routes[0].legs[0].duration.text;
-          // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-          console.log("resp from getDurationAndDistance from location changed-> doctor map: ", resp);
-          var respObj = JSON.parse(JSON.stringify(resp));
+      //     // console.log("duration",respObj.routes[0].legs[0].duration.text);
+      //     // this.duration = respObj.routes[0].legs[0].duration.text;
+      //     // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+      //     console.log("resp from getDurationAndDistance from location changed-> doctor map: ", resp);
+      //     var respObj = JSON.parse(JSON.stringify(resp));
           
           
       
-          console.log("duration",respObj.routes[0].legs[0].duration.text);
-          var dur = respObj.routes[0].legs[0].duration.text;
-          var durVal = respObj.routes[0].legs[0].duration.value;
-          console.log("dur val after set",durVal);
+      //     console.log("duration",respObj.routes[0].legs[0].duration.text);
+      //     var dur = respObj.routes[0].legs[0].duration.text;
+      //     var durVal = respObj.routes[0].legs[0].duration.value;
+      //     console.log("dur val after set",durVal);
 
-          console.log("routes resp: ",respObj.routes[0].legs[0]);
+      //     console.log("routes resp: ",respObj.routes[0].legs[0]);
           
-      if(dur.includes("hours"))
-          dur = dur.replace("hours","س");
+      // if(dur.includes("hours"))
+      //     dur = dur.replace("hours","س");
       
-      if(dur.includes("mins"))
-          dur = dur.replace("mins","د");
+      // if(dur.includes("mins"))
+      //     dur = dur.replace("mins","د");
       
-      if(dur.includes("min"))
-          dur = dur.replace("min","د");
+      // if(dur.includes("min"))
+      //     dur = dur.replace("min","د");
           
-      if (dur.includes("hour"))
-          dur = dur.replace("hour","س");
+      // if (dur.includes("hour"))
+      //     dur = dur.replace("hour","س");
       
-          this.duration = dur;
+      //     this.duration = dur;
 
 
 
-          console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
+      //     console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
 
-          if(this.notificationFlag == false && durVal == (2*60))
+      //     if(this.notificationFlag == false && durVal == (2*60))
+      //       this.scheduleNotification();
+      //   },
+      //   err=>{
+      //     console.log("err from getDurationAndDistance: ",err);
+      //   }
+      // );
+
+      /*edit to  get duration from our api  */
+var patientLoc  = this.lat +","+this.lng;
+var DoctorLoc = this.doctorLocation.split(',')[0] +","+this.doctorLocation.split(',')[1];
+this.accessToken = localStorage.getItem('user_token');  
+        this.service.durationbetweenDoctorAndPatient(patientLoc,DoctorLoc,this.accessToken).subscribe(resp=>{
+          console.log("resp from durationbetweenDoctorAndPatient",resp);
+          var durVal = JSON.parse(JSON.stringify(resp)).routes[0].legs[0].duration.value;
+          console.log("durVal : ",durVal);
+
+var number = 30*60;
+
+
+var d = Number(durVal+number);
+var h = Math.floor(d/3600);
+var m = Math.floor(d % 3600 /60);
+var s = Math.floor(d % 3600 % 60);
+console.log("h ", h,"m: ",m,"s: ",s);  
+
+var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+console.log(" time : ",hdisplay+mdisplay);
+this.newduration  = hdisplay+mdisplay;
+console.log("doctorData[results][i].timefordelivery2: ",this.newduration)
+
+
+if(this.notificationFlag == false && durVal == (2*60))
             this.scheduleNotification();
-        },
-        err=>{
-          console.log("err from getDurationAndDistance: ",err);
-        }
-      );
+
+        },err=>{
+          console.log("err from durationbetweenDoctorAndPatient",err);
+        });
 
           }
 
@@ -310,7 +388,8 @@ export class FollowOrderPage {
     let latlng = new google.maps.LatLng(this.lat,this.lng);
     var mapOptions={
      center:latlng,
-      zoom:15,
+      zoom:18,
+      disableDefaultUI: true,
       mapTypeId:google.maps.MapTypeId.ROADMAP,
 
     };
@@ -386,8 +465,8 @@ export class FollowOrderPage {
         {
           text: this.translate.instant("agree"),
           handler: () => {
-            console.log('cancel order agree clicked');
-            this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
+            console.log('cancel order agree clicked : ',this.doctorId);
+            this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId,doctorId:this.doctorId});
             
           }
         }
@@ -432,13 +511,20 @@ initMapWithDoctorLocation(xlat,xlon){
 //   // setMyLocationButtonEnabled: true,
 // };
 // this.map=  new google.maps.Map(this.mapElement.nativeElement,mapOptions);
+
+var markers, i;
+for(var j=0;j<this.allMarkers.length;j++)
+{
+this.allMarkers[j].setMap(null);
+}
+
 let marker = new google.maps.Marker({
   map: this.map,
   animation: google.maps.Animation.DROP,
   position: latlng2,
   icon: { 
     url : 'assets/icon/location.png',
-    size: new google.maps.Size(71, 71),
+    //size: new google.maps.Size(71, 71),
     scaledSize: new google.maps.Size(25, 25) 
   }
   ,
@@ -450,44 +536,45 @@ let marker = new google.maps.Marker({
  
 });
 
-this.service.getDurationAndDistance(this.lat,this.lng,xlat,xlon).subscribe(
-  resp=>{
-    console.log("resp from getDurationAndDistance from init map with doc loc-> doctor map: ", resp);
-    var respObj = JSON.parse(JSON.stringify(resp));
+this.allMarkers.push(marker);
+// this.service.getDurationAndDistance(this.lat,this.lng,xlat,xlon).subscribe(
+//   resp=>{
+//     console.log("resp from getDurationAndDistance from init map with doc loc-> doctor map: ", resp);
+//     var respObj = JSON.parse(JSON.stringify(resp));
     
     
 
-    console.log("duration",respObj.routes[0].legs[0].duration.text);
-    var dur = respObj.routes[0].legs[0].duration.text;
-    var durVal = respObj.routes[0].legs[0].duration.value;
-    console.log("dur val after set",durVal);
-    console.log("routes resp : ",respObj.routes[0].legs[0]);
+//     console.log("duration",respObj.routes[0].legs[0].duration.text);
+//     var dur = respObj.routes[0].legs[0].duration.text;
+//     var durVal = respObj.routes[0].legs[0].duration.value;
+//     console.log("dur val after set",durVal);
+//     console.log("routes resp : ",respObj.routes[0].legs[0]);
 
-if(dur.includes("hours"))
-    dur = dur.replace("hours","س");
+// if(dur.includes("hours"))
+//     dur = dur.replace("hours","س");
 
-if(dur.includes("mins"))
-    dur = dur.replace("mins","د");
+// if(dur.includes("mins"))
+//     dur = dur.replace("mins","د");
 
-if(dur.includes("min"))
-    dur = dur.replace("min","د");
+// if(dur.includes("min"))
+//     dur = dur.replace("min","د");
     
-if (dur.includes("hour"))
-    dur = dur.replace("hour","س");
+// if (dur.includes("hour"))
+//     dur = dur.replace("hour","س");
 
-    this.duration = dur;
+//     this.duration = dur;
     
 
 
-    console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
+//     console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
 
-    if(this.notificationFlag == false && durVal == (2*60)) //<=
-      this.scheduleNotification();
-  },
-  err=>{
-    console.log("err from getDurationAndDistance: ",err);
-  }
-);
+//     if(this.notificationFlag == false && durVal == (2*60)) //<=
+//       this.scheduleNotification();
+//   },
+//   err=>{
+//     console.log("err from getDurationAndDistance: ",err);
+//   }
+// );
 
 
 }
@@ -501,7 +588,8 @@ console.log("initMapwithUserLocation");
 let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
    center:latlng,
-    zoom:15,
+    zoom:18,
+    disableDefaultUI: true,
     mapTypeId:google.maps.MapTypeId.ROADMAP,
     // controls: {
     //   myLocationButton: true         
@@ -516,7 +604,7 @@ let latlng = new google.maps.LatLng(this.lat,this.lng);
     position: latlng,
     icon: { 
       url : 'assets/icon/user_locations.png',
-      size: new google.maps.Size(71, 71),
+      //size: new google.maps.Size(71, 71),
       scaledSize: new google.maps.Size(20, 25) 
     }
 
@@ -618,7 +706,7 @@ for(var j=0;j<this.allMarkers.length;j++)
         animation: google.maps.Animation.DROP,
         icon: { 
           url : 'assets/icon/location.png',
-          size: new google.maps.Size(71, 71),
+          //size: new google.maps.Size(71, 71),
           scaledSize: new google.maps.Size(25, 25) 
           
          },
@@ -632,49 +720,50 @@ for(var j=0;j<this.allMarkers.length;j++)
       this.allMarkers.push(markers);
 
       console.log("markers ",markers);
-      this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
-        resp=>{
-          // console.log("resp from getDurationAndDistance: ", resp);
-          // var respObj = JSON.parse(JSON.stringify(resp));
-          // console.log("duration",respObj.routes[0].legs[0].duration.text);
+
+      // this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
+      //   resp=>{
+      //     // console.log("resp from getDurationAndDistance: ", resp);
+      //     // var respObj = JSON.parse(JSON.stringify(resp));
+      //     // console.log("duration",respObj.routes[0].legs[0].duration.text);
           
 
-          // this.duration = respObj.routes[0].legs[0].duration.text;
-          // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
-          console.log("resp from getDurationAndDistance from follow doctor func-> doctor map: ", resp);
-          var respObj = JSON.parse(JSON.stringify(resp));
+      //     // this.duration = respObj.routes[0].legs[0].duration.text;
+      //     // console.log("distance : ",respObj.routes[0].legs[0].distance.text);
+      //     console.log("resp from getDurationAndDistance from follow doctor func-> doctor map: ", resp);
+      //     var respObj = JSON.parse(JSON.stringify(resp));
           
           
       
-          console.log("duration",respObj.routes[0].legs[0].duration.text);
-          var dur = respObj.routes[0].legs[0].duration.text;
-          var durVal = respObj.routes[0].legs[0].duration.value;
-          console.log("dur val after set",durVal);
-          console.log("routes resp : ",respObj.routes[0].legs[0]);
+      //     console.log("duration",respObj.routes[0].legs[0].duration.text);
+      //     var dur = respObj.routes[0].legs[0].duration.text;
+      //     var durVal = respObj.routes[0].legs[0].duration.value;
+      //     console.log("dur val after set",durVal);
+      //     console.log("routes resp : ",respObj.routes[0].legs[0]);
       
-      if(dur.includes("hours"))
-          dur = dur.replace("hours","س");
+      // if(dur.includes("hours"))
+      //     dur = dur.replace("hours","س");
       
-      if(dur.includes("mins"))
-          dur = dur.replace("mins","د");
+      // if(dur.includes("mins"))
+      //     dur = dur.replace("mins","د");
       
-      if(dur.includes("min"))
-          dur = dur.replace("min","د");
+      // if(dur.includes("min"))
+      //     dur = dur.replace("min","د");
           
-      if (dur.includes("hour"))
-          dur = dur.replace("hour","س");
+      // if (dur.includes("hour"))
+      //     dur = dur.replace("hour","س");
       
-          this.duration = dur;
+      //     this.duration = dur;
           
-          console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
-      if(this.notificationFlag == false && durVal == (2*60))
-        this.scheduleNotification();
+      //     console.log("duration val before if ",durVal,"notificatoin flag",this.notificationFlag);
+      // if(this.notificationFlag == false && durVal == (2*60))
+      //   this.scheduleNotification();
 
-        },
-        err=>{
-          console.log("err from getDurationAndDistance: ",err);
-        }
-      );
+      //   },
+      //   err=>{
+      //     console.log("err from getDurationAndDistance: ",err);
+      //   }
+      // );
 
  //     this.initMapwithUserLocation();
 
@@ -767,9 +856,9 @@ confirmCancel(){
         text: this.translate.instant("agree"),
         handler: () => {
           console.log('agree clicked');
-          console.log('cancel order agree clicked');
+          console.log('cancel order agree clicked', this.doctorId);
           this.helper.logout = true;
-          this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId});
+          this.navCtrl.push('cancel-order',{orderId:this.doctorData.orderId,doctorId:this.doctorId});
         
         }
       }

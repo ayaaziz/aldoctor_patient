@@ -73,9 +73,9 @@ export class ProvidedServicesProvider {
 
       if(type_id == "1")
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-pharmacy-rate-criteriea';
-    else if (type_id == "2")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea';
     else if (type_id == "3")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea';
+    else if (type_id == "2")
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-xray-rate-criteriea';
 
       
@@ -96,9 +96,9 @@ export class ProvidedServicesProvider {
 
     if(type_id == "1")
     serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-pharmacy-rate-criteriea?rate='+rateId;
-  else if (type_id == "2")
-    serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea?rate='+rateId;
   else if (type_id == "3")
+    serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea?rate='+rateId;
+  else if (type_id == "2")
     serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-xray-rate-criteriea?rate='+rateId;
   
     return this.http.get(serviceUrl,{headers: headers });
@@ -121,9 +121,9 @@ export class ProvidedServicesProvider {
     
       if(type_id == "1")
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-pharmacy-cancel-reasons?lang='+lang;
-    else if (type_id == "2")
-      serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-center-cancel-reasons?lang='+lang;
     else if (type_id == "3")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-center-cancel-reasons?lang='+lang;
+    else if (type_id == "2")
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-xray-cancel-reasons?lang='+lang;
 
     

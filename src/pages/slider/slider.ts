@@ -3,9 +3,9 @@ import { IonicPage, NavController, NavParams,Slides } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login/login';
 
-@IonicPage({
-  name:'slider'
-})
+// @IonicPage({
+//   name:'slider'
+// })
 @Component({
   selector: 'page-slider',
   templateUrl: 'slider.html',

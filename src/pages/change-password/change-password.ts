@@ -123,7 +123,7 @@ validPass=false;
     }
     // })
   }else{
-    this.presentToast(this.translate.instant("passNotCorrect"));
+    this.presentToast("يجب ألا تقل كلمة المرور الجديدة عن اربعة حروف أو أرقام");
   }
   }
 

@@ -46,7 +46,7 @@ export class SpecificDoctorPage {
   orderBTn = true; //fasle
   searchValForRefresh="";
   refresher;
-
+  loadingAlert
   constructor(public helper:HelperProvider, public toastCtrl: ToastController,
     public storage: Storage,  public events: Events,public app:App,public alertCtrl: AlertController,
     public service:LoginserviceProvider, public navCtrl: NavController,
@@ -65,123 +65,123 @@ export class SpecificDoctorPage {
 
       this.spText=this.translate.instant("chooseSpecialization");
 
-      this.events.subscribe('statusChanged', (data) => {
-        console.log(" event status changed ",data);
-        // data.status;
-        // data.id;
+      // this.events.subscribe('statusChanged', (data) => {
+      //   console.log(" event status changed ",data);
+      //   // data.status;
+      //   // data.id;
 
-        for(var k=0;k<this.doctors.length;k++)
-        {
-          
-          if(this.doctors[k].id == data.id)
-          {
-            if(data.status == "1")
-            {
-              this.doctors[k].color="green";
-              this.doctors[k].offline=false;
-              this.doctors[k].moreTxt = " متوافر";
-              console.log("call sort function from status changed");
-              //r this.sortDoctors();
-
-            }else if (data.status == "0")
-            {
-              this.doctors[k].color="grey";
-              this.doctors[k].offline=true;
-              this.doctors[k].moreTxt = "غير متوافر";
-              console.log("call sort function from status changed");
-              //r  this.sortDoctors();
-            }
-          }
-          
-        }
-
-
-      });
-      this.events.subscribe('status', (data) => {
-        console.log(" event status ",data);
-        // data.status;
-        // data.id;
-
-        for(var k=0;k<this.doctors.length;k++)
-        {
-          
-          if(this.doctors[k].id == data.id)
-          {
-            if(data.status == "1")
-            {
-              this.doctors[k].color="green";
-              this.doctors[k].offline=false;
-              this.doctors[k].moreTxt = " متوافر";
-              console.log("call sort function from status");
-              //r  this.sortDoctors();
-
-            }else if (data.status == "0")
-            {
-              this.doctors[k].color="grey";
-              this.doctors[k].offline=true;
-              this.doctors[k].moreTxt = "غير متوافر";
-              console.log("call sort function from status");
-              //r  this.sortDoctors();
-            }
-          } 
-        }
-      });
-
-      this.events.subscribe('locationChanged', (data) => {
-        console.log("location changed event",data);
-        if(data.location){
-          for(var k=0;k<this.doctors.length;k++)
-          {   
-            if(this.doctors[k].id == data.id)
-            {
-              this.doctors[k].lat = data.location.split(',')[0];
-              this.doctors[k].lng = data.location.split(',')[1];
-              if(this.doctors[k].offline == false)
-              {
-                this.getDistanceAndDuration(k);
-                //r this.sortDoctors();
-              }
-                // if(k == (this.DoctorsArray.length -1))
-              // {
-              //   console.log("call sort function");
-              //   this.sortDoctors();
-              // }
-              
-            }
-                  
-          }
-          }
-
-
-      });
-this.events.subscribe('location', (data) => {
-  console.log(" event location ",data);
-  if(data.location){
-  for(var k=0;k<this.doctors.length;k++)
-  {   
-    if(this.doctors[k].id == data.id)
-    {
-      this.doctors[k].lat = data.location.split(',')[0];
-      this.doctors[k].lng = data.location.split(',')[1];
-      if(this.doctors[k].offline == false){
-        this.getDistanceAndDuration(k);
-      }
-      
-      
-      // if(k == (this.doctors.length -1))
+      //   for(var k=0;k<this.doctors.length;k++)
       //   {
-      //     console.log("call sort function");
-      //     this.sortDoctors();
+          
+      //     if(this.doctors[k].id == data.id)
+      //     {
+      //       if(data.status == "1")
+      //       {
+      //         this.doctors[k].color="green";
+      //         this.doctors[k].offline=false;
+      //         this.doctors[k].moreTxt = " متوافر";
+      //         console.log("call sort function from status changed");
+      //         //r this.sortDoctors();
+
+      //       }else if (data.status == "0")
+      //       {
+      //         this.doctors[k].color="grey";
+      //         this.doctors[k].offline=true;
+      //         this.doctors[k].moreTxt = "غير متوافر";
+      //         console.log("call sort function from status changed");
+      //         //r  this.sortDoctors();
+      //       }
+      //     }
+          
       //   }
 
-    }
+
+      // });
+      // this.events.subscribe('status', (data) => {
+      //   console.log(" event status ",data);
+      //   // data.status;
+      //   // data.id;
+
+      //   for(var k=0;k<this.doctors.length;k++)
+      //   {
           
-  }
-  }
+      //     if(this.doctors[k].id == data.id)
+      //     {
+      //       if(data.status == "1")
+      //       {
+      //         this.doctors[k].color="green";
+      //         this.doctors[k].offline=false;
+      //         this.doctors[k].moreTxt = " متوافر";
+      //         console.log("call sort function from status");
+      //         //r  this.sortDoctors();
+
+      //       }else if (data.status == "0")
+      //       {
+      //         this.doctors[k].color="grey";
+      //         this.doctors[k].offline=true;
+      //         this.doctors[k].moreTxt = "غير متوافر";
+      //         console.log("call sort function from status");
+      //         //r  this.sortDoctors();
+      //       }
+      //     } 
+      //   }
+      // });
+
+//       this.events.subscribe('locationChanged', (data) => {
+//         console.log("location changed event",data);
+//         if(data.location){
+//           for(var k=0;k<this.doctors.length;k++)
+//           {   
+//             if(this.doctors[k].id == data.id)
+//             {
+//               this.doctors[k].lat = data.location.split(',')[0];
+//               this.doctors[k].lng = data.location.split(',')[1];
+//               if(this.doctors[k].offline == false)
+//               {
+//                 this.getDistanceAndDuration(k);
+//                 //r this.sortDoctors();
+//               }
+//                 // if(k == (this.DoctorsArray.length -1))
+//               // {
+//               //   console.log("call sort function");
+//               //   this.sortDoctors();
+//               // }
+              
+//             }
+                  
+//           }
+//           }
+
+
+//       });
+// this.events.subscribe('location', (data) => {
+//   console.log(" event location ",data);
+//   if(data.location){
+//   for(var k=0;k<this.doctors.length;k++)
+//   {   
+//     if(this.doctors[k].id == data.id)
+//     {
+//       this.doctors[k].lat = data.location.split(',')[0];
+//       this.doctors[k].lng = data.location.split(',')[1];
+//       if(this.doctors[k].offline == false){
+//         this.getDistanceAndDuration(k);
+//       }
+      
+      
+//       // if(k == (this.doctors.length -1))
+//       //   {
+//       //     console.log("call sort function");
+//       //     this.sortDoctors();
+//       //   }
+
+//     }
+          
+//   }
+//   }
 
 
 
-  });
+//   });
 
   this.events.subscribe('getBusyDoctor', (data) => {
     console.log(" event getBusyDoctor ",data);
@@ -201,15 +201,16 @@ this.events.subscribe('location', (data) => {
           console.log("call sort function from get busy");
           //r      this.sortDoctors();
 
-        }else if (data.status == "0")
-        {
-          this.doctors[k].color="green";
-          this.doctors[k].offline=false;
-          this.doctors[k].moreTxt = " متوافر";
-          this.helper.getDoctorStatus(data.id);
-          console.log("call sort function from get busy");
-          //r       this.sortDoctors();
         }
+        // else if (data.status == "0")
+        // {
+        //   this.doctors[k].color="green";
+        //   this.doctors[k].offline=false;
+        //   this.doctors[k].moreTxt = " متوافر";
+        //   this.helper.getDoctorStatus(data.id);
+        //   console.log("call sort function from get busy");
+        //   //r       this.sortDoctors();
+        // }
 
         // else if(data.status == "0")
         // {
@@ -237,15 +238,16 @@ this.events.subscribe('location', (data) => {
           console.log("call sort function from busy changed");
           //r      this.sortDoctors();
 
-        }else if (data.status == "0")
-        {
-          this.doctors[k].color="green";
-          this.doctors[k].offline=false;
-          this.doctors[k].moreTxt = " متوافر";
-          this.helper.getDoctorStatus(data.id);
-          console.log("call sort function from busy changed");
-          //r      this.sortDoctors();
         }
+        // else if (data.status == "0")
+        // {
+        //   this.doctors[k].color="green";
+        //   this.doctors[k].offline=false;
+        //   this.doctors[k].moreTxt = " متوافر";
+        //   this.helper.getDoctorStatus(data.id);
+        //   console.log("call sort function from busy changed");
+        //   //r      this.sortDoctors();
+        // }
 
 
         // else if(data.status == "0")
@@ -298,128 +300,155 @@ this.events.subscribe('location', (data) => {
   }
 
   SpecializationChecked(){
-    var id;
+    var id = this.Specialization;
     console.log("all Specialization: ",this.SpecializationArray);
     console.log(this.Specialization);
     if(this.searchValue){
-    for(var i=0;i<this.SpecializationArray.length;i++){
-      if(this.Specialization == this.SpecializationArray[i].value)
-      {
-        id = this.SpecializationArray[i].id;
-        break;
-      }
-    }
+    // for(var i=0;i<this.SpecializationArray.length;i++){
+    //   if(this.Specialization == this.SpecializationArray[i].value)
+    //   {
+    //     id = this.SpecializationArray[i].id;
+    //     break;
+    //   }
+    // }
     console.log("id: ",id);
     this.showLoading = false;
     // this.service.getDoctorInSpecificSpecialization(id,this.accessToken)
-    this.service.getDoctorsByName(0,this.searchValue,id,this.accessToken)
-    .subscribe(
+//     this.service.getDoctorsByName(0,this.searchValue,id,this.accessToken)
+//     .subscribe(
     
-      resp =>{
-        this.showLoading = true;
-        console.log("getDoctorInSpecificSpecialization resp: ",resp);
-        let doctorData =JSON.parse(JSON.stringify(resp));
-        console.log(doctorData["results"].length);
-        this.doctors=[];  
-        for(var i=0;i<doctorData["results"].length;i++){
-            console.log("doctor: ",doctorData["results"][i]);  
+//       resp =>{
+//         this.showLoading = true;
+//         console.log("getDoctorInSpecificSpecialization resp: ",resp);
+//         let doctorData =JSON.parse(JSON.stringify(resp));
+//         console.log(doctorData["results"].length);
+//         this.doctors=[];  
+//         for(var i=0;i<doctorData["results"].length;i++){
+//             console.log("doctor: ",doctorData["results"][i]);  
             
-            if(doctorData["results"][i].nickname)
-            doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
-            else 
-            doctorData["results"][i].doctorName = doctorData["results"][i].name;
+//             if(doctorData["results"][i].nickname)
+//             doctorData["results"][i].doctorName = doctorData["results"][i].nickname;
+//             else 
+//             doctorData["results"][i].doctorName = doctorData["results"][i].name;
 
-            if(! doctorData["result"][i].rate)
-              doctorData["result"][i].rate = 5;
+//             if(! doctorData["result"][i].rate)
+//               doctorData["result"][i].rate = 5;
 
-            if(doctorData["results"][i].busy == "1")
-            {
-              doctorData["results"][i].color="red";
-              doctorData["results"][i].offline=true;
-              doctorData["results"][i].moreTxt = "غير متوافر";
 
-            }else if (doctorData["results"][i].busy == "0")
-            {
-              if(doctorData["results"][i].online  == "1")
-                {
-                  doctorData["results"][i].color="green";
-                  doctorData["results"][i].offline=false;
-                  doctorData["results"][i].moreTxt = " متوافر";
+//             /*edit time , replace online with availability  */  
+
+// var number = 30*60;
+
+// console.log("doctorData[results].timedelivertvalue: ",doctorData["results"][i].timedelivertvalue);
+// var dur = doctorData["results"][i].timedelivertvalue;
+
+// var d = Number(dur+number);
+// var h = Math.floor(d/3600);
+// var m = Math.floor(d % 3600 /60);
+// var s = Math.floor(d % 3600 % 60);
+// console.log("h ", h,"m: ",m,"s: ",s);  
+
+// var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+// var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+// console.log(" time : ",hdisplay+mdisplay);
+// doctorData["results"][i].timefordelivery2  = hdisplay+mdisplay;
+// console.log("doctorData[results][i].timefordelivery2: ",doctorData["results"][i].timefordelivery2)
+
+
+//             if(doctorData["results"][i].busy == "1")
+//             {
+//               doctorData["results"][i].color="red";
+//               doctorData["results"][i].offline=true;
+//               doctorData["results"][i].moreTxt = "غير متوافر";
+
+//             }else if (doctorData["results"][i].busy == "0")
+//             {
+//               if(doctorData["results"][i].availability  == "1")
+//                 {
+//                   doctorData["results"][i].color="green";
+//                   doctorData["results"][i].offline=false;
+//                   doctorData["results"][i].moreTxt = " متوافر";
                 
   
-                }else if (doctorData["results"][i].online  == "0")
-                {
-                  doctorData["results"][i].color="grey";
-                  doctorData["results"][i].offline=true;
-                  doctorData["results"][i].moreTxt = "غير متوافر";
+//                 }else if (doctorData["results"][i].availability  == "0")
+//                 {
+//                   doctorData["results"][i].color="grey";
+//                   doctorData["results"][i].offline=true;
+//                   doctorData["results"][i].moreTxt = "غير متوافر";
                   
-                }
+//                 }
              
-            }
+//             }
 
 
-            this.doctors.push(doctorData["results"][i]);
-          }
-          if(this.doctors.length >= 3)
-          {
-            this.scrollHeight = "385px";
+//             this.doctors.push(doctorData["results"][i]);
+//           }
+//           if(this.doctors.length >= 3)
+//           {
+//             this.scrollHeight = "385px";
           
-          }else{
-            this.scrollHeight = "260px";
-          }
-          for(i=0;i<this.doctors.length;i++)
-          {
-  /*
-            this.doctors[i].distanceVal =10000;
-            this.doctors[i].offline=true;
-            this.helper.getDoctorStatus(this.doctors[i].id);
-            this.helper.statusChanged(this.doctors[i].id);
-            this.helper.getDoctorlocation(this.doctors[i].id);
-            this.helper.trackDoctor(this.doctors[i].id);
-            this.helper.getBusyDoctor(this.doctors[i].id);
-            this.helper.busyDoctorChanged(this.doctors[i].id);
+//           }else{
+//             this.scrollHeight = "260px";
+//           }
+//           for(i=0;i<this.doctors.length;i++)
+//           {
+//   /*
+//             this.doctors[i].distanceVal =10000;
+//             this.doctors[i].offline=true;
+//             this.helper.getDoctorStatus(this.doctors[i].id);
+//             this.helper.statusChanged(this.doctors[i].id);
+//             this.helper.getDoctorlocation(this.doctors[i].id);
+//             this.helper.trackDoctor(this.doctors[i].id);
+//             this.helper.getBusyDoctor(this.doctors[i].id);
+//             this.helper.busyDoctorChanged(this.doctors[i].id);
             
-*/
+// */
  
-            /* */
-            //this.DoctorsArray[i].distanceVal = 10000;
-            //this.DoctorsArray[i].offline = true;
-            this.helper.getDoctorStatus(this.doctors[i].id);
-            //this.helper.statusChanged(this.DoctorsArray[i].id);
-            //this.helper.getDoctorlocation(this.DoctorsArray[i].id);
+//             /* */
+//             //this.DoctorsArray[i].distanceVal = 10000;
+//             //this.DoctorsArray[i].offline = true;
 
-            //this.helper.trackDoctor(this.DoctorsArray[i].id);
+
+//             // this.helper.getDoctorStatus(this.doctors[i].id);
+
+
+//             //this.helper.statusChanged(this.DoctorsArray[i].id);
+//             //this.helper.getDoctorlocation(this.DoctorsArray[i].id);
+
+//             //this.helper.trackDoctor(this.DoctorsArray[i].id);
             
-            this.helper.getBusyDoctor(this.doctors[i].id);
-            //this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
-            /* */
+//             this.helper.getBusyDoctor(this.doctors[i].id);
+//             //this.helper.busyDoctorChanged(this.DoctorsArray[i].id);
+//             /* */
 
-            // this.doctors[i].availability="0";
+//             // this.doctors[i].availability="0";
 
-            // if(this.doctors[i].availability == "1")
-            // {
-            //   this.doctors[i].color="green";
-            //   this.doctors[i].offline=false;
-            // }else{
-            //   this.doctors[i].color="grey";
-            //   this.doctors[i].offline=true;
-            // }
+//             // if(this.doctors[i].availability == "1")
+//             // {
+//             //   this.doctors[i].color="green";
+//             //   this.doctors[i].offline=false;
+//             // }else{
+//             //   this.doctors[i].color="grey";
+//             //   this.doctors[i].offline=true;
+//             // }
 
-          }
-          //this.getDistanceAndDuration(0);
+//           }
+//           //this.getDistanceAndDuration(0);
 
-          if(this.doctors.length == 0)
-          {
-            this.presentToast(this.translate.instant("noSearchResult"));
-          }
-      },
-      err=>{
-        this.showLoading=true;
-        console.log("getDoctorInSpecificSpecialization error: ",err);
-        this.presentToast(this.translate.instant("serverError"));
+//           if(this.doctors.length == 0)
+//           {
+//             this.presentToast(this.translate.instant("noSearchResult"));
+//           }
+//       },
+//       err=>{
+//         this.showLoading=true;
+//         console.log("getDoctorInSpecificSpecialization error: ",err);
+//         this.presentToast(this.translate.instant("serverError"));
         
-      }
-    );
+//       }
+//     );
+this.loadFuncForDoc()
   }
   }
 
@@ -501,36 +530,36 @@ this.events.subscribe('location', (data) => {
   }
 
   initializeDoctors() {
-    // this.doctors = [{"name":"ali","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
-    // {"name":"mohamed","cost":"300","rate":"2.5","specialization":"specialization2","profile_pic":"assets/imgs/avatar-ts-jessie.png"},
-    // {"name":"ahmed","cost":"400","rate":"2","specialization":"specialization3","profile_pic":"assets/imgs/avatar-ts-jessie.png"}];
-
+   
   }
-
-  getItems(ev) {
+  searchText(ev){
     var searchVal= ev.target.value;
-      
-    
     this.searchValue = searchVal;
-
+    console.log("search value: ",this.searchValue);
+  }
+  getItems(ev) {
+    var searchVal= ev.target.value
+    this.searchValue = searchVal;
     console.log("search value: ",this.searchValue); 
     this.loadFuncForDoc();
   }
+  onlinetmpArrForSorting=[]
+  offlinetmpArrForSorting=[]
   loadFuncForDoc(){
-    var id ;
+    var id = this.Specialization
     if(this.searchValue)
     {
   
-    for(var i=0;i<this.SpecializationArray.length;i++){
-      if(this.Specialization == this.SpecializationArray[i].value)
-      {
-        id = this.SpecializationArray[i].id;
-        break;
-      }else{
-        id="";
+    // for(var i=0;i<this.SpecializationArray.length;i++){
+    //   if(this.Specialization == this.SpecializationArray[i].value)
+    //   {
+    //     id = this.SpecializationArray[i].id;
+    //     break;
+    //   }else{
+    //     id="";
         
-      }
-    }
+    //   }
+    // }
     // this.storage.get("access_token").then(data=>{
     //   this.accessToken = data;
     this.accessToken = localStorage.getItem('user_token');
@@ -540,15 +569,23 @@ this.events.subscribe('location', (data) => {
       this.showLoading = true;
     else
       this.showLoading = false;
-
+      // this.loadingAlert = this.alertCtrl.create({
+      //   title: '',
+      //   subTitle: "يرجى الإنتظار لحين ترتيب الأطباء حسب الأقرب إليك",
+      //   buttons: ['حسناً']
+      // });
+      // this.loadingAlert.present();
       this.service.getDoctorsByName(0,this.searchValue,id,this.accessToken).subscribe(
         resp=>{
+          //this.loadingAlert.dismiss()
           this.showLoading = true;
           this.choosenDoctors=[];
           console.log("getDoctorsByName resp: ",resp);
           let doctorData =JSON.parse(JSON.stringify(resp));
           console.log(doctorData["results"].length);
           this.doctors=[];  
+          this.onlinetmpArrForSorting = [];
+          this.offlinetmpArrForSorting = [];
           for(var i=0;i<doctorData["results"].length;i++){
             console.log("doctor: ",doctorData["results"][i]);  
             
@@ -560,30 +597,62 @@ this.events.subscribe('location', (data) => {
             if(! doctorData["results"][i].rate)
               doctorData["results"][i].rate = 5;
 
+
+                       /*edit time , replace online with availability  */  
+
+var number = 30*60;
+
+console.log("doctorData[results].timedelivertvalue: ",doctorData["results"][i].timedelivertvalue);
+var dur = doctorData["results"][i].timedelivertvalue;
+
+var d = Number(dur+number);
+var h = Math.floor(d/3600);
+var m = Math.floor(d % 3600 /60);
+var s = Math.floor(d % 3600 % 60);
+console.log("h ", h,"m: ",m,"s: ",s);  
+
+var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+console.log(" time : ",hdisplay+mdisplay);
+doctorData["results"][i].timefordelivery2  = hdisplay+mdisplay;
+console.log("doctorData[results][i].timefordelivery2: ",doctorData["results"][i].timefordelivery2)
+
+
+
             if(doctorData["results"][i].busy == "1")
             {
               doctorData["results"][i].color="red";
               doctorData["results"][i].offline=true;
               doctorData["results"][i].moreTxt = "غير متوافر";
+              this.offlinetmpArrForSorting.push(doctorData["results"][i])
             }else if (doctorData["results"][i].busy == "0")
             {
-              if(doctorData["results"][i].online  == "1")
+              if(doctorData["results"][i].availability  == "1")
                 {
                   doctorData["results"][i].color="green";
                   doctorData["results"][i].offline=false;
                   doctorData["results"][i].moreTxt = "متوافر";
+                  this.onlinetmpArrForSorting.push(doctorData["results"][i])
   
-                }else if (doctorData["results"][i].online  == "0")
+                }else if (doctorData["results"][i].availability  == "0")
                 {
                   doctorData["results"][i].color="grey";
                   doctorData["results"][i].offline=true;
                   doctorData["results"][i].moreTxt = "غير متوافر";
+                  this.offlinetmpArrForSorting.push(doctorData["results"][i])
                   
                 }
              
             }
-
-            this.doctors.push(doctorData["results"][i]);
+            this.onlinetmpArrForSorting.sort((a, b)=> {
+              return a["distanceval"] - b["distanceval"];
+            });
+        
+            this.offlinetmpArrForSorting.sort((a, b)=> {
+              return a["distanceval"] - b["distanceval"];
+            });
+            this.doctors = this.onlinetmpArrForSorting.concat(this.offlinetmpArrForSorting)
           }
           if(this.doctors.length >= 3)
           {
@@ -608,7 +677,11 @@ this.events.subscribe('location', (data) => {
             /* */
             //this.DoctorsArray[i].distanceVal = 10000;
             //this.DoctorsArray[i].offline = true;
-            this.helper.getDoctorStatus(this.doctors[i].id);
+
+
+            //this.helper.getDoctorStatus(this.doctors[i].id);
+            
+            
             //this.helper.statusChanged(this.DoctorsArray[i].id);
             //this.helper.getDoctorlocation(this.DoctorsArray[i].id);
 
@@ -643,16 +716,17 @@ this.events.subscribe('location', (data) => {
           // }
 
 
-          if(this.refresher)
-          this.refresher.complete();
+          // if(this.refresher)
+          // this.refresher.complete();
 
         },
         err=>{
+         // this.loadingAlert.dismiss()
           this.showLoading = true;
           console.log("getDoctorsByName error: ",err);
           this.presentToast(this.translate.instant("serverError"));
-          if(this.refresher)
-          this.refresher.complete();
+          // if(this.refresher)
+          // this.refresher.complete();
         }
       );
     // });
@@ -784,9 +858,11 @@ for(var g=0;g<this.doctors.length;g++){
 
 
   sendOrder(){
+   
+    if(navigator.onLine){
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
-    if(this.choosenDoctors.length > 3 )
+    if(this.choosenDoctors.length > 5 )
     {
       this.presentToast(this.translate.instant("check3doctors"));
     }else if (this.choosenDoctors.length<1){
@@ -799,35 +875,153 @@ for(var g=0;g<this.doctors.length;g++){
       }
       console.log("doctors id: ",doctorsId);
       this.orderBTn = true;
-      this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length).subscribe(
-        resp => {
-          if(JSON.parse(JSON.stringify(resp)).success ){
-          console.log("saveOrder resp: ",resp);
-          var newOrder = JSON.parse(JSON.stringify(resp));
-          
-          this.helper.orderIdForUpdate = newOrder.order.id;
 
-          //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-          //this.helper.orderStatusChanged(newOrder.order.id);
-
-          this.presentToast(this.translate.instant("ordersent"));
-          this.helper.dontSendNotification = false;
-          
-          // this.navCtrl.pop();
-          this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
-          }else{
-            this.presentToast(this.translate.instant("serverError"));
+      const alertEdit = this.alertCtrl.create({
+      title:  'كوبون خصم',
+      inputs: [
+        { 
+          name: 'currentFees',
+          placeholder: "ادخل كود - أختياري",
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+          text: "إلغاء",
+          role: 'cancel',
+          handler: data => {
+            this.orderBTn = false
+            console.log('Cancel clicked');
           }
         },
-        err=>{
-          console.log("saveOrder error: ",err);
-          this.presentToast(this.translate.instant("serverError"));
-          this.orderBTn = false;
+        {
+          text: "أطلب الآن",
+          handler: data => {
+            if (String(data.currentFees).trim()) {
+              this.service.checKCoupon(doctorsId,this.accessToken,this.Specialization,String(data.currentFees).trim(),(data)=>{
+                if(data.success){
+                  if(data.status == -1){
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                  else if(data.status == 2){
+                    this.presentToast("كوبون الخصم مستخدم من قبل")
+                  }
+                  else if(data.status == 1){
+                    let coupon_type = ""
+                    if(data.coupon.type == "percent"){
+                      coupon_type = data.coupon.discount +" % "
+                    }
+                    else{
+                      coupon_type = data.coupon.discount+ " جنيه "
+                    }
+                    let confirm = this.alertCtrl.create({
+                      title: '',
+                      subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
+                      buttons: [
+                        {
+                          text: "إلغاء",
+                          role: 'cancel',
+                          handler: data => {
+                            this.orderBTn = false
+                            console.log('Cancel clicked');
+                          }
+                        },
+                        {
+                        text: "تأكيد الطلب",
+                        handler: data2 => {
+                           this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length,data.coupon.id).subscribe(
+                             resp => {
+                               if(JSON.parse(JSON.stringify(resp)).success ){
+                               console.log("saveOrder resp: ",resp);
+                               var newOrder = JSON.parse(JSON.stringify(resp));
+                              
+                               this.helper.orderIdForUpdate = newOrder.order.id;
+                    
+                               //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+                             //this.helper.orderStatusChanged(newOrder.order.id);
+                    
+                               this.presentToast(this.translate.instant("ordersent"));
+                             this.helper.dontSendNotification = false;
+                              
+                                this.navCtrl.pop();
+                               this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+                               }else{
+                                 this.presentToast(this.translate.instant("serverError"));
+                               }
+                         },
+                             err=>{
+                               console.log("saveOrder error: ",err);
+                               this.presentToast(this.translate.instant("serverError"));
+                               this.orderBTn = false;
+                             }
+                           ); 
+                           console.log('btn clicked');
+                        }
+                      }]
+                    });
+                    confirm.present();
+                  }
+                  
+                }
+                else{
+                  if(data.status == -1){
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                  else if(data.status == 2){
+                    this.presentToast("كوبون الخصم مستخدم من قبل")
+                  }
+                  else{
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                
+                }
+              },
+              (data)=>{
+                this.presentToast("خطأ في الأتصال")
+              })
+            }
+            else{
+              this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length,-1).subscribe(
+                resp => {
+                  if(JSON.parse(JSON.stringify(resp)).success ){
+                  console.log("saveOrder resp: ",resp);
+                  var newOrder = JSON.parse(JSON.stringify(resp));
+                 
+                  this.helper.orderIdForUpdate = newOrder.order.id;
+       
+                  //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+                //this.helper.orderStatusChanged(newOrder.order.id);
+       
+                  this.presentToast(this.translate.instant("ordersent"));
+                this.helper.dontSendNotification = false;
+                 
+                   this.navCtrl.pop();
+                  this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+                  }else{
+                    this.presentToast(this.translate.instant("serverError"));
+                  }
+            },
+                err=>{
+                  console.log("saveOrder error: ",err);
+                  this.presentToast(this.translate.instant("serverError"));
+                  this.orderBTn = false;
+                }
+              ); 
+              
+            }
+            
+          }
         }
-      );    
+      ]
+    });
+    alertEdit.present();
+   
     }
     
-    
+  }
+  else{
+    this.presentToast("خطأ في الأتصال بالأنترنت")
+  }
   }
   showDoctorProfile(item){
     console.log("card item ",item);
@@ -876,12 +1070,13 @@ for(var g=0;g<this.doctors.length;g++){
     this.navCtrl.pop();
   }
   searchIcon(){
-    if( !this.searchValue  && this.Specialization)
-      this.presentToast(this.translate.instant('enterdoctor'));
-    else if (this.searchValue && ! this.Specialization)
-      this.presentToast(this.translate.instant('chooseSpecialization'));
-    else if (!this.searchValue && !this.Specialization)
-      this.presentToast(this.translate.instant('enterDoctorAndSpecilaization'));
+    // if( !this.searchValue  && this.Specialization)
+    //   this.presentToast(this.translate.instant('enterdoctor'));
+    // else if (this.searchValue && ! this.Specialization)
+    //   this.presentToast(this.translate.instant('chooseSpecialization'));
+    // else if (!this.searchValue && !this.Specialization)
+    //   this.presentToast(this.translate.instant('enterDoctorAndSpecilaization'));
+    this.loadFuncForDoc();
   }
 
   doRefresh(ev){

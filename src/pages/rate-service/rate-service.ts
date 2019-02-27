@@ -54,6 +54,7 @@ export class RateServicePage {
       else
         this.tostClass="toastLeft";
 
+        console.log("thus.type",this.helper.type_id);
       this.type_id = this.helper.type_id;
       
       
@@ -91,8 +92,22 @@ export class RateServicePage {
 
       // this.storage.get("access_token").then(data=>{
       //   this.accessToken = data;
-      this.accessToken = localStorage.getItem('user_token');
+      // this.accessToken = localStorage.getItem('user_token');
       
+
+      // this.srv.updateOrderStatus(this.orderId,this.accessToken,this.type_id).subscribe(
+      //   resp=>{
+      //     console.log("resp updateOrderStatus",resp);
+      //     this.helper.dontSendNotification = false;
+      //     // this.helper.dontSendNotification  = false;
+      //   },err=>{
+      //     console.log("err updateOrderStatus",err);
+      //     // this.helper.dontSendNotification  = false;
+      //   }
+      // );
+      
+
+
         this.service.getServiceProfile(this.doctorId,this.accessToken).subscribe(
           resp =>{
             console.log("resp from getserviceprofile in doctor rate: ",resp);
@@ -256,20 +271,20 @@ export class RateServicePage {
         this.helper.orderRated = 1;
         this.presentToast(this.translate.instant("done"));
         console.log("this.helper.dontSendNotification from rate: ",this.helper.dontSendNotification);
-        if(this.helper.dontSendNotification == false)
-        {
-          this.srv.updateOrderStatus(this.orderId,this.accessToken,this.type_id).subscribe(
-            resp=>{
-              console.log("resp updateOrderStatus",resp);
-              this.helper.dontSendNotification = false;
-              // this.helper.dontSendNotification  = false;
-            },err=>{
-              console.log("err updateOrderStatus",err);
-              // this.helper.dontSendNotification  = false;
-            }
-          );
+        // if(this.helper.dontSendNotification == false)
+        // {
+        //   this.srv.updateOrderStatus(this.orderId,this.accessToken,this.type_id).subscribe(
+        //     resp=>{
+        //       console.log("resp updateOrderStatus",resp);
+        //       this.helper.dontSendNotification = false;
+        //       // this.helper.dontSendNotification  = false;
+        //     },err=>{
+        //       console.log("err updateOrderStatus",err);
+        //       // this.helper.dontSendNotification  = false;
+        //     }
+        //   );
           
-        }
+        // }
         
 
         this.navCtrl.setRoot(TabsPage);
@@ -288,7 +303,8 @@ export class RateServicePage {
   
   }
   dismiss(){
-    this.navCtrl.pop();
+    // this.navCtrl.pop();
+    this.navCtrl.setRoot(TabsPage);
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({

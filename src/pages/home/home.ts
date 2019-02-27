@@ -212,22 +212,26 @@ this.storage.get("rate_doctor").then(data=>{
     //   this.langDirection = "ltr";
     //   this.platform.setDir('ltr',true)
     // }
-    this.service.getpendingOrders("1",this.accessToken).subscribe(resp=>{
-      console.log("resp from getpendingOrders ",resp);
-      var pendingOrders = JSON.parse(JSON.stringify(resp)).orders;
-      for(var  k=0; k<pendingOrders.length; k++)
-      {
-        console.log("pendingOrders[k].remark",pendingOrders[k].remark);
-        if(! pendingOrders[k].remark)
-          pendingOrders[k].remark="";
+
+
+
+    //correct  for pending orders
+    // this.service.getpendingOrders("1",this.accessToken).subscribe(resp=>{
+    //   console.log("resp from getpendingOrders ",resp);
+    //   var pendingOrders = JSON.parse(JSON.stringify(resp)).orders;
+    //   for(var  k=0; k<pendingOrders.length; k++)
+    //   {
+    //     console.log("pendingOrders[k].remark",pendingOrders[k].remark);
+    //     if(! pendingOrders[k].remark)
+    //       pendingOrders[k].remark="";
         
-        if(! pendingOrders[k].date)
-          pendingOrders[k].date="";
+    //     if(! pendingOrders[k].date)
+    //       pendingOrders[k].date="";
 
-        this.presentContOrderConfirm(pendingOrders[k].id,pendingOrders[k].remark, pendingOrders[k].date);
-      }
+    //     this.presentContOrderConfirm(pendingOrders[k].id,pendingOrders[k].remark, pendingOrders[k].date);
+    //   }
 
-    })
+    // })
   }
  
   sortDoctors(){
@@ -293,20 +297,21 @@ this.storage.get("rate_doctor").then(data=>{
   }
 
   follow(){
+    console.log("follow ")
   this.navCtrl.setRoot('follow-order',
   {data:
-    {"orderId":1, 
-      "doctorId":216
+    {"orderId":334, 
+      "doctorId":232
     }
   });
 
   }
   followOrderForPlc(){
-    this.helper.type_id="1";
-    this.navCtrl.setRoot('FollowOrderForPlcPage',
-  {data:
-    {"orderId":678, 
-      "doctorId":61
+    this.helper.type_id="2";
+    this.navCtrl.setRoot(FollowOrderForPlcPage,
+  {data2:
+    {"orderId":207, 
+      "doctorId":237
     }
   });
 
@@ -332,19 +337,8 @@ this.storage.get("rate_doctor").then(data=>{
 
   ionViewDidLoad(){
 
-    if(localStorage.getItem("regChanged") == "1"){
-      var firebaseRegNoti= localStorage.getItem("firebaseRegNoti");
-      this.accessToken = localStorage.getItem('user_token');
-
-      this.service.registerFirebase(firebaseRegNoti,this.accessToken).subscribe(
-        resp=>{
-          console.log("registerFirebase resp from home",resp);
-        },err=>{
-          console.log("registerFirebase err from home",err);
-        }
-      );
-      
-    }
+    this.service.registerFirebase(this.helper.registration,localStorage.getItem('user_token')).subscribe(
+      resp=>{})
     // if(!navigator.onLine)
     //   this.presentToast(this.translate.instant("checkNetwork"));
 
@@ -403,6 +397,19 @@ this.storage.get("rate_doctor").then(data=>{
 
 ionViewDidEnter(){
   this.helper.view = "HomePage"; 
+  if(localStorage.getItem("regChanged") == "1"){
+    var firebaseRegNoti= localStorage.getItem("firebaseRegNoti");
+    this.accessToken = localStorage.getItem('user_token');
+
+    this.service.registerFirebase(firebaseRegNoti,this.accessToken).subscribe(
+      resp=>{
+        console.log("registerFirebase resp from home",resp);
+      },err=>{
+        console.log("registerFirebase err from home",err);
+      }
+    );
+    
+  }
 }
 
  parseArabic(){ // PERSIAN, ARABIC, URDO

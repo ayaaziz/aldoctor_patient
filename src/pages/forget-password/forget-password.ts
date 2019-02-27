@@ -72,18 +72,59 @@ export class ForgetPasswordPage {
     // this.submitAttempt = true;
     if(this.activationForm.valid){
       if(navigator.onLine){
-        this.loginservice.forgetPassword(this.phone).subscribe(
-            resp=>{
-              if(JSON.parse(JSON.stringify(resp)).success )
-                this.navCtrl.setRoot(LoginPage);
-              else
-                this.presentToast(this.translate.instant("invalidPhone"));
-            },
-            err=>{
+        this.loginservice.UserForgetPasswordSendPhone('2' + this.phone, (data) => {
+          if(data.success){
+          this.presentToast("لقد تم إرسال كود التحقق بنجاح")
+          // this.navCtrl.setRoot(LoginPage)
+          let tel = "2" + this.phone
+          this.navCtrl.push('verification-code', { data: 2, phone: tel })
+          }
+          else{
+            this.presentToast("رقم الموبايل المستخدم غير موجود")
+          }
+        }, (data) => {
+          this.presentToast(this.translate.instant("serverError"))
+        })
+        // this.loginservice.forgetPassword(this.phone).subscribe(
+        //     resp=>{
+        //       if(JSON.parse(JSON.stringify(resp)).success )
+        //         this.navCtrl.setRoot(LoginPage);
+        //       else
+        //         this.presentToast(this.translate.instant("invalidPhone"));
+                
+        //       // if(JSON.parse(JSON.stringify(resp)).success )
+        //       // {
+        //       //   this.presentToast("لقد تم إرسال كود التحقق بنجاح")
+          
+        //       //   let tel = "2" + this.phone
+        //       //   this.navCtrl.push('verification-code', { data:2,phone:this.phone})
 
-            this.presentToast(this.translate.instant("serverError"))
-            }
-        );
+        //       // }else
+        //       //     this.presentToast("رقم الموبايل المستخدم غير موجود")
+        //       },
+        //     err=>{
+
+        //     this.presentToast(this.translate.instant("serverError"))
+        //     }
+        // );
+
+
+
+
+        // this.loginservice.UserForgetPasswordSendPhone('2' + this.phone, (data) => {
+        //   if(data.success){
+        //   this.presentToast("لقد تم إرسال كود التحقق بنجاح")
+        //   // this.navCtrl.setRoot(LoginPage)
+        //   let tel = "2" + this.phone
+        //   this.navCtrl.push(CodepagePage, { changePhone: 2, phoneToChange: tel })
+        //   }
+        //   else{
+
+        //   }
+        // }, (data) => {
+        //   this.presentToast(this.translate.instant("serverError"))
+        // })
+
         
        
 

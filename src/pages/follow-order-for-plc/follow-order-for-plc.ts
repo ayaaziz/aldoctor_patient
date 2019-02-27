@@ -93,6 +93,13 @@ export class FollowOrderForPlcPage {
       this.accessToken = localStorage.getItem('user_token');
       this.helper.view = "follow";
       
+      document.removeEventListener('pause',()=>{
+        console.log("removeEventListener pause")
+      })
+
+      document.removeEventListener('resume',()=>{
+       console.log("removeEventListener resume")
+     })
       this.langDirection = this.helper.lang_direction;
     
       if(this.langDirection == "rtl")
@@ -812,8 +819,20 @@ private presentToast(text) {
     // {
     //   this.presentToast(this.translate.instant(" ادخل "+this.medicalprescriptionImage));
     // }else if(this.receivedImage == "1"){
-      if(this.orderFiles.length == 2 || this.orderFiles.length == 1 || this.photos.length == 1 || this.photos.length == 2)
-      {
+      
+    // if(this.orderFiles.length == 2 || this.orderFiles.length == 1 || this.photos.length == 1 || this.photos.length == 2)
+      // {
+        this.accessToken = localStorage.getItem('user_token');
+        this.srv.updateOrderStatus(this.doctorData.orderId,this.accessToken,this.type_id).subscribe(
+          resp=>{
+            console.log("resp updateOrderStatus",resp);
+            this.helper.dontSendNotification = false;
+            // this.helper.dontSendNotification  = false;
+          },err=>{
+            console.log("err updateOrderStatus",err);
+            // this.helper.dontSendNotification  = false;
+          }
+        );
       this.navCtrl.push('rate-service',
       {data:
       {
@@ -822,10 +841,10 @@ private presentToast(text) {
       }
       });
 
-    }else 
-    {
-      this.presentToast(this.translate.instant(" ادخل "+this.medicalprescriptionImage));
-    }
+    // }else 
+    // {
+    //   this.presentToast(this.translate.instant(" ادخل "+this.medicalprescriptionImage));
+    // }
     
   }
 
@@ -1028,20 +1047,23 @@ private presentToast(text) {
  locationNode(docLocation){
   if(docLocation){
     this.doctorLocation = docLocation;
-    this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
-      resp=>{
 
-        var respObj = JSON.parse(JSON.stringify(resp));  
-        console.log("duration txt",respObj.routes[0].legs[0].duration.text);
-        
-        var number = 0;
+    
+
+    var patientLoc  = this.lat +","+this.lng;
+var DoctorLoc = this.doctorLocation.split(',')[0] +","+this.doctorLocation.split(',')[1];
+this.accessToken = localStorage.getItem('user_token');  
+        this.service.durationbetweenDoctorAndPatient(patientLoc,DoctorLoc,this.accessToken).subscribe(resp=>{
+          console.log("resp from durationbetweenDoctorAndPatient",resp);
+          var dur = JSON.parse(JSON.stringify(resp)).routes[0].legs[0].duration.value;
+          console.log("durVal : ",dur);
+
+          var number = 0;
         if(this.type_id == "1")
           number = 20*60;
         else if (this.type_id == "2" || this.type_id == "3")
           number = 30*60;
-        
-        console.log("duration value",respObj.routes[0].legs[0].duration.value);
-        var dur = respObj.routes[0].legs[0].duration.value;
+
         
         var d = Number(dur+number);
         var h = Math.floor(d/3600);
@@ -1061,12 +1083,49 @@ private presentToast(text) {
           this.scheduleNotification(m);
         }  
 
+        },err=>{
+          console.log("err from durationbetweenDoctorAndPatient",err);
+        });
+
+    // this.service.getDurationAndDistance(this.lat,this.lng,this.doctorLocation.split(',')[0],this.doctorLocation.split(',')[1]).subscribe(
+    //   resp=>{
+
+    //     var respObj = JSON.parse(JSON.stringify(resp));  
+    //     console.log("duration txt",respObj.routes[0].legs[0].duration.text);
         
-      },
-      err=>{
-        console.log("err from getDurationAndDistance: ",err);
-      }
-    );
+    //     var number = 0;
+    //     if(this.type_id == "1")
+    //       number = 20*60;
+    //     else if (this.type_id == "2" || this.type_id == "3")
+    //       number = 30*60;
+        
+    //     console.log("duration value",respObj.routes[0].legs[0].duration.value);
+    //     var dur = respObj.routes[0].legs[0].duration.value;
+        
+    //     var d = Number(dur+number);
+    //     var h = Math.floor(d/3600);
+    //     var m = Math.floor(d % 3600 /60);
+    //     var s = Math.floor(d % 3600 % 60);
+    //     console.log("h ", h,"m: ",m,"s: ",s);  
+        
+    //     var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+    //     var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+    //     console.log(" time : ",hdisplay+mdisplay);
+    //     this.duration  = hdisplay+mdisplay;
+    //     console.log("doc name from distance & duration",this.doctorName);
+    //     if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
+    //     {
+    //       console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
+    //       this.scheduleNotification(m);
+    //     }  
+
+        
+    //   },
+    //   err=>{
+    //     console.log("err from getDurationAndDistance: ",err);
+    //   }
+    // );
 
     
   }

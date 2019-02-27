@@ -1,66 +1,25 @@
 
-<ion-header>
+<ion-header class="{{langDirection}}">
 
-  <!-- <ion-navbar hideBackButton>
-  
-    <ion-buttons *ngIf="langDirection == 'rtl'"  right (click)="dismiss()">
-      <button ion-button  (click)="dismiss()">
-          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-      </button>
-  </ion-buttons>
-
-  <ion-buttons *ngIf="langDirection != 'rtl'"  left (click)="dismiss()">
-    <button ion-button  (click)="dismiss()">
-        <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-    </button>
-</ion-buttons>
-  
-<ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{title}}</ion-title>
-<ion-title *ngIf="langDirection != 'rtl'">{{title}}</ion-title>
-
-
-  </ion-navbar> -->
   <ion-navbar hideBackButton>
-  <ion-row>
-    <ion-col col-7>
-        <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{title}}</ion-title>
-        <ion-title *ngIf="langDirection != 'rtl'">{{title}}</ion-title>
-    </ion-col>
-    <ion-col col-3 >
-        <!-- <img src="assets/imgs/dlogo.png" style="width:50px;height:30px" left> -->
-        
-            <!-- <img src="assets/imgs/dlogo.png" style="width:40px;height:30px" left> -->
-            <ion-buttons  left>
+  
+        <ion-title >{{title}}</ion-title>
+    
+            <ion-buttons  right>
                   <button ion-button>
-                      <img src="assets/imgs/dlogo.png" style="width:40px;" >
+                      <img src="assets/imgs/dlogo.png" style="width:30px;" >
                      
                   </button>
+                  <button ion-button  (click)="dismiss()">
+                        <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+                       
+                    </button>
               </ion-buttons>
-              
-          
-    </ion-col>
-  
-
-  <ion-col col-2>
-    <ion-buttons *ngIf="langDirection == 'rtl'"  left>
-      <button ion-button  (click)="dismiss()">
-          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-         
-      </button>
-  </ion-buttons>
-
-  <ion-buttons *ngIf="langDirection != 'rtl'"  left>
-    <button ion-button  (click)="dismiss()">
-        <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-    </button>
-</ion-buttons>
-  </ion-col>
-</ion-row>
 </ion-navbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <div id="map-wrapper">
 
     <div #map id="map"></div>

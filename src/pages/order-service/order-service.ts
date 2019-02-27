@@ -38,6 +38,7 @@ export class OrderServicePage {
   fourth
   last;
   hidePrice = true;
+  loadingAlert
   
    //DoctorsArray=[{"moreTxt":"xx","id":1,lat:"",lng:"","distanceVal":10000,"distance":"","timefordelivery":"","name":"pharmacy 1","color":"grey","offline":true,"place":"mansoura","cost":"200","rate":"4","specialization":"specialization1","profile_pic":"assets/imgs/default-avatar.png"}];
   //  ,
@@ -76,7 +77,7 @@ export class OrderServicePage {
   imageExt=[];
   refresher;
 
-  page=0;
+  page=1;
   maximumPages;
   infiniteScroll;
 
@@ -165,71 +166,71 @@ export class OrderServicePage {
 
 
 
-      this.events.subscribe('statusChanged', (data) => {
-        console.log(" event status changed ",data);
+      // this.events.subscribe('statusChanged', (data) => {
+      //   console.log(" event status changed ",data);
   
-        for(var k=0;k<this.DoctorsArray.length;k++)
-        {
+      //   for(var k=0;k<this.DoctorsArray.length;k++)
+      //   {
           
-          if(this.DoctorsArray[k].id == data.id)
-          {
-            if(data.status == "1")
-            {
-              this.DoctorsArray[k].color="green";
-              this.DoctorsArray[k].offline=false;
-              this.DoctorsArray[k].moreTxt = "متوافر";
-              this.DoctorsArray[k].online = "1";
-              console.log("offline false ",this.DoctorsArray[k]);
-              console.log("call sort function from status changed");
+      //     if(this.DoctorsArray[k].id == data.id)
+      //     {
+      //       if(data.status == "1")
+      //       {
+      //         this.DoctorsArray[k].color="green";
+      //         this.DoctorsArray[k].offline=false;
+      //         this.DoctorsArray[k].moreTxt = "متوافر";
+      //         this.DoctorsArray[k].online = "1";
+      //         console.log("offline false ",this.DoctorsArray[k]);
+      //         console.log("call sort function from status changed");
               
-              //r this.sortDoctors();
+      //         //r this.sortDoctors();
 
-            }else if (data.status == "0")
-            {
-              this.DoctorsArray[k].color="grey";
-              this.DoctorsArray[k].offline=true;
-              this.DoctorsArray[k].moreTxt="غير متوافر";
-              this.DoctorsArray[k].online = "0";
-              console.log("call sort function from status changed");
-              //r this.sortDoctors();
-            }
-          }
+      //       }else if (data.status == "0")
+      //       {
+      //         this.DoctorsArray[k].color="grey";
+      //         this.DoctorsArray[k].offline=true;
+      //         this.DoctorsArray[k].moreTxt="غير متوافر";
+      //         this.DoctorsArray[k].online = "0";
+      //         console.log("call sort function from status changed");
+      //         //r this.sortDoctors();
+      //       }
+      //     }
           
-        }
+      //   }
 
-        this.sortDoctorsWithOnline();
-      });
-      this.events.subscribe('status', (data) => {
-        console.log(" event status ",data);
+      //   this.sortDoctorsWithOnline();
+      // });
+      // this.events.subscribe('status', (data) => {
+      //   console.log(" event status ",data);
   
-        for(var k=0;k<this.DoctorsArray.length;k++)
-        {
+      //   for(var k=0;k<this.DoctorsArray.length;k++)
+      //   {
           
-          if(this.DoctorsArray[k].id == data.id)
-          {
-            if(data.status == "1")
-            {
-              this.DoctorsArray[k].color="green";
-              this.DoctorsArray[k].offline=false;
-              this.DoctorsArray[k].moreTxt = "متوافر";
-              this.DoctorsArray[k].online = "1";
-              console.log("offline false ",this.DoctorsArray[k]);
-              console.log("call sort function from status");
-              //r this.sortDoctors();
+      //     if(this.DoctorsArray[k].id == data.id)
+      //     {
+      //       if(data.status == "1")
+      //       {
+      //         this.DoctorsArray[k].color="green";
+      //         this.DoctorsArray[k].offline=false;
+      //         this.DoctorsArray[k].moreTxt = "متوافر";
+      //         this.DoctorsArray[k].online = "1";
+      //         console.log("offline false ",this.DoctorsArray[k]);
+      //         console.log("call sort function from status");
+      //         //r this.sortDoctors();
 
-            }else if (data.status == "0")
-            {
-              this.DoctorsArray[k].color="grey";
-              this.DoctorsArray[k].offline=true;
-              this.DoctorsArray[k].moreTxt="غير متوافر";
-              this.DoctorsArray[k].online = "0";
-              console.log("call sort function whenfrom status");
-             //r  this.sortDoctors();
-            }
-          } 
-        }
-        this.sortDoctorsWithOnline();
-      });
+      //       }else if (data.status == "0")
+      //       {
+      //         this.DoctorsArray[k].color="grey";
+      //         this.DoctorsArray[k].offline=true;
+      //         this.DoctorsArray[k].moreTxt="غير متوافر";
+      //         this.DoctorsArray[k].online = "0";
+      //         console.log("call sort function whenfrom status");
+      //        //r  this.sortDoctors();
+      //       }
+      //     } 
+      //   }
+      //   this.sortDoctorsWithOnline();
+      // });
 
       // this.events.subscribe('locationChanged', (data) => {
       //   console.log("location changed event",data);
@@ -296,23 +297,25 @@ export class OrderServicePage {
           this.DoctorsArray[k].color="red";
           this.DoctorsArray[k].offline=true;
           this.DoctorsArray[k].moreTxt="غير متوافر";
-          this.DoctorsArray[k].online = "0";
+          this.DoctorsArray[k].availability = "0";
           console.log("call sort function from get busy red");
           //r    this.sortDoctors();
 
-        }else if (data.status == "0")
-        {
-          this.DoctorsArray[k].color="green";
-          this.DoctorsArray[k].offline=false;
-          this.DoctorsArray[k].moreTxt = "متوافر";
-          this.DoctorsArray[k].online = "1";
-          console.log("doctor :(",this.DoctorsArray[k]);
-          console.log("offline false ",this.DoctorsArray[k]);
-          this.helper.getDoctorStatus(data.id);
-          console.log("call sort function from get busy green");
-          //r    this.sortDoctors();
         }
+        // else if (data.status == "0")
+        // {
+        //   this.DoctorsArray[k].color="green";
+        //   this.DoctorsArray[k].offline=false;
+        //   this.DoctorsArray[k].moreTxt = "متوافر";
+        //   this.DoctorsArray[k].availability = "1";
+        //   console.log("doctor :(",this.DoctorsArray[k]);
+        //   console.log("offline false ",this.DoctorsArray[k]);
+        //   this.helper.getDoctorStatus(data.id);
+        //   console.log("call sort function from get busy green");
+        //   //r    this.sortDoctors();
+        // }
   
+
       } 
     }
     this.sortDoctorsWithOnline();
@@ -331,21 +334,22 @@ export class OrderServicePage {
           this.DoctorsArray[k].color="red";
           this.DoctorsArray[k].offline=true;
           this.DoctorsArray[k].moreTxt="غير متوافر";
-          this.DoctorsArray[k].online = "0";
+          this.DoctorsArray[k].availability = "0";
           console.log("call sort function from get busy changed");
           //r    this.sortDoctors();
 
-        } else if (data.status == "0")
-        {
-          this.DoctorsArray[k].color="green";
-          this.DoctorsArray[k].offline=false;
-          this.DoctorsArray[k].moreTxt = "متوافر";
-          this.DoctorsArray[k].online = "1";
-          console.log("offline false ",this.DoctorsArray[k]);
-          this.helper.getDoctorStatus(data.id);
-          console.log("call sort function from get busy changed");
-          //r    this.sortDoctors();
-        }
+        } 
+        // else if (data.status == "0")
+        // {
+        //   this.DoctorsArray[k].color="green";
+        //   this.DoctorsArray[k].offline=false;
+        //   this.DoctorsArray[k].moreTxt = "متوافر";
+        //   this.DoctorsArray[k].availability = "1";
+        //   console.log("offline false ",this.DoctorsArray[k]);
+        //   this.helper.getDoctorStatus(data.id);
+        //   console.log("call sort function from get busy changed");
+        //   //r    this.sortDoctors();
+        // }
 
   
       } 
@@ -381,9 +385,14 @@ export class OrderServicePage {
           {
             xxname="المراكز";
           }
-
-      this.presentToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
-      
+           this.loadingAlert = this.alertCtrl.create({
+    title: '',
+    subTitle:" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ",
+    buttons: ['حسناً']
+  });
+  this.loadingAlert.present();
+      //this.presentWaitingToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
+      console.log("4 load func page",this.page);
     this.Loadfunc();
     // this.showLoading = false;
     // // this.storage.get("access_token").then(data=>{
@@ -492,18 +501,22 @@ Loadfunc(){
     this.accessToken = localStorage.getItem('user_token');
 
       var tempArr = [];
-      this.page ++;
-
-      
+      // this.page++;
+//01089658744
+      console.log("5 load func page",this.page);    
       
       this.srv.nearbyservices(this.page,this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
         resp=>{
           this.showLoading=true;
-          
-          
+          // this.page++;
+          console.log("thus.page",this.page);
           console.log("nearbyservice resp: ",resp);
           
           let doctorData =JSON.parse(JSON.stringify(resp));
+          
+          if(doctorData["result"])
+          {
+
           
           console.log("service data",doctorData);
         console.log("doctors data",doctorData["result"]);
@@ -526,14 +539,41 @@ Loadfunc(){
 
               for(var a = 0;a<doctorData["result"][i].speciality_services.length;a++)
               {
-                 if(doctorData["result"][i].speciality_services[a].id == this.center_id )
-                  doctorData["result"][i].servicePrice = doctorData["result"][i].speciality_services[a].price;
+                 if(doctorData["result"][i].speciality_services[a].id == this.center_id ){
+                    doctorData["result"][i].servicePrice = doctorData["result"][i].speciality_services[a].price;
                  break;
+                 }
+                 
               }
             
 
-              if(doctorData["results"][i].busy == "1" && doctorData["results"][i].online =="1")
-              doctorData["results"][i].online = "0";
+              /* edit time , replace online with availability */
+
+              var number = 0;
+              if(this.type_id == "1")
+                number = 20*60;
+              else if (this.type_id == "2" || this.type_id == "3")
+                number = 30*60;
+
+console.log("doctorData[results].timedelivertvalue: ",doctorData["result"][i].timedelivertvalue);
+var dur = doctorData["result"][i].timedelivertvalue;
+
+var d = Number(dur+number);
+var h = Math.floor(d/3600);
+var m = Math.floor(d % 3600 /60);
+var s = Math.floor(d % 3600 % 60);
+console.log("h ", h,"m: ",m,"s: ",s);  
+
+var hdisplay = h > 0 ? h + (h == 1 ? " س ":" س "):"";
+var mdisplay = m > 0 ? m + (m == 1 ? " د ":" د "):"";
+
+console.log(" time : ",hdisplay+mdisplay);
+doctorData["result"][i].timefordelivery2  = hdisplay+mdisplay;
+console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].timefordelivery2)
+
+
+              if(doctorData["result"][i].busy == "1" && doctorData["result"][i].availability =="1")
+              doctorData["result"][i].availability = "0";
 
 
           if(doctorData["result"][i].busy == "1")
@@ -544,14 +584,14 @@ Loadfunc(){
 
           }else if (doctorData["result"][i].busy == "0")
           {
-            if(doctorData["result"][i].online  == "1")
+            if(doctorData["result"][i].availability  == "1")
               {
                 doctorData["result"][i].color="green";
                 doctorData["result"][i].offline=false;
                 doctorData["result"][i].moreTxt = "متوافر";
               
 
-              }else if (doctorData["result"][i].online  == "0")
+              }else if (doctorData["result"][i].availability  == "0")
               {
                 doctorData["result"][i].color="grey";
                 doctorData["result"][i].offline=true;
@@ -566,15 +606,41 @@ Loadfunc(){
             
             tempArr.push(doctorData["result"][i]);
             this.DoctorsArray.push(doctorData["result"][i]);
-          }
-          
-          if(tempArr.length>0)
-          {
-            this.sortDoctorsWithOnline();
             
-            this.Loadfunc();
+          //   if(tempArr.length>0)
+          // {
+          //   this.sortDoctorsWithOnline();
+          //   console.log("1 load func page",this.page);
+          //   this.Loadfunc();
+          // }
+          // if(tempArr.length >=2)
+          // {
+          //   this.sortDoctorsWithOnline();
+          //   console.log("1 load func page",this.page,"tmpdddddd",tempArr);
+          //   tempArr=[];
+          //   this.Loadfunc();
+          // }
+            
           }
-          // else{
+          console.log("12 load func page",this.page,"tmpdddddd",tempArr,"tempArr length",tempArr.length);
+           
+            if(tempArr.length == 3)
+            {
+              this.sortDoctorsWithOnline();
+              this.page++;
+              this.Loadfunc();
+              
+            } 
+            // console.log("1 load func page",this.page);
+            // 
+          // if(tempArr.length>0)
+          // {
+          //   this.sortDoctorsWithOnline();
+          //   console.log("1 load func page",this.page);
+          //   this.Loadfunc();
+          // }
+
+          //else{
           //   this.sortDoctorsWithdistance();
           // }
             
@@ -589,7 +655,7 @@ Loadfunc(){
           for(i=0;i<this.DoctorsArray.length;i++)
           {
             
-            this.helper.getDoctorStatus(this.DoctorsArray[i].id);
+            //this.helper.getDoctorStatus(this.DoctorsArray[i].id);
             this.helper.getBusyDoctor(this.DoctorsArray[i].id);
             
           }
@@ -602,21 +668,23 @@ Loadfunc(){
             // if (this.infiniteScroll) 
             //   this.infiniteScroll.enable(false);
           }
-          if(this.refresher)
-            this.refresher.complete();
+          //if(this.refresher)
+           // this.refresher.complete();
 
           // if (this.infiniteScroll) 
           //   this.infiniteScroll.complete();
 
-            
+        }
+        this.loadingAlert.dismiss()
 
         },
         err=>{
           console.log("nearbyservice error: ",err);
+          this.loadingAlert.dismiss()
           this.showLoading = true;
-          this.presentToast(this.translate.instant("serverError"));
-          if(this.refresher)
-            this.refresher.complete();
+          // this.presentToast(this.translate.instant("serverError"));
+          //if(this.refresher)
+           // this.refresher.complete();
 
           if (this.infiniteScroll) 
             this.infiniteScroll.complete();
@@ -715,7 +783,7 @@ Loadfunc(){
     // }); 
 
     this.DoctorsArray.sort(function(a, b) {
-      return  b["online"] - a["online"];
+      return  b["availability"] - a["availability"];
   });
 
     console.log("online doc after sort ",this.DoctorsArray);
@@ -726,7 +794,7 @@ this.offlinetmpArrForSorting = [];
 
     for(var jj=0;jj<tmpstore.length;jj++)
     {
-      if(tmpstore[jj].online == "1")
+      if(tmpstore[jj].availability == "1")
       {
         this.onlinetmpArrForSorting.push(tmpstore[jj]);
 
@@ -744,6 +812,47 @@ this.offlinetmpArrForSorting = [];
     // this.DoctorsArray.concat( sortingarrWithDistance , offlinetmpArrForSorting);
     // console.log("this.DoctorsArray after all things: ",this.DoctorsArray);
   }
+
+  sortDoctorsWithOnline2(){
+    console.log("onlline doc before sort ",this.DoctorsArray);
+  
+    // this.DoctorsArray.sort((a,b)=>{
+    //   if(a.offline == false || b.offline == false)
+    //     return a.distanceVal-b.distanceVal;
+  
+    // }); 
+
+    this.DoctorsArray.sort(function(a, b) {
+      return  b["availability"] - a["availability"];
+  });
+
+    console.log("online doc after sort ",this.DoctorsArray);
+var tmpstore=[];
+tmpstore = this.DoctorsArray;
+this.onlinetmpArrForSorting = [];
+this.offlinetmpArrForSorting = [];
+
+    for(var jj=0;jj<tmpstore.length;jj++)
+    {
+      if(tmpstore[jj].availability == "1")
+      {
+        this.onlinetmpArrForSorting.push(tmpstore[jj]);
+
+      }else{
+        this.offlinetmpArrForSorting.push(tmpstore[jj]);
+      }
+    }
+
+    this.sortDoctorsWithdistance();
+    console.log("this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
+    console.log("this.offlinetmpArrForSorting",this.offlinetmpArrForSorting);
+
+    // var sortingarrWithDistance =  this.sortDoctorsWithdistance(tmpArrForSorting);
+    // this.DoctorsArray =[];
+    // this.DoctorsArray.concat( sortingarrWithDistance , offlinetmpArrForSorting);
+    // console.log("this.DoctorsArray after all things: ",this.DoctorsArray);
+  }
+
   sortDoctorsWithdistance(){
     console.log("distance doc before sort ",this.DoctorsArray);
     console.log("distance before this.onlinetmpArrForSorting",this.onlinetmpArrForSorting);
@@ -907,12 +1016,12 @@ this.offlinetmpArrForSorting = [];
     console.log("doctors: ",this.choosenDoctors);
     console.log("cost: ",this.cost);
     
-    if(this.choosenDoctors.length > 3 && this.type_id == 3)
+    if(this.choosenDoctors.length > 5 && this.type_id == 3)
     {
       this.presentToast(this.translate.instant("check3labs"));
     }else if (this.choosenDoctors.length<1 && this.type_id == 3){
       this.presentToast(this.translate.instant("checkAtleastonelab"));
-    }else if(this.choosenDoctors.length > 3 && this.type_id == 2)
+    }else if(this.choosenDoctors.length > 5 && this.type_id == 2)
     {
       this.presentToast(this.translate.instant("check3centers"));
     }else if (this.choosenDoctors.length<1 && this.type_id == 2){
@@ -969,14 +1078,14 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
             this.navCtrl.setRoot('remaining-time-for-plc',{data:1,orderId:newOrder.order.id});
 
           }else{
-            this.presentToast(this.translate.instant("serverError"));
-            
+            // this.presentToast(this.translate.instant("serverError"));
+            console.log("");
           }
         },
         err=>{
           // this.showLoading=true;
           console.log("saveOrder error: ",err);
-          this.presentToast(this.translate.instant("serverError"));
+          // this.presentToast(this.translate.instant("serverError"));
           this.orderBTn = false;
         }
       );    
@@ -1019,13 +1128,22 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
         }
       },
       err=>{
-        this.presentToast(this.translate.instant("serverError"));
+        // this.presentToast(this.translate.instant("serverError"));
         console.log("err from validateDiscountCode: ",err);
       }
     );
   }
   dismiss(){
     this.navCtrl.pop();
+  }
+  private presentWaitingToast(text) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000,
+      position: 'bottom',
+      cssClass: this.tostClass
+    });
+    toast.present();
   }
   private presentToast(text) {
     let toast = this.toastCtrl.create({
@@ -1115,7 +1233,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
     // this.photosForApi = [];
     this.choosenDoctors = [];
     this.refresher = ev;
-    this.page = 0;
+    this.page = 1;
     this.DoctorsArray= [];
     var xxname;
           if(this.type_id == "1")
@@ -1129,9 +1247,15 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           {
             xxname="المراكز";
           }
+           this.loadingAlert = this.alertCtrl.create({
+    title: '',
+    subTitle: " يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ",
+    buttons: ['حسناً']
+  });
+  this.loadingAlert.present();
+      //this.presentToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
 
-      this.presentToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
-
+      console.log("2 load func page",this.page);
     this.Loadfunc();
     
     
@@ -1179,6 +1303,7 @@ loadMore(infiniteScroll) {
   console.log("load more");
   this.infiniteScroll = infiniteScroll;
   this.page++;
+  console.log("3 load func page",this.page);
   this.Loadfunc();
 
 
@@ -1187,7 +1312,7 @@ loadMore(infiniteScroll) {
   }
 }
 ionViewWillEnter(){
-  this.page = 0;
+  this.page = 1;
 }
 
 }

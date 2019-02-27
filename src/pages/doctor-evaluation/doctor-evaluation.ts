@@ -335,7 +335,7 @@ export class DoctorEvaluationPage {
     }
   }
   rateDoctor(){
-
+    if(this.rate){
     this.ratedisabledbtn = true;
     this.review += " ";
     this.review += this.moreReview;
@@ -347,7 +347,7 @@ export class DoctorEvaluationPage {
         this.ratedisabledbtn = false;
         console.log("resp from rate :",resp); 
         this.helper.orderRated = 1;
-        this.presentToast(this.translate.instant("done"));
+        this.presentToast("لقد أُرسل التقييم بنجاح، شكراً لك.");
         this.navCtrl.setRoot(TabsPage);
         
       },err=>{
@@ -356,7 +356,9 @@ export class DoctorEvaluationPage {
         this.presentToast(this.translate.instant("serverError"))
       }
     );
-    
+    }else{
+      this.presentToast("اختر تقييم للخدمه");
+    }
     
   }
   dismiss(){

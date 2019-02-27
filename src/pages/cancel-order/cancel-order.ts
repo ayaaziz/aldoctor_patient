@@ -35,11 +35,16 @@ export class CancelOrderPage {
   CancelBtn =true;
   logout ;
 
+  doctorId
+
   constructor(public storage: Storage,public helper:HelperProvider, 
     public service:LoginserviceProvider,public translate: TranslateService,
     public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, public events: Events) {
    this.orderId =  this.navParams.get('orderId');
+   this.doctorId = this.navParams.get('doctorId');
+
+   console.log("doctorId after set : ",this.doctorId,"get data : ",this.navParams.get('data'));
    this.langDirection = this.helper.lang_direction;
 
    this.logout = this.helper.logout;
@@ -139,6 +144,8 @@ export class CancelOrderPage {
             // this.navCtrl.parent.select(1);
             
             // this.events.publish('cancelDoctorOrder');
+console.log("doctorId from cancel : ",this.doctorId)
+            this.helper.updateCancelSatatus(this.doctorId)
             
             if(this.logout == false)
             {

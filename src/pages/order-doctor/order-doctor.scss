@@ -1,5 +1,10 @@
 page-order-doctor {
-
+  ion-label{
+    margin: 0px !important;
+  }
+  .scroll-content{
+    padding: 0px !important;
+  }
   .item-md h4,.item-md h3, .item-md h2{
     line-height: 1;
   }

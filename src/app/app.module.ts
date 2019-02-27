@@ -1,70 +1,19 @@
-// import { NgModule, ErrorHandler } from '@angular/core';
-// import { BrowserModule } from '@angular/platform-browser';
-// import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-// import { MyApp } from './app.component';
-
-// import { AboutPage } from '../pages/about/about';
-// import { ContactPage } from '../pages/contact/contact';
-// import { HomePage } from '../pages/home/home';
-// import { TabsPage } from '../pages/tabs/tabs';
-
-// import { StatusBar } from '@ionic-native/status-bar';
-// import { SplashScreen } from '@ionic-native/splash-screen';
-// import { LoginserviceProvider } from '../providers/loginservice/loginservice';
-// import { HttpClient , HttpClientModule} from '@angular/common/http';
-// import { HelperProvider } from '../providers/helper/helper';
-
-// @NgModule({
-//   declarations: [
-//     MyApp,
-//     AboutPage,
-//     ContactPage,
-//     HomePage,
-//     TabsPage
-//   ],
-//   imports: [
-//     BrowserModule,
-//     IonicModule.forRoot(MyApp),
-//     HttpClientModule
-//   ],
-//   bootstrap: [IonicApp],
-//   entryComponents: [
-//     MyApp,
-//     AboutPage,
-//     ContactPage,
-//     HomePage,
-//     TabsPage
-//   ],
-//   providers: [
-//     StatusBar,
-//     SplashScreen,
-//     {provide: ErrorHandler, useClass: IonicErrorHandler},
-//     LoginserviceProvider,
-//     HttpClient,
-//     HelperProvider
-//   ]
-// })
-// export class AppModule {}
-
 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-//import { VerifycodePage } from '../pages/verifycode/verifycode';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-//import { CancelorderPage } from '../pages/cancelorder/cancelorder';
-//import { FolloworderPage } from '../pages/followorder/followorder';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { NotificationPage } from '../pages/notification/notification';
 import { LoginPage } from '../pages/login/login';
+import { SliderPage } from '../pages/slider/slider';
 import { ProfilePage } from '../pages/profile/profile';
-//import { SignupPage } from '../pages/signup/signup';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpModule, Http } from '@angular/http';
@@ -72,21 +21,14 @@ import { HttpClient } from '@angular/common/http';
 import { HelperProvider } from '../providers/helper/helper';
 import { HttpClientModule } from '@angular/common/http';
 import { OrderhistoryPage } from '../pages/orderhistory/orderhistory';
-// import { AppRate } from '@ionic-native/app-rate';
 import { Ionic2RatingModule } from 'ionic2-rating';
 import { LoginserviceProvider } from '../providers/loginservice/loginservice';
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from '@ionic-native/camera';
 import { Market } from '@ionic-native/market';
-//import { OrderDoctorPage } from '../pages/order-doctor/order-doctor';
-//import { DoctorEvaluationPage } from '../pages/doctor-evaluation/doctor-evaluation';
-//import {SpecializationsPage} from '../pages/specializations/specializations';
-//import { SpecificDoctorPage } from '../pages/specific-doctor/specific-doctor';
-//import { AboutAppPage } from '../pages/about-app/about-app';
-//import { IonicImageLoader } from 'ionic-image-loader';
-//import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
-//import { ImagePicker } from '@ionic-native/image-picker';
-//import { Base64 } from '@ionic-native/base64';
+import { Diagnostic } from '@ionic-native/diagnostic';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { OrderModule } from 'ngx-order-pipe';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ProvidedServicesProvider } from '../providers/provided-services/provided-services';
 //import { RefreshToken1InterceptorProvider } from '../providers/refresh-token1-interceptor/refresh-token1-interceptor';
@@ -138,6 +80,7 @@ export function createTranslateLoader(http: HttpClient) {
     NotificationPage,
     //AboutAppPage,
     LoginPage,
+    SliderPage,
     //CancelorderPage,
     ProfilePage,
    // SignupPage,
@@ -154,6 +97,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    OrderModule,
     IonicModule.forRoot(MyApp),
     // IonicModule.forRoot(MyApp, {
     //   tabsHideOnSubPages: true
@@ -191,6 +135,7 @@ export function createTranslateLoader(http: HttpClient) {
     NotificationPage,
     FollowOrderForPlcPage,
     LoginPage,
+    SliderPage,
     ProfilePage,
     //SignupPage,
     OrderhistoryPage
@@ -211,6 +156,9 @@ export function createTranslateLoader(http: HttpClient) {
     LoginserviceProvider,
     //Storage,
     Camera,
+    Geolocation,
+    Diagnostic,
+    LocationAccuracy,  
     //BackgroundGeolocation,
     //ImagePicker,
     //Base64,

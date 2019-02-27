@@ -39,7 +39,10 @@ export class RemaingTimeForPlcPage {
   willLeave = false;
   alertApear = false;
   alertCancelShown  = false;
-
+  interval
+  timeLeft
+  remaining_time
+  
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider,public events: Events,
     public storage: Storage,public service:LoginserviceProvider,
@@ -71,10 +74,14 @@ export class RemaingTimeForPlcPage {
      
      if(data == 1)
      {
-        this.time = 120;
+        // this.time = 120;
+        this.time = 180;
+        this.remaining_time = 180
         // this.receivedImage = 1;
      }else if (data == 0){
-       this.time = 45;
+      //  this.time = 45;
+      this.time = 180;
+      this.remaining_time = 180
       //  this.receivedImage = 0;
      }
 
@@ -86,35 +93,106 @@ export class RemaingTimeForPlcPage {
     //   console.log("view from remaining time plc",view);
     // });
 
+
+    document.addEventListener('pause', () => {
+      console.log("pause")
+      clearTimeout(this.timer)
+      clearInterval(this.interval)
+      var dt1 = new Date();
+      console.log("this.time from pause :",this.time)
+      localStorage.setItem('timeStopAt', String(dt1))
+      // localStorage.setItem('remaining',"1")
+    });
+    document.addEventListener('resume', () => {
+      console.log("localStorage.getItem('timeStopAt') :",localStorage.getItem('timeStartAt'))
+      var timeStopAt = localStorage.getItem('timeStartAt');
+      var t1 = new Date()
+                var t2 = new Date(timeStopAt);
+                var dif = t1.getTime() - t2.getTime();
+                var Seconds_from_T1_to_T2 = (dif / 1000);
+                console.log('Seconds_from_T1_to_T2 ' + Seconds_from_T1_to_T2)
+                let time_left
+                time_left = 180 - Seconds_from_T1_to_T2
+                if(time_left <= 0){
+                  this.remaining_time = 0
+                }
+                else{
+                  this.remaining_time = time_left
+                }
+                this.startTimer()
+      // var timeStopAt = localStorage.getItem('timeStopAt');
+      // var dt2 = new Date(timeStopAt.split(",")[1])
+      // var dt1 = new Date();
+      // console.log("resume dt1 :",dt1," dt2:",dt2);
+      // var timeDiff = Math.abs( dt2.getTime() - dt1.getTime());
+      // var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24)); 
+  
+    
+      // if(diffDays <= 0)
+      // {
+      //   var ss =Math.abs(Math.round((dt2.getTime() - dt1.getTime()) / 1000));
+        
+    
+      //   // var h = Math.floor(ss/3600);
+      //   // var m = Math.floor(ss % 3600 /60);
+      //   var s = Math.floor(ss % 3600 % 60);
+      //    console.log("diff ss : ",s)
+      //    this.time = parseInt(timeStopAt.split(",")[0] ) - s 
+      //    console.log("this.time after diff",this.time)
+        
+      //    var xxxxtime =   parseInt(timeStopAt.split(",")[0] ) - s
+      //    if( xxxxtime>0)
+      // this.time = xxxxtime 
+      // else if(xxxxtime <=0)
+      //  this.time = 0
+      // }
+
+    });
+
+    
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RemaingTimeForPlcPage');
-    console.log("stillCount",this.helper.stillCount);
-
-    this.helper.listenToNetworkDisconnection();
-    
-    
-    this.timer =setInterval(()=>{
+  startTimer() {
+    let start_time = localStorage.getItem("timeStartAt")
+    if(!start_time){
+      return;
+    }
+    this.timeLeft = Math.round(this.remaining_time)
+    if(this.timeLeft <= 0){
+      this.helper.removeNetworkDisconnectionListener();
+      this.updateOrderStat()
+      clearTimeout(this.timer)
+      clearInterval(this.interval)
       
-      this.time--;
-      if(this.time <= 0){
-        console.log("timer off");
-         this.helper.removeNetworkDisconnectionListener();
-       clearTimeout(this.timer);
-        this.helper.stillCount = false;
+    }
+    else{
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
 
-      //  this.storage.get("access_token").then(data=>{
-      //   this.accessToken = data;
-      this.accessToken = localStorage.getItem('user_token');
+      } else {
+        this.timeLeft = 180;
+      }
+    }, 1000)
+    this.timer = setTimeout(() => {
+      this.helper.removeNetworkDisconnectionListener();
+      this.updateOrderStat()
+      clearTimeout(this.timer)
+      clearInterval(this.interval)
+    }, this.timeLeft * 1000);
+  }
+  }
+  updateOrderStat(){
+    this.accessToken = localStorage.getItem('user_token');
 
       this.service.updateOrderStatus(this.helper.orderIdForUpdate,this.accessToken).subscribe(
         resp=>{
           console.log("update status resp from remaining time for plc",resp);
-          if(JSON.parse(JSON.stringify(resp)).running == 1)
+          if(JSON.parse(JSON.stringify(resp)).running == 1 && JSON.parse(JSON.stringify(resp)).order.status != 3)
           {
+            localStorage.removeItem("timeStartAt")
             this.presentToast("تم قبول طلبك .. لمتابعه الطلب من هنا ");
             this.events.publish('enableTabs', true);
+            
             this.navCtrl.setRoot(TabsPage);
             // this.navCtrl.parent.select(1); 
             // console.log("before setRoot of follow plc");
@@ -135,14 +213,35 @@ export class RemaingTimeForPlcPage {
           console.log("update status err from remaining time for plc",err);
         }
       );
-    // });
+  }
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad RemaingTimeForPlcPage');
+    console.log("stillCount",this.helper.stillCount);
 
-        // this.events.publish('enableTabs', true);
-        // this.navCtrl.setRoot('order-not-accepted');
+    this.helper.listenToNetworkDisconnection();
+    this.time = 180
+    localStorage.setItem('timeStartAt', String(new Date()))
+    this.startTimer()
+  //   this.timer =setInterval(()=>{
+      
+  //     this.time--;
+  //     if(this.time <= 0){
+  //       console.log("timer off");
+  //        this.helper.removeNetworkDisconnectionListener();
+  //      clearTimeout(this.timer);
+  //       this.helper.stillCount = false;
+
+  //     //  this.storage.get("access_token").then(data=>{
+  //     //   this.accessToken = data;
+      
+  //   // });
+
+  //       // this.events.publish('enableTabs', true);
+  //       // this.navCtrl.setRoot('order-not-accepted');
        
-      }   
+  //     }   
     
-  },1000);
+  // },1000);
 
 
   // this.events.subscribe('appearCancelAlert',()=>{
@@ -167,6 +266,7 @@ export class RemaingTimeForPlcPage {
   this.events.subscribe('status2ForPLC', (data) => {
     console.log("status2ForPLC",data);
     this.acceptOrder = true;
+    if(this.timer)
     clearTimeout(this.timer);
     this.helper.stillCount = false;
     

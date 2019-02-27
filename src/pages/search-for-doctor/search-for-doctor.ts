@@ -147,13 +147,87 @@ export class SearchForDoctorPage {
     // this.handleuserLocattion();
 
     // this.allowUserToChooseHisLocation();
-    this.test();
+    //this.test();
+
+    this.helper.geoLoc(data => this.getCurrentLoc(data));
+    // if(!this.platform.is('android') || !this.platform.is('ios')){
+    //   this.presentToast(this.translate.instant("AccessLocationFailed"));
+    //   // this.presentToast(this.translate.instant("chooseYourLocation"));
+      
+    //   this.toastFlag = true;
+
+    //   this.allowUserToChooseHisLocation();
+    // }
     //this.geoLoc();
     // this.initMap();
     //this.getUserLocation();
     //  this.getDoctorsLocation();
 
   
+}
+getCurrentLoc(loc) {
+
+  //console.log("witting loc " + JSON.stringify(loc))
+  if (loc == "-1") {
+    //this.presentToast(this.translate.instant("locFailed"))
+    this.presentToast(this.translate.instant("AccessLocationFailed"));
+      // this.presentToast(this.translate.instant("chooseYourLocation"));
+      
+      this.toastFlag = true;
+
+      this.allowUserToChooseHisLocation();
+  }
+  else {
+    this.lat = loc.inspectorLat;
+    this.helper.lat = loc.inspectorLat
+    this.lng = loc.inspectorLong;
+    this.helper.lon = loc.inspectorLong;
+    // this.service.updateUserLocation(this.lat+","+this.lng,this.accessToken).subscribe(
+    //   resp=>{
+    //     console.log("resp from updateUserLocation",resp);
+    //   },err=>{
+    //     console.log("err from updateUserLocation",err);
+    //   }
+    // );
+    this.service.getaddress(this.lat,this.lng).subscribe(
+      resp=>{
+        console.log("resp from get address1",resp);
+        var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
+      
+        this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp from updateUserLocation1",resp);
+          },err=>{
+            console.log("err from updateUserLocation1",err);
+          }
+        );
+
+      },err=>{
+        console.log("err from get address1",err);
+      }
+    );
+    
+    // this.locFlag = 1;
+    this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getUserZone",resp);
+        if(JSON.parse(JSON.stringify(resp)).success == true)
+        {
+          this.locFlag = 1;  
+          this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+          console.log("city_id",this.city_id);
+          this.helper.city_id = this.city_id;
+        } 
+        else if (JSON.parse(JSON.stringify(resp)).success == false)
+          this.locFlag = -1; 
+      },err=>{
+        console.log("err from getUserZone",err);
+
+      }
+    );
+
+    this.handleuserLocattion();
+  }
 }
 test(){
   this.diagnostic.isGpsLocationEnabled().then(
@@ -407,7 +481,8 @@ initMap(){
   let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
    center:latlng,
-    zoom:15,
+    zoom:18,
+    disableDefaultUI: true,
     mapTypeId:google.maps.MapTypeId.ROADMAP,
     // controls: {
     //   myLocationButton: true         
@@ -589,7 +664,8 @@ initMapwithUserLocations(){
   let latlng = new google.maps.LatLng(this.lat,this.lng);
   var mapOptions={
    center:latlng,
-    zoom:15,
+    zoom:18,
+    disableDefaultUI: true,
     mapTypeId:google.maps.MapTypeId.ROADMAP,
     // controls: {
     //   myLocationButton: true         
@@ -604,7 +680,7 @@ initMapwithUserLocations(){
     position: latlng,
     icon: { 
       url : 'assets/icon/user_locations.png',
-      size: new google.maps.Size(71, 71),
+      //size: new google.maps.Size(71, 71),
       scaledSize: new google.maps.Size(20, 25) 
     }
 
@@ -678,7 +754,7 @@ initMapWithDoctorsLocation(){
       animation: google.maps.Animation.DROP,
       icon: { 
         url : 'assets/icon/location.png',
-        size: new google.maps.Size(71, 71),
+        //size: new google.maps.Size(71, 71),
         scaledSize: new google.maps.Size(25, 25) 
        }
     });

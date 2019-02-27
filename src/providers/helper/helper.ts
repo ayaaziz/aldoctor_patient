@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastController ,Events} from 'ionic-angular';
-
+import { ToastController ,Events, AlertController, Platform} from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Diagnostic } from '@ionic-native/diagnostic';
+import { LocationAccuracy } from '@ionic-native/location-accuracy';
+import { TranslateService } from '@ngx-translate/core';
 // import { AngularFireDatabase } from 'angularfire2/database';
 // import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase';
@@ -26,14 +29,13 @@ export class HelperProvider {
   
   
   // final test
-  //public serviceUrl: string = "http://aldoctor-app.com/aldoctor2/public/";
+  //public serviceUrl: string = "http://aldoctor-app.com/aldoctor3/public/";
 
   // final production
-  //public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
-
+  public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
 
   //finalll test
-  public serviceUrl: string = "http://aldoctor-app.com/aldoctor3/public/";
+  //public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
 
   public registration;
   public device_type;
@@ -82,10 +84,14 @@ export class HelperProvider {
   public myindexTobeoffline;
   
   public logout = false;
-
+  public inspectorLat
+  public inspectorLong
+  public inspectorLocAccuracy
   
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
-    public toastCtrl: ToastController, public http: HttpClient,
+    public toastCtrl: ToastController, public http: HttpClient,private geolocation: Geolocation,
+    public locationAccuracy: LocationAccuracy,public diagnostic: Diagnostic,public alertCtrl: AlertController,
+    public platform:Platform, public translate: TranslateService,
     public events: Events, private network: Network) {
     console.log('Hello HelperProvider Provider');
     
@@ -276,7 +282,148 @@ createOrderForPLC(typeId, orderId, serviceId, doctorsNumber){
 //       //alert appear here
 
 //     }
-   
+geoLoc(success) {
+
+  let LocationAuthorizedsuccessCallback = (isAvailable) => {
+    //console.log('Is available? ' + isAvailable);
+    if (isAvailable) {
+      // this.locAlert = 0
+      if (this.platform.is('android')) {
+        this.diagnostic.getLocationMode().then((status) => {
+          if (!(status == "high_accuracy")) {
+            this.requestOpenGPS(success)
+          }
+          else {
+            this.GPSOpened(success);
+          }
+        })
+      }
+      else {
+        this.requestOpenGPS(success);
+      }
+
+    }
+    else {
+      this.requestOpenGPS(success);
+    }
+  };
+  let LocationAuthorizederrorCallback = (e) => {
+    console.error(e)
+    this.requestOpenGPS(success);
+  }
+    ;
+  this.diagnostic.isLocationAvailable().then(LocationAuthorizedsuccessCallback).catch(LocationAuthorizederrorCallback);
+
+}
+GPSOpened(success) {
+  let optionsLoc = {}
+  optionsLoc = { timeout: 30000, enableHighAccuracy: true, maximumAge: 3600 };
+  this.geolocation.getCurrentPosition(optionsLoc).then((resp) => {
+    //this.events.publish("locationEnabled")
+    this.inspectorLat = resp.coords.latitude;
+    this.inspectorLong = resp.coords.longitude;
+    this.inspectorLocAccuracy = resp.coords.accuracy;
+    let data = {
+      inspectorLat: resp.coords.latitude,
+      inspectorLong: resp.coords.longitude,
+      inspectorLocAccuracy: resp.coords.accuracy
+    }
+    success(data);
+  }
+  ).catch((error) => {
+    success("-1");
+  });
+
+
+}
+requestOpenGPS(success) {
+  if (this.platform.is('ios')) {
+    this.diagnostic.isLocationEnabled().then(enabled => {
+      if(enabled){
+        this.diagnostic.getLocationAuthorizationStatus().then(status => {
+          if (status == this.diagnostic.permissionStatus.NOT_REQUESTED) {
+            this.diagnostic.requestLocationAuthorization().then(status => {
+              if (status == this.diagnostic.permissionStatus.NOT_REQUESTED) {
+                this.locationAccuracy.canRequest().then(requested => {
+                  if (requested) {
+                    this.requestOpenGPS(success)
+                  }
+                  else {
+                    success("-1")
+                  }
+
+                }).catch(err => success("-1"))
+              }
+              else if (status == this.diagnostic.permissionStatus.GRANTED || status == this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
+                this.GPSOpened(success);
+              }
+              else{
+                success("-1")
+              }
+            })
+          }
+          else if (status == this.diagnostic.permissionStatus.DENIED) {
+            success("-1")
+          }
+          else if (status == this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
+            this.GPSOpened(success);
+          }
+        });
+      }
+      else{
+        this.diagnostic.requestLocationAuthorization().then(val => {
+          if (val == "GRANTED") {
+            this.requestOpenGPS(success)
+          }
+          else {
+            success("-1")
+          }
+        })
+      }
+    })
+  }
+  else {
+    this.diagnostic.isLocationAuthorized().then(authorized => {
+      if (authorized) {
+        this.locationAccuracy.canRequest().then((canRequest: boolean) => {
+          if (canRequest) {
+            this.locationAccuracy.request(this.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY).then(
+              () => {
+                console.log('Request successful')
+
+                // this.geoLoc(success);
+                this.GPSOpened(success)
+              },
+              error => {
+                console.log('Error requesting location permissions', error);
+
+                success("-1")
+              }
+            );
+          }
+
+          else {
+            console.log('Error requesting location permissions');
+
+            success("-1")
+        
+          }
+        });
+      }
+      else {
+        this.diagnostic.requestLocationAuthorization().then(val => {
+          if (val == "GRANTED") {
+            this.requestOpenGPS(success)
+          }
+          else {
+            success("-1")
+          }
+        })
+      }
+    })
+  }
+
+}
  
 
 //   });
@@ -393,9 +540,9 @@ checkConnection(){
 var connectedRef = firebase.database().ref(".info/connected");
 connectedRef.on("value", (snap)=> {
   if (snap.val() === true) {
-    alert("connected");
+   // alert("connected");
   } else {
-    alert("not connected");
+  //  alert("not connected");
   }
 });
 
@@ -443,5 +590,9 @@ public userlogout(){
   this.events.publish('user:userLogedout')
 }
 
+updateCancelSatatus(userId){
+  console.log("updateCancelSatatus doc id: ",userId)
+  firebase.database().ref().child(`user/${userId}/availablity/busy`).update({ status: 0 })
+}
 
 }

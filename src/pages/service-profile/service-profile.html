@@ -1,55 +1,19 @@
-<ion-header>
+<ion-header class="{{langDirection}}">
 
   <ion-navbar hideBackButton>
+  
+        <ion-title>{{name}}</ion-title>
     
-    <!-- <ion-buttons *ngIf="langDirection == 'rtl'"  right>
-      <button ion-button  (click)="dismiss()">
-          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-          
-      </button>
-  </ion-buttons>
-
-  <ion-buttons *ngIf="langDirection != 'rtl'"  left>
-    <button ion-button  (click)="dismiss()">
-        <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-    </button>
-</ion-buttons>
-
-  <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{name}}</ion-title>
-  <ion-title *ngIf="langDirection != 'rtl'">{{name}}</ion-title> -->
-
-  <ion-row>
-    <ion-col col-7>
-        <ion-title *ngIf="langDirection == 'rtl'" style="text-align: right;">{{name}}</ion-title>
-        <ion-title *ngIf="langDirection != 'rtl'">{{name}}</ion-title>
-    </ion-col>
-    <ion-col col-3 >
-        <!-- <img src="assets/imgs/dlogo.png" style="width:50px;height:30px" left> -->
-        <ion-buttons  left>
+        <ion-buttons  right>
             <button ion-button>
-                <img src="assets/imgs/dlogo.png" style="width:40px;" >
+                <img src="assets/imgs/dlogo.png" style="width:30px;" >
                
             </button>
+            <button ion-button  (click)="dismiss()">
+                    <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+                   
+                </button>
         </ion-buttons>
-
-    </ion-col>
-  
-
-  <ion-col col-2>
-    <ion-buttons *ngIf="langDirection == 'rtl'"  left>
-      <button ion-button  (click)="dismiss()">
-          <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-         
-      </button>
-  </ion-buttons>
-
-  <ion-buttons *ngIf="langDirection != 'rtl'"  left>
-    <button ion-button  (click)="dismiss()">
-        <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
-    </button>
-</ion-buttons>
-  </ion-col>
-</ion-row>
 </ion-navbar>
 
 </ion-header>
@@ -85,14 +49,7 @@
         <p style="color:gray;display: inline;"> {{"ProvidedServices" | translate}} </p>
         </div>
 
-    <!-- <ion-item no-lines >
-    
-        <ion-label > 
-          <img src="assets/icon/servicegreen.png" class="customIcon"> 
-        <p style="color:gray;font-size: 16px;display: inline;">{{"ProvidedServices" | translate}}</p>
-        
-      </ion-label>
-    </ion-item> -->
+
   
   
     <ion-label [hidden]="hideServices" *ngFor="let item of services" class="services" style="color:gray;font-size: 16px;" >
@@ -104,111 +61,7 @@
     </ion-label>
 
 
-  <!-- <ion-item no-lines> -->
-    <!-- <ion-label  *ngIf="langDirection != 'rtl'" class="right" > {{address}}  <img src="assets/icon/location.png" class="customIcon"> </ion-label>
-    <ion-label  *ngIf="langDirection == 'rtl'" ><img src="assets/icon/location.png" class="customIcon"> {{address}} </ion-label> -->
-
-    <!-- <ion-label ><img src="assets/icon/location.png" class="customIcon">
-      <p style="color:gray;font-size: 16px;display: inline;"> {{address}}</p>
-    </ion-label> -->
-
-    <!-- <div style="text-align: right;padding-right: 2px;padding-top:10px"> -->
-        <!-- <img src="assets/icon/location.png" class="customIcon">  -->
-        <!-- <p style="color:gray;display: inline;"> {{address}} </p> -->
-
-<!-- true -->
-        <!-- <ion-item style="color:gray;display: inline;padding-top:10px;text-align: right;font-size: 16px;" text-wrap no-lines>
-    <ion-label  ><img src="assets/icon/location.png" class="customIcon"> 
-                     <p text-wrap>  {{address}} </p> 
-                    </ion-label>
-        </ion-item> -->
-
-
-
-    <!-- </div> -->
-
-  <!-- </ion-item> -->
-
-
-
-   <!-- <ion-label *ngIf="langDirection != 'rtl'" class="right" > {{phone}} <img src="assets/icon/phonegreen.png" class="customIcon">  </ion-label>
-    <ion-label *ngIf="langDirection == 'rtl'" ><img src="assets/icon/phonegreen.png" class="customIcon">  {{phone}}  </ion-label>
-   -->
-
-  <!-- <ion-item no-lines style="margin-right:10px;">
-   
-   <ion-label  ><img src="assets/icon/phonegreen.png" class="customIcon">  
-    <p style="color:gray;font-size: 16px;display: inline;">{{phone}}+ </p> </ion-label>
-  </ion-item>
-
-  <ion-item no-lines style="margin-right:10px;">
-   
-   <ion-label  [hidden]="phone2Apear" ><img src="assets/icon/phonegreen.png" class="customIcon">  
-    <p style="color:gray;font-size: 16px;display: inline;">{{phone2}}+ </p> </ion-label>
-  </ion-item> -->
-
-  <!-- <ion-item no-lines > -->
-      <!-- <ion-label  *ngIf="langDirection == 'rtl'" class="right" > 
-          <img src="assets/icon/servicegreen.png" class="customIcon"> 
-        <p style="color:gray;font-size: 16px;display: inline;">{{"ProvidedServices" | translate}}</p>
-        
-      </ion-label>
-
-      <ion-label  *ngIf="langDirection != 'rtl'" >
-        
-        <p style="color:gray;font-size: 16px;display: inline;">{{"ProvidedServices" | translate}}</p> 
-        <img src="assets/icon/servicegreen.png" class="customIcon" > 
-      </ion-label> -->
-      <!-- <ion-label > 
-        <img src="assets/icon/servicegreen.png" class="customIcon"> 
-      <p style="color:gray;font-size: 16px;display: inline;">{{"ProvidedServices" | translate}}</p>
-      
-    </ion-label>
-  </ion-item>
-
-
-  <ion-label  *ngFor="let item of services" class="services" style="color:gray;font-size: 16px;" >
-      <p *ngIf="langDirection != 'rtl'">{{item}}</p>
-  </ion-label>
-
-  <ion-label *ngFor="let item of services" class="services right" style="color:gray;font-size: 16px;" >
-      <p  *ngIf="langDirection == 'rtl'" style="margin-right:30px;">{{item}}</p>
-  </ion-label>
-   -->
-  <!-- <ion-item style="text-align:center;" no-lines>
-
-    <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
-  </ion-item> -->
-
-              
-  <!-- <ion-row>
-      <ion-col col-6 col-sm-3 col-md-2 >
-        <ion-item no-lines  (click)="presentActionSheet()">{{medicalprescriptionImage}}
-
-        </ion-item>
-        
-  
-      </ion-col>
-      
-    <ion-col col-3 *ngFor="let photo of photos; let id = index" style="text-align:right">
-
-        <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-        <img [src]="photo" *ngIf="photo" style="width:80px;height:80px" />
-
-    </ion-col>
-  </ion-row> -->
-
-  <!-- <ion-item class="form-group" no-lines>
-      <button type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725);margin:10px auto;" >  
-        <img src="assets/icon/cam.png" height="25" width="25">  
-        {{medicalprescriptionImage}} 
-       
-    </button> 
-      
-    </ion-item> -->
-
-
-    <ion-row >
+      <ion-row >
         <ion-col col-2>
             <!-- <ion-item class="form-group" no-lines>
                 <button type="button" (click)="presentActionSheet()" class="btn btn-primary btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725);" >  <img src="assets/icon/cam.png" height="15" width="15">   {{medicalprescriptionImage}} <ion-icon name="checkmark-circle" style="color: darkgreen;vertical-align: middle;" *ngIf="imageAdded" ></ion-icon> </button> 
@@ -232,32 +85,6 @@
         </button>     
     </ion-item>
 
-    <!-- <ion-row >
-    
-        <ion-col col-2>
-    
-        </ion-col>
-        <ion-col col-4 *ngFor="let photo of photos; let id = index" style="text-align:right">
-
-            <ion-icon name="trash" class="deleteIcon" (click)="deletePhoto(id)"></ion-icon>
-            <img [src]="photo" *ngIf="photo" style="width:90px;height:80px" (click)="fullScreen(id)" />
-    
-        </ion-col>
-    
-    </ion-row>
-     -->
-
-    <!-- <div class="form-group">
-        <button type="button" (click)="presentActionSheet()" class="btn btn-primary btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725)"
-            (click)="getphoto()">
-            <img src="assets/icon/cam.png" height="25" width="25"> {{"userimg" | translate}}
-            <ion-icon name="checkmark-circle" style="color: darkgreen;vertical-align: middle;"
-                *ngIf="imageAdded"></ion-icon>
-        </button>
-
-    </div> -->
-
-  
   <ion-item style="text-align:center;" no-lines>
 
       <button *ngIf="offline == '1'" disabled type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
