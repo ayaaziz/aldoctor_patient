@@ -59,13 +59,13 @@ export class FollowOrderPage {
      public toastCtrl: ToastController, public alertCtrl: AlertController,
      public events: Events,private localNotifications: LocalNotifications) {
        console.log("follow order");
-       document.removeEventListener('pause',()=>{
-         console.log("removeEventListener pause")
-       })
+      //  document.removeEventListener('pause',()=>{
+      //    console.log("removeEventListener pause")
+      //  })
 
-       document.removeEventListener('resume',()=>{
-        console.log("removeEventListener resume")
-      })
+      //  document.removeEventListener('resume',()=>{
+      //   console.log("removeEventListener resume")
+      // })
 
     this.langDirection = this.helper.lang_direction;
     this.helper.view = "follow";

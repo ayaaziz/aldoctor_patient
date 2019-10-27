@@ -152,7 +152,6 @@ export class SearchForDoctorPage {
     this.helper.geoLoc(data => this.getCurrentLoc(data));
     // if(!this.platform.is('android') || !this.platform.is('ios')){
     //   this.presentToast(this.translate.instant("AccessLocationFailed"));
-    //   // this.presentToast(this.translate.instant("chooseYourLocation"));
       
     //   this.toastFlag = true;
 
@@ -171,13 +170,13 @@ getCurrentLoc(loc) {
   if (loc == "-1") {
     //this.presentToast(this.translate.instant("locFailed"))
     this.presentToast(this.translate.instant("AccessLocationFailed"));
-      // this.presentToast(this.translate.instant("chooseYourLocation"));
       
       this.toastFlag = true;
 
       this.allowUserToChooseHisLocation();
   }
   else {
+    this.toastFlag = false
     this.lat = loc.inspectorLat;
     this.helper.lat = loc.inspectorLat
     this.lng = loc.inspectorLong;
@@ -460,15 +459,10 @@ getUserLocation(){
     }).catch((error) => {
       console.log('Error getting location', error);
       this.presentToast(this.translate.instant("AccessLocationFailed"));
-      // this.presentToast(this.translate.instant("chooseYourLocation"));
       
       this.toastFlag = true;
 
       this.allowUserToChooseHisLocation();
-      
-      //this.getUserLocation();
-      //this.initMap();
-      //this.test();
       
     });
 
@@ -799,7 +793,6 @@ initMapWithDoctorsLocation(){
       else
         this.presentToast(this.translate.instant("chooseYourLocation"));
     }
-      // this.presentToast(this.translate.instant("chooseYourLocation"));
     //this.navCtrl.push('order-doctor');
   }
 

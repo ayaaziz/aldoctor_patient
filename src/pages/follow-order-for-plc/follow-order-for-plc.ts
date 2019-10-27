@@ -93,13 +93,13 @@ export class FollowOrderForPlcPage {
       this.accessToken = localStorage.getItem('user_token');
       this.helper.view = "follow";
       
-      document.removeEventListener('pause',()=>{
-        console.log("removeEventListener pause")
-      })
+    //   document.removeEventListener('pause',()=>{
+    //     console.log("removeEventListener pause")
+    //   })
 
-      document.removeEventListener('resume',()=>{
-       console.log("removeEventListener resume")
-     })
+    //   document.removeEventListener('resume',()=>{
+    //    console.log("removeEventListener resume")
+    //  })
       this.langDirection = this.helper.lang_direction;
     
       if(this.langDirection == "rtl")

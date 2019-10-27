@@ -77,7 +77,7 @@ export class RefreshTokenInterceptorProvider implements HttpInterceptor {
           )
        // })
       }
-      else if (errorResponse.status === 401){
+      else if (errorResponse.status === 401  && errorResponse.url == this.helper.serviceUrl+`api/refresh`){
         this.helper.userlogout()
         return;
       }

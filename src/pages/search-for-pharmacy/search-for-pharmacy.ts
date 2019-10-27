@@ -144,6 +144,7 @@ export class SearchForPharmacyPage {
       this.allowUserToChooseHisLocation();
     }
     else {
+      this.toastFlag =false
     this.lat = loc.inspectorLat;
     this.helper.lat = loc.inspectorLat
     this.lng = loc.inspectorLong;

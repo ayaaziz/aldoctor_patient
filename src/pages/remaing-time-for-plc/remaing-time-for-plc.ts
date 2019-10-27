@@ -93,61 +93,106 @@ export class RemaingTimeForPlcPage {
     //   console.log("view from remaining time plc",view);
     // });
 
-
     document.addEventListener('pause', () => {
-      console.log("pause")
+      console.log("pause "+ this.navCtrl.getActive().name)
+      if(this.navCtrl.getActive().name == "RemaingTimeForPlcPage"){
       clearTimeout(this.timer)
       clearInterval(this.interval)
       var dt1 = new Date();
-      console.log("this.time from pause :",this.time)
-      localStorage.setItem('timeStopAt', String(dt1))
-      // localStorage.setItem('remaining',"1")
+      console.log("this.time from pause :", this.time)
+      localStorage.setItem('timeStopAt', this.time + "," + dt1)
+      }
+      else{
+        if(localStorage.getItem('timeStopAt')){
+          localStorage.removeItem('timeStopAt')
+        }
+      }
     });
     document.addEventListener('resume', () => {
-      console.log("localStorage.getItem('timeStopAt') :",localStorage.getItem('timeStartAt'))
+      if(this.navCtrl.getActive().name == "RemaingTimeForPlcPage"){
+        if(localStorage.getItem('timeStartAt')){
+      console.log("localStorage.getItem('timeStopAt') :", localStorage.getItem('timeStartAt'))
       var timeStopAt = localStorage.getItem('timeStartAt');
       var t1 = new Date()
-                var t2 = new Date(timeStopAt);
-                var dif = t1.getTime() - t2.getTime();
-                var Seconds_from_T1_to_T2 = (dif / 1000);
-                console.log('Seconds_from_T1_to_T2 ' + Seconds_from_T1_to_T2)
-                let time_left
-                time_left = 180 - Seconds_from_T1_to_T2
-                if(time_left <= 0){
-                  this.remaining_time = 0
-                }
-                else{
-                  this.remaining_time = time_left
-                }
-                this.startTimer()
-      // var timeStopAt = localStorage.getItem('timeStopAt');
-      // var dt2 = new Date(timeStopAt.split(",")[1])
-      // var dt1 = new Date();
-      // console.log("resume dt1 :",dt1," dt2:",dt2);
-      // var timeDiff = Math.abs( dt2.getTime() - dt1.getTime());
-      // var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24)); 
+      var t2 = new Date(timeStopAt);
+      var dif = t1.getTime() - t2.getTime();
+      var Seconds_from_T1_to_T2 = (dif / 1000);
+      console.log('Seconds_from_T1_to_T2 ' + Seconds_from_T1_to_T2)
+      let time_left
+      time_left = 180 - Seconds_from_T1_to_T2
+      if (time_left <= 0) {
+        this.remaining_time = 0
+      }
+      else {
+        this.remaining_time = time_left
+      }
+      this.startTimer()
+      //   console.log("localStorage.getItem('timeStopAt') :",localStorage.getItem('timeStopAt'))
+
+     
+    }
+    }
+    else{
+      if(localStorage.getItem('timeStopAt')){
+        localStorage.removeItem('timeStopAt')
+      }
+    }
+    });
+
+    // document.addEventListener('pause', () => {
+    //   console.log("pause")
+    //   clearTimeout(this.timer)
+    //   clearInterval(this.interval)
+    //   var dt1 = new Date();
+    //   console.log("this.time from pause :",this.time)
+    //   localStorage.setItem('timeStopAt', String(dt1))
+    //   // localStorage.setItem('remaining',"1")
+    // });
+    // document.addEventListener('resume', () => {
+    //   console.log("localStorage.getItem('timeStopAt') :",localStorage.getItem('timeStartAt'))
+    //   var timeStopAt = localStorage.getItem('timeStartAt');
+    //   var t1 = new Date()
+    //             var t2 = new Date(timeStopAt);
+    //             var dif = t1.getTime() - t2.getTime();
+    //             var Seconds_from_T1_to_T2 = (dif / 1000);
+    //             console.log('Seconds_from_T1_to_T2 ' + Seconds_from_T1_to_T2)
+    //             let time_left
+    //             time_left = 180 - Seconds_from_T1_to_T2
+    //             if(time_left <= 0){
+    //               this.remaining_time = 0
+    //             }
+    //             else{
+    //               this.remaining_time = time_left
+    //             }
+    //             this.startTimer()
+    //   // var timeStopAt = localStorage.getItem('timeStopAt');
+    //   // var dt2 = new Date(timeStopAt.split(",")[1])
+    //   // var dt1 = new Date();
+    //   // console.log("resume dt1 :",dt1," dt2:",dt2);
+    //   // var timeDiff = Math.abs( dt2.getTime() - dt1.getTime());
+    //   // var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24)); 
   
     
-      // if(diffDays <= 0)
-      // {
-      //   var ss =Math.abs(Math.round((dt2.getTime() - dt1.getTime()) / 1000));
+    //   // if(diffDays <= 0)
+    //   // {
+    //   //   var ss =Math.abs(Math.round((dt2.getTime() - dt1.getTime()) / 1000));
         
     
-      //   // var h = Math.floor(ss/3600);
-      //   // var m = Math.floor(ss % 3600 /60);
-      //   var s = Math.floor(ss % 3600 % 60);
-      //    console.log("diff ss : ",s)
-      //    this.time = parseInt(timeStopAt.split(",")[0] ) - s 
-      //    console.log("this.time after diff",this.time)
+    //   //   // var h = Math.floor(ss/3600);
+    //   //   // var m = Math.floor(ss % 3600 /60);
+    //   //   var s = Math.floor(ss % 3600 % 60);
+    //   //    console.log("diff ss : ",s)
+    //   //    this.time = parseInt(timeStopAt.split(",")[0] ) - s 
+    //   //    console.log("this.time after diff",this.time)
         
-      //    var xxxxtime =   parseInt(timeStopAt.split(",")[0] ) - s
-      //    if( xxxxtime>0)
-      // this.time = xxxxtime 
-      // else if(xxxxtime <=0)
-      //  this.time = 0
-      // }
+    //   //    var xxxxtime =   parseInt(timeStopAt.split(",")[0] ) - s
+    //   //    if( xxxxtime>0)
+    //   // this.time = xxxxtime 
+    //   // else if(xxxxtime <=0)
+    //   //  this.time = 0
+    //   // }
 
-    });
+    // });
 
     
   }

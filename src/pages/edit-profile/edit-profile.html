@@ -33,7 +33,7 @@
             <p> {{"enterFirstName" | translate}} </p>
         </ion-item>
     
-     <ion-item [class.invalid]="!patientRegisterForm.controls.secondname.valid && submitAttempt">
+     <!-- <ion-item [class.invalid]="!patientRegisterForm.controls.secondname.valid && submitAttempt">
         <ion-label><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
         <ion-input *ngIf="langDirection != 'rtl'" placeholder="Second Name"   style="border-radius: 2px;padding: 0px;" formControlName="secondname" [(ngModel)]="secondname"
         type="text" [dir]="langDirection"></ion-input>
@@ -42,9 +42,9 @@
     </ion-item>
     <ion-item *ngIf="!patientRegisterForm.controls.secondname.valid && submitAttempt" no-lines>
     <p> {{"enterSecondName" | translate}} </p>
-    </ion-item>
+    </ion-item> -->
     
-    <ion-item [class.invalid]="!patientRegisterForm.controls.surname.valid && submitAttempt">
+    <!-- <ion-item [class.invalid]="!patientRegisterForm.controls.surname.valid && submitAttempt">
     <ion-label><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/user.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
     <ion-input *ngIf="langDirection == 'rtl'" class="right" placeholder="الجد أو اللقب"   style="border-radius: 2px;padding: 0px;" formControlName="surname" [(ngModel)]="surname"
     type="text" [dir]="langDirection" ></ion-input>
@@ -53,7 +53,7 @@
     </ion-item>
     <ion-item *ngIf="!patientRegisterForm.controls.surname.valid && submitAttempt" no-lines>
     <p> {{"enterSurnameName" | translate}} </p>
-    </ion-item>
+    </ion-item> -->
     
     <!-- <ion-item [class.invalid]="!patientRegisterForm.controls.phone.valid && submitAttempt">
     <ion-label><img src="assets/icon/mob.png" style="margin: 0 2px;" height="25" width="25"></ion-label>
@@ -127,7 +127,7 @@ type="text" [dir]="langDirection"></ion-input>
                 </ion-item>
     
 
-                <ion-item>
+                <!-- <ion-item>
                     <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
                     <ion-label floating *ngIf="langDirection != 'rtl'"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/calender.png" style="margin: 0 2px;" height="25" width="25">{{"Dateofbirth" | translate}}</ion-label>
                     
@@ -136,7 +136,7 @@ type="text" [dir]="langDirection"></ion-input>
                     </ion-item>
                     <ion-item *ngIf="!patientRegisterForm.controls.birthdate.valid && submitAttempt" no-lines>
                     <p> {{"enterDOB" | translate}} </p>
-                    </ion-item>
+                    </ion-item> -->
                     
                     
                     <ion-item id="btnSignIn" style="text-align:center;" no-lines>

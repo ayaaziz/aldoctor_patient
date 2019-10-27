@@ -686,7 +686,7 @@ else {
 
       if (this.platform.is('ios')) {
         console.log("ios notification", notification);
-        if (notification.additionalData.OrderID){
+        if (notification.additionalData["gcm.notification.OrderID"]){
         // if (notification.additionalData.foreground == true) {
         //   console.log("foreground ios notification", notification);
 

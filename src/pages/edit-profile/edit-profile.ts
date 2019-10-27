@@ -122,17 +122,22 @@ addArr;
       this.storage.get("user_info").then((data) => {
         console.log("profile from storage: ",data);
      
-        this.nameArr = data.name.split(" ");
-        this.firstname = this.nameArr[0];
-        if(this.nameArr[1])
-          this.secondname = this.nameArr[1];
-        else
-        this.secondname = "";
+        // this.nameArr = data.name.split(" ");
+        // this.firstname = this.nameArr[0];
+        // if(this.nameArr[1])
+        //   this.secondname = this.nameArr[1];
+        // else
+        // this.secondname = "";
           
-        if(this.nameArr[2])
-          this.surname = this.nameArr[2];
-        else 
-          this.surname ="";
+        // if(this.nameArr[2])
+        //   this.surname = this.nameArr[2];
+        // else 
+        //   this.surname ="";
+
+if(data.name)
+this.firstname = data.name;
+else
+this.firstname = "";
       //  this.phone = data.phone;
         if(data.dob)
           this.birthdate = data.dob;
@@ -263,7 +268,8 @@ addArr;
       // }
       }
     else{
-      this.name = this.firstname +" "+this.secondname+" "+this.surname;
+      // this.name = this.firstname +" "+this.secondname+" "+this.surname;
+      this.name = this.firstname ;
       this.add = this.address +"-"+this.city +"-"+this.country;
       // this.storage.get("access_token").then(data=>{
       //   this.accessToken = data;

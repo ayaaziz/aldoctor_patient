@@ -64,7 +64,8 @@ userRegister(userData,access_token,SuccessCallback,FailureCallback) {
   console.log("lname: ",userData.secondname);
   console.log("userData.city_id: ",userData.city_id);
   let headers = new HttpHeaders();
-  let parameter = new HttpParams().set('name',userData.firstname+" "+userData.secondname+" "+userData.surname)
+  // +" "+userData.secondname+" "+userData.surname
+  let parameter = new HttpParams().set('name',userData.firstname)
   .set('phone','2'+userData.phone).set('birth_date',userData.birthdate)
   .set('address',userData.address+"-"+userData.city+"-"+userData.country)
   .set('password',userData.password).set('city',userData.city)

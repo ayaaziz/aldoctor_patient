@@ -756,6 +756,7 @@ export class OrderSpecificServicePage {
     if(searchVal)
     {
       console.log("searchVal from if",searchVal);
+      this.choosenDoctors = []
      this.searchFunc(searchVal);
     
     }
@@ -892,6 +893,25 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
         console.log("if = 0");
         this.presentToast(this.translate.instant("noSearchResult"));
       }
+
+
+      if(this.type_id == "1" ){
+        console.log("pharamacy check 5 : ",this.doctors)
+        if(this.doctors.length >= 5){
+          for(var x=0;x<5;x++){
+            this.doctors[x].checked = true;
+            this.choosenDoctors.push(this.doctors[x]);
+          }
+        }else{
+          for(var x=0;x<this.doctors.length;x++){
+            this.doctors[x].checked = true;
+            this.choosenDoctors.push(this.doctors[x]);
+          }
+        }
+        console.log("choosen doc : ",this.choosenDoctors)
+      }
+
+
       
     },
     err=>{

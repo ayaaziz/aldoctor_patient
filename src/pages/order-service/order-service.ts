@@ -394,6 +394,11 @@ export class OrderServicePage {
       //this.presentWaitingToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
       console.log("4 load func page",this.page);
     this.Loadfunc();
+
+
+   
+
+
     // this.showLoading = false;
     // // this.storage.get("access_token").then(data=>{
     // //   //this.accessToken = this.helper.accessToken;
@@ -630,7 +635,27 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
               this.page++;
               this.Loadfunc();
               
-            } 
+            } else{
+
+              if(this.type_id == "1" ){
+                console.log("pharamacy check 5 : ",this.DoctorsArray)
+                if(this.DoctorsArray.length >= 5){
+                  for(var x=0;x<5;x++){
+                    this.DoctorsArray[x].checked = true;
+                    this.choosenDoctors.push(this.DoctorsArray[x]);
+                  }
+                }else{
+                  for(var x=0;x<this.DoctorsArray.length;x++){
+                    this.DoctorsArray[x].checked = true;
+                    this.choosenDoctors.push(this.DoctorsArray[x]);
+                  }
+                }
+                
+                console.log("choosen doc : ",this.choosenDoctors)
+                
+              }
+              
+            }
             // console.log("1 load func page",this.page);
             // 
           // if(tempArr.length>0)
@@ -668,6 +693,10 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
             // if (this.infiniteScroll) 
             //   this.infiniteScroll.enable(false);
           }
+
+          
+
+
           //if(this.refresher)
            // this.refresher.complete();
 
