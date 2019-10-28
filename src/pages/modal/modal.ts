@@ -13,6 +13,8 @@ export class ModalPage {
 
   accessToken;
   helpersArr=[];
+  from
+  title
 
   constructor(public viewCtrl : ViewController,public service:LoginserviceProvider,
     public navCtrl: NavController, public navParams: NavParams,
@@ -20,11 +22,18 @@ export class ModalPage {
       
       this.helper.view = "pop";
       this.accessToken = localStorage.getItem('user_token');
+
+      this.from = this.navParams.get("from")
+      console.log("modal from : ",this.from)
+      // specialization , 
+      if(this.from == "specialization")
+        this.title = "استشارات طبية"
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalPage');
-    this.initializeHelper();
+    if(this.from == "specialization")
+      this.initializeHelper();
   }
 
   closeModal(){

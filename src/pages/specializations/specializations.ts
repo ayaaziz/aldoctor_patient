@@ -357,7 +357,7 @@ console.log("sp item search val ",val);
 
   openModal(){
   
-    var modalPage = this.modalCtrl.create('ModalPage');
+    var modalPage = this.modalCtrl.create('ModalPage',{from:"specialization"});
     modalPage.present();
   }
   
