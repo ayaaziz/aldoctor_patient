@@ -438,7 +438,7 @@ helpersAlert(){
 }
 openModal(){
   
-  var modalPage = this.modalCtrl.create('ModalPage');
+  var modalPage = this.modalCtrl.create('ModalPage',{from:"specialization"});
   modalPage.present();
 }
 

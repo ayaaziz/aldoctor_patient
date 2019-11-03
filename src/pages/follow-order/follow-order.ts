@@ -32,6 +32,7 @@ export class FollowOrderPage {
   doctorLocation;
   doctorRate;
   OrderCost;
+  costAfterDiscount ;
   map: any;
   langDirection;
   accessToken;
@@ -123,9 +124,9 @@ export class FollowOrderPage {
             
             this.doctorSpecialization = tempData.speciality; 
             if(this.reorderDetected == false)
-              this.OrderCost = tempData.extraInfo.discount;
+              this.OrderCost = tempData.extraInfo.discount; //كشف
             else if(this.reorderDetected == true)
-              this.OrderCost = tempData.extraInfo.price;
+              this.OrderCost = tempData.extraInfo.price;//اعاده
 
             this.phone = tempData.phone;
             

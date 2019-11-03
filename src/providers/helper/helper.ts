@@ -31,11 +31,14 @@ export class HelperProvider {
   // final test
   //public serviceUrl: string = "http://aldoctor-app.com/aldoctor3/public/";
 
-  // final production
-  public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
-
   //finalll test
   //public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+
+  // final production
+  // public serviceUrl: string = "http://aldoctor-app.com/aldoctor/public/";
+
+  //last api for testing
+  public serviceUrl: string = "http://aldoctor-app.com/aldoctorfinaltest/public/";
 
   public registration;
   public device_type;

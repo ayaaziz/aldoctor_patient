@@ -103,6 +103,11 @@
   <h5 *ngIf="langDirection == 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;text-align: right;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
   <h5 *ngIf="langDirection != 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
 
+
+  <h5 *ngIf="langDirection == 'rtl' && costAfterDiscount" style="color:grey;margin-top:0px;margin-bottom:0px;text-align: right;">{{"costafterDiscount"|translate}} : {{costAfterDiscount}} {{"pound"|translate}}</h5>
+  <h5 *ngIf="langDirection != 'rtl' && costAfterDiscount" style="color:grey;margin-top:0px;margin-bottom:0px;">{{"costafterDiscount"|translate}} : {{costAfterDiscount}} {{"pound"|translate}}</h5>
+
+
   <h5 *ngIf="langDirection == 'rtl'" style="color:grey;text-align: right;">{{"arrivaltime" | translate}} {{newduration}} </h5>
   <h5 *ngIf="langDirection != 'rtl'" style="color:grey;">{{"arrivaltime" | translate}} {{newduration}} </h5>
   
