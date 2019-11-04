@@ -28,17 +28,78 @@ export class ModalPage {
       // specialization , 
       if(this.from == "specialization")
         this.title = "استشارات طبية"
+      else if(this.from == "medicalConsultant")
+        this.title = "استشارات طبية"
+      else if(this.from == "customerService")
+        this.title = "خدمة عملاء"
+        
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ModalPage');
     if(this.from == "specialization")
       this.initializeHelper();
+    else if (this.from == "medicalConsultant")
+      this.medicalConsultant();
+    else if (this.from == "customerService")
+      this.customerService()
   }
 
   closeModal(){
     this.viewCtrl.dismiss();  
   }
+
+  medicalConsultant(){
+    this.service.getuserProfile(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getuserProfile ",resp);
+        console.log("city_id",JSON.parse(JSON.stringify(resp)).extraInfo.city_id);
+        this.service.getmedicalConsultants(JSON.parse(JSON.stringify(resp)).extraInfo.city_id,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp from getHelperTelephones from modal",resp);
+            this.helpersArr = JSON.parse(JSON.stringify(resp));
+      
+      
+      
+          },
+          err=>{
+            console.log("errfrom getHelperTelephones",err);
+          });
+   
+          
+      }
+      ,err=>{
+        console.log("can't getuserProfile ",err);
+      });
+   
+  }
+
+  customerService(){
+    this.service.getuserProfile(this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from getuserProfile ",resp);
+        console.log("city_id",JSON.parse(JSON.stringify(resp)).extraInfo.city_id);
+        this.service.getCustomerService(JSON.parse(JSON.stringify(resp)).extraInfo.city_id,this.accessToken).subscribe(
+          resp=>{
+            console.log("resp from getHelperTelephones from modal",resp);
+            this.helpersArr = JSON.parse(JSON.stringify(resp));
+      
+      
+      
+          },
+          err=>{
+            console.log("errfrom getHelperTelephones",err);
+          });
+   
+          
+      }
+      ,err=>{
+        console.log("can't getuserProfile ",err);
+      });
+   
+  }
+
+
 
   initializeHelper(){
     this.service.getuserProfile(this.accessToken).subscribe(

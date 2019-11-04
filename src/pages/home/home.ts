@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController , ToastController, Platform, Events, AlertController} from 'ionic-angular';
+import { NavController , ToastController, Platform, Events, AlertController,ModalController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -30,7 +30,7 @@ xxrate;
 
   constructor(public service: LoginserviceProvider,public events: Events,
     public platform:Platform, public alertCtrl: AlertController,
-    public translate:TranslateService,
+    public translate:TranslateService,public modalCtrl: ModalController,
     public helper:HelperProvider,public toastCtrl: ToastController,
      public storage: Storage, public navCtrl: NavController) 
      {
@@ -544,4 +544,25 @@ slider(){
   console.log("slider");
   this.navCtrl.push('slider');
 }
+
+medicalConsultant(){
+  console.log("medicalConsultant")
+  
+  
+    var modalPage = this.modalCtrl.create('ModalPage',{from:"medicalConsultant"});
+    modalPage.present();
+
+
+}
+
+customerService(){
+  console.log("customerService")
+  
+  
+    var modalPage = this.modalCtrl.create('ModalPage',{from:"customerService"});
+    modalPage.present();
+ 
+
+}
+
 }

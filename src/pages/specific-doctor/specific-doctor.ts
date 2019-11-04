@@ -1025,7 +1025,8 @@ for(var g=0;g<this.doctors.length;g++){
   }
   showDoctorProfile(item){
     console.log("card item ",item);
-    item.specialization = this.Specialization;
+    // item.specialization = this.Specialization;
+    item.specialization = item.specialityname
     console.log("item after add specialization: ",item);
     this.navCtrl.push('doctor-profile',{
       data:item

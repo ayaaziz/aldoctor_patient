@@ -33,6 +33,9 @@ export class FollowOrderPage {
   doctorRate;
   OrderCost;
   costAfterDiscount ;
+  discountType;
+  discountmony;
+
   map: any;
   langDirection;
   accessToken;
@@ -102,6 +105,15 @@ export class FollowOrderPage {
             if(orderDataForPriceParsing.is_reorder == "0" && orderDataForPriceParsing.reorder_done == "1")
               this.reorderDetected = true;
 
+              if(orderDataForPriceParsing.PriceAfterDiscount)
+              {
+                this.discountType = orderDataForPriceParsing.couponType;
+                this.discountmony = orderDataForPriceParsing.PriceAfterDiscount;
+              }
+              else
+                this.discountmony = "";
+
+
             this.patientAdd =  orderDataForPriceParsing.patient_location;
             this.lat = this.patientAdd.split(",")[0];
             this.lng = this.patientAdd.split(",")[1];
@@ -123,8 +135,16 @@ export class FollowOrderPage {
 
             
             this.doctorSpecialization = tempData.speciality; 
-            if(this.reorderDetected == false)
+            if(this.reorderDetected == false){
               this.OrderCost = tempData.extraInfo.discount; //كشف
+
+              if(this.discountType == "amount")
+                this.costAfterDiscount = this.OrderCost - this.discountmony ;
+              else if(this.discountType == "percent")
+                this.costAfterDiscount = this.OrderCost - this.discountmony ;
+                // this.costAfterDiscount = this.OrderCost - (this.OrderCost*(this.discountmony/100)) ;
+
+            }
             else if(this.reorderDetected == true)
               this.OrderCost = tempData.extraInfo.price;//اعاده
 

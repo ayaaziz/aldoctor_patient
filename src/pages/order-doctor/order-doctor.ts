@@ -1074,7 +1074,8 @@ this.disableDropDown = true;
 
   showDoctorProfile(item) {
     console.log("card item ", item);
-    item.specialization = this.Specialization;
+    // item.specialization = this.Specialization;
+    item.specialization = item.specialityname
     console.log("item after add specialization: ", item);
 
     this.navCtrl.push('doctor-profile', {
@@ -1153,7 +1154,8 @@ this.disableDropDown = true;
 
   }
   ionViewWillEnter() {
-    this.page = 0;
+    console.log("ionViewWillEnter : page = ", this.page)
+    // this.page = 0;
   }
 
 

@@ -24,8 +24,8 @@
     <ion-row justify-content-center align-items-center style="height: 100%">
       <ion-col> -->
 
-       
-        <ion-grid style="margin-top:20px;">
+       <!-- 20 -->
+        <ion-grid style="margin-top:8px;"> 
           <ion-row>
             <ion-col col-12>
                 <img src="assets/imgs/dlogo.png" class="customIconForLogo">
@@ -67,6 +67,18 @@
                 <ion-label class="labelStyle">{{"center" |translate}}</ion-label>
               </div>
             </ion-col>
+          </ion-row>
+          <ion-row style="margin-bottom: 5px;" >
+            <div style="width: 100%;">
+
+              <button type="button"   class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';width: 50%;margin: auto;" (click)="medicalConsultant()"> استشارات طبية </button>  
+            </div>
+          </ion-row>
+          <ion-row>
+            <div style="width: 100%;">
+
+              <button type="button"   class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';width: 50%;margin: auto;" (click)="customerService()"> خدمة عملاء </button>  
+            </div>
           </ion-row>
         </ion-grid>
       <!-- </ion-col>
