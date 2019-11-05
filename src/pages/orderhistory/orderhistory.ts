@@ -264,8 +264,11 @@ reorderDate:"",reorderPrice:""};
               //.split(" ")[0]
               this.orderobject.orderDate = ordersData[j].created_at_new;
               
-              if(ordersData[j].date)
+              if(ordersData[j].date){
+                console.log("J : ",j,"ordersData[j].date : ",ordersData[j].date)
                 this.orderobject.contDate = ordersData[j].date;
+              }
+             
               // console.log("ordersData[j].date ",ordersData[j].date);
 
               // if(ordersData[j].reorder == "1")
@@ -906,9 +909,18 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
       title: this.translate.instant("confirmReorder"),
       message: msg,
       buttons: [
+      //   {
+      //     text: "لاحقا",
+      //    role: 'cancel',
+      //    handler: () => {
+      //      console.log("later btn handler")
+         
+      //    }
+
+      //  },
         {
           text: this.translate.instant("disagree"),
-          role: 'cancel',
+           
           handler: () => {
             console.log('disagree clicked');
             item.reorderBtn = true;
@@ -1017,8 +1029,18 @@ presentContOrderConfirm(item) {
     message: item.remark+"<br/>"+item.contDate+"<br>"+" هل تريد تأكيد الموعد؟",
     buttons: [
       {
-        text: this.translate.instant("disagree"),
-        role: 'cancel',
+        text: "لاحقا",
+       role: 'cancel',
+       handler: () => {
+         console.log("later btn handler")
+        
+
+       }
+
+     },
+      {
+        text:"رفض",
+      
         handler: () => {
           console.log('confirm contorder disagree clicked');
           this.service.updateOrderStatusToCancel(item.orderId,this.accessToken).subscribe(

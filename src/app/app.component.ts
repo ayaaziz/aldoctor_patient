@@ -1443,9 +1443,18 @@ if (notification.additionalData.OrderID){
       title: "إكمال الطلب",
       message: remark + "<br/>" + contDate + "<br>" + " هل تريد تأكيد الموعد؟",
       buttons: [
+        
         {
-          text: "إلغاء",
+           text: "لاحقا",
           role: 'cancel',
+          handler: () => {
+            console.log("later btn handler")
+            this.nav.setRoot(TabsPage);
+          }
+
+        },
+        {
+          text: "رفض",
           handler: () => {
             console.log('confirm contorder  disagree clicked');
 
@@ -1553,8 +1562,8 @@ if (notification.additionalData.OrderID){
             // );
           }
         }
-      ],
-      enableBackdropDismiss: false
+      ]
+      //, enableBackdropDismiss: false
     });
     alert.present();
   }
