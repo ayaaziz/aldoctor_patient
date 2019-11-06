@@ -989,6 +989,32 @@ if (notification.additionalData.OrderID){
             }  else
             this.events.publish('status8');
           }
+          else if (orderStatus == "12") {
+            if (!notification.additionalData.remark)
+              notification.additionalData.remark = "";
+
+            if (!notification.additionalData.date)
+              notification.additionalData.date = "";
+
+
+              if (this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
+            {
+              console.log("remaining satatu 2 plc",this.helper.view);
+            this.events.publish('status2ForPLC', data);
+            // this.presentContOrderConfirm(notification.additionalData.OrderID, notification.additionalData.remark, notification.additionalData.date);
+            // this.helper.removeNetworkDisconnectionListener();
+            // this.nav.setRoot(TabsPage);
+           
+            }
+              this.presentContOrderConfirm(notification.additionalData.OrderID, notification.additionalData.remark, notification.additionalData.date);
+              this.helper.removeNetworkDisconnectionListener();
+  
+              
+            
+            
+
+          }
+
           else if (orderStatus == "11") {
             console.log("doc status 11 ")
             if (this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
@@ -1252,7 +1278,31 @@ if (notification.additionalData.OrderID){
         else
         this.events.publish('status7');
       }
+     else  if (orderStatus == "12") {
+        if (!notification.additionalData["gcm.notification.remark"])
+          notification.additionalData["gcm.notification.remark"] = "";
 
+        if (!notification.additionalData["gcm.notification.date"])
+          notification.additionalData["gcm.notification.date"] = "";
+
+
+          if (this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
+        {
+          console.log("remaining satatu 2 plc",this.helper.view);
+        this.events.publish('status2ForPLC', data);
+        // this.presentContOrderConfirm(notification.additionalData.OrderID, notification.additionalData.remark, notification.additionalData.date);
+        // this.helper.removeNetworkDisconnectionListener();
+        // this.nav.setRoot(TabsPage);
+       
+        }
+          this.presentContOrderConfirm(notification.additionalData["gcm.notification.OrderID"] , notification.additionalData["gcm.notification.remark"], notification.additionalData["gcm.notification.date"]);
+          this.helper.removeNetworkDisconnectionListener();
+
+          
+        
+        
+
+      }
       else if (orderStatus == "8") { // move to patient
         if (this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
         {
