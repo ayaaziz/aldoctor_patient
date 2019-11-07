@@ -288,7 +288,8 @@ export class NotificationPage {
       this.presentContOrderConfirm(item.data.text,item.remark,item.date);
     else if( item.data.type == "new-order" && item.user.service_id == "3")
       this.presentlong(item.data.text);
-
+    else if(item.data.type == "set-date"  && item.user.service_id == "2")
+      this.presentContOrderConfirm(item.data.text,item.remark,item.date);
     // if(item.date)
     // { console.log("with date",item.date);
     //   if(item.data.type == "new-reorder"  && item.user.service_id == "2")

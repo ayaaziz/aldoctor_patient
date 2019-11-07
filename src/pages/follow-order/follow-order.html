@@ -100,16 +100,19 @@
           
           
  
-  <h5 *ngIf="langDirection == 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;text-align: right;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
-  <h5 *ngIf="langDirection != 'rtl'" style="color:grey;margin-top:0px;margin-bottom:0px;">{{"cost"|translate}} : {{OrderCost}} {{"pound"|translate}}</h5>
+  <h5 *ngIf="langDirection == 'rtl'" style="color:#016a38;margin-top:0px;margin-bottom:0px;text-align: right;">{{"cost"|translate}} :  <span style="color:grey;"> {{OrderCost}} {{"pound"|translate}} </span> </h5>
+  <h5 *ngIf="langDirection != 'rtl'" style="color:#016a38;margin-top:0px;margin-bottom:0px;">{{"cost"|translate}} : <span style="color:grey;"> {{OrderCost}} {{"pound"|translate}} </span> </h5>
 
 
-  <h5 *ngIf="langDirection == 'rtl' && costAfterDiscount" style="color:grey;margin-top:0px;margin-bottom:0px;text-align: right;">{{"costafterDiscount"|translate}} : {{costAfterDiscount}} {{"pound"|translate}}</h5>
-  <h5 *ngIf="langDirection != 'rtl' && costAfterDiscount" style="color:grey;margin-top:0px;margin-bottom:0px;">{{"costafterDiscount"|translate}} : {{costAfterDiscount}} {{"pound"|translate}}</h5>
+  <h5 *ngIf="langDirection == 'rtl' && costAfterDiscount" style="color:#016a38;margin-top:0px;margin-bottom:0px;text-align: right;">{{"costafterDiscount"|translate}} : <span style="color:grey;"> {{costAfterDiscount}} {{"pound"|translate}} </span> </h5>
+  <h5 *ngIf="langDirection != 'rtl' && costAfterDiscount" style="color:#016a38;margin-top:0px;margin-bottom:0px;">{{"costafterDiscount"|translate}} : <span style="color:grey;"> {{costAfterDiscount}} {{"pound"|translate}} </span> </h5>
+
+  <p *ngIf="contDate" style="color:#016a38;text-align:right;font-size:16px;margin: 0px;">  الموعد المحدد :<span style="color:grey;"> {{contDate}}</span></p>
+  <p *ngIf="contNotes" style="color:#016a38;text-align:right;font-size:16px;margin: 0px">  الملاحظات :<span style="color:grey;"> {{contNotes}}</span></p>
 
 
-  <h5 *ngIf="langDirection == 'rtl'" style="color:grey;text-align: right;">{{"arrivaltime" | translate}} {{newduration}} </h5>
-  <h5 *ngIf="langDirection != 'rtl'" style="color:grey;">{{"arrivaltime" | translate}} {{newduration}} </h5>
+  <h5 *ngIf="langDirection == 'rtl'" style="color:grey;text-align: right;margin:0px;margin-bottom: 4px;margin-top:2px">{{"arrivaltime" | translate}} {{newduration}} </h5>
+  <h5 *ngIf="langDirection != 'rtl'" style="color:grey;margin:0px;margin-bottom: 4px;margin-top:2px">{{"arrivaltime" | translate}} {{newduration}} </h5>
   
 
   <ion-item style="text-align:center;" no-lines>

@@ -56,6 +56,9 @@ export class FollowOrderPage {
   patientAdd;
   newduration
 
+  contNotes
+  contDate
+
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
     private geolocation: Geolocation,public helper:HelperProvider,public navCtrl: NavController,
@@ -114,6 +117,15 @@ export class FollowOrderPage {
                 this.discountmony = "";
 
 
+                if(orderDataForPriceParsing.date)
+                  this.contDate = orderDataForPriceParsing.date
+                else
+                  this.contDate = ""
+
+                if(orderDataForPriceParsing.remark)
+                  this.contNotes = orderDataForPriceParsing.remark
+                else 
+                  this.contNotes = ""
             this.patientAdd =  orderDataForPriceParsing.patient_location;
             this.lat = this.patientAdd.split(",")[0];
             this.lng = this.patientAdd.split(",")[1];
