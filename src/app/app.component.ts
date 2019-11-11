@@ -675,7 +675,7 @@ else {
       ios: {
         alert: 'true',
         badge: true,
-        sound: 'false'
+        sound: 'true'
       }
     }
     const pushObject: PushObject = this.push.init(options);
