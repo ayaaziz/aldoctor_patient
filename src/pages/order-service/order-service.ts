@@ -84,6 +84,8 @@ export class OrderServicePage {
   onlinetmpArrForSorting = [];
   offlinetmpArrForSorting = [];
 
+  eof = false
+
   constructor(public translate: TranslateService,  public events: Events,
     public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider, public toastCtrl: ToastController, 
@@ -634,26 +636,26 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
               this.sortDoctorsWithOnline();
               this.page++;
               this.Loadfunc();
-              
+              this.eof = false
             } else{
-
-              if(this.type_id == "1" ){
-                console.log("pharamacy check 5 : ",this.DoctorsArray)
-                if(this.DoctorsArray.length >= 5){
-                  for(var x=0;x<5;x++){
-                    this.DoctorsArray[x].checked = true;
-                    this.choosenDoctors.push(this.DoctorsArray[x]);
-                  }
-                }else{
-                  for(var x=0;x<this.DoctorsArray.length;x++){
-                    this.DoctorsArray[x].checked = true;
-                    this.choosenDoctors.push(this.DoctorsArray[x]);
-                  }
-                }
+this.eof = true
+              // if(this.type_id == "1" ){
+              //   console.log("pharamacy check 5 : ",this.DoctorsArray)
+              //   if(this.DoctorsArray.length >= 5){
+              //     for(var x=0;x<5;x++){
+              //       this.DoctorsArray[x].checked = true;
+              //       this.choosenDoctors.push(this.DoctorsArray[x]);
+              //     }
+              //   }else{
+              //     for(var x=0;x<this.DoctorsArray.length;x++){
+              //       this.DoctorsArray[x].checked = true;
+              //       this.choosenDoctors.push(this.DoctorsArray[x]);
+              //     }
+              //   }
                 
-                console.log("choosen doc : ",this.choosenDoctors)
+              //   console.log("choosen doc : ",this.choosenDoctors)
                 
-              }
+              // }
               
             }
             // console.log("1 load func page",this.page);
@@ -904,6 +906,26 @@ this.offlinetmpArrForSorting = [];
     console.log("distance doc after sort ",this.DoctorsArray);
     console.log("xarray",xarray);
     this.DoctorsArray = xarray;
+
+    if(this.eof == true && this.choosenDoctors.length<5){
+      if(this.type_id == "1" ){
+        console.log("pharamacy check 5 : ",this.DoctorsArray)
+        if(this.DoctorsArray.length >= 5){
+          for(var x=0;x<5;x++){
+            this.DoctorsArray[x].checked = true;
+            this.choosenDoctors.push(this.DoctorsArray[x]);
+          }
+        }else{
+          for(var x=0;x<this.DoctorsArray.length;x++){
+            this.DoctorsArray[x].checked = true;
+            this.choosenDoctors.push(this.DoctorsArray[x]);
+          }
+        }
+        
+        console.log("choosen doc : ",this.choosenDoctors)
+        
+      }
+    }
     // var yarray=[];
     // yarray = [3,4].concat([1,2]);
     // console.log("yarray",yarray);

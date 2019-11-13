@@ -898,10 +898,13 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
       if(this.type_id == "1" ){
         console.log("pharamacy check 5 : ",this.doctors)
         if(this.doctors.length >= 5){
+          console.log("pharmacy before check true :",this.doctors)
           for(var x=0;x<5;x++){
             this.doctors[x].checked = true;
+            console.log("pharmacy index : ",x , " => ",this.doctors[x])
             this.choosenDoctors.push(this.doctors[x]);
           }
+          // console.log("pharmacy after check true : ",this.doct)
         }else{
           for(var x=0;x<this.doctors.length;x++){
             this.doctors[x].checked = true;
