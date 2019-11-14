@@ -16,6 +16,8 @@ export class HelperProvider {
 
   public lang_direction ='rtl';
   public currentLang ='ar';
+  // ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="2136661453100884" --variable APP_NAME="Aldoctor APP"
+  
   //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
   
   //production
