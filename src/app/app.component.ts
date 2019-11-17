@@ -1529,13 +1529,13 @@ if (notification.additionalData.OrderID){
 
                     }, err => {
                       console.log("err cancel contOrder", err);
-                      this.presentToast("خطأ فى الاتصال");
+                      // this.presentToast("خطأ فى الاتصال");
                     }
                   );
                 }
               }, err => {
                 console.log("getOrderStatus err", err);
-                this.presentToast("خطأ فى الاتصال");
+                // this.presentToast("خطأ فى الاتصال");
               }
             );
 
@@ -1583,13 +1583,13 @@ if (notification.additionalData.OrderID){
 
                     }, err => {
                       console.log("err cancel contOrder", err);
-                      this.presentToast("خطأ فى الاتصال");
+                      // this.presentToast("خطأ فى الاتصال");
                     }
                   );
                 }
               }, err => {
                 console.log("getOrderStatus err", err);
-                this.presentToast("خطأ فى الاتصال");
+                // this.presentToast("خطأ فى الاتصال");
               }
             );
 

@@ -994,9 +994,19 @@ private presentToast(text) {
      title: "إكمال الطلب",
      message: remark+"<br/>"+contDate+"<br>"+" هل تريد تأكيد الموعد؟",
      buttons: [
+      {
+        text: "لاحقا",
+       role: 'cancel',
+       handler: () => {
+         console.log("later btn handler")
+        
+
+       }
+
+     },
        {
          text: "إلغاء",
-         role: 'cancel',
+        //  role: 'cancel',
          handler: () => {
            console.log('confirm contorder  disagree clicked');
 
@@ -1012,7 +1022,7 @@ private presentToast(text) {
                  
              },err=>{
                console.log("err cancel contOrder",err);
-               this.presentToast("خطأ فى الاتصال");
+              //  this.presentToast("خطأ فى الاتصال");
              }
            );
          }
@@ -1034,13 +1044,15 @@ private presentToast(text) {
                  
              },err=>{
                console.log("err cancel contOrder",err);
-               this.presentToast("خطأ فى الاتصال");
+              //  this.presentToast("خطأ فى الاتصال");
              }
            );
          }
        }
-     ],
-     enableBackdropDismiss : false
+     ]
+    //  ,
+
+    //  enableBackdropDismiss : false
    });
    alert.present();
  }

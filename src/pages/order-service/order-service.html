@@ -71,9 +71,9 @@
               <ion-item >
                   <!-- overflow-x: hidden; -->
                 <h2 style="width:60px;margin-top:0px;font-size: 13px;font-weight: bold;">{{item.name}}</h2>
-                
+          
                 <h5 [hidden]="hidePrice" style="font-size:12px;font-weight: bold">{{"cost"|translate}} : {{item.servicePrice}}{{"pound"|translate}} </h5>
-                <h5 [hidden]="hidePrice" style="font-size:12px;font-weight: bold"  *ngIf="center_id == '478' ||  center_id == '479' " > للوضع الواحد </h5> 
+                <h5 [hidden]="hidePrice" style="font-size:10px;font-weight: bold"  *ngIf="center_id == '478' ||  center_id == '479' " > للوضع الواحد </h5> 
                 <rating 
                       [(ngModel)]="item.rate" 
                       readOnly="true" 
@@ -89,7 +89,7 @@
             <!-- fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->
             <ion-col col-3 col-sm-2  style="text-align: center;padding-top: 5px;" >
               <ion-checkbox [(ngModel)]="item.checked" (click)="doctorChecked(item ,$event)"  [disabled]="item.offline" ></ion-checkbox>     
-              <ion-label style="text-align: center;" *ngIf="item.distanceval != 8888888888888888">{{item.distance}}</ion-label>
+              <ion-label style="text-align: center;" *ngIf="item.distanceval != 8888888888888888 ">{{item.distance}}</ion-label>
               <ion-label style="text-align: center;" *ngIf="item.distanceval != 8888888888888888">{{item.timefordelivery2}}</ion-label>
 
             </ion-col>
