@@ -53,11 +53,11 @@
   
   
     <ion-label [hidden]="hideServices" *ngFor="let item of services" class="services" style="color:gray;font-size: 16px;" >
-        <p *ngIf="langDirection != 'rtl'">{{item.service_name}} <span >(  <ion-icon name="md-cash" style="color:#016a38"></ion-icon><p style="color:#016a38"> {{item.price}} جنيه</p>)</span></p>
+        <p *ngIf="langDirection != 'rtl'">{{item.service_name}} <span >(  <ion-icon name="md-cash" style="color:#016a38"></ion-icon><p style="color:#016a38"> {{item.price}} جنيه<span style="color:#016a38" *ngIf="item.id == '478' ||  item.id == '479' " > للوضع الواحد </span></p>)</span></p>
     </ion-label>
   
     <ion-label [hidden]="hideServices" *ngFor="let item of services" class="services right" style="color:gray;font-size: 16px;" >
-        <p  *ngIf="langDirection == 'rtl'" style="margin-right:30px;font-size:14px"> {{item.service_name}}  <span *ngIf="item.price">(  <ion-icon name="md-cash" style="color:#016a38"> </ion-icon>  <p style="color:#016a38;display: inline-block;font-size: 15px;font-weight: bold;"> {{item.price || ""}} جنيه </p> )</span>  </p>
+        <p  *ngIf="langDirection == 'rtl'" style="margin-right:30px;font-size:14px"> {{item.service_name}}  <span *ngIf="item.price">(  <ion-icon name="md-cash" style="color:#016a38"> </ion-icon>  <p style="color:#016a38;display: inline-block;font-size: 15px;font-weight: bold;"> {{item.price || ""}} جنيه  <span style="color:#016a38" *ngIf="item.id == '478' ||  item.id == '479' " > للوضع الواحد </span> </p> )</span>  </p>
     </ion-label>
 
 
