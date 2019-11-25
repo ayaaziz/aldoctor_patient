@@ -912,13 +912,17 @@ this.offlinetmpArrForSorting = [];
         console.log("pharamacy check 5 : ",this.DoctorsArray)
         if(this.DoctorsArray.length >= 5){
           for(var x=0;x<5;x++){
+            if(this.DoctorsArray[x].color == "green"){
             this.DoctorsArray[x].checked = true;
             this.choosenDoctors.push(this.DoctorsArray[x]);
+            }
           }
         }else{
           for(var x=0;x<this.DoctorsArray.length;x++){
+            if(this.DoctorsArray[x].color == "green"){
             this.DoctorsArray[x].checked = true;
             this.choosenDoctors.push(this.DoctorsArray[x]);
+            }
           }
         }
         
