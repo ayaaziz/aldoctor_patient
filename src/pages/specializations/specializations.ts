@@ -40,6 +40,7 @@ export class SpecializationsPage {
   phone2;
   phone3;
   
+  refresher;
   constructor(public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public storage: Storage,
      public service:LoginserviceProvider,public toastCtrl: ToastController,
@@ -361,4 +362,14 @@ console.log("sp item search val ",val);
     modalPage.present();
   }
   
+  doRefresh(ev){
+    console.log("refresh",ev);
+    this.refresher = ev;
+    // if(this.refresher){
+      this.refresher.complete();
+    // }
+    this.initializeSpecializations();
+
+  }
+
 }

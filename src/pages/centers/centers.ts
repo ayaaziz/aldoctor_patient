@@ -441,5 +441,15 @@ openModal(){
   var modalPage = this.modalCtrl.create('ModalPage',{from:"specialization"});
   modalPage.present();
 }
+refresher;
+doRefresh(ev){
+  console.log("refresh",ev);
+  this.refresher = ev;
+  // if(this.refresher){
+    this.refresher.complete();
+  // }
+  this.initializeSpecializations();
+
+}
 
 }

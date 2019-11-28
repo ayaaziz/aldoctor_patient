@@ -27,6 +27,11 @@
 
 <ion-content padding>
 
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
+
   <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
 
     <ion-col style="background-color: #e8f1ed" col-11>

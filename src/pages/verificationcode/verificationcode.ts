@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController ,Events} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HelperProvider } from '../../providers/helper/helper';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
@@ -27,7 +27,7 @@ export class VerificationcodePage {
   codeErrMsg;
 phone="";
 frgetPass;
-  constructor(public storage: Storage,public translate: TranslateService, 
+  constructor(public storage: Storage,public translate: TranslateService, public events: Events,
     public loginservice:LoginserviceProvider,
     public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
     
@@ -149,6 +149,7 @@ frgetPass;
                         "add":newuserData.extraInfo.address,
                         "profile_pic":newuserData.profile_pic
                       }).then((data)=>{
+                        this.events.publish("user:userLoginSucceeded")
                         this.navCtrl.setRoot(TabsPage);
                       },(error)=>{
                       //  this.presentToast("set then error from signup: "+error)
@@ -220,6 +221,7 @@ frgetPass;
             "add":newuserData.extraInfo.address,
             "profile_pic":newuserData.profile_pic
           }).then((data)=>{
+            this.events.publish("user:userLoginSucceeded")
              this.navCtrl.setRoot(TabsPage);
             // this.navCtrl.push('slider');
             // this.storage.get("slider").catch(err=>{
