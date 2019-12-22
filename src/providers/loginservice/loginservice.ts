@@ -184,6 +184,21 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
   }
 
 
+  getSpecializations2(access_token){
+    console.log("sp:",this.helper.currentLang);
+    //return this.http.get(this.helper.serviceUrl+'api/get/lkps/specialities');
+    var lang = this.helper.currentLang;
+    let headers = new HttpHeaders();
+
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/specialities?lang='+lang+"&all=1";
+    console.log("request : ",serviceUrl);
+    return this.http.get(serviceUrl,{headers: headers });
+
+    
+  }
+  
+
   getSpecializations(access_token){
     console.log("sp:",this.helper.currentLang);
     //return this.http.get(this.helper.serviceUrl+'api/get/lkps/specialities');
@@ -197,7 +212,9 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
     
   }
-  
+
+
+
   getDoctorInSpecificSpecialization(page,id,access_token){
     let headers = new HttpHeaders();
 

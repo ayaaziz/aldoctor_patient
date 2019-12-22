@@ -271,7 +271,7 @@ export class SpecificDoctorPage {
     this.accessToken = localStorage.getItem('user_token');
     
       this.showLoading=false;
-      this.service.getSpecializations(this.accessToken).subscribe(
+      this.service.getSpecializations2(this.accessToken).subscribe(
         resp=>{
           this.showLoading=true;
           console.log("getSpecializations resp: ",resp);

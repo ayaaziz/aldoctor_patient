@@ -46,7 +46,7 @@
       </ion-col>
       <!-- col-3 col-sm-9  -->
       <ion-col  *ngIf="langDirection != 'rtl'" style="background-color: #e8f1ed;height:50px;" col-8 col-sm-10 col-md-10>
-        <ion-select  [disabled]="disableDropDown == true" [(ngModel)]="Specialization" interface="popover"  class="selector" >
+        <ion-select placeholder="اختر تخصص" [disabled]="disableDropDown == true" [(ngModel)]="Specialization" interface="popover"  class="selector" >
           <ion-option  value="{{item.value}}" *ngFor="let item of SpecializationArray" class="option"  (ionSelect)='SpecializationChecked(item.id)'>{{item.value}}</ion-option>
         </ion-select>   
         <div style="text-align:right">
@@ -54,7 +54,7 @@
       </div>
       </ion-col>
       <ion-col *ngIf="langDirection == 'rtl'"  style="background-color: #e8f1ed;height:50px;" col-8 col-sm-10 col-md-10 >
-        <ion-select [disabled]="disableDropDown == true" [(ngModel)]="Specialization"  style="text-align:right;" interface="popover"  class="selector" > 
+        <ion-select  placeholder="اختر تخصص" [disabled]="disableDropDown == true" [(ngModel)]="Specialization"  style="text-align:right;" interface="popover"  class="selector" > 
           <ion-option  value="{{item.value}}" *ngFor="let item of SpecializationArray" class="option" (ionSelect)='SpecializationChecked(item.id)'>{{item.value}}</ion-option>
         </ion-select> 
         <img src="assets/icon/arrow.png" style="margin-top:-34px;width:20px;height:20px;float: left;">  

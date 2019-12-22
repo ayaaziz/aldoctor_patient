@@ -322,7 +322,7 @@ this.disableDropDown = true;
 
     this.accessToken = localStorage.getItem('user_token');
 
-    this.service.getSpecializations(this.accessToken).subscribe(
+    this.service.getSpecializations2(this.accessToken).subscribe(
       resp => {
 
         console.log("getSpecializations resp: ", resp);
