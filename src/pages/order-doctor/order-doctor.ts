@@ -499,6 +499,10 @@ this.disableDropDown = true;
             }
 
             console.log("7");
+          }else{
+            doctorData["results"][i].color = "grey";
+            doctorData["results"][i].offline = true;
+            doctorData["results"][i].moreTxt = "غير متوافر";
           }
 
           /* */
