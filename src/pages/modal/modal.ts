@@ -27,9 +27,9 @@ export class ModalPage {
       console.log("modal from : ",this.from)
       // specialization , 
       if(this.from == "specialization")
-        this.title = "استشارات طبية"
+        this.title = "استشارة طبية"
       else if(this.from == "medicalConsultant")
-        this.title = "استشارات طبية"
+        this.title = "استشارة طبية"
       else if(this.from == "customerService")
         this.title = "خدمة عملاء"
         
