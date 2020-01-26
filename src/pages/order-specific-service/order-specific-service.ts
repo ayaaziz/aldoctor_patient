@@ -875,7 +875,8 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
       
     if(this.doctors.length >= 3)
     {
-      this.scrollHeight = "385px";
+      // this.scrollHeight = "385px";
+      this.scrollHeight = "615px";
     
     }else{
       this.scrollHeight = "260px";

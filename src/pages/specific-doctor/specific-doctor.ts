@@ -656,7 +656,8 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["results"][i]
           }
           if(this.doctors.length >= 3)
           {
-            this.scrollHeight = "385px";
+            // this.scrollHeight = "385px";
+            this.scrollHeight = "615px";
           
           }else{
             this.scrollHeight = "260px";
@@ -734,7 +735,8 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["results"][i]
     this.doctors = [];
     if(this.doctors.length >= 3)
           {
-            this.scrollHeight = "385px";
+            // this.scrollHeight = "385px";
+            this.scrollHeight = "615px";
           
           }else{
             this.scrollHeight = "260px";

@@ -674,7 +674,8 @@ this.eof = true
           
         if(this.DoctorsArray.length >= 3)
         {
-          this.scrollHeight = "385px";
+          // this.scrollHeight = "385px";
+          this.scrollHeight = "615px";
         
         }else{
           this.scrollHeight = "260px";
