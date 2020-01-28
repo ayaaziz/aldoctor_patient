@@ -73,7 +73,11 @@
                 <h2 style="width:60px;margin-top:0px;font-size: 13px;font-weight: bold;">{{item.name}}</h2>
           
                 <h5 [hidden]="hidePrice" style="font-size:12px;font-weight: bold">{{"cost"|translate}} : {{item.servicePrice}}{{"pound"|translate}} </h5>
-                <h5 [hidden]="hidePrice" style="font-size:10px;font-weight: bold"  *ngIf="center_id == '478' ||  center_id == '479' " > للوضع الواحد </h5> 
+                <h5 [hidden]="hidePrice" style="font-size:10px;font-weight: bold"  *ngIf="center_id == '478'" > للوضع الواحد </h5> 
+                <h5 [hidden]="hidePrice" style="font-size:8px;font-weight: bold"  *ngIf="center_id == '479'" > شرايين أو أورده لأحد الأطراف الأربعه </h5> 
+
+                
+
                 <rating 
                       [(ngModel)]="item.rate" 
                       readOnly="true" 
