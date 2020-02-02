@@ -933,7 +933,7 @@ this.disableDropDown = true;
         inputs: [
           {
             name: 'currentFees',
-            placeholder: "ادخل كود - أختياري",
+            placeholder: "ادخل كود - اختياري",
             type: 'text'
           }
         ],
@@ -947,7 +947,7 @@ this.disableDropDown = true;
             }
           },
           {
-            text: "أطلب الآن",
+            text: "اطلب الآن",
             handler: data => {
               if (String(data.currentFees).trim()) {
 

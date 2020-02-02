@@ -269,7 +269,9 @@ export class RateServicePage {
         console.log("resp from rate :",resp); 
         this.ratedisabledbtn = false;
         this.helper.orderRated = 1;
-        this.presentToast(this.translate.instant("done"));
+
+        // this.translate.instant("done")
+        this.presentToast("لقد أُرسل التقييم بنجاح، شكراً لك.");
         console.log("this.helper.dontSendNotification from rate: ",this.helper.dontSendNotification);
         // if(this.helper.dontSendNotification == false)
         // {

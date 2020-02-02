@@ -883,7 +883,7 @@ for(var g=0;g<this.doctors.length;g++){
       inputs: [
         { 
           name: 'currentFees',
-          placeholder: "ادخل كود - أختياري",
+          placeholder: "ادخل كود - اختياري",
           type: 'text'
         }
       ],
@@ -897,7 +897,7 @@ for(var g=0;g<this.doctors.length;g++){
           }
         },
         {
-          text: "أطلب الآن",
+          text: "اطلب الآن",
           handler: data => {
             if (String(data.currentFees).trim()) {
               this.service.checKCoupon(doctorsId,this.accessToken,this.Specialization,String(data.currentFees).trim(),(data)=>{
