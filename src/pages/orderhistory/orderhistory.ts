@@ -223,6 +223,9 @@ reorderDate:"",reorderPrice:""};
               if( ordersData[j].is_reorder == "1" && ordersData[j].reorder_done == "0")
                 this.orderobject.reorder = "1";
 
+                if( ordersData[j].reorderstatus == "4" )
+                this.orderobject.reorder = "0";
+
               // this.orderobject.reorder = ordersData[j].reorder;
               this.orderobject.contorder = ordersData[j].contorder;
               
