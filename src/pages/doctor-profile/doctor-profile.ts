@@ -108,7 +108,7 @@ export class DoctorProfilePage {
       inputs: [
         { 
           name: 'currentFees',
-          placeholder: "ادخل كود - أختياري",
+          placeholder: "ادخل كود - اختياري",
           type: 'text'
         }
       ],
@@ -121,7 +121,7 @@ export class DoctorProfilePage {
           }
         },
         {
-          text: "أطلب الآن",
+          text: "اطلب الآن",
           handler: data => {
             if (String(data.currentFees).trim()) {
              //alert(this.spec_id)
