@@ -933,18 +933,10 @@ if (notification.additionalData.OrderID){
           }
           else if (orderStatus == "2") {
             this.events.publish("status2");
-            this.nav.setRoot(TabsPage).then(x=>{
-              console.log("then doctor")
-              this.nav.push('follow-order',
-              {
-                data:
-                {
-                  "orderId": data.orderId,
-                  "doctorId": data.doctorId
-                }
-              });
-            });
-            // this.nav.push('follow-order',
+            this.nav.setRoot(TabsPage)
+            // .then(x=>{
+            //   console.log("then doctor")
+            //   this.nav.push('follow-order',
             //   {
             //     data:
             //     {
@@ -952,6 +944,15 @@ if (notification.additionalData.OrderID){
             //       "doctorId": data.doctorId
             //     }
             //   });
+            // });
+            this.nav.push('follow-order',
+              {
+                data:
+                {
+                  "orderId": data.orderId,
+                  "doctorId": data.doctorId
+                }
+              });
           }
           else if (orderStatus == "3") //no respond
           {
