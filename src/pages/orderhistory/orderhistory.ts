@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { HelperProvider } from '../../providers/helper/helper';
 import { FollowOrderForPlcPage } from '../follow-order-for-plc/follow-order-for-plc';
+import { TabsPage } from '../tabs/tabs';
 
 
 // @IonicPage()
@@ -1049,8 +1050,15 @@ presentContOrderConfirm(item) {
           this.service.updateOrderStatusToCancel(item.orderId,this.accessToken).subscribe(
             resp=>{
               console.log("resp cancel contOrder",resp);
-              if(JSON.parse(JSON.stringify(resp)).success)
+              if(JSON.parse(JSON.stringify(resp)).success){
                 this.presentToast("تم الغاء الموعد");
+                this.navCtrl.setRoot(TabsPage);
+                // this.navCtrl.parent.select(2);
+
+              }
+               
+
+
             },err=>{
               console.log("err cancel contOrder",err);
             }
