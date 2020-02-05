@@ -788,18 +788,28 @@ if (notification.additionalData.OrderID){
           if (orderStatus == "2") {
             //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
             this.events.publish('status2ForPLC', data);
-            console.log("back to notification status 2 after publish");
+            console.log("then back to notification status 2 after publish");
             console.log("data to follow order", "orderId", orderId
               , "doctorId", notification.additionalData.doctorId);
-            this.nav.setRoot(TabsPage);
-            this.nav.push(FollowOrderForPlcPage,
-              {
-                data2:
+            this.nav.setRoot(TabsPage).then(x=>{
+              console.log("then tabs")
+              this.nav.push(FollowOrderForPlcPage,
                 {
-                  "orderId": orderId,
-                  "doctorId": notification.additionalData.doctorId
-                }
-              });
+                  data2:
+                  {
+                    "orderId": orderId,
+                    "doctorId": notification.additionalData.doctorId
+                  }
+                });
+            })
+            // this.nav.push(FollowOrderForPlcPage,
+            //   {
+            //     data2:
+            //     {
+            //       "orderId": orderId,
+            //       "doctorId": notification.additionalData.doctorId
+            //     }
+            //   });
 
             console.log("after set pages home , followorderforplc");
 
@@ -923,8 +933,9 @@ if (notification.additionalData.OrderID){
           }
           else if (orderStatus == "2") {
             this.events.publish("status2");
-            this.nav.setRoot(TabsPage);
-            this.nav.push('follow-order',
+            this.nav.setRoot(TabsPage).then(x=>{
+              console.log("then doctor")
+              this.nav.push('follow-order',
               {
                 data:
                 {
@@ -932,6 +943,15 @@ if (notification.additionalData.OrderID){
                   "doctorId": data.doctorId
                 }
               });
+            });
+            // this.nav.push('follow-order',
+            //   {
+            //     data:
+            //     {
+            //       "orderId": data.orderId,
+            //       "doctorId": data.doctorId
+            //     }
+            //   });
           }
           else if (orderStatus == "3") //no respond
           {
