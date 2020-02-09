@@ -33,6 +33,9 @@ timer;
   time=60;
 
 
+  disableBtn = false
+
+
   constructor(public storage: Storage,public translate: TranslateService, public events: Events,
     public loginservice:LoginserviceProvider,
     public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
@@ -408,8 +411,11 @@ enableTimer(){
     this.time--;
       if(this.time <= 0){
         console.log("timer off");
-     
+       this.disableBtn = false
         clearTimeout(this.timer);
+      }
+      else{
+        this.disableBtn = true
       }
   },1000);
 }

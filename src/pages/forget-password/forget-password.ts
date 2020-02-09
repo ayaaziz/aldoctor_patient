@@ -15,6 +15,7 @@ import {LoginPage }from '../login/login';
 })
 export class ForgetPasswordPage {
 
+  disableBtn = false
   langDirection;
   activationForm;
   submitAttempt = false;
@@ -76,8 +77,12 @@ firstTime = true
     // this.submitAttempt = true;
     if(this.activationForm.valid){
       if(navigator.onLine){
+
+        this.disableBtn  = true
+
 if (this.firstTime == true) {
   this.firstTime = false
+  // this.disableBtn  = true
 
   this.time = 60;
   this.enableTimer();
@@ -91,18 +96,31 @@ if (this.firstTime == true) {
     }
     else{
       this.presentToast("رقم الموبايل المستخدم غير موجود")
+      this.disableBtn = false
+      clearTimeout(this.timer);
+            this.time = 0 
+      
     }
   }, (data) => {
     this.presentToast(this.translate.instant("serverError"))
+
+    // this.disableBtn = false
+    this.disableBtn = false
+    clearTimeout(this.timer);
+            this.time = 0 
   })
  
 
 }else{
-
+console.log("time : ",this.time)
         if( this.time>0){
           this.presentToast("الرجاء الانتظار "+ this.time + " ثانية ")
+          // this.disableBtn  = true
+
         }else if( this.time == 0){
           this.time = 60;
+
+          // this.disableBtn  = true
           this.enableTimer();
 
 
@@ -115,9 +133,20 @@ if (this.firstTime == true) {
           }
           else{
             this.presentToast("رقم الموبايل المستخدم غير موجود")
+            // clearTimeout(this.timer);
+            // this.time = 0 
+    this.disableBtn = false
+    clearTimeout(this.timer);
+            this.time = 0 
+
           }
         }, (data) => {
           this.presentToast(this.translate.instant("serverError"))
+
+          this.disableBtn = false
+          clearTimeout(this.timer);
+                  this.time = 0 
+
         })
         // this.loginservice.forgetPassword(this.phone).subscribe(
         //     resp=>{
@@ -189,7 +218,7 @@ enableTimer(){
     this.time--;
       if(this.time <= 0){
         console.log("timer off");
-     
+        this.disableBtn = false
         clearTimeout(this.timer);
       }
   },1000);
