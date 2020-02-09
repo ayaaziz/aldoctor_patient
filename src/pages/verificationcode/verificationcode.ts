@@ -27,10 +27,19 @@ export class VerificationcodePage {
   codeErrMsg;
 phone="";
 frgetPass;
+
+
+timer;
+  time=60;
+
+
   constructor(public storage: Storage,public translate: TranslateService, public events: Events,
     public loginservice:LoginserviceProvider,
     public toastCtrl: ToastController,public formBuilder: FormBuilder, public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
     
+
+      this.enableTimer();
+
     this.langDirection = this.helper.lang_direction;
 
     if(this.langDirection == "rtl")
@@ -262,23 +271,59 @@ frgetPass;
       if( this.phone.toString()[0] != "2")
         this.phone= '2'+this.phone;
 
-      // this.phone = '2'+this.phone;
-      this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
-        resp=>{
-          console.log("resp from resend activation code",resp);
-          if(JSON.parse(JSON.stringify(resp)).success)
-            this.presentToast(this.translate.instant("activationCodeTxt"));
-          else
-          this.presentToast(this.translate.instant("serverError"));
-        },
-        err=>{
-          console.log("err from resend activation code",err);
-          this.presentToast(this.translate.instant("serverError"));
-        }
-      );
+
+console.log("if this.from : " )
+
+if(this.time>0){
+  this.presentToast("الرجاء الانتظار "+ this.time + " ثانية ")
+  }else if(this.time == 0){
+    this.time = 60;
+    this.enableTimer(); 
+  
+    this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
+      resp=>{
+        console.log("resp from resend activation code",resp);
+        if(JSON.parse(JSON.stringify(resp)).success)
+          this.presentToast(this.translate.instant("activationCodeTxt"));
+        else
+        this.presentToast(this.translate.instant("serverError"));
+      },
+      err=>{
+        console.log("err from resend activation code",err);
+        this.presentToast(this.translate.instant("serverError"));
+      }
+    );
+
+  }
+
+      // // this.phone = '2'+this.phone;
+      // this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
+      //   resp=>{
+      //     console.log("resp from resend activation code",resp);
+      //     if(JSON.parse(JSON.stringify(resp)).success)
+      //       this.presentToast(this.translate.instant("activationCodeTxt"));
+      //     else
+      //     this.presentToast(this.translate.instant("serverError"));
+      //   },
+      //   err=>{
+      //     console.log("err from resend activation code",err);
+      //     this.presentToast(this.translate.instant("serverError"));
+      //   }
+      // );
 
     }
 else{
+
+  console.log("else this.from : " )
+
+
+  if(this.time>0){
+    this.presentToast("الرجاء الانتظار "+ this.time + " ثانية ")
+
+    // this.presentToast(this.translate.instant("wait"));
+  }else if(this.time == 0){
+    this.time = 60;
+    this.enableTimer(); 
 
   this.loginservice.resendActivationCode(this.phone,this.accessToken).subscribe(
     resp=>{
@@ -293,6 +338,10 @@ else{
       this.presentToast(this.translate.instant("serverError"));
     }
   );
+
+  }
+
+
 
 }
   
@@ -353,4 +402,17 @@ changeTxt(){
 
 }
   
+
+enableTimer(){
+  this.timer =setInterval(()=>{
+    this.time--;
+      if(this.time <= 0){
+        console.log("timer off");
+     
+        clearTimeout(this.timer);
+      }
+  },1000);
+}
+
+
 }

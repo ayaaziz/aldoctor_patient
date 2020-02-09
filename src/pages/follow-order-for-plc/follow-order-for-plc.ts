@@ -1092,7 +1092,7 @@ this.accessToken = localStorage.getItem('user_token');
         if(this.notificationFlag == false && h == 0 && m == 20 && this.type_id == "1") //|| m <= 30
         {
           console.log("20--- m: ",m," flag: ",this.notificationFlag," type_id: ",this.type_id);
-          this.scheduleNotification(m);
+          // this.scheduleNotification(m);
         }  
 
         },err=>{
