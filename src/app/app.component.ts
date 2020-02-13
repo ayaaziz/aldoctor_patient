@@ -410,7 +410,8 @@ events.subscribe('user:userLoginSucceeded', () => {
     } else {
       shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
     }
-    this.socialSharing.share("تطبيق الدكتور", "", "assets/imgs/dlogo.png", shareLink).then(() => {
+    // "assets/imgs/dlogo.png"
+    this.socialSharing.share("تطبيق الدكتور", null , null , shareLink).then(() => {
       console.log("success")
       this.menu.close();
 
