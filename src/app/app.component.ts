@@ -272,7 +272,11 @@ events.subscribe('user:userLoginSucceeded', () => {
     // });
 
     platform.ready().then(() => {
+      setTimeout(()=>{
+
       this.pushnotification();
+
+    }, 1000);
       //translate.setDefaultLang('en');
       // translate.use('en');
 
