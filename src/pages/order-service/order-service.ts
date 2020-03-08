@@ -912,6 +912,7 @@ this.offlinetmpArrForSorting = [];
       if(this.type_id == "1" ){
         console.log("pharamacy check 5 : ",this.DoctorsArray)
         if(this.DoctorsArray.length >= 5){
+          this.choosenDoctors = []
           for(var x=0;x<5;x++){
             if(this.DoctorsArray[x].color == "green"){
             this.DoctorsArray[x].checked = true;
@@ -919,6 +920,7 @@ this.offlinetmpArrForSorting = [];
             }
           }
         }else{
+          this.choosenDoctors = []
           for(var x=0;x<this.DoctorsArray.length;x++){
             if(this.DoctorsArray[x].color == "green"){
             this.DoctorsArray[x].checked = true;
@@ -1084,7 +1086,10 @@ this.offlinetmpArrForSorting = [];
       this.presentToast(this.translate.instant("checkAtleastonecenter"));
     }else if(this.choosenDoctors.length > 5 && this.type_id == 1)
     {
+      console.log("check5pharmacies : ",this.choosenDoctors )
       this.presentToast(this.translate.instant("check5pharmacies"));
+      
+
     }else if (this.choosenDoctors.length<1 && this.type_id == 1){
       this.presentToast(this.translate.instant("checkAtleastonepharmacy"));
     }
