@@ -553,6 +553,7 @@ export class OrderSpecificServicePage {
       this.presentToast(this.translate.instant("checkAtleastonepharmacy"));
     }
     else{
+      console.log("this.choosenDoctors ",this.choosenDoctors)
       // var doctorsId="";
       // for(var j=0;j<this.choosenDoctors.length;j++)
       // {
@@ -900,6 +901,7 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
         console.log("pharamacy check 5 : ",this.doctors)
         if(this.doctors.length >= 5){
           console.log("pharmacy before check true :",this.doctors)
+          this.choosenDoctors = []
           for(var x=0;x<5;x++){
             if(this.doctors[x].color == "green"){
               this.doctors[x].checked = true;
@@ -910,6 +912,7 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
           }
           // console.log("pharmacy after check true : ",this.doct)
         }else{
+          this.choosenDoctors = []
           for(var x=0;x<this.doctors.length;x++){
             if(this.doctors[x].color == "green"){
             this.doctors[x].checked = true;
