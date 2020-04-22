@@ -460,4 +460,64 @@ export class RemainingTimeToAcceptPage {
   }
 
 
+
+  cancelOrder(){
+    console.log("cancelOrder")
+    this.backpresentCancelConfirmForDoc()
+    
+  }
+
+
+  backpresentCancelConfirmForDoc() {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmCancelOrder"),
+      message: "هل تريد إلغاء الطلب ؟ ",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('cancel disagree clicked');
+
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('cancel order agree clicked');
+
+            var token = localStorage.getItem('user_token');
+            this.events.publish('cancelDoctorOrder');
+            this.service.cancelorder(this.orderId, "", "", token).timeout(10000).subscribe(
+              resp => {
+                console.log("cancel order resp: ", resp);
+                if (JSON.parse(JSON.stringify(resp)).success) {
+
+                  this.presentToast(this.translate.instant("orderCancled"));
+                  this.events.publish('cancelDoctorOrder');
+                  this.events.publish('enableTabs', true);
+                  this.navCtrl.setRoot(TabsPage);
+                  this.navCtrl.parent.select(2); //1
+                  // this.navCtrl.pop();
+                }
+              },
+              err => {
+                console.log("cancel order err: ", err);
+                this.presentToast(this.translate.instant("serverError"));
+              }
+            );
+
+
+
+            //this.nav.push('cancel-order',{orderId:this.helper.idForOrderToCancelItFromBack});
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+
+
 }

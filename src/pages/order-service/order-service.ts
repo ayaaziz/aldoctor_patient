@@ -387,12 +387,16 @@ export class OrderServicePage {
           {
             xxname="المراكز";
           }
-           this.loadingAlert = this.alertCtrl.create({
-    title: '',
-    subTitle:" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ",
-    buttons: ['حسناً']
-  });
-  this.loadingAlert.present();
+
+
+  //          this.loadingAlert = this.alertCtrl.create({
+  //   title: '',
+  //   subTitle:" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ",
+  //   buttons: ['حسناً']
+  // });
+  // this.loadingAlert.present();
+
+
       //this.presentWaitingToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
       console.log("4 load func page",this.page);
     this.Loadfunc();
@@ -1308,12 +1312,15 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           {
             xxname="المراكز";
           }
-           this.loadingAlert = this.alertCtrl.create({
-    title: '',
-    subTitle: " يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ",
-    buttons: ['حسناً']
-  });
-  this.loadingAlert.present();
+
+  //          this.loadingAlert = this.alertCtrl.create({
+  //   title: '',
+  //   subTitle: " يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ",
+  //   buttons: ['حسناً']
+  // });
+  // this.loadingAlert.present();
+
+
       //this.presentToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
 
       console.log("2 load func page",this.page);

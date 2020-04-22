@@ -394,12 +394,15 @@ this.disableDropDown = true;
     //console.log("get doctor sp id: ", id);
     // this.presentLoadingCustom();
     //this.showLoading = false;
-    this.loadingAlert = this.alertCtrl.create({
-      title: '',
-      subTitle: "يرجى الإنتظار لحين ترتيب الأطباء حسب الأقرب إليك",
-      buttons: ['حسناً']
-    });
-    this.loadingAlert.present();
+
+    // this.loadingAlert = this.alertCtrl.create({
+    //   title: '',
+    //   subTitle: "يرجى الإنتظار لحين ترتيب الأطباء حسب الأقرب إليك",
+    //   buttons: ['حسناً']
+    // });
+    // this.loadingAlert.present();
+
+
     //this.presentWaitingToast("يرجى الإنتظار لحين ترتيب الأطباء حسب الأقرب إليك");
     this.disableDropDown = true
     this.xload();

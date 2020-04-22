@@ -514,6 +514,75 @@ console.log("this.navCtrl setroot home page",this.navCtrl);
       });
       console.log("after push page");
   }
+
   
+  cancelOrder(){
+    console.log("cancelOrder")
+    
+    this.backpresentCancelConfirm2();
+    
+  }
+
+
+  backpresentCancelConfirm2() {
+    let alert = this.alertCtrl.create({
+      title: this.translate.instant("confirmCancelOrder"),
+      message: "هل تريد إلغاء الطلب ؟ ",
+      buttons: [
+        {
+          text: this.translate.instant("disagree"),
+          role: 'cancel',
+          handler: () => {
+            console.log('disagree clicked');
+            //this.navCtrl.parent.select(0);
+            //          this.alertApear = false;
+            console.log("set alertApear to false");
+
+            //        this.helper.backBtnInHelper = false;
+
+
+          }
+        },
+        {
+          text: this.translate.instant("agree"),
+          handler: () => {
+            console.log('cancel order agree clicked');
+            var token = localStorage.getItem('user_token');
+            this.events.publish('cancelDoctorOrder');
+            this.service.cancelorder(this.orderId, "", "", token).timeout(10000).subscribe(
+              resp => {
+                console.log("cancel order resp: ", resp);
+                if (JSON.parse(JSON.stringify(resp)).success) {
+
+                  this.presentToast(this.translate.instant("orderCancled"));
+
+                  this.events.publish('cancelOrder');
+                  this.events.publish('enableTabs', true);
+                  this.navCtrl.setRoot(TabsPage);
+                  this.navCtrl.parent.select(2); //1
+                  // this.navCtrl.pop()
+
+                }
+              },
+              err => {
+                console.log("cancel order err: ", err);
+                this.presentToast(this.translate.instant("serverError"));
+              }
+            );
+
+
+
+
+            // this.nav.setRoot(TabsPage);
+
+            // this.nav.push('cancel-service',{orderId:this.helper.idForOrderToCancelItFromBack});
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
 
 }
