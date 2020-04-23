@@ -85,6 +85,10 @@ export class SearchForPharmacyPage {
         this.title = this.translate.instant("searchForCenter");
         this.btn1 = this.translate.instant("SearchByNearestCenter");
         this.btn2 = this.translate.instant("SearchBySpecificCenter");
+      }else if(this.type_id == "4"){
+        this.title = this.translate.instant("searchForNurse");
+        this.btn1 = this.translate.instant("SearchByNearestNurse");
+        this.btn2 = this.translate.instant("SearchBySpecificNurse");
       }
   }
 
@@ -679,6 +683,18 @@ export class SearchForPharmacyPage {
         });
         break;
       }
+      case  this.translate.instant("SearchBySpecificNurse"):{
+        console.log("in case specific center")
+        this.navCtrl.push('order-specific-service',{
+          data:{
+            type_id:4,
+            lat:this.lat,
+            lng:this.lng
+          }
+        });
+        break;
+      }
+
       
       
 
@@ -732,6 +748,17 @@ export class SearchForPharmacyPage {
         // }});
         break;
       }
+      case  this.translate.instant("SearchByNearestNurse"):{
+        console.log("in case nearest nurse");
+        this.navCtrl.push('nursesServices');
+        // this.navCtrl.push('order-service',{data:{
+        //   type_id:3,
+        //   lat:this.lat,
+        //   lng:this.lng
+        // }});
+        break;
+      }
+
       
 
     }  

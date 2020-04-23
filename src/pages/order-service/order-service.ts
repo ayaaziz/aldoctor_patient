@@ -164,6 +164,12 @@ export class OrderServicePage {
         this.serviceTitle = this.translate.instant("nearbyCenter");
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
         this.hidePrice = false;
+      }else if(this.type_id == "4")
+      {
+        this.title = this.translate.instant("nurse");
+        this.serviceTitle = this.translate.instant("nearbyNurse");
+        // this.medicalprescriptionImage = this.translate.instant("requiredNursesServices");
+        this.hidePrice = false;
       }
 
 
@@ -386,6 +392,9 @@ export class OrderServicePage {
           }else if(this.type_id == "2")
           {
             xxname="المراكز";
+          }else if(this.type_id == "4")
+          {
+            xxname="التمريض";
           }
 
 
@@ -1311,6 +1320,9 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           }else if(this.type_id == "2")
           {
             xxname="المراكز";
+          }else if(this.type_id == "4")
+          {
+            xxname="التمريض";
           }
 
   //          this.loadingAlert = this.alertCtrl.create({

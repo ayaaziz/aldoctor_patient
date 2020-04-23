@@ -1,0 +1,170 @@
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>centers</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-header> -->
+  <ion-header class="{{langDirection}}">
+    <ion-navbar hideBackButton>
+      
+              <ion-title >{{"centers" | translate}}</ion-title>
+      
+          <ion-buttons  right>
+            <button ion-button>
+              <img src="assets/imgs/dlogo.png" style="width:30px;" >         
+            </button>
+            <button ion-button  (click)="dismiss()">
+                <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+            </button>
+          </ion-buttons>
+      </ion-navbar>
+    </ion-header>
+    
+    
+    
+    <ion-content padding>
+    
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      
+    
+      <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
+    
+        <ion-col style="background-color: #e8f1ed" col-11>
+          <ion-searchbar [dir]="langDirection" *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="search for radiology center" style="color: red;width:100%;"> </ion-searchbar>
+          <ion-searchbar [dir]="langDirection" *ngIf="langDirection == 'rtl'"  (ionInput)="getItems($event)" placeholder="ابحث عن نوع اشعه" class="right" style="color: red;width:100%;" > </ion-searchbar>
+        </ion-col>
+        
+        <ion-col style="background-color: #e8f1ed" col-1 (click)="searchIcon()">
+          <img src="assets/icon/search.png" style="margin-top:15px;width:20px;height:20px;">
+        </ion-col>
+    </ion-row>
+    
+    <br>
+    
+    <ion-row [hidden]="showLoading" style="text-align: center;">
+      <ion-col col-5></ion-col>
+      <ion-col col-2> 
+        <ion-spinner name="circles" [hidden]="showLoading" ></ion-spinner>
+      </ion-col>
+      <ion-col col-5></ion-col>
+    </ion-row>
+    
+    <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
+    <ion-col col-6  *ngFor="let item of specializations1; let i= index" >
+    <div class="divStyle x" [ngClass]="item.spClass" (click)="chooseSp($event,i,item)">
+      <img  [src]="item.image"  *ngIf="item.status =='0'" style="width:60px;height:60px;" class="customPosition" >
+      <img  [src]="item.image_selected" *ngIf="item.status =='1'"  style="width:60px;height:60px;" class="customPosition" >
+      
+      <ion-label  class="labelStyle">{{item.value}}</ion-label>
+    </div>
+    </ion-col>
+    <ion-col col-6  *ngFor="let item2 of specializations2; let j= index">
+      <div class= "divStyle x" [ngClass]="item2.spClass" (click)="chooseSp($event,j,item2)">
+          <img  [src]="item2.image"  *ngIf="item2.status =='0'" style="width:60px;height:60px;" class="customPosition" >
+          <img  [src]="item2.image_selected" *ngIf="item2.status =='1'"  style="width:60px;height:60px;" class="customPosition" >
+         
+          <ion-label  class="labelStyle">{{item2.value}}</ion-label>
+        </div>
+    
+    </ion-col>
+    </ion-row>
+    
+      <!-- center middle \n top bottom right left -->
+      <!-- <ion-fab center bottom>
+          <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:12px">
+              مساعدة
+              </button>
+    
+          <ion-fab-list  side="right">
+            <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
+              <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
+            <a button ion-fab  href="tel:+{{phone}}" >
+              <ion-icon   style="color:#026938;" name="call"></ion-icon>
+            </a>
+    
+          </ion-fab-list>
+    
+          
+          <ion-fab-list [hidden]="helpers2" side="left">
+              <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone2}}" >
+                <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
+       
+                <a button ion-fab  href="tel:+{{phone2}}" >
+                    <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
+    
+          </ion-fab-list>
+          <ion-fab-list [hidden]="helpers3" side="top">
+       
+            <a button ion-fab  href="tel:+{{phone3}}" >
+              <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
+              
+            <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone3}}" >
+                <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
+       
+    
+          </ion-fab-list>
+     
+        </ion-fab> -->
+    
+             <!-- <ion-fab-list side="right">
+              <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
+                <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
+       
+                <a button ion-fab  href="tel:+{{phone}}" >
+                    <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
+    
+          </ion-fab-list> -->
+    
+        <!-- <ion-fab left bottom>
+          <button ion-fab style="background-color:#026938"  (click)="chooseCenters()">
+            
+            ابحث
+          </button>
+        </ion-fab> -->
+    
+        <!-- <ion-fab left bottom>
+          <button ion-fab style="background-color:#026938"  (click)="helpersAlert()">
+            
+            help
+          </button>
+        </ion-fab> -->
+    
+        <ion-fab left bottom>
+          <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:7px;width: 65px;
+          height: 65px;" (click)="openModal()">
+              <!-- مساعدة -->
+              <!-- استشارات طبية -->
+    <!-- 
+              <span style="text-align: center;
+              align-items: flex-start;
+              display: flex;
+              height: 16px;
+              justify-content: center;
+              font-size: 12px;">استشارة</span>
+              <span style="text-align: center;
+              align-items: flex-end;
+              display: flex;
+              height: 53px;
+              justify-content: center;
+              font-size: 12px;">طبية</span> -->
+              <span style="height: 61px;
+              font-size: 12px;
+              position: absolute;
+              right: 10px;
+              top: -1px;    left: 10px;">استشارة</span>
+        
+        <span style="text-align: center;
+        
+        height: 30px;
+        justify-content: center;
+        font-size: 12px;">طبية</span>
+              </button>
+    
+              </ion-fab>
+    </ion-content>
+    

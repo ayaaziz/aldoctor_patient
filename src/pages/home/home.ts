@@ -544,6 +544,21 @@ slider(){
   console.log("slider");
   this.navCtrl.push('slider');
 }
+orderNurse(){
+  console.log("orderNurse")
+
+  this.navCtrl.push('search-for-pharmacy',{data:
+    {
+    //  title:"searchForPharmacy",
+    //  btn1:"SearchByNearestPharmacies",
+    //  btn2:"SearchBySpecificPharmacy",
+     type_id:"4"  
+    },
+  });
+
+
+}
+
 
 medicalConsultant(){
   console.log("medicalConsultant")

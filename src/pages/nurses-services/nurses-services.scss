@@ -1,0 +1,104 @@
+page-nurses-services {
+    .customIcon{
+        height:20px; 
+        width:20px;
+        
+    }
+    ion-searchbar.right {
+        text-align: right;
+      
+        ::placeholder {
+         
+          text-align: right;
+        }
+      }
+
+
+
+
+.searchbar-search-icon {
+    *background-image: url("../assets/icon/search.png") !important;
+    background-image: url("") !important;
+    *margin-left: 100px;
+
+    
+}
+.searchbar-clear-icon{
+    background-image: url("") !important;
+  }
+
+  .searchbar-md .searchbar-input {
+      background: #e8f1ed;
+      display: inline;
+      // color:green;
+      padding: 0px;
+      padding-left:20px; 
+      margin: 0px;
+      box-shadow: none;
+      direction: rtl;
+    
+  }
+  .label-md{
+      margin: 0px;
+  }
+
+  .divStyle{
+    border:2px solid rgb(236, 236, 236);text-align:center;padding-top:10px;padding-bottom:10px;
+  }
+  .labelStyle{
+    text-align:center;
+    color:grey;
+    // font-size:18px;
+    font-size: 15px;
+  }
+ 
+  // .x:hover{
+  //     background-color: #016a38;
+  //     box-shadow: 0 0 20px lightgray;
+  //     border-color: #016a38;
+  //     ion-label{
+  //       color: white;
+  //     }
+      
+  // }
+  .spSelected{
+      background-color: #016a38;
+      box-shadow: 0 0 20px lightgray;
+      
+      border-color: #016a38;
+      ion-label{
+        color: white;
+      }
+  }
+  .spUnselceted{
+      background-color: white;
+      
+      border-color: lightgray;
+      ion-label{
+        color: grey;
+      }
+  }
+  .row{
+    margin: 0px;
+    padding: 0px;
+  }
+  
+//  .changeColor:hover{
+//     background-repeat: no-repeat;
+//     background-color: #016a38;
+//     //   background-image: url('../../assets/icon/babyWhite.png');
+//   }
+  
+//   #child:hover{
+//     content: url('../../assets/icon/babyWhite.png');
+//   }
+
+}
+.toastRight{
+    text-align: right;
+  }
+.toastLeft{
+    text-align: left;
+  }
+
+  
