@@ -133,7 +133,7 @@
 
       </ion-item>
       
-          <ion-fab center bottom>
+          <ion-fab center bottom *ngIf="type_id != 4 "> 
             <button ion-fab style="background-color:#026938"  (click)="presentActionSheet2()">
               <ion-icon name="camera" style="color:#fff;font-size:20px;vertical-align: middle;"></ion-icon>
             </button>

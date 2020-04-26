@@ -127,6 +127,7 @@ export class OrderSpecificServicePage {
         this.hidePrice = true;
       }else  if(this.type_id == "4")
       {
+        alert("type 4 from specific : "+this.translate.instant("specificNurse"))
         this.title = this.translate.instant("specificNurse");
         this.servicetitle = this.translate.instant("nurseName");
         // this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");

@@ -10,7 +10,7 @@
   <ion-header class="{{langDirection}}">
     <ion-navbar hideBackButton>
       
-              <ion-title >{{"centers" | translate}}</ion-title>
+              <ion-title >خدمات التمريض</ion-title>
       
           <ion-buttons  right>
             <button ion-button>
@@ -35,8 +35,8 @@
       <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
     
         <ion-col style="background-color: #e8f1ed" col-11>
-          <ion-searchbar [dir]="langDirection" *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="search for radiology center" style="color: red;width:100%;"> </ion-searchbar>
-          <ion-searchbar [dir]="langDirection" *ngIf="langDirection == 'rtl'"  (ionInput)="getItems($event)" placeholder="ابحث عن نوع اشعه" class="right" style="color: red;width:100%;" > </ion-searchbar>
+          <ion-searchbar [dir]="langDirection" *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="search for nursing services" style="color: red;width:100%;"> </ion-searchbar>
+          <ion-searchbar [dir]="langDirection" *ngIf="langDirection == 'rtl'"  (ionInput)="getItems($event)" placeholder="ابحث عن خدمة تمريض " class="right" style="color: red;width:100%;" > </ion-searchbar>
         </ion-col>
         
         <ion-col style="background-color: #e8f1ed" col-1 (click)="searchIcon()">
