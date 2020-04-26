@@ -187,6 +187,11 @@ this.accessToken = localStorage.getItem('user_token');
       
           console.log("getXrayCenters resp: ",resp);
           var specializationData = JSON.parse(JSON.stringify(resp));
+       
+          specializationData.push({"id":-15,"value":"r اقامه تمريضيه","status":'0',"image":"assets/icon/baby.png","image_selected":"assets/icon/baby2.png"})
+          specializationData.push({"id":-16,"value":"العنايه بالجروح r","status":'0',"image":"assets/icon/baby.png","image_selected":"assets/icon/baby2.png"})
+
+
           this.specializations1 = [];
           this.specializations2 = [];
           for(var i=0;i<(specializationData.length/2);i++){
@@ -319,12 +324,93 @@ console.log("sp item search val ",val);
     // console.log("event: ",ev);
     // //this.navCtrl.push('order-doctor',{data:{id:item.id,sp:item.value}});
     // console.log("item.id",item.id);
-    this.navCtrl.push('order-service',{data:{
-          type_id:4,
-          lat:this.helper.lat,
-          lng:this.helper.lon,
-          center_id : item.id
-        }});
+   
+    if(item.id == -15){
+ // r اقامه تمريضيه
+
+this.navCtrl.push('nursingStayAndWoundCare',{data:{
+  Service_id:-15
+}});
+
+
+
+    }else if (item.id == -16){
+
+//r عنايه بالجروح
+
+
+let alert = this.alertCtrl.create({
+  title: "العناية بالجروح",
+  // message: this.translate.instant(""),
+  inputs : [{type:'radio',
+  label:"مرة واحدة",
+  value:"1"},{type:'radio',
+  label:"اكثر من مرة ",
+  value:"2"}],
+  buttons: [
+    {
+      text: this.translate.instant("canceltxt"),
+      role: 'cancel',
+      handler: (data) => {
+        console.log('disagree clicked',data);
+      }
+    },
+    {
+      text: this.translate.instant("done"),
+      handler: (catid) => {
+        console.log('agree clicked',catid);
+
+        if(catid == 1){
+          console.log("cat id 1 ")
+
+
+      this.navCtrl.push('order-service',{data:{
+        type_id:4,
+        lat:this.helper.lat,
+        lng:this.helper.lon,
+        center_id : item.id
+      }});
+
+
+        }else if(catid == 2){
+          console.log("cat id 2 ")
+
+
+
+          this.navCtrl.push('nursingStayAndWoundCare',{data:{
+            Service_id:-16
+          }});
+
+          
+
+        }
+
+
+
+
+      }
+    }
+  ]
+});
+alert.present();
+
+
+
+// nursingStayAndWoundCare
+
+    }else{
+
+
+      this.navCtrl.push('order-service',{data:{
+        type_id:4,
+        lat:this.helper.lat,
+        lng:this.helper.lon,
+        center_id : item.id
+      }});
+
+
+    }
+   
   }
 
   chooseCenters(){

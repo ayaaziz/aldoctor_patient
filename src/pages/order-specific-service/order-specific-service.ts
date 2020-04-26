@@ -125,6 +125,13 @@ export class OrderSpecificServicePage {
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
         // this.hidePrice = false;
         this.hidePrice = true;
+      }else  if(this.type_id == "4")
+      {
+        this.title = this.translate.instant("specificNurse");
+        this.servicetitle = this.translate.instant("nurseName");
+        // this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
+        // this.hidePrice = false;
+        this.hidePrice = true;
       }
 
 
@@ -546,7 +553,14 @@ export class OrderSpecificServicePage {
       this.presentToast(this.translate.instant("check3centers"));
     }else if (this.choosenDoctors.length<1 && this.type_id == 2){
       this.presentToast(this.translate.instant("checkAtleastonecenter"));
-    }else if(this.choosenDoctors.length > 5 && this.type_id == 1)
+    }
+    else if(this.choosenDoctors.length > 5 && this.type_id == 4)
+    {
+      this.presentToast(this.translate.instant("check3Nurse"));
+    }else if (this.choosenDoctors.length<1 && this.type_id == 4){
+      this.presentToast(this.translate.instant("checkAtleastonenurse"));
+    }
+    else if(this.choosenDoctors.length > 5 && this.type_id == 1)
     {
       this.presentToast(this.translate.instant("check5pharmacies"));
     }else if (this.choosenDoctors.length<1 && this.type_id == 1){
@@ -817,7 +831,7 @@ searchFunc(searchVal){
            var number = 0;
            if(this.type_id == "1")
              number = 20*60;
-           else if (this.type_id == "2" || this.type_id == "3")
+           else if (this.type_id == "2" || this.type_id == "3" || this.type_id == "4")
              number = 30*60;
 
 console.log("doctorData[results].timedelivertvalue: ",doctorData["result"][i].timedelivertvalue);

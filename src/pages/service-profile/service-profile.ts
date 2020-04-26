@@ -122,6 +122,13 @@ export class ServiceProfilePage {
         // this.serviceTitle = this.translate.instant("nearbyCenter");
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
         this.hideServices = false;
+      }else if(this.type_id == "4")
+      {
+        // this.title = this.translate.instant("center");
+        // this.serviceTitle = this.translate.instant("nearbyCenter");
+
+        //this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
+        this.hideServices = false;
       }
 
   }
@@ -397,7 +404,8 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
         ]
       });
 
-      alert.present();
+      alert.present(); 
+      
     
   }
 
