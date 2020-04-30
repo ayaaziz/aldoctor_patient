@@ -354,5 +354,11 @@ console.log("loginToApp")
   }
   
 
-  
+  nursersServices(){
+  this.navCtrl.push('nursesServices');
+}  
+
+
+
+
 }
