@@ -89,6 +89,15 @@ button:focus{
     outline: 0px !important;
 }
 
+
+.foo .alert-message {
+    // white-space: pre;
+    color: red;
+    font-size: 40px;
+    font-weight: bold;
+  }
+
+
 // ion-app.md [padding] .scroll-content {
 //     padding: 5px;
 // }

@@ -1466,10 +1466,23 @@ if (notification.additionalData.OrderID){
   }
 
   presentdelivaryAlert(title, msg) {
+    
+   var price = ""
+   var xLe = ""
+   var xpt = ""
+
+   console.log("type_id : ",this.helper.type_id)
+   if (this.helper.type_id == 1 )
+    price = "سعر الدواء : " + xLe + " جنيه " + xpt + " قرش "
+   else if (this.helper.type_id == 3 )
+    price = "سعر التحاليل : " + xLe + " جنيه " + xpt + " قرش "
+
     console.log("enter presentdelivaryAlert");
     let alert = this.alertCtrl.create({
       title: title,
-      subTitle: msg,
+      subTitle: msg ,
+      message:  price,
+      cssClass: 'foo',
       buttons: ['موافق']
     });
     alert.present();

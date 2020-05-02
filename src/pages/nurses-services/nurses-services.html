@@ -36,7 +36,7 @@
     
         <ion-col style="background-color: #e8f1ed" col-11>
           <ion-searchbar [dir]="langDirection" *ngIf="langDirection != 'rtl'" (ionInput)="getItems($event)" placeholder="search for nursing services" style="color: red;width:100%;"> </ion-searchbar>
-          <ion-searchbar [dir]="langDirection" *ngIf="langDirection == 'rtl'"  (ionInput)="getItems($event)" placeholder="ابحث عن خدمة تمريض " class="right" style="color: red;width:100%;" > </ion-searchbar>
+          <ion-searchbar [dir]="langDirection" *ngIf="langDirection == 'rtl'"  (ionInput)="getItems($event)" placeholder="ابحث عن خدمة" class="right" style="color: red;width:100%;" > </ion-searchbar>
         </ion-col>
         
         <ion-col style="background-color: #e8f1ed" col-1 (click)="searchIcon()">

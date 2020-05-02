@@ -13,6 +13,7 @@ import { HelperProvider } from '../../providers/helper/helper';
 })
 export class NursingStayAndWoundCarePage {
 
+
   tostClass 
   langDirection
   Service_id

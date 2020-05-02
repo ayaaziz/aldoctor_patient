@@ -4,15 +4,119 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<!-- <ion-header>
 
   <ion-navbar>
-    <ion-title>nursingStayAndWoundCare</ion-title>
+    <ion-title>{{pageTitle}}</ion-title>
   </ion-navbar>
 
-</ion-header>
+</ion-header> -->
 
+
+<ion-header class="{{langDirection}}">
+  <ion-navbar hideBackButton>
+    
+            <ion-title >{{pageTitle}}</ion-title>
+    
+        <ion-buttons  right>
+          <button ion-button>
+            <img src="assets/imgs/dlogo.png" style="width:30px;" >         
+          </button>
+          <button ion-button  (click)="dismiss()">
+              <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  
 
 <ion-content padding>
 
+  <div *ngIf="Service_id == -15" >
+
+    <!-- nursingStay -->
+<ion-row>
+  <ion-col>
+    <ion-label style="color: gray;">عدد الساعات فى اليوم</ion-label>
+  </ion-col>
+  <ion-col>       
+      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="PT" type="tel"></ion-input>
+  </ion-col>
+  
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-label style="color: gray;">عدد الأيام فى الشهر </ion-label>
+  </ion-col>
+  <ion-col>       
+      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="PT" type="tel"></ion-input>
+  </ion-col>
+  
+</ion-row>
+
+<ion-list radio-group [(ngModel)]="period">
+
+
+
+  <ion-item no-lines>
+    
+    <ion-radio value="cord"></ion-radio>
+    <ion-label>صباحا</ion-label>
+  </ion-item>
+
+  <ion-item no-lines>
+    
+    <ion-radio value="duesenberg"></ion-radio>
+    <ion-label>مساءا</ion-label>
+  </ion-item>
+  <ion-item no-lines>
+    
+    <ion-radio value="duesenberg"></ion-radio>
+    <ion-label>طوال اليوم</ion-label>
+  </ion-item>
+
+  </ion-list>
+
+
+
+
+<ion-list radio-group [(ngModel)]="nurseGender">
+
+  <ion-list-header>
+    مطلوب أخصائى تمريض
+  </ion-list-header>
+
+  <ion-item no-lines>
+    
+    <ion-radio value="cord"></ion-radio>
+    <ion-label>ذكر</ion-label>
+  </ion-item>
+
+  <ion-item no-lines>
+    
+    <ion-radio value="duesenberg"></ion-radio>
+    <ion-label>أنثى</ion-label>
+  </ion-item>
+  <ion-item no-lines>
+    
+    <ion-radio value="duesenberg"></ion-radio>
+    <ion-label>أيهما</ion-label>
+  </ion-item>
+
+  </ion-list>
+
+
+  </div>
+  <div *ngIf="Service_id == -16">
+
+ <!-- wound care -->
+
+
+
+  </div>
 </ion-content>

@@ -355,7 +355,11 @@ console.log("loginToApp")
   
 
   nursersServices(){
-  this.navCtrl.push('nursesServices');
+  // this.navCtrl.push('nursesServices');
+  this.navCtrl.push('nursingStayAndWoundCare',{data:{
+    Service_id:-15
+  }});
+
 }  
 
 
