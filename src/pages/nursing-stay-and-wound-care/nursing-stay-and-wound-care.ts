@@ -168,6 +168,69 @@ export class NursingStayAndWoundCarePage {
 
 
   }
+
+
+
+  noOfTimesPerDayonInput(){
+
+    if (this.Service_id == -16){
+    
+
+      if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7){
+        this.presentToast("الرجاء إدخال عدد أيام لا يتجاوز ٧ أيام ")
+        return
+      }
+  
+
+
+      if(this.noOfDaysPerWeek){
+      
+        this.priceForWoundCare = 100 + 70 * (this.noOfDaysPerWeek * this.noOfTimesPerDay -1)
+
+        
+      }
+      
+      
+      
+
+
+    }
+
+
+
+  }
+
+  noOfDaysPerWeekonInput(){
+
+    if (this.Service_id == -16){
+     
+
+      if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7){
+        this.presentToast("الرجاء إدخال عدد أيام لا يتجاوز ٧ أيام ")
+        return
+      }
+
+      
+
+      if(this.noOfTimesPerDay){
+      
+
+        this.priceForWoundCare = 100 + 70 * (this.noOfDaysPerWeek * this.noOfTimesPerDay -1)
+
+      }
+      
+      
+      
+
+
+    }
+
+
+
+  }
+
+
+
   sendOrder(){
 
     if (this.Service_id == -15){
@@ -215,13 +278,31 @@ export class NursingStayAndWoundCarePage {
     else if (this.Service_id == -16){
       //wound care
 
-      this.priceForWoundCare = 100 + 70 * (this.noOfDaysPerWeek * this.noOfTimesPerDay -1)
+      if(! this.noOfTimesPerDay){
+        this.presentToast("الرجاء إدخال عدد المرات فى اليوم ")
+        return
+      }else if (! this.noOfDaysPerWeek){
+        this.presentToast("الرجاء إدخال عدد الأيام فى الأسبوع")
+        return
+      }
+      else if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7){
+        this.presentToast("الرجاء إدخال عدد أيام لا يتجاوز ٧ أيام ")
+        return
+      }else if(! this.woundCareGender){
+        this.presentToast("الرجاء اختيار النوع")
+        return
+      }else{
 
+        this.priceForWoundCare = 100 + 70 * (this.noOfDaysPerWeek * this.noOfTimesPerDay -1)
 
-       //sendOrderToapi
+        //sendOrderToapi
        this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة ")
        this.navCtrl.pop()
 
+      }
+      
+
+       
 
 
     }

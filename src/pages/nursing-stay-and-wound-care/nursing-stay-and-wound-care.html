@@ -154,7 +154,7 @@ font-size: 12px;">عملاء</span>
     <ion-label style="color: #6f6f6f;">عدد المرات فى اليوم</ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+      <ion-input  (input)="noOfTimesPerDayonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfTimesPerDay" type="tel"></ion-input>
   </ion-col>
   
@@ -166,7 +166,7 @@ font-size: 12px;">عملاء</span>
     <ion-label style="color: #6f6f6f;">عدد الأيام فى الأسبوع  </ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+      <ion-input  (input)="noOfDaysPerWeekonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfDaysPerWeek" type="tel"></ion-input>
   </ion-col>
   
