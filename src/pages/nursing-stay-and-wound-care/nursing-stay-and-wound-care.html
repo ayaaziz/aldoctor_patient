@@ -38,11 +38,11 @@
     <!-- nursingStay -->
 <ion-row>
   <ion-col>
-    <ion-label style="color: gray;">عدد الساعات فى اليوم</ion-label>
+    <ion-label style="color: #6f6f6f;">عدد الساعات فى اليوم</ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
-    [(ngModel)]="PT" type="tel"></ion-input>
+      <ion-input  (input)="noOfHoursPerDayonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="noOfHoursPerDay" type="tel"></ion-input>
   </ion-col>
   
 </ion-row>
@@ -50,34 +50,35 @@
 
 <ion-row>
   <ion-col>
-    <ion-label style="color: gray;">عدد الأيام فى الشهر </ion-label>
+    <ion-label style="color: #6f6f6f;">عدد الأيام فى الشهر </ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
-    [(ngModel)]="PT" type="tel"></ion-input>
+      <ion-input (input)="noOfDaysPerMonthonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="noOfDaysPerMonth" type="tel"></ion-input>
   </ion-col>
   
 </ion-row>
 
-<ion-list radio-group [(ngModel)]="period">
+<ion-list radio-group [(ngModel)]="nursingStayperiod">
 
 
 
-  <ion-item no-lines>
+  <ion-item no-lines style="direction: ltr;">
     
-    <ion-radio value="cord"></ion-radio>
-    <ion-label>صباحا</ion-label>
+    <ion-label style="color: gray;direction: rtl;">صباحا</ion-label>
+    <ion-radio value="am" style="margin-right: 0px !important;"></ion-radio>
+    
   </ion-item>
 
-  <ion-item no-lines>
+  <ion-item no-lines style="direction: ltr;">
     
-    <ion-radio value="duesenberg"></ion-radio>
-    <ion-label>مساءا</ion-label>
+    <ion-radio value="pm" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-label style="color: gray;direction: rtl;" >مساءا</ion-label>
   </ion-item>
-  <ion-item no-lines>
+  <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="duesenberg"></ion-radio>
-    <ion-label>طوال اليوم</ion-label>
+    <ion-radio value="all" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-label style="color: gray; direction: rtl;">طوال اليوم</ion-label>
   </ion-item>
 
   </ion-list>
@@ -85,36 +86,150 @@
 
 
 
-<ion-list radio-group [(ngModel)]="nurseGender">
+<ion-list radio-group [(ngModel)]="nursestayGender">
 
-  <ion-list-header>
+  <ion-list-header no-lines style="color: #6f6f6f;">
     مطلوب أخصائى تمريض
   </ion-list-header>
 
-  <ion-item no-lines>
+  <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="cord"></ion-radio>
-    <ion-label>ذكر</ion-label>
+    <ion-radio value="male" style="margin-right: 0px !important;"></ion-radio>
+    <ion-label style="color: gray;direction: rtl;">ذكر</ion-label>
   </ion-item>
 
-  <ion-item no-lines>
+  <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="duesenberg"></ion-radio>
-    <ion-label>أنثى</ion-label>
+    <ion-radio value="female" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-label style="color: gray;direction: rtl;">أنثى</ion-label>
   </ion-item>
-  <ion-item no-lines>
+  <ion-item no-lines style="direction: ltr;">
     
-    <ion-radio value="duesenberg"></ion-radio>
-    <ion-label>أيهما</ion-label>
+    <ion-radio value="both" style="margin-right: 0px !important;"></ion-radio>
+    <ion-label style="color: gray;direction: rtl;">أيهما</ion-label>
   </ion-item>
 
-  </ion-list>
+</ion-list>
 
+
+
+<div style="background-color: #e6f2ec; padding: 2px;text-align: center;margin-left: -16px;
+margin-right: -16px;">
+<ion-label> التكلفة : {{ estimatedPriceForNursingStay }} جنيه مصرى </ion-label>  
+</div>
+
+
+<button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
+      
+<ion-fab left bottom>
+  <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:9px;width: 65px;
+  height: 65px;" (click)="customerService()">
+   <!-- خدمة عملاء -->
+
+   <span style="height: 61px;
+   font-size: 12px;
+   position: absolute;
+   right: 10px;
+   top: -1px;    left: 10px;">خدمة</span>
+
+<span style="text-align: center;
+
+height: 30px;
+justify-content: center;
+font-size: 12px;">عملاء</span>
+
+      </button>
+
+      </ion-fab>
+
+      
 
   </div>
   <div *ngIf="Service_id == -16">
 
  <!-- wound care -->
+
+ <ion-row>
+  <ion-col>
+    <ion-label style="color: #6f6f6f;">عدد المرات فى اليوم</ion-label>
+  </ion-col>
+  <ion-col>       
+      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="noOfTimesPerDay" type="tel"></ion-input>
+  </ion-col>
+  
+</ion-row>
+
+
+<ion-row>
+  <ion-col>
+    <ion-label style="color: #6f6f6f;">عدد الأيام فى الأسبوع  </ion-label>
+  </ion-col>
+  <ion-col>       
+      <ion-input  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="noOfDaysPerWeek" type="tel"></ion-input>
+  </ion-col>
+  
+</ion-row>
+
+
+
+<ion-list radio-group [(ngModel)]="woundCareGender">
+
+  <ion-list-header no-lines style="color: #6f6f6f;">
+    مطلوب أخصائى تمريض
+  </ion-list-header>
+
+  <ion-item no-lines style="direction: ltr;" >
+    
+    <ion-radio value="male" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-label style="color: gray;direction: rtl;" >ذكر</ion-label>
+  </ion-item>
+
+  <ion-item no-lines style="direction: ltr;" >
+    
+    <ion-radio value="female" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-label style="color: gray;direction: rtl;" >أنثى</ion-label>
+  </ion-item>
+  <ion-item no-lines style="direction: ltr;" >
+    
+    <ion-radio value="both" style="margin-right: 0px !important;"></ion-radio>
+    <ion-label style="color: gray;direction: rtl;">أيهما</ion-label>
+  </ion-item>
+
+</ion-list>
+
+
+
+<div style="background-color: #e6f2ec; padding: 2px;text-align: center;margin-left: -16px;
+margin-right: -16px;">
+<ion-label> التكلفة : {{ priceForWoundCare }} جنيه مصرى </ion-label>  
+</div>
+
+
+<button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
+      
+<ion-fab left bottom>
+  <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:9px;width: 65px;
+  height: 65px;" (click)="customerService()">
+   <!-- خدمة عملاء -->
+
+   <span style="height: 61px;
+   font-size: 12px;
+   position: absolute;
+   right: 10px;
+   top: -1px;    left: 10px;">خدمة</span>
+
+<span style="text-align: center;
+
+height: 30px;
+justify-content: center;
+font-size: 12px;">عملاء</span>
+
+      </button>
+
+      </ion-fab>
+
 
 
 

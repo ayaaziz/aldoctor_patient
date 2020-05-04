@@ -1,5 +1,86 @@
 page-nursing-stay-and-wound-care {
 
+  .btn-primary {
+    color: #fff;
+    background-color: #016a38;
+    border-color: #016a38;
+    width:70%;
+}
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+    border-color: #016a38;
+    color: #fff;
+}
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #016a38;
+    border-color: #016a38;
+}
+  .btn-primary:not(:disabled):not(.disabled):active{
+    color: #fff;
+    background-color: #016a38 !important;
+    border-color: #016a38 !important;
+}
+.btn:disabled {
+    background-color: #dddddd !important ;
+    border-color: #dddddd  !important;
+}
+.btn-primaryx {
+    color: #fff;
+    background-color: #016a38;
+    border-color: #016a38;
+    width:70%;
+}
+.btn-primaryx:focus {
+    box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(169, 167, 167, 0.17);
+    border-color: #016a38;
+    color: #fff;
+}
+  .btn-primaryx:hover {
+    color: #fff;
+    background-color: rgba(1, 106, 56, 0.2313725);
+    border-color: #016a38;
+}
+  .btn-primaryx:not(:disabled):not(.disabled):active{
+    color: #fff;
+    // background-color: #016a38 !important;
+    border-color: #016a38 !important;
+}
+
+.item-md.item-block .item-inner {
+  padding-right: 0px;
+}
+.item-ios.item-block .item-inner {
+  padding-right: 0px;
+}
+
+.radio-md .radio-inner {
+  background-color: #016a38;
+}
+
+
+.radio-ios .radio-inner {
+  background-color: #016a38;
+}
+
+.radio-md .radio-checked {
+  border-color: #016a38;
+}
+.radio-ios .radio-checked {
+  border-color: #016a38;
+}
+
+.text-input-md {
+  text-align: center;
+}
+
+
+.text-input-ios {
+  text-align: center;
+}
+
 }
 .toastRight{
     text-align: right;
