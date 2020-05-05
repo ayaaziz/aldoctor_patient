@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams , Platform, ToastController,Events} from 'ionic-angular';
+import { IonicPage, NavController, NavParams , Platform, ToastController,Events,AlertController} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -28,7 +28,7 @@ export class LoginPage {
   access_token;
   message_id
   
-  constructor( public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
+  constructor(public alertCtrl:AlertController, public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
     public formBuilder: FormBuilder,public navCtrl: NavController, 
     public navParams: NavParams, public platform: Platform,
     public events: Events) {
@@ -356,10 +356,45 @@ console.log("loginToApp")
 
   nursersServices(){
   // this.navCtrl.push('nursesServices');
+
+
   this.navCtrl.push('nursingStayAndWoundCare',{data:{
-    Service_id:-16
+    Service_id:-15
   }});
 
+  // let alert = this.alertCtrl.create({
+  //   title: "العناية بالجروح",
+  //   // message: this.translate.instant(""),
+  //   inputs : [{type:'radio',
+  //   label:"مرة واحدة",
+  //   value:"1"},{type:'radio',
+  //   label:"اكثر من مرة ",
+  //   value:"2"}],
+  //   buttons: [
+  //     {
+  //       text: this.translate.instant("canceltxt"),
+  //       role: 'cancel',
+  //       handler: (data) => {
+  //         console.log('disagree clicked',data);
+  //       }
+  //     },
+  //     {
+  //       text: this.translate.instant("done"),
+  //       handler: (catid) => {
+  //         console.log('agree clicked',catid);
+  
+  
+  
+  
+  
+  //       }
+  //     }
+  //   ]
+  // });
+  // alert.present();
+  
+
+  
 }  
 
 

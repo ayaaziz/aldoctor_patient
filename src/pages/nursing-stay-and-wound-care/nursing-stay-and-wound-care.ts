@@ -308,4 +308,18 @@ export class NursingStayAndWoundCarePage {
     }
 
   }
+
+
+
+
+
+
+  dismiss(){
+    this.navCtrl.pop();
+  }
+
+
+
+
+  
 }

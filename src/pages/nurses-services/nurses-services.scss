@@ -107,7 +107,11 @@ page-nurses-services {
   border-color: #787878;
 }
 
-.alert-radio-icon {
+.alert-md .alert-radio-icon {
+  right: 13px !important;
+}
+
+.alert-ios .alert-radio-icon {
   right: 13px !important;
 }
 
