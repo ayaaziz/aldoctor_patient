@@ -830,7 +830,7 @@ if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7"
   // this.navCtrl.setRoot('follow-order',{
   //   data:item
   // });
-if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3"  )
+if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3" ||  item.type_id == "5"  )
 {
   this.helper.type_id  = item.type_id;
   this.navCtrl.push(FollowOrderForPlcPage,

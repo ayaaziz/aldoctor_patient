@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController , ModalController } from 'ionic-angular';
 
 import { HelperProvider } from '../../providers/helper/helper';
+import { ProvidedServicesProvider } from '../../providers/provided-services/provided-services';
 
 @IonicPage({
   name:'nursingStayAndWoundCare'
@@ -32,7 +33,7 @@ export class NursingStayAndWoundCarePage {
   priceForWoundCare
   
 
-  constructor(public modalCtrl: ModalController,public toastCtrl: ToastController,public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public service:ProvidedServicesProvider, public modalCtrl: ModalController,public toastCtrl: ToastController,public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
 
 
     this.langDirection = this.helper.lang_direction;
@@ -45,19 +46,21 @@ export class NursingStayAndWoundCarePage {
 
     var recievedData = this.navParams.get('data');
     this.Service_id = recievedData.Service_id;
+    this.pageTitle = recievedData.title
 
-    if (this.Service_id == -15){
+    console.log("extra : , "  , this.Service_id)
+    // if (this.Service_id == -15){
 
-      //nursing stay
-      this.pageTitle = "إقامة تمريضية"
+    //   //nursing stay
+    //   this.pageTitle = "إقامة تمريضية"
     
     
-    }else if (this.Service_id == -16){
-      // wound care
-      this.pageTitle = "العناية بالجروح لأكثر من مرة"
+    // }else if (this.Service_id == -16){
+    //   // wound care
+    //   this.pageTitle = "العناية بالجروح لأكثر من مرة"
 
 
-    }
+    // }
 
     console.log("Service_id from nursingStayAndWoundCare : ",this.Service_id)
 
@@ -106,7 +109,7 @@ export class NursingStayAndWoundCarePage {
     }
 
 
-    if (this.Service_id == -15){
+    if (this.Service_id == 1){
       //nursing stay
 
       if(this.noOfDaysPerMonth){
@@ -133,7 +136,7 @@ export class NursingStayAndWoundCarePage {
   noOfDaysPerMonthonInput(){
     console.log("noOfDaysPerMonthonInput .......")
 
-    if (this.Service_id == -15){
+    if (this.Service_id == 1){
       //nursing stay
 
       if(this.noOfHoursPerDay && this.noOfHoursPerDay > 24){
@@ -173,7 +176,7 @@ export class NursingStayAndWoundCarePage {
 
   noOfTimesPerDayonInput(){
 
-    if (this.Service_id == -16){
+    if (this.Service_id == 2 || this.Service_id == 3){
     
 
       if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7){
@@ -202,7 +205,7 @@ export class NursingStayAndWoundCarePage {
 
   noOfDaysPerWeekonInput(){
 
-    if (this.Service_id == -16){
+    if (this.Service_id == 2 || this.Service_id == 3){
      
 
       if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7){
@@ -233,7 +236,7 @@ export class NursingStayAndWoundCarePage {
 
   sendOrder(){
 
-    if (this.Service_id == -15){
+    if (this.Service_id == 1){
       //nursing stay
 
       if(! this.noOfHoursPerDay){
@@ -267,15 +270,26 @@ export class NursingStayAndWoundCarePage {
         }
         
         //sendOrderToapi
-        this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة ")
+        var accessToken = localStorage.getItem('user_token');
+        this.service.saveOrderForNursingServices(this.Service_id,this.noOfHoursPerDay,this.noOfDaysPerMonth,this.nursingStayperiod,this.nursestayGender,this.noOfTimesPerDay,this.noOfDaysPerWeek,this.estimatedPriceForNursingStay,accessToken).subscribe(resp=>{
+          console.log("resp from create order : ",resp)
+
+          this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة ")
         this.navCtrl.pop()
+
+
+        },err=>{
+          console.log("err from create order : ",err)
+        })
+       
+        
   
       }
 
       
 
     }
-    else if (this.Service_id == -16){
+    else if (this.Service_id == 2 || this.Service_id == 3){
       //wound care
 
       if(! this.noOfTimesPerDay){
@@ -296,8 +310,23 @@ export class NursingStayAndWoundCarePage {
         this.priceForWoundCare = 100 + 70 * (this.noOfDaysPerWeek * this.noOfTimesPerDay -1)
 
         //sendOrderToapi
-       this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة ")
-       this.navCtrl.pop()
+      //  this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة ")
+      //  this.navCtrl.pop()
+
+      var accessToken = localStorage.getItem('user_token');
+      this.service.saveOrderForNursingServices(this.Service_id,this.noOfHoursPerDay,this.noOfDaysPerMonth,this.nursingStayperiod,this.woundCareGender,this.noOfTimesPerDay,this.noOfDaysPerWeek,this.priceForWoundCare,accessToken).subscribe(resp=>{
+        console.log("resp from create order : ",resp)
+
+        this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة ")
+      this.navCtrl.pop()
+
+
+      },err=>{
+        console.log("err from create order : ",err)
+      })
+
+
+
 
       }
       

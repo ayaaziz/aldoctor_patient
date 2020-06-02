@@ -355,12 +355,12 @@ console.log("loginToApp")
   
 
   nursersServices(){
-  // this.navCtrl.push('nursesServices');
+  this.navCtrl.push('nursesServices');
 
 
-  this.navCtrl.push('nursingStayAndWoundCare',{data:{
-    Service_id:-15
-  }});
+  // this.navCtrl.push('nursingStayAndWoundCare',{data:{
+  //   Service_id:-15
+  // }});
 
   // let alert = this.alertCtrl.create({
   //   title: "العناية بالجروح",

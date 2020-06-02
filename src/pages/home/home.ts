@@ -22,6 +22,12 @@ import { FollowOrderPage } from '../follow-order/follow-order';
 })
 export class HomePage {
   
+
+  selectedUserCity
+  // cityZonesArray = []
+  cityZonesArray = [{id:1,value:"city1"},{id:2,value:"city2"}]
+
+
   langDirection:any;
   accessToken;
   tostClass;
@@ -34,7 +40,11 @@ xxrate;
     public helper:HelperProvider,public toastCtrl: ToastController,
      public storage: Storage, public navCtrl: NavController) 
      {
-    // this.langDirection = this.helper.lang_direction;
+
+
+      // this.selectedUserCity = this.cityZonesArray[0].value
+
+      // this.langDirection = this.helper.lang_direction;
     // this.translate.use(this.helper.currentLang);
 
     // var xphone = "01123659846";
@@ -552,7 +562,7 @@ orderNurse(){
     //  title:"searchForPharmacy",
     //  btn1:"SearchByNearestPharmacies",
     //  btn2:"SearchBySpecificPharmacy",
-     type_id:"4"  
+     type_id:"5"  
     },
   });
 
@@ -579,5 +589,12 @@ customerService(){
  
 
 }
+
+cityChecked(selectedCityId){
+  console.log("selectedCityId passed to cityChecked : ",selectedCityId)
+  console.log("selectedUserCity : ",this.selectedUserCity)
+
+}
+
 
 }

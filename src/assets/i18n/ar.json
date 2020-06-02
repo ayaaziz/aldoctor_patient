@@ -286,6 +286,7 @@
       "pharmacyServiceTxt":"جاهزة لإستقبال إتصالكم و سيكون التوصيل فى خلال",
       "pharmacycmpServiceTxt":"بعد إستقبال طلبكم",
       "labServiceTxt":"جاهز لإستقبال إتصالكم و سيكون المتخصص متواجد فى خلال ",
+      "nurseServiceTxt":"جاهز لإستقبال إتصالكم و سيكون المتخصص متواجد فى خلال ",
       "labHint":" إذا لم يتحدد موعد آخر ",
       "atleastOneimageforLab":"أدخل صورة التحاليل المطلوبة",
       "atleastOneimageforcenter":"أدخل صورة الأشعة المطلوبة",

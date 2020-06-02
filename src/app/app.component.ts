@@ -766,7 +766,7 @@ else {
 
         console.log("notification from android", notification);
 if (notification.additionalData.OrderID){
-        if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3") {
+        if (notification.additionalData.type_id == "1" || notification.additionalData.type_id == "2" || notification.additionalData.type_id == "3" || notification.additionalData.type_id == "5") {
           //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
           var orderId = notification.additionalData.OrderID;
 
@@ -1095,7 +1095,7 @@ if (notification.additionalData.OrderID){
 
     console.log("notification from ios", notification);
 
-    if (notification.additionalData["gcm.notification.type_id"] == "1" || notification.additionalData["gcm.notification.type_id"]  == "2" || notification.additionalData["gcm.notification.type_id"]  == "3") {
+    if (notification.additionalData["gcm.notification.type_id"] == "1" || notification.additionalData["gcm.notification.type_id"]  == "2" || notification.additionalData["gcm.notification.type_id"]  == "3" || notification.additionalData["gcm.notification.type_id"] == "5") {
       //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
       var orderId = notification.additionalData["gcm.notification.OrderID"] ;
 

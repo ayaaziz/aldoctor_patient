@@ -51,6 +51,31 @@ export class ProvidedServicesProvider {
 
     
   }
+
+  saveOrderForNursingServices(NursingType ,DayHours,MonthDays,PreferedTime,PreferedGender,DayNumbers,WeekDays,TotalPrice,access_token){
+    let headers = new HttpHeaders();
+    console.log("lat from service ",this.helper.lat);
+    console.log("lon from service ",this.helper.lon);
+    
+    let userLocation = this.helper.lat + "," + this.helper.lon;
+
+    let parameter = new HttpParams().set('doctor_id',"").set("DayNumbers",DayNumbers).set("WeekDays",WeekDays).set("TotalPrice",TotalPrice).
+    set('extra',"").set('files',"").set("MonthDays",MonthDays).set("PreferedTime",PreferedTime).set("PreferedGender",PreferedGender)
+    .set('service_id','5').set('type_id',this.helper.type_id).set("NursingType",NursingType).set("DayHours",DayHours)
+    .set('fiels_ext',"").set('service_number',"")
+    .set('entity_service_id',"");
+    
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/orders/create';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+
+    
+  }
+
+  
+
+
   getXrayCenters(access_token){
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
@@ -58,6 +83,13 @@ export class ProvidedServicesProvider {
     return this.http.get(serviceUrl,{headers: headers });
   }
   
+  getnursingCenters(access_token){
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/specialities-nursing';
+    return this.http.get(serviceUrl,{headers: headers });
+  }
+
   rateWords(type_id,access_token){
     let headers = new HttpHeaders();
     
@@ -77,6 +109,8 @@ export class ProvidedServicesProvider {
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea';
     else if (type_id == "2")
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-xray-rate-criteriea';
+    else if (type_id == "5")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-nursing-rate-criteriea';
 
       
     return this.http.get(serviceUrl,{headers: headers });
@@ -100,6 +134,8 @@ export class ProvidedServicesProvider {
     serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-center-rate-criteriea?rate='+rateId;
   else if (type_id == "2")
     serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-xray-rate-criteriea?rate='+rateId;
+    else if (type_id == "5")
+    serviceUrl = this.helper.serviceUrl +'api/get/lkps/patient-nursing-rate-criteriea?rate='+rateId;
   
     return this.http.get(serviceUrl,{headers: headers });
   }
@@ -125,6 +161,8 @@ export class ProvidedServicesProvider {
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-center-cancel-reasons?lang='+lang;
     else if (type_id == "2")
       serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-xray-cancel-reasons?lang='+lang;
+      else if (type_id == "5")
+      serviceUrl = this.helper.serviceUrl +'api/get/lkps/users-nursing-cancel-reasons?lang='+lang;
 
     
       return this.http.get(serviceUrl,{headers: headers })

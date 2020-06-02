@@ -164,7 +164,7 @@ export class OrderServicePage {
         this.serviceTitle = this.translate.instant("nearbyCenter");
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
         this.hidePrice = false;
-      }else if(this.type_id == "4")
+      }else if(this.type_id == "5")
       {
         this.title = this.translate.instant("nurse");
         this.serviceTitle = this.translate.instant("nearbyNurse");
@@ -392,7 +392,7 @@ export class OrderServicePage {
           }else if(this.type_id == "2")
           {
             xxname="المراكز";
-          }else if(this.type_id == "4")
+          }else if(this.type_id == "5")
           {
             xxname="التمريض";
           }
@@ -572,7 +572,7 @@ Loadfunc(){
               var number = 0;
               if(this.type_id == "1")
                 number = 20*60;
-              else if (this.type_id == "2" || this.type_id == "3" || this.type_id == "4")
+              else if (this.type_id == "2" || this.type_id == "3" || this.type_id == "5")
                 number = 30*60;
 
 console.log("doctorData[results].timedelivertvalue: ",doctorData["result"][i].timedelivertvalue);
@@ -1097,10 +1097,10 @@ this.offlinetmpArrForSorting = [];
       this.presentToast(this.translate.instant("check3centers"));
     }else if (this.choosenDoctors.length<1 && this.type_id == 2){
       this.presentToast(this.translate.instant("checkAtleastonecenter"));
-    }else if(this.choosenDoctors.length > 5 && this.type_id == 4)
+    }else if(this.choosenDoctors.length > 5 && this.type_id == 5)
     {
       this.presentToast(this.translate.instant("check3Nurse"));
-    }else if (this.choosenDoctors.length<1 && this.type_id == 4){
+    }else if (this.choosenDoctors.length<1 && this.type_id == 5){
       this.presentToast(this.translate.instant("checkAtleastonenurse"));
     }else if(this.choosenDoctors.length > 5 && this.type_id == 1)
     {
@@ -1325,7 +1325,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
           }else if(this.type_id == "2")
           {
             xxname="المراكز";
-          }else if(this.type_id == "4")
+          }else if(this.type_id == "5")
           {
             xxname="التمريض";
           }

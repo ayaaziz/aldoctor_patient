@@ -282,6 +282,7 @@
       "pharmacyServiceTxt":"pharmacyServiceTxt",
       "pharmacycmpServiceTxt":"pharmacycmpServiceTxt",
       "labServiceTxt":"labServiceTxt",
+      "nurseServiceTxt":"nurseServiceTxt",
       "labHint":"labHint",
       "atleastOneimageforLab":"atleastOneimageforLab",
       "atleastOneimageforcenter":"atleastOneimageforcenter",

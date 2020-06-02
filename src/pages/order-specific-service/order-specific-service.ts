@@ -125,7 +125,7 @@ export class OrderSpecificServicePage {
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
         // this.hidePrice = false;
         this.hidePrice = true;
-      }else  if(this.type_id == "4")
+      }else  if(this.type_id == "5")
       {
         // alert("type 4 from specific : "+this.translate.instant("specificNurse"))
         this.title = this.translate.instant("specificNurse");
@@ -555,10 +555,10 @@ export class OrderSpecificServicePage {
     }else if (this.choosenDoctors.length<1 && this.type_id == 2){
       this.presentToast(this.translate.instant("checkAtleastonecenter"));
     }
-    else if(this.choosenDoctors.length > 5 && this.type_id == 4)
+    else if(this.choosenDoctors.length > 5 && this.type_id == 5)
     {
       this.presentToast(this.translate.instant("check3Nurse"));
-    }else if (this.choosenDoctors.length<1 && this.type_id == 4){
+    }else if (this.choosenDoctors.length<1 && this.type_id == 5){
       this.presentToast(this.translate.instant("checkAtleastonenurse"));
     }
     else if(this.choosenDoctors.length > 5 && this.type_id == 1)
@@ -832,7 +832,7 @@ searchFunc(searchVal){
            var number = 0;
            if(this.type_id == "1")
              number = 20*60;
-           else if (this.type_id == "2" || this.type_id == "3" || this.type_id == "4")
+           else if (this.type_id == "2" || this.type_id == "3" || this.type_id == "5")
              number = 30*60;
 
 console.log("doctorData[results].timedelivertvalue: ",doctorData["result"][i].timedelivertvalue);

@@ -234,6 +234,16 @@ export class FollowOrderForPlcPage {
         this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
         this.sendprescription = " إرسال "+this.medicalprescriptionImage;
       }
+      else if(this.type_id == "5"){
+        // this.callService = this.translate.instant("callcenter");
+        // this.serviceName = this.translate.instant("centerName2");
+        this.serviceTxt = this.translate.instant("nurseServiceTxt");
+        this.completeServiceTxt = this.translate.instant("pharmacycmpServiceTxt");
+        this.hint = this.translate.instant("labHint");
+        // this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
+        // this.sendprescription = " إرسال "+this.medicalprescriptionImage;
+      }
+
       
         // this.storage.get("access_token").then(data=>{
         // this.accessToken = data;

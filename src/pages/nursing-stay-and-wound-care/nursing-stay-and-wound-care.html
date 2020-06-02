@@ -33,7 +33,7 @@
 
 <ion-content padding>
 
-  <div *ngIf="Service_id == -15" >
+  <div *ngIf="Service_id == 1" >
 
     <!-- nursingStay -->
 <ion-row>
@@ -69,19 +69,19 @@
     
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">صباحا</ion-label>
-    <ion-radio value="am" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="1" style="margin-right: 0px !important;"></ion-radio>
     
   </ion-item>
 
   <ion-item no-lines style="direction: ltr;">
     
-    <ion-radio value="pm" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="2" style="margin-right: 0px !important;" ></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;" >مساءا</ion-label>
   </ion-item>
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="all" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="3" style="margin-right: 0px !important;" ></ion-radio>
     <ion-label style="color: gray; direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">طوال اليوم</ion-label>
   </ion-item>
@@ -100,20 +100,20 @@
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="male" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="0" style="margin-right: 0px !important;"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">ذكر</ion-label>
   </ion-item>
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="female" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="1" style="margin-right: 0px !important;" ></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">أنثى</ion-label>
   </ion-item>
   <ion-item no-lines style="direction: ltr;">
     
-    <ion-radio value="both" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="2" style="margin-right: 0px !important;"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">أيهما</ion-label>
   </ion-item>
@@ -134,7 +134,7 @@ margin-right: -16px;">
       
 
   </div>
-  <div *ngIf="Service_id == -16">
+  <div *ngIf="Service_id == 2 || Service_id == 3">
 
  <!-- wound care -->
 
@@ -174,20 +174,20 @@ margin-right: -16px;">
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="male" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="0" style="margin-right: 0px !important;" ></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;" >ذكر</ion-label>
   </ion-item>
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="female" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="1" style="margin-right: 0px !important;" ></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;" >أنثى</ion-label>
   </ion-item>
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="both" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="2" style="margin-right: 0px !important;"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">أيهما</ion-label>
   </ion-item>
