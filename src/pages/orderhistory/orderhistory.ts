@@ -1119,7 +1119,10 @@ fundStopAlert(item,money){
   
 }
 
-
+//ayaaaaaa
+openReport(item) {
+  this.navCtrl.push("ShowReportPage", {recievedItem : item});
+}
 
 
 

@@ -297,5 +297,6 @@
       "complaints":"إرسال شكوى",
       "send":"ارسل",
       "enterfrom":"الرجاء إدخال الفترة من",
-      "costafterDiscount":"التكلفة بعد الخصم "
+      "costafterDiscount":"التكلفة بعد الخصم ",
+      "calculePrice":"احسب التكلفة"
 }

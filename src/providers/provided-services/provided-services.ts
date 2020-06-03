@@ -238,4 +238,24 @@ getaddress(lat,lng){
 }
 
 
+//ayaaaaa
+calculateNursingTotalPrice(nursingType,noOfHoursPerDay,noOfDaysPerMonth,noOfTimesPerDay,noOfDaysPerWeek,accessToken) {
+  let headers = new HttpHeaders();
+  console.log("lat from service ",this.helper.lat);
+  console.log("lon from service ",this.helper.lon);
+
+  let parameter = new HttpParams()
+  .set('NursingType',nursingType)
+  .set("DayHours",noOfHoursPerDay)
+  .set("MonthDays",noOfDaysPerMonth)
+  .set("DayNumbers",noOfTimesPerDay)
+  .set("WeekDays",noOfDaysPerWeek)
+  
+  headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+accessToken);
+  let serviceUrl = this.helper.serviceUrl +'api/orders/CalculateNursingTotalPrice';
+  return this.http.post(serviceUrl,parameter,{headers: headers });
+
+}
+
+
 }

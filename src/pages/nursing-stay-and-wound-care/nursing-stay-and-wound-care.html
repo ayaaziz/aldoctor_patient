@@ -42,7 +42,9 @@
     margin-bottom: 0px;">عدد الساعات فى اليوم</ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input  (input)="noOfHoursPerDayonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+      <!-- <ion-input  (input)="noOfHoursPerDayonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;"
+      [(ngModel)]="noOfHoursPerDay" type="tel"></ion-input>  -->
+      <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfHoursPerDay" type="tel"></ion-input>
   </ion-col>
   
@@ -55,7 +57,9 @@
     margin-bottom: 0px;">عدد الأيام فى الشهر </ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input (input)="noOfDaysPerMonthonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+      <!-- <ion-input (input)="noOfDaysPerMonthonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;"
+        [(ngModel)]="noOfDaysPerMonth" type="tel"></ion-input>  -->
+      <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfDaysPerMonth" type="tel"></ion-input>
   </ion-col>
   
@@ -128,7 +132,10 @@ margin-right: -16px;">
 </div>
 
 
-<button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
+<!--ayaaaa-->
+<button type="button" *ngIf="!isNursingStayPriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="calculePrice()"> {{"calculePrice" | translate}}</button>  
+<button type="button" *ngIf="isNursingStayPriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
+
       
 
       
@@ -144,7 +151,9 @@ margin-right: -16px;">
     margin-bottom: 0px;">عدد المرات فى اليوم</ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input  (input)="noOfTimesPerDayonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+      <!-- <ion-input  (input)="noOfTimesPerDayonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="noOfTimesPerDay" type="tel"></ion-input> -->
+    <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfTimesPerDay" type="tel"></ion-input>
   </ion-col>
   
@@ -157,7 +166,9 @@ margin-right: -16px;">
     margin-bottom: 0px;">عدد الأيام فى الأسبوع  </ion-label>
   </ion-col>
   <ion-col>       
-      <ion-input  (input)="noOfDaysPerWeekonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+      <!-- <ion-input  (input)="noOfDaysPerWeekonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+    [(ngModel)]="noOfDaysPerWeek" type="tel"></ion-input> -->
+    <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfDaysPerWeek" type="tel"></ion-input>
   </ion-col>
   
@@ -201,8 +212,9 @@ margin-right: -16px;">
 <ion-label> التكلفة : {{ priceForWoundCare }} جنيه مصرى </ion-label>  
 </div>
 
-
-<button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
+<!--ayaaaaaa-->
+<button type="button" *ngIf="!isWoundCarePriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="calculePrice()"> {{"calculePrice" | translate}}</button>  
+<button type="button" *ngIf="isWoundCarePriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
       
 
 

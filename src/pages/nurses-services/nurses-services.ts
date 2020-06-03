@@ -326,14 +326,12 @@ console.log("sp item search val ",val);
     // console.log("item.id",item.id);
    console.log("item.extar  : ",item.extra)
     if(item.extra == 1){
- // r اقامه تمريضيه
+      // r اقامه تمريضيه
 
-this.navCtrl.push('nursingStayAndWoundCare',{data:{
-  Service_id:item.extra,
-  title:item.value
-}});
-
-
+      this.navCtrl.push('nursingStayAndWoundCare',{data:{
+        Service_id:item.extra,
+        title:item.value
+      }});
 
     }else if (item.extra == 2){
 
@@ -400,69 +398,59 @@ alert.present();
 
 // nursingStayAndWoundCare
 
-    }if(item.extra == 3){
-     //قدم سكري
-     
+    } else if(item.extra == 3){
+        //قدم سكري
+        let alert = this.alertCtrl.create({
+          title: item.value,
+          // message: this.translate.instant(""),
+          inputs : [{type:'radio',
+          label:"مرة واحدة",
+          value:"1"},{type:'radio',
+          label:"اكثر من مرة ",
+          value:"2"}],
+          buttons: [
+            {
+              text: this.translate.instant("canceltxt"),
+              role: 'cancel',
+              handler: (data) => {
+                console.log('disagree clicked',data);
+              }
+            },
+            {
+              text: this.translate.instant("done"),
+              handler: (catid) => {
+                console.log('agree clicked',catid);
 
-let alert = this.alertCtrl.create({
-  title: item.value,
-  // message: this.translate.instant(""),
-  inputs : [{type:'radio',
-  label:"مرة واحدة",
-  value:"1"},{type:'radio',
-  label:"اكثر من مرة ",
-  value:"2"}],
-  buttons: [
-    {
-      text: this.translate.instant("canceltxt"),
-      role: 'cancel',
-      handler: (data) => {
-        console.log('disagree clicked',data);
-      }
-    },
-    {
-      text: this.translate.instant("done"),
-      handler: (catid) => {
-        console.log('agree clicked',catid);
-
-        if(catid == 1){
-          console.log("cat id 1 ")
+                if(catid == 1){
+                  console.log("cat id 1 ")
 
 
-      this.navCtrl.push('order-service',{data:{
-        type_id:5,
-        lat:this.helper.lat,
-        lng:this.helper.lon,
-        center_id : item.id
-      }});
+              this.navCtrl.push('order-service',{data:{
+                type_id:5,
+                lat:this.helper.lat,
+                lng:this.helper.lon,
+                center_id : item.id
+              }});
 
 
-        }else if(catid == 2){
-          console.log("cat id 2 ")
+                }else if(catid == 2){
+                  console.log("cat id 2 ")
 
 
 
-          this.navCtrl.push('nursingStayAndWoundCare',{data:{
-            Service_id:item.extra,
-            title:item.value
-          }});
+                  this.navCtrl.push('nursingStayAndWoundCare',{data:{
+                    Service_id:item.extra,
+                    title:item.value
+                  }});
 
-          
+                  
 
-        }
-
-
-
-
-      }
-    }
-  ]
-});
-alert.present();
-
-
-
-
+                }
+              }
+            }
+          ]
+        });
+        alert.present();
     }
     else{
 

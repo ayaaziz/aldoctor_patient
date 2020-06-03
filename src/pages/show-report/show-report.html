@@ -1,0 +1,42 @@
+<ion-header class="{{langDirection}}">
+    <ion-navbar hideBackButton>
+  
+          <ion-title >التقرير</ion-title>
+      <ion-buttons  right>
+        <button ion-button>
+          <img src="assets/imgs/dlogo.png" style="width:30px;" >         
+        </button>
+        <button ion-button  (click)="dismiss()">
+            <img src="assets/icon/leftarrow.png"  (click)="dismiss()" class="customIcon">
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item  no-lines> 
+      <ion-label style="color:#016a38;"  item-start>التقرير </ion-label>
+    </ion-item>
+
+     <!-- files from db -->
+     <ion-row>
+      <ion-col col-4 *ngFor="let photo of photos; let indx = index">
+        <ion-col col-12 style="justify-content: center;display: flex;border: 1px solid #016a38;">
+          <!-- <ion-icon name="trash" class="deleteIcon" (click)="removeFile(1,photo.id,indx)" ></ion-icon> -->
+          <img [src]="photo.path" style="width:90px;height:80px" (click)="fullScreen(indx)" />
+        </ion-col>
+      </ion-col>
+     </ion-row>
+
+
+    <ion-row>
+      <!-- files from db -->
+      <ion-col col-12 *ngFor="let file of files; let indx = index" style="justify-content: flex-start;display: flex;">
+        <!-- <ion-icon  name="trash" item-end style="font-size: 20px;color:#016a38; margin: 0 10px;" (click)="removeFile(2,file.id,indx)" ></ion-icon> -->
+        <!-- <ion-label style="color:gray;margin: 0;" item-start>{{file.path}} </ion-label> -->
+        <a [href]="file.path" style="color:gray;margin: 0;" item-start>{{file.fileName}} </a>
+      </ion-col>
+    </ion-row>
+
+</ion-content>

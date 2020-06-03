@@ -72,6 +72,8 @@ centersId = [];
 
   ionViewWillEnter(){
     console.log("will enter");
+    console.log('ionViewWillEnter CentersPage');
+
     
     for(var j=0;j<this.specializations1.length;j++){
       this.specializations1[j].spClass = "spUnselceted";
