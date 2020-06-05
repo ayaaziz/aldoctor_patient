@@ -55,13 +55,11 @@ export class ShowReportPage {
             }
           }
         }
-      }
-      
+      }  
     },
     err=> {
       console.log("refresh",err);
-    }
-  );
+    });
   }
 
 

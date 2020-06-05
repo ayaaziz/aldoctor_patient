@@ -854,7 +854,7 @@ if (notification.additionalData.OrderID){
             if (this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
             {
             this.events.publish('status2ForPLC', data);
-            this.presentdelivaryAlert(notification.title, notification.message);
+            this.presentdelivaryAlert(notification.title, notification.message,notification.additionalData.totalPrice);
             this.events.publish('status8ForPLC');
 
             this.nav.setRoot(TabsPage);
@@ -868,7 +868,7 @@ if (notification.additionalData.OrderID){
               });
 
             }else{
-              this.presentdelivaryAlert(notification.title, notification.message);
+              this.presentdelivaryAlert(notification.title, notification.message,notification.additionalData.totalPrice);
             this.events.publish('status8ForPLC');
             }
 
@@ -1173,7 +1173,7 @@ if (notification.additionalData.OrderID){
         if (this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
         {
         this.events.publish('status2ForPLC', data);
-        this.presentdelivaryAlert(notification["title"], notification["message"]);
+        this.presentdelivaryAlert(notification["title"], notification["message"],notification.additionalData.totalPrice);
         this.events.publish('status8ForPLC');
 
         this.nav.setRoot(TabsPage);
@@ -1187,7 +1187,7 @@ if (notification.additionalData.OrderID){
           });
 
         }else{
-          this.presentdelivaryAlert(notification.title, notification.message);
+          this.presentdelivaryAlert(notification.title, notification.message,notification.additionalData.totalPrice);
         this.events.publish('status8ForPLC');
         }
 
@@ -1465,11 +1465,17 @@ if (notification.additionalData.OrderID){
     alert.present();
   }
 
-  presentdelivaryAlert(title, msg) {
+  presentdelivaryAlert(title, msg,totalPrice) {
     
    var price = ""
    var xLe = ""
    var xpt = ""
+
+   var totalPriceArr = totalPrice.split(".");
+   xLe = totalPriceArr[0];
+   xpt = totalPriceArr[1];
+   console.log("xLe: "+xLe);
+   console.log("xpt: "+xpt);
 
    console.log("type_id : ",this.helper.type_id)
    if (this.helper.type_id == 1 )

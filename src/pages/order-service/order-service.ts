@@ -83,8 +83,13 @@ export class OrderServicePage {
 
   onlinetmpArrForSorting = [];
   offlinetmpArrForSorting = [];
-
   eof = false
+
+  //ayaaaa
+  selectedNurseGender;
+  selectedGenderId = -1;
+  genderList = [{id:0,value:"ذكر"},{id:1,value:"أنثى"},{id:2,value:"أيهما"}];
+
 
   constructor(public translate: TranslateService,  public events: Events,
     public navCtrl: NavController, public navParams: NavParams,
@@ -408,7 +413,7 @@ export class OrderServicePage {
 
       //this.presentWaitingToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
       console.log("4 load func page",this.page);
-    this.Loadfunc();
+    this.Loadfunc(this.selectedGenderId);
 
 
    
@@ -511,7 +516,7 @@ export class OrderServicePage {
 
 
   }
-Loadfunc(){
+Loadfunc(genderId){
   
   if(this.refresher)
     this.showLoading = true;
@@ -525,7 +530,7 @@ Loadfunc(){
 //01089658744
       console.log("5 load func page",this.page);    
       
-      this.srv.nearbyservices(this.page,this.type_id,this.center_id,this.lat,this.lng,this.accessToken).subscribe(
+      this.srv.nearbyservices(this.page,this.type_id,this.center_id,this.lat,this.lng,genderId,this.accessToken).subscribe(
         resp=>{
           this.showLoading=true;
           // this.page++;
@@ -648,7 +653,7 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
             {
               this.sortDoctorsWithOnline();
               this.page++;
-              this.Loadfunc();
+              this.Loadfunc(genderId);
               this.eof = false
             } else{
 this.eof = true
@@ -1341,7 +1346,7 @@ console.log("from order doctor",newOrder.order.id,"service id",newOrder.order.se
       //this.presentToast(" يرجى الإنتظار لحين ترتيب "+xxname+" حسب الأقرب إليك ");
 
       console.log("2 load func page",this.page);
-    this.Loadfunc();
+    this.Loadfunc(this.selectedGenderId);
     
     
   }
@@ -1389,7 +1394,7 @@ loadMore(infiniteScroll) {
   this.infiniteScroll = infiniteScroll;
   this.page++;
   console.log("3 load func page",this.page);
-  this.Loadfunc();
+  this.Loadfunc(this.selectedGenderId);
 
 
   if (this.page == this.maximumPages) {
@@ -1398,6 +1403,17 @@ loadMore(infiniteScroll) {
 }
 ionViewWillEnter(){
   this.page = 1;
+}
+
+//ayaaaaa
+genderChecked(selectedGenderId) {
+  console.log("selectedGenderId : ",selectedGenderId);
+  console.log("selectedNurseGender : ",this.selectedNurseGender);
+
+  this.selectedGenderId = selectedGenderId;
+  
+  //call filter api (nearby)
+  this.Loadfunc(selectedGenderId);
 }
 
 }

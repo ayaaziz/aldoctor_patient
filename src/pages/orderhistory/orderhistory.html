@@ -124,7 +124,7 @@
         <button *ngIf="item.contorder == '1'"  class="btn btn-primary " style="width:85px;margin-bottom:7px;" (click)="contorder(item)">{{"contorder" | translate}}</button>
 
         <!-- ayaaaa -->
-        <button *ngIf="(item.type_id == 2 || item.type_id == 3) && (item.order_status == 5 || item.order_status == 6)" class="btn btn-primary " style="width: 105px;margin-bottom: 7px;text-align: center;padding: 4px 0;" (click)="openReport(item)" >مشاهدة التقرير </button>
+        <button *ngIf="(item.type_id == 2 || item.type_id == 3) && (item.order_status == 5 || item.order_status == 6)" class="btn btn-primary" style="width: 105px;margin-bottom: 7px;text-align: center;padding: 4px 0;" (click)="openReport(item)" >مشاهدة التقرير </button>
 
       </ion-col>
       </ion-row>

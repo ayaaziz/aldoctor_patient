@@ -240,7 +240,7 @@ export class NursingStayAndWoundCarePage {
       } 
 
     var accessToken = localStorage.getItem('user_token');
-    this.service.calculateNursingTotalPrice(1,this.noOfHoursPerDay,this.noOfDaysPerMonth,0,0,accessToken).subscribe(
+    this.service.calculateNursingTotalPrice(this.Service_id,this.noOfHoursPerDay,this.noOfDaysPerMonth,0,0,accessToken).subscribe(
       resp => {
         console.log("calculatedPrice: ",resp);
         let result = JSON.parse(JSON.stringify(resp));
@@ -272,7 +272,7 @@ export class NursingStayAndWoundCarePage {
       }
     
       var accessToken = localStorage.getItem('user_token');
-      this.service.calculateNursingTotalPrice(2,0,0,this.noOfTimesPerDay,this.noOfDaysPerWeek,accessToken).subscribe(
+      this.service.calculateNursingTotalPrice(this.Service_id,0,0,this.noOfTimesPerDay,this.noOfDaysPerWeek,accessToken).subscribe(
         resp => {
           console.log("calculatedPrice: ",resp);
           let result = JSON.parse(JSON.stringify(resp));

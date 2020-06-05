@@ -8,12 +8,13 @@ export class ProvidedServicesProvider {
   constructor(public helper:HelperProvider, public http: HttpClient) {
     console.log('Hello ProvidedServicesProvider Provider');
   }
-  nearbyservices(page,type_id,centerId,lat,lon,access_token){
+  nearbyservices(page,type_id,centerId,lat,lon,nurseGender,access_token){
 
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl+ 'api/nearby?service_id=3&type_id='+type_id+'&lat='+lat+'&lng='+lon+'&center_id='+centerId+'&city_id='+this.helper.city_id+'&page='+page;
+
+    let serviceUrl = this.helper.serviceUrl+ 'api/nearby?service_id=3&type_id='+type_id+'&lat='+lat+'&lng='+lon+'&center_id='+centerId+'&city_id='+this.helper.city_id+'&page='+page+'&gender='+nurseGender;
     console.log("service request ",serviceUrl);
     return this.http.get(serviceUrl,{headers: headers });
 
