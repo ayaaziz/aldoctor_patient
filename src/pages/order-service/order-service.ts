@@ -1411,6 +1411,14 @@ genderChecked(selectedGenderId) {
   console.log("selectedNurseGender : ",this.selectedNurseGender);
 
   this.selectedGenderId = selectedGenderId;
+
+  this.choosenDoctors = [];
+  this.page = 1;
+  this.DoctorsArray= [];
+  var xxname;
+
+  xxname="التمريض";
+  
   
   //call filter api (nearby)
   this.Loadfunc(selectedGenderId);

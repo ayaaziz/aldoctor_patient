@@ -64,9 +64,10 @@ export class ProvidedServicesProvider {
     set('extra',"").set('files',"").set("MonthDays",MonthDays).set("PreferedTime",PreferedTime).set("PreferedGender",PreferedGender)
     .set('service_id','5').set('type_id',this.helper.type_id).set("NursingType",NursingType).set("DayHours",DayHours)
     .set('fiels_ext',"").set('service_number',"")
-    .set('entity_service_id',"");
+    .set('entity_service_id',NursingType);
     
     
+  
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
     let serviceUrl = this.helper.serviceUrl +'api/orders/create';
     return this.http.post(serviceUrl,parameter,{headers: headers });

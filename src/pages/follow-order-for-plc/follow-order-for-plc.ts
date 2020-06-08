@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController,AlertController ,ActionSheetController ,Events } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController,AlertController ,ActionSheetController ,Events, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HelperProvider } from '../../providers/helper/helper';
 import { TranslateService } from '@ngx-translate/core';
@@ -88,7 +88,8 @@ export class FollowOrderForPlcPage {
     public toastCtrl: ToastController, public alertCtrl: AlertController,
     public events: Events,public camera: Camera,
     public actionSheetCtrl: ActionSheetController,
-    private localNotifications: LocalNotifications)
+    private localNotifications: LocalNotifications,
+    private modalCtrl:ModalController)
     {  
       this.accessToken = localStorage.getItem('user_token');
       this.helper.view = "follow";
@@ -1159,6 +1160,13 @@ this.accessToken = localStorage.getItem('user_token');
 ionViewWillEnter(){
   console.log("will enter from follow order");
   this.helper.view = "follow";
+}
+
+//ayaaaaaaaaaa
+medicalConsultant() {
+  console.log("medicalConsultant");
+  var modalPage = this.modalCtrl.create('ModalPage',{from:"medicalConsultant"});
+  modalPage.present();
 }
 
 

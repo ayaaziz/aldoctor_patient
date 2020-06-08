@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams , ToastController,AlertController} from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Storage } from '@ionic/storage';
@@ -48,6 +48,7 @@ reorderDate:"",reorderPrice:""};
   showLoading=true;
   myId;
   maxDate ; 
+
 
   constructor(public helper:HelperProvider, public service:LoginserviceProvider,
     public storage: Storage,  public alertCtrl: AlertController,
@@ -159,6 +160,27 @@ reorderDate:"",reorderPrice:""};
               ordersData[j].statusTxt = "قيد التنفيذ";
               ordersData[j].color = "green";
             }
+
+            ////ayaaaaaaaaaaa
+            //pending from admin
+            else if (ordersData[j].status == "15")
+            { 
+              ordersData[j].statusTxt="في انتظار الرد";
+              ordersData[j].color = "green";
+            }
+            //accepted from admin
+            else if (ordersData[j].status == "16")
+            { 
+              ordersData[j].statusTxt="تم التنفيذ";
+              ordersData[j].color = "green";
+            }
+            //rejected from admin
+            else if (ordersData[j].status == "17")
+            { 
+              ordersData[j].statusTxt ="مرفوض" ;
+              ordersData[j].color = "red";
+            }
+            //////////////////////
 
              
             if(ordersData[j].status == "8" || ordersData[j].status == "5" || ordersData[j].status =="6" || ordersData[j].status == "7")
@@ -341,6 +363,25 @@ reorderDate:"",reorderPrice:""};
                 this.orderobject.name = "مرفوض";
               else if (ordersData[j].status == "4")
                 this.orderobject.name = "ملغى";
+
+              ////ayaaaaaaaaaaa
+              //pending from admin
+              else if (ordersData[j].status == "15")
+              { 
+                this.orderobject.name = "تم ارسال الطلب";
+              }
+              //accepted from admin
+              else if (ordersData[j].status == "16")
+              { 
+                this.orderobject.name = "تم ارسال الطلب";
+              }
+              //rejected from admin
+              else if (ordersData[j].status == "17")
+              { 
+                this.orderobject.name = "تم ارسال الطلب";
+              }
+              
+              //////////////////////
                 
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
               this.orderobject.orderDate = ordersData[j].created_at_new; //.split(" ")[0]

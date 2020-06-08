@@ -70,6 +70,7 @@ export class ModalPage {
                   this.helpersArr[i] = this.helpersArr[i].substr(1)
               }
 
+              
 
             }
       
