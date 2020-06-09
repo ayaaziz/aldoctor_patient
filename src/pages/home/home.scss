@@ -269,6 +269,15 @@ page-home {
 //     }
 //   }
 
+.available {
+  opacity: 1;
+}
+
+.notAvailable {
+  pointer-events: none;
+  opacity: .4;
+}
+
 }
 .toastRight{
     text-align: right;

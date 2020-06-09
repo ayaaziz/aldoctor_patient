@@ -32,6 +32,17 @@ export class HomePage {
   accessToken;
   tostClass;
 xxrate;
+
+//ayaaaaaa
+homeZoneSServices = [];
+allServicesIds = [1,2,3,4,5];
+lat = 31.037933; 
+lng = 31.381523;
+selectedCityId;
+availableServicesOfSelectedZone;
+homeServicesArr = [];
+
+
   DoctorsArray = [{distanceVal:5,offline:false},{distanceVal:1000,offline:true},{distanceVal:3,offline:false},{distanceVal:1,offline:true}];
 
   constructor(public service: LoginserviceProvider,public events: Events,
@@ -243,6 +254,7 @@ this.storage.get("rate_doctor").then(data=>{
 
     // })
 
+  //ayaaaaaaaaaaaa
   this.service.getAllZones().subscribe(
     data => {
       console.log("JSON.parse(JSON.stringify(data)): "+JSON.parse(JSON.stringify(data)));
@@ -255,6 +267,65 @@ this.storage.get("rate_doctor").then(data=>{
     }
   )
 
+    //ayaaaaaaaa
+    //filter home using zone
+    if(this.helper.homeZoneSServices.length == 0) {
+      this.accessToken = localStorage.getItem('user_token');
+      this.lat = this.helper.lat;
+      this.lng = this.helper.lon;
+  
+      this.service.getHomeZoneServices(this.lat,this.lng,this.accessToken).subscribe(
+        data => {
+          this.homeZoneSServices = JSON.parse(JSON.stringify(data)).HomeZones;
+          console.log("homeZoneSServices: "+JSON.stringify(this.homeZoneSServices));
+  
+          this.helper.homeZoneSServices = this.homeZoneSServices;
+  
+        },error => {
+          console.log(error);
+        });
+    }
+   
+    //ayaaaaaaaaaaaa
+    this.selectedUserCity = this.helper.selectedUserCity; 
+    this.selectedCityId = this.helper.selectedCityId;  
+    if(this.selectedCityId && this.selectedUserCity) {
+      this.cityChecked(this.selectedCityId);
+    } 
+    console.log("constructor selectedUserCity: "+this.helper.selectedUserCity); 
+
+  }
+
+  //ayaaaaaaaa
+  cityChecked(selectedCityId) {
+
+    console.log("selectedCityId passed to cityChecked : ",selectedCityId)
+    console.log("selectedUserCity : ",this.selectedUserCity)
+  
+    this.selectedCityId = selectedCityId;
+    this.helper.selectedUserCity = this.selectedUserCity;
+    this.helper.selectedCityId = this.selectedCityId;
+
+  
+    this.availableServicesOfSelectedZone = this.getAvailableServices();
+
+    console.log("availableServicesOfSelectedZone: "+JSON.stringify(this.availableServicesOfSelectedZone));
+
+    if(this.availableServicesOfSelectedZone) {
+      this.homeServicesArr = JSON.parse(this.availableServicesOfSelectedZone.cities_service);
+      if(!this.homeServicesArr) this.homeServicesArr = [];
+    }
+    console.log("homeServicesArr: "+this.homeServicesArr);
+    
+  }
+
+  //ayaaaaaaa
+  getAvailableServices() {
+    console.log("selectedCityId*** "+this.selectedCityId)
+    return this.helper.homeZoneSServices.find(element => {
+      console.log("eleeeeeeemet: "+JSON.stringify(element));
+         return element.id == this.selectedCityId;  
+    });
   }
  
   sortDoctors(){
@@ -600,12 +671,6 @@ customerService(){
     var modalPage = this.modalCtrl.create('ModalPage',{from:"customerService"});
     modalPage.present();
  
-
-}
-
-cityChecked(selectedCityId){
-  console.log("selectedCityId passed to cityChecked : ",selectedCityId)
-  console.log("selectedUserCity : ",this.selectedUserCity)
 
 }
 

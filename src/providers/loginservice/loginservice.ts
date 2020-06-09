@@ -814,5 +814,15 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       let serviceUrl = this.helper.serviceUrl +'api/getDirection';
       return this.http.post(serviceUrl,parameter,{headers: headers });
   }
+
+  //ayaaaaaaaaa
+  //filter home services using zone
+  getHomeZoneServices(lat,lng,access_token) {       
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('lat',lat).set('lng',lng);
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/user/HomeZone';
+    return this.http.post(serviceUrl,parameter,{headers: headers });
+  }
 }
 
