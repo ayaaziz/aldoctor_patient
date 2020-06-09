@@ -24,8 +24,8 @@ export class HomePage {
   
 
   selectedUserCity
-  // cityZonesArray = []
-  cityZonesArray = [{id:1,value:"city1"},{id:2,value:"city2"}]
+  cityZonesArray = [];
+  // cityZonesArray = [{id:1,value:"city1"},{id:2,value:"city2"}]
 
 
   langDirection:any;
@@ -242,6 +242,19 @@ this.storage.get("rate_doctor").then(data=>{
     //   }
 
     // })
+
+  this.service.getAllZones().subscribe(
+    data => {
+      console.log("JSON.parse(JSON.stringify(data)): "+JSON.parse(JSON.stringify(data)));
+      console.log("JSON.stringify(data): "+JSON.stringify(data));
+
+      this.cityZonesArray = JSON.parse(JSON.stringify(data));
+    },
+    error => {
+      console.log(error);
+    }
+  )
+
   }
  
   sortDoctors(){

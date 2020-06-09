@@ -28,6 +28,7 @@ export class OrderhistoryPage {
   color="grey";
   ordersArray=[];
 
+  customPickerOptions:any;
   
 
   orderobject={"orderId":"","order_status":"","color":"","reorder":"","rated":"",
@@ -75,6 +76,28 @@ reorderDate:"",reorderPrice:""};
             this.myId = data.id;
             console.log("myId",this.myId);
         });  
+
+
+
+      //ayaaaaaaaaaaaaaaaaa
+      this.customPickerOptions = {
+        buttons: [{
+          text: 'يوم',
+          handler: () => {
+            return false;
+          }      
+        }, {
+          text: 'شهر',
+          handler: () => {
+            return false;
+          }
+        },{
+          text: 'سنة',
+          handler: () => {
+            return false;
+          }
+        }]
+      }
 
   }
 

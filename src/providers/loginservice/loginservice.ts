@@ -32,6 +32,13 @@ export class LoginserviceProvider {
   getCities(id){
     return this.http.get(this.helper.serviceUrl+'api/get/lkps/cities?governerate_id='+id);
   }
+
+  getAllZones() {
+    var lang = this.helper.currentLang;
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/cities?lang='+lang;
+    return this.http.get(serviceUrl);
+  }
+
   getAccessToken(authSuccessCallback,authFailureCallback) {
 
     let headers = new HttpHeaders()
