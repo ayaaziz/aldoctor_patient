@@ -275,6 +275,7 @@ page-home {
 
 .notAvailable {
   pointer-events: none;
+  -webkit-pointer-events: none;
   opacity: .4;
 }
 

@@ -39,8 +39,12 @@ export class SpecializationsPage {
   phone;
   phone2;
   phone3;
-  
   refresher;
+
+  specialityCities = [];
+  currentCityId;
+  cities_service = [];
+
   constructor(public helper:HelperProvider,public navCtrl: NavController,
      public navParams: NavParams,public storage: Storage,
      public service:LoginserviceProvider,public toastCtrl: ToastController,
@@ -58,10 +62,8 @@ export class SpecializationsPage {
       else
         this.tostClass="toastLeft";
 
-      // this.storage.get("access_token").then(data=>{
-      //   this.accessToken = data;
-
-      // });
+      this.currentCityId = this.helper.city_id;
+      console.log("this.currentCityId****** "+this.currentCityId);
       
   }
 
@@ -121,6 +123,7 @@ export class SpecializationsPage {
     
       this.showLoading = false;
       
+
       this.service.getSpecializations(this.accessToken).subscribe(
         resp=>{
       
@@ -128,22 +131,50 @@ export class SpecializationsPage {
       
           console.log("getSpecializations resp: ",resp);
           var specializationData = JSON.parse(JSON.stringify(resp));
+
+          // //ayaaaaaa
+          // for(var x = 0; x < specializationData.length -1; x++) {
+          //   // specializationData[x].cities_service = JSON.parse(specializationData[x].cities_service);
+
+          //   //cities array
+          //   // this.cities_service = JSON.parse(specializationData[x].cities_service);
+
+          //   console.log("specializationData[x].cities_service "+specializationData[x].cities_service);
+
+          
+
+            
+          // }
+          // ////////
+
+
           this.specializations1 = [];
           this.specializations2 = [];
-          for(var i=0;i<(specializationData.length/2);i++){
-            // console.log("sp1",specializationData[i]);
+          for(var i=0;i<(specializationData.length/2);i++) {
             specializationData[i].spClass ="spUnselceted";
+
+
+            //ayaaaaaaaaaa
+            if(this.checkIfServiceInZone(JSON.parse(specializationData[i].cities_service))) {
+              specializationData[i].isInZone = true;
+            }
+
             this.specializations1.push(specializationData[i]);
           }
-          // console.log("sp..",specializationData);
+      
           for(var j=Math.ceil(specializationData.length/2);j<specializationData.length;j++){
-            // console.log("j ",j);
-            // console.log("sp2",specializationData[j]);
             specializationData[j].spClass ="spUnselceted";
-            this.specializations2.push(specializationData[j]);
-            
+
+
+            //ayaaaaaaaaaa
+            if(this.checkIfServiceInZone(JSON.parse(specializationData[j].cities_service))) {
+              specializationData[j].isInZone = true;
+            }
+
+            this.specializations2.push(specializationData[j]); 
           }
-         
+
+                      
           console.log("sp1 ",this.specializations1);
           console.log("sp2 ",this.specializations2);
 
@@ -164,6 +195,13 @@ export class SpecializationsPage {
     // });
 
    
+  }
+
+  //ayaaaaaaaa
+  checkIfServiceInZone(serviceCitiesArr) {
+  return serviceCitiesArr.find(cityId => {
+      return cityId == this.helper.city_id
+    })
   }
 
   

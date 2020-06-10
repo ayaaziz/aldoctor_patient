@@ -197,12 +197,24 @@ this.accessToken = localStorage.getItem('user_token');
           for(var i=0;i<(specializationData.length/2);i++){
     
             specializationData[i].spClass ="spUnselceted";
+
+            //ayaaaaaaaaaa
+            if(this.checkIfServiceInZone(JSON.parse(specializationData[i].cities_service))) {
+              specializationData[i].isInZone = true;
+            }
+
             this.specializations1.push(specializationData[i]);
           }
     
           for(var j=Math.ceil(specializationData.length/2);j<specializationData.length;j++){
     
             specializationData[j].spClass ="spUnselceted";
+
+            //ayaaaaaaaaaa
+            if(this.checkIfServiceInZone(JSON.parse(specializationData[j].cities_service))) {
+              specializationData[j].isInZone = true;
+            }
+
             this.specializations2.push(specializationData[j]);
             
           }
@@ -255,6 +267,13 @@ this.accessToken = localStorage.getItem('user_token');
 
    
   }
+
+  //ayaaaaaaaa
+  checkIfServiceInZone(serviceCitiesArr) {
+    return serviceCitiesArr.find(cityId => {
+        return cityId == this.helper.city_id
+      })
+    }
 
   
   getItems(ev) {
@@ -398,8 +417,8 @@ alert.present();
 
 // nursingStayAndWoundCare
 
-    } else if(item.extra == 3){
-        //قدم سكري
+    } else if(item.extra == 3 || item.extra == 4){
+        //قدم سكري // قياس ضغط وسكر
         let alert = this.alertCtrl.create({
           title: item.value,
           // message: this.translate.instant(""),

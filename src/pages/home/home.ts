@@ -41,6 +41,9 @@ lng = 31.381523;
 selectedCityId;
 availableServicesOfSelectedZone;
 homeServicesArr = [];
+locFlag = 0;
+cityIdFromCheckZone;
+
 
 
   DoctorsArray = [{distanceVal:5,offline:false},{distanceVal:1000,offline:true},{distanceVal:3,offline:false},{distanceVal:1,offline:true}];
@@ -316,7 +319,9 @@ this.storage.get("rate_doctor").then(data=>{
       if(!this.homeServicesArr) this.homeServicesArr = [];
     }
     console.log("homeServicesArr: "+this.homeServicesArr);
-    
+
+    //get current location and check zone
+    // this.helper.geoLoc(data => this.getCurrentLoc(data)); 
   }
 
   //ayaaaaaaa
@@ -327,6 +332,76 @@ this.storage.get("rate_doctor").then(data=>{
          return element.id == this.selectedCityId;  
     });
   }
+
+  
+
+  // getCurrentLoc(loc) {
+
+  //   if (loc == "-1") {
+
+  //     this.presentToast(this.translate.instant("AccessLocationFailed"));
+        
+  //     // this.toastFlag=true;
+  //     // console.log("set toast flag with true: ",this.toastFlag);
+
+  //     // this.allowUserToChooseHisLocation();
+  //   }
+  //   else {
+  //     // this.toastFlag =false
+  //     this.lat = loc.inspectorLat;
+  //     this.helper.lat = loc.inspectorLat
+  //     this.lng = loc.inspectorLong;
+  //     this.helper.lon = loc.inspectorLong;
+
+
+  //     this.service.getaddress(this.lat,this.lng).subscribe(
+  //       resp => {
+  //         console.log("resp from get address",resp);
+  //         var myLongAddress =  JSON.parse(JSON.stringify(resp)).results[0].formatted_address;
+        
+  //         this.service.updateUserLocation(this.lat+","+this.lng,myLongAddress,this.accessToken).subscribe(
+  //           resp=>{
+  //             console.log("resp from updateUserLocation",resp);
+  //           },err=>{
+  //             console.log("err from updateUserLocation",err);
+  //           }
+  //         );
+
+  //       },err => {
+  //         console.log("err from get address",err);
+  //       }
+  //     );
+
+   
+  //     //user/zone (checkzone)
+  //     this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
+  //       resp => {
+  //         console.log("resp from getUserZone",resp);
+  //         if(JSON.parse(JSON.stringify(resp)).success == true)
+  //         {
+  //           this.cityIdFromCheckZone = JSON.parse(JSON.stringify(resp)).city[0].id;
+
+  //           if(this.cityIdFromCheckZone == this.selectedCityId) {
+  //             //in zone
+  //             this.locFlag = 1;  
+  //             this.helper.city_id = this.cityIdFromCheckZone;
+  //             console.log("city_id",this.helper.city_id);
+            
+  //           } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.selectedCityId)) {
+  //             this.locFlag = -1; 
+  //           }
+  //         } 
+          
+  //       },err=>{
+  //         console.log("err from getUserZone",err);
+
+  //       }
+  //     );
+
+
+  //     // this.handleuserLocattion();
+  //   }
+  // }
  
   sortDoctors(){
 

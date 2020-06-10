@@ -253,7 +253,7 @@ export class NursingStayAndWoundCarePage {
       })
     } 
     //wound care
-    else if (this.Service_id == 2 || this.Service_id == 3) {
+    else if (this.Service_id == 2 || this.Service_id == 3 || this.Service_id == 4) {
       if(! this.noOfTimesPerDay) {
         this.presentToast("الرجاء إدخال عدد المرات فى اليوم");
         return;
@@ -331,7 +331,7 @@ export class NursingStayAndWoundCarePage {
 
     }
     //wound care
-    else if (this.Service_id == 2 || this.Service_id == 3) {
+    else if (this.Service_id == 2 || this.Service_id == 3 || this.Service_id == 4) {
 
       if(! this.noOfTimesPerDay) {
         this.presentToast("الرجاء إدخال عدد المرات فى اليوم");

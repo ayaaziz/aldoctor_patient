@@ -44,6 +44,7 @@ export class SearchForDoctorPage {
   toastFlag= false;
   allMarkers = [] ;
   city_id;
+  cityIdFromCheckZone;
 
   
   constructor(public service:LoginserviceProvider,public storage: Storage,
@@ -210,15 +211,31 @@ getCurrentLoc(loc) {
     this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
       resp=>{
         console.log("resp from getUserZone",resp);
+        // if(JSON.parse(JSON.stringify(resp)).success == true)
+        // {
+        //   this.locFlag = 1;  
+        //   this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+        //   console.log("city_id",this.city_id);
+        //   this.helper.city_id = this.city_id;
+        // } 
+        // else if (JSON.parse(JSON.stringify(resp)).success == false)
+        //   this.locFlag = -1; 
+
         if(JSON.parse(JSON.stringify(resp)).success == true)
         {
-          this.locFlag = 1;  
-          this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
-          console.log("city_id",this.city_id);
-          this.helper.city_id = this.city_id;
+          this.cityIdFromCheckZone = JSON.parse(JSON.stringify(resp)).city[0].id;
+
+          if(this.cityIdFromCheckZone == this.helper.selectedCityId) {
+            //in zone
+            this.locFlag = 1;  
+            this.helper.city_id = this.cityIdFromCheckZone;
+            console.log("city_id",this.helper.city_id);
+          
+          } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+            //out of zone
+            this.locFlag = -1; 
+          }
         } 
-        else if (JSON.parse(JSON.stringify(resp)).success == false)
-          this.locFlag = -1; 
       },err=>{
         console.log("err from getUserZone",err);
 
@@ -274,15 +291,30 @@ test(){
           this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
             resp=>{
               console.log("resp from getUserZone",resp);
+              // if(JSON.parse(JSON.stringify(resp)).success == true)
+              // {
+              //   this.locFlag = 1;  
+              //   this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+              //   console.log("city_id",this.city_id);
+              //   this.helper.city_id = this.city_id;
+              // } 
+              // else if (JSON.parse(JSON.stringify(resp)).success == false)
+              //   this.locFlag = -1; 
               if(JSON.parse(JSON.stringify(resp)).success == true)
               {
-                this.locFlag = 1;  
-                this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
-                console.log("city_id",this.city_id);
-                this.helper.city_id = this.city_id;
+                this.cityIdFromCheckZone = JSON.parse(JSON.stringify(resp)).city[0].id;
+      
+                if(this.cityIdFromCheckZone == this.helper.selectedCityId) {
+                  //in zone
+                  this.locFlag = 1;  
+                  this.helper.city_id = this.cityIdFromCheckZone;
+                  console.log("city_id",this.helper.city_id);
+                
+                } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+                  //out of zone
+                  this.locFlag = -1; 
+                }
               } 
-              else if (JSON.parse(JSON.stringify(resp)).success == false)
-                this.locFlag = -1; 
             },err=>{
               console.log("err from getUserZone",err);
   
@@ -391,15 +423,30 @@ getUserLocation(){
       this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
         resp=>{
           console.log("resp from getUserZone",resp);
+          // if(JSON.parse(JSON.stringify(resp)).success == true)
+          // {
+          //   this.locFlag = 1;  
+          //   this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+          //   console.log("city_id",this.city_id);
+          //   this.helper.city_id = this.city_id;
+          // } 
+          // else if (JSON.parse(JSON.stringify(resp)).success == false)
+          //   this.locFlag = -1; 
           if(JSON.parse(JSON.stringify(resp)).success == true)
           {
-            this.locFlag = 1;  
-            this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
-            console.log("city_id",this.city_id);
-            this.helper.city_id = this.city_id;
+            this.cityIdFromCheckZone = JSON.parse(JSON.stringify(resp)).city[0].id;
+  
+            if(this.cityIdFromCheckZone == this.helper.selectedCityId) {
+              //in zone
+              this.locFlag = 1;  
+              this.helper.city_id = this.cityIdFromCheckZone;
+              console.log("city_id",this.helper.city_id);
+            
+            } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+              //out of zone
+              this.locFlag = -1; 
+            }
           } 
-          else if (JSON.parse(JSON.stringify(resp)).success == false)
-            this.locFlag = -1; 
         },err=>{
           console.log("err from getUserZone",err);
 
@@ -550,6 +597,7 @@ allowUserToChooseHisLocation(){
     //     console.log("err from updateUserLocation",err);
     //   }
     // );
+    
 
     this.service.getaddress(this.lat,this.lng).subscribe(
       resp=>{
@@ -574,15 +622,30 @@ allowUserToChooseHisLocation(){
     this.service.getUserZone(this.lat,this.lng,this.accessToken).subscribe(
       resp=>{
         console.log("resp from getUserZone",resp);
+        // if(JSON.parse(JSON.stringify(resp)).success == true)
+        // {
+        //   this.locFlag = 1;  
+        //   this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
+        //   console.log("city_id",this.city_id);
+        //   this.helper.city_id = this.city_id;
+        // } 
+        // else if (JSON.parse(JSON.stringify(resp)).success == false)
+        //   this.locFlag = -1; 
         if(JSON.parse(JSON.stringify(resp)).success == true)
         {
-          this.locFlag = 1;  
-          this.city_id = JSON.parse(JSON.stringify(resp)).city[0].id;
-          console.log("city_id",this.city_id);
-          this.helper.city_id = this.city_id;
+          this.cityIdFromCheckZone = JSON.parse(JSON.stringify(resp)).city[0].id;
+
+          if(this.cityIdFromCheckZone == this.helper.selectedCityId) {
+            //in zone
+            this.locFlag = 1;  
+            this.helper.city_id = this.cityIdFromCheckZone;
+            console.log("city_id",this.helper.city_id);
+          
+          } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+            //out of zone
+            this.locFlag = -1; 
+          }
         } 
-        else if (JSON.parse(JSON.stringify(resp)).success == false)
-          this.locFlag = -1; 
       },err=>{
         console.log("err from getUserZone",err);
 

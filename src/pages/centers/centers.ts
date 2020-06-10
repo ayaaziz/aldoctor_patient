@@ -182,6 +182,7 @@ this.accessToken = localStorage.getItem('user_token');
       
           this.showLoading = true;
       
+
           console.log("getXrayCenters resp: ",resp);
           var specializationData = JSON.parse(JSON.stringify(resp));
           this.specializations1 = [];
@@ -189,12 +190,24 @@ this.accessToken = localStorage.getItem('user_token');
           for(var i=0;i<(specializationData.length/2);i++){
     
             specializationData[i].spClass ="spUnselceted";
+
+            //ayaaaaaaaaaa
+            if(this.checkIfServiceInZone(JSON.parse(specializationData[i].cities_service))) {
+              specializationData[i].isInZone = true;
+            }
+
             this.specializations1.push(specializationData[i]);
           }
     
           for(var j=Math.ceil(specializationData.length/2);j<specializationData.length;j++){
     
             specializationData[j].spClass ="spUnselceted";
+
+            //ayaaaaaaaaaa
+            if(this.checkIfServiceInZone(JSON.parse(specializationData[j].cities_service))) {
+              specializationData[j].isInZone = true;
+            }
+
             this.specializations2.push(specializationData[j]);
             
           }
@@ -247,6 +260,13 @@ this.accessToken = localStorage.getItem('user_token');
 
    
   }
+
+  //ayaaaaaaaa
+  checkIfServiceInZone(serviceCitiesArr) {
+    return serviceCitiesArr.find(cityId => {
+        return cityId == this.helper.city_id
+      })
+    }
 
   
   getItems(ev) {

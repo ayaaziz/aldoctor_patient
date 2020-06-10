@@ -1,11 +1,8 @@
 <!-- <ion-header>
-
   <ion-navbar>
     <ion-title>centers</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 <ion-header> -->
   <ion-header class="{{langDirection}}">
     <ion-navbar hideBackButton>
@@ -56,7 +53,7 @@
     
     <ion-row style="width:100%;margin-right:0px;margin-left:0px;">
     <ion-col col-6  *ngFor="let item of specializations1; let i= index" >
-    <div class="divStyle x" [ngClass]="item.spClass" (click)="chooseSp($event,i,item)">
+    <div class="divStyle x" [ngClass]="item.spClass" (click)="chooseSp($event,i,item)" *ngIf="item.isInZone || item.id == -10">
       <img  [src]="item.image"  *ngIf="item.status =='0'" style="width:45px;height:45px;" class="customPosition" >
       <img  [src]="item.image_selected" *ngIf="item.status =='1'"  style="width:45px;height:45px;" class="customPosition" >
       <!-- text-wrap -->
@@ -64,7 +61,7 @@
     </div>
     </ion-col>
     <ion-col col-6  *ngFor="let item2 of specializations2; let j= index">
-      <div class= "divStyle x" [ngClass]="item2.spClass" (click)="chooseSp($event,j,item2)">
+      <div class= "divStyle x" [ngClass]="item2.spClass" (click)="chooseSp($event,j,item2)" *ngIf="item2.isInZone || item2.id == -10">
           <img  [src]="item2.image"  *ngIf="item2.status =='0'" style="width:45px;height:45px;" class="customPosition" >
           <img  [src]="item2.image_selected" *ngIf="item2.status =='1'"  style="width:45px;height:45px;" class="customPosition" >
           <!-- text-wrap -->
@@ -167,4 +164,3 @@
     
               </ion-fab>
     </ion-content>
-    
