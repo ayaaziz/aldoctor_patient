@@ -36,7 +36,7 @@ export class OrderhistoryPage {
 "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
 "diabledesign":false,"addressSign":true,"type_id":"","diabledRate":false,
 "contorder":"","remark":"","contDate":"","disableRatebtn":true,
-reorderDate:"",reorderPrice:""};
+reorderDate:"",reorderPrice:"",hasfiles:0};
 
   tostClass ;
   refresher;
@@ -142,6 +142,11 @@ reorderDate:"",reorderPrice:""};
               console.log("object after rate2",this.orderobject);
 
             
+            //ayaaaaaaaa
+            this.orderobject.hasfiles = ordersData[j].hasfiles; 
+            console.log("hasFiles ",this.orderobject.hasfiles);
+
+
             if(ordersData[j].status == "10" ) //canceled by doctor 0, || ordersData[j].status == "3"
             {  
               ordersData[j].color = "red";
@@ -344,7 +349,7 @@ reorderDate:"",reorderPrice:""};
                   "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
                   "diabledesign":false,"addressSign":true,"type_id":"","diabledRate" :false,
                   "contorder":"","remark":"","contDate":"","disableRatebtn":true,
-                  reorderDate:"",reorderPrice:""};
+                  reorderDate:"",reorderPrice:"",hasfiles:0};
           
                     
             }
@@ -370,21 +375,21 @@ reorderDate:"",reorderPrice:""};
               else if (ordersData[j].status == "15")
               { 
                 this.orderobject.name = "طلب خدمة تمريض";
-                this.orderobject.statusTxt="في انتظار الرد";
+                this.orderobject.statusTxt="قيد التنفيذ";
                 this.orderobject.color = "green";
               }
               //accepted from admin
               else if (ordersData[j].status == "16")
               { 
                 this.orderobject.name = "طلب خدمة تمريض";
-                this.orderobject.statusTxt="تم قبول الطلب";
+                this.orderobject.statusTxt="تم التنفيذ";
                 this.orderobject.color = "grey";
               }
               //rejected from admin
               else if (ordersData[j].status == "17")
               { 
                 this.orderobject.name = "طلب خدمة تمريض";
-                this.orderobject.statusTxt ="تم رفض الطلب" ;
+                this.orderobject.statusTxt ="مرفوض" ;
                 this.orderobject.color = "red";
               }         
               //////////////////////
@@ -398,7 +403,7 @@ reorderDate:"",reorderPrice:""};
               "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
               "diabledesign":false ,"addressSign":true,"type_id":"","diabledRate":false,
               "contorder":"","remark":"","contDate":"","disableRatebtn":true,
-              reorderDate:"",reorderPrice:""};
+              reorderDate:"",reorderPrice:"",hasfiles:0};
       
            
             }
@@ -1167,8 +1172,8 @@ fundStopAlert(item,money){
 }
 
 //ayaaaaaa
-openReport(item) {
-  this.navCtrl.push("ShowReportPage", {recievedItem : item});
+openReport(orderId) {
+  this.navCtrl.push("ShowReportPage", {recievedItem : orderId});
 }
 
 

@@ -15,22 +15,26 @@
 
 <ion-content padding>
 
-    <ion-item  no-lines> 
-      <ion-label style="color:#016a38;"  item-start>التقرير </ion-label>
+    <ion-item  no-lines *ngIf="photos.length > 0"> 
+      <ion-label style="color:#016a38;font-weight: bold;font-size: 17px;"  item-start>صور التقرير</ion-label>
     </ion-item>
 
      <!-- files from db -->
-     <ion-row>
+     <ion-row style="padding: 0 20px;">
       <ion-col col-4 *ngFor="let photo of photos; let indx = index">
         <ion-col col-12 style="justify-content: center;display: flex;border: 1px solid #016a38;">
           <!-- <ion-icon name="trash" class="deleteIcon" (click)="removeFile(1,photo.id,indx)" ></ion-icon> -->
+          <ion-icon name="cloud-download" class="deleteIcon" (click)="DownloadFile(photo)"></ion-icon>
           <img [src]="photo.path" style="width:90px;height:80px" (click)="fullScreen(indx)" />
         </ion-col>
       </ion-col>
      </ion-row>
 
+     <ion-item  no-lines style="margin-top: 5px;" *ngIf="files.length > 0"> 
+      <ion-label style="color:#016a38;font-weight: bold;font-size: 17px;"  item-start> ملفات التقرير</ion-label>
+    </ion-item>
 
-    <ion-row>
+    <ion-row style="padding: 0 20px;">
       <!-- files from db -->
       <ion-col col-12 *ngFor="let file of files; let indx = index" style="justify-content: flex-start;display: flex;">
         <!-- <ion-icon  name="trash" item-end style="font-size: 20px;color:#016a38; margin: 0 10px;" (click)="removeFile(2,file.id,indx)" ></ion-icon> -->

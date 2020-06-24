@@ -53,7 +53,7 @@ export class ProvidedServicesProvider {
     
   }
 
-  saveOrderForNursingServices(NursingType ,DayHours,MonthDays,PreferedTime,PreferedGender,DayNumbers,WeekDays,TotalPrice,access_token){
+  saveOrderForNursingServices(NursingType ,DayHours,MonthDays,PreferedTime,PreferedGender,DayNumbers,WeekDays,TotalPrice,id,access_token){
     let headers = new HttpHeaders();
     console.log("lat from service ",this.helper.lat);
     console.log("lon from service ",this.helper.lon);
@@ -64,7 +64,7 @@ export class ProvidedServicesProvider {
     set('extra',"").set('files',"").set("MonthDays",MonthDays).set("PreferedTime",PreferedTime).set("PreferedGender",PreferedGender)
     .set('service_id','5').set('type_id',this.helper.type_id).set("NursingType",NursingType).set("DayHours",DayHours)
     .set('fiels_ext',"").set('service_number',"")
-    .set('entity_service_id',NursingType);
+    .set('entity_service_id',id);
     
     
   

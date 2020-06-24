@@ -1055,6 +1055,15 @@ if (notification.additionalData.OrderID){
           }
 
 
+          //ayaaaaaaaaaaa
+          else if (orderStatus == "20") {
+            // this.events.publish("status2");
+            this.nav.setRoot(TabsPage);
+            this.nav.push('ShowReportPage',{"recievedItem": data.orderId});
+          }
+          ///////////////
+
+
 
 
         }
@@ -1173,7 +1182,7 @@ if (notification.additionalData.OrderID){
         if (this.helper.view == "remaining-time-to-accept" || this.helper.view == "remaining-time-for-plc")
         {
         this.events.publish('status2ForPLC', data);
-        this.presentdelivaryAlert(notification["title"], notification["message"],notification.additionalData.totalPrice);
+        this.presentdelivaryAlert(notification["title"], notification["message"],notification.additionalData["gcm.notification.totalPrice"]);
         this.events.publish('status8ForPLC');
 
         this.nav.setRoot(TabsPage);
@@ -1187,7 +1196,7 @@ if (notification.additionalData.OrderID){
           });
 
         }else{
-          this.presentdelivaryAlert(notification.title, notification.message,notification.additionalData.totalPrice);
+          this.presentdelivaryAlert(notification.title, notification.message,notification.additionalData["gcm.notification.totalPrice"]);
         this.events.publish('status8ForPLC');
         }
 
@@ -1361,8 +1370,13 @@ if (notification.additionalData.OrderID){
       }
 
 
-
-
+      //ayaaaaaaaaaaa
+      else if (orderStatus == "20") {
+        // this.events.publish("status2");
+        this.nav.setRoot(TabsPage);
+        this.nav.push('ShowReportPage',{"recievedItem": data.orderId});
+      }
+      ///////////////
     }
   
 

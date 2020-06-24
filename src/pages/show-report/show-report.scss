@@ -1,3 +1,10 @@
 page-show-report {
-
+    .deleteIcon {
+        position: absolute !important;
+        color: #016a38 !important;
+        right: 4px;
+    }
+    .deleteIcon:before {
+    font-size: 25px !important;
+    }
 }

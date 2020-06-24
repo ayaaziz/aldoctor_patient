@@ -46,6 +46,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Network } from '@ionic-native/network';
 import { FollowOrderForPlcPage} from '../pages/follow-order-for-plc/follow-order-for-plc';
 //import { SliderPage } from '../pages/slider/slider';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
 
 
 // export const firebaseConfig = {
@@ -170,7 +172,10 @@ export function createTranslateLoader(http: HttpClient) {
     // AngularFireDatabase,
     {provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptorProvider, multi: true },
     Network,
-    Market
+    Market,
+    FileTransfer,
+    FileTransferObject,
+    File,
   ]
 })
 export class AppModule {}

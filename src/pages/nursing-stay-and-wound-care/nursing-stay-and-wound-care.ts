@@ -34,7 +34,7 @@ export class NursingStayAndWoundCarePage {
 
   isNursingStayPriceCalculated:boolean = false;
   isWoundCarePriceCalculated:boolean = false;
-
+  id;
   
 
   constructor(public service:ProvidedServicesProvider, public modalCtrl: ModalController,public toastCtrl: ToastController,public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
@@ -50,6 +50,7 @@ export class NursingStayAndWoundCarePage {
 
     var recievedData = this.navParams.get('data');
     this.Service_id = recievedData.Service_id;
+    this.id = recievedData.id;
     this.pageTitle = recievedData.title
 
     console.log("extra : , "  , this.Service_id)
@@ -319,7 +320,7 @@ export class NursingStayAndWoundCarePage {
       } 
 
       var accessToken = localStorage.getItem('user_token');
-      this.service.saveOrderForNursingServices(this.Service_id,this.noOfHoursPerDay,this.noOfDaysPerMonth,this.nursingStayperiod,this.nursestayGender,0,0,this.estimatedPriceForNursingStay,accessToken).subscribe(resp=>{
+      this.service.saveOrderForNursingServices(this.Service_id,this.noOfHoursPerDay,this.noOfDaysPerMonth,this.nursingStayperiod,this.nursestayGender,0,0,this.estimatedPriceForNursingStay,this.id,accessToken).subscribe(resp=>{
         console.log("resp from create order : ",resp)
 
         this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة");
@@ -351,7 +352,7 @@ export class NursingStayAndWoundCarePage {
       } 
 
       var accessToken = localStorage.getItem('user_token');
-      this.service.saveOrderForNursingServices(this.Service_id,0,0,0,this.woundCareGender,this.noOfTimesPerDay,this.noOfDaysPerWeek,this.priceForWoundCare,accessToken).subscribe(resp => {
+      this.service.saveOrderForNursingServices(this.Service_id,0,0,0,this.woundCareGender,this.noOfTimesPerDay,this.noOfDaysPerWeek,this.priceForWoundCare,this.id,accessToken).subscribe(resp => {
         console.log("createOrder: ",resp);
 
         this.presentToast("شكرا لإرسال الطلب وسيتم التواصل معك لتنفيذ الخدمة");

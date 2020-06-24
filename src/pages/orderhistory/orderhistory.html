@@ -80,15 +80,15 @@
       
 
           <!-- [style.border-color]="item.color" height:110px; -->
-    <ion-card *ngFor="let item of data" style="border-width: 3px;"    (click)="followOrder(item)" >          
-      <ion-row style="width: calc(100% - 5px);margin: 2px;height:130px;text-align: right">
+    <ion-card *ngFor="let item of data" style="border-width: 3px;padding: 10px 0 5px 0;" (click)="followOrder(item)" >          
+      <ion-row style="width: calc(100% - 5px);margin: 2px;text-align: right">
           <!-- fixed class="customItem3" -->
         <ion-col  col-2  col-sm-2  style="margin-top:10px;padding-top:5px;" >
           <img [src]="item.profile_pic" style="border-radius: 50%;width:50px;height:50px;margin-bottom:10px;display:block" >
           <h4 style="text-align:right;margin-right:2px">#{{item.orderId}} </h4>
         </ion-col>
         
-        <ion-col  col-6 col-sm-8>
+        <ion-col  col-10 col-sm-10>
           <!-- <ion-item style="padding-left:0px"> -->
               <!-- overflow-x: hidden; -->
             <h2 style="margin-top:0px;">{{item.name}}</h2>
@@ -108,31 +108,43 @@
                   
                  
 
-  <h3 style="padding-top:0px;margin-top:0px;font-size:12px;">{{item.orderDate}}</h3>  
+        <h3 style="padding: 0px 5px;margin-top:0px;font-size:12px;">{{item.orderDate}}</h3>  
                   
- 
-         
-        </ion-col>
-        <!-- redo , sync , repeat , fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->
-        <ion-col col-4 col-sm-2 style="margin-top:15px;text-align:right" >
-         
-
-       
-        <div  style="display:block;margin-bottom:5px;">
+        <!-- //////// -->
+        
+        <div  style="display: inline-block;position: absolute;top: 9px;left: 5px;text-align: left;width: 90px;">
           <div style="width:12px;height:12px;border-radius: 50%;display:inline-block;padding-top:0px;" 
           [style.background-color]="item.color">  </div>
-        <h3 style="padding-top:0px;margin-top:0px;font-size:15px;">{{item.statusTxt}}</h3>
-      </div>
+          <h3 style="padding-top:0px;margin-top:0px;font-size:15px;">{{item.statusTxt}}</h3>
+        </div>
 
-        <button *ngIf="item.rated == '0'" [disabled]="item.disableRatebtn"  class="btn btn-primary " style="width:85px;margin-bottom:7px;" (click)="rateagain(item)" >{{"rateOrder" | translate}}</button>
-        <button *ngIf="item.reorder == '1'" [disabled]="item.reorderBtn" class="btn btn-primary " style="width:85px;margin-bottom:7px;" (click)="reorder(item)">{{"reorder" | translate}}</button>
+        <div style="margin-top: 20px;">
+          <button *ngIf="item.rated == '0'" [disabled]="item.disableRatebtn"  class="btn btn-primary " style="float: left;margin-left: 5px;padding: 4px 6px;" (click)="rateagain(item)" >{{"rateOrder" | translate}}</button>
+          <button *ngIf="item.reorder == '1'" [disabled]="item.reorderBtn" class="btn btn-primary " style="float: left;margin-left: 5px;padding: 4px 6px;" (click)="reorder(item)">{{"reorder" | translate}}</button>
 
-        <button *ngIf="item.contorder == '1'"  class="btn btn-primary " style="width:85px;margin-bottom:7px;" (click)="contorder(item)">{{"contorder" | translate}}</button>
+          <button *ngIf="item.contorder == '1'"  class="btn btn-primary " style="float: left;margin-left: 5px;padding: 4px 6px;" (click)="contorder(item)">{{"contorder" | translate}}</button>
 
-        <!-- ayaaaa -->
-        <button *ngIf="(item.type_id == 2 || item.type_id == 3) && (item.order_status == 5 || item.order_status == 6)" class="btn btn-primary" style="width: 105px;margin-bottom: 7px;text-align: center;padding: 4px 0;" (click)="openReport(item)" >مشاهدة التقرير </button>
+          <!-- ayaaaaaaaa -->
+          <button *ngIf="(item.type_id == 2 || item.type_id == 3) && (item.order_status == 5 || item.order_status == 6) && item.hasfiles > 0" class="btn btn-primary" style="float: left;margin-left: 5px;padding: 4px 6px;" (click)="openReport(item.orderId)" >مشاهدة التقرير </button>
+        </div>
+         
+        </ion-col>
+        <!-- <ion-col col-4 col-sm-2 style="margin-top:15px;text-align:right" >
+          <div  style="display:block;margin-bottom:5px;">
+            <div style="width:12px;height:12px;border-radius: 50%;display:inline-block;padding-top:0px;" 
+            [style.background-color]="item.color">  </div>
+            <h3 style="padding-top:0px;margin-top:0px;font-size:15px;">{{item.statusTxt}}</h3>
+          </div>
 
-      </ion-col>
+          <button *ngIf="item.rated == '0'" [disabled]="item.disableRatebtn"  class="btn btn-primary " style="width:85px;margin-bottom:7px;" (click)="rateagain(item)" >{{"rateOrder" | translate}}</button>
+          <button *ngIf="item.reorder == '1'" [disabled]="item.reorderBtn" class="btn btn-primary " style="width:85px;margin-bottom:7px;" (click)="reorder(item)">{{"reorder" | translate}}</button>
+
+          <button *ngIf="item.contorder == '1'"  class="btn btn-primary " style="width:85px;margin-bottom:7px;" (click)="contorder(item)">{{"contorder" | translate}}</button>
+
+          
+          <button *ngIf="(item.type_id == 2 || item.type_id == 3) && (item.order_status == 5 || item.order_status == 6)" class="btn btn-primary" style="font-size: 14px; width: 105px;margin-bottom: 7px;text-align: center;padding: 4px;" (click)="openReport(item)" >مشاهدة التقرير </button>
+
+        </ion-col> -->
       </ion-row>
       
   </ion-card>

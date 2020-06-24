@@ -257,18 +257,21 @@ this.storage.get("rate_doctor").then(data=>{
 
     // })
 
-  //ayaaaaaaaaaaaa
-  this.service.getAllZones().subscribe(
-    data => {
-      console.log("JSON.parse(JSON.stringify(data)): "+JSON.parse(JSON.stringify(data)));
-      console.log("JSON.stringify(data): "+JSON.stringify(data));
+  }
 
-      this.cityZonesArray = JSON.parse(JSON.stringify(data));
-    },
-    error => {
-      console.log(error);
-    }
-  )
+  ionViewWillEnter() {
+    //ayaaaaaaaaaaaa
+    this.service.getAllZones().subscribe(
+      data => {
+        console.log("JSON.parse(JSON.stringify(data)): "+JSON.parse(JSON.stringify(data)));
+        console.log("JSON.stringify(data): "+JSON.stringify(data));
+
+        this.cityZonesArray = JSON.parse(JSON.stringify(data));
+      },
+      error => {
+        console.log(error);
+      }
+    )
 
     //ayaaaaaaaa
     //filter home using zone
@@ -296,7 +299,6 @@ this.storage.get("rate_doctor").then(data=>{
       this.cityChecked(this.selectedCityId);
     } 
     console.log("constructor selectedUserCity: "+this.helper.selectedUserCity); 
-
   }
 
   //ayaaaaaaaa
@@ -563,6 +565,10 @@ this.storage.get("rate_doctor").then(data=>{
 // var hours = Math.floor(time / 3600);
 // time = time - hours * 3600;
 // }
+
+
+
+
 
 ionViewDidEnter(){
   this.helper.view = "HomePage"; 

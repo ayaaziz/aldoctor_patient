@@ -349,7 +349,8 @@ console.log("sp item search val ",val);
 
       this.navCtrl.push('nursingStayAndWoundCare',{data:{
         Service_id:item.extra,
-        title:item.value
+        title:item.value,
+        id:item.id
       }});
 
     }else if (item.extra == 2){
@@ -397,7 +398,9 @@ let alert = this.alertCtrl.create({
 
           this.navCtrl.push('nursingStayAndWoundCare',{data:{
             Service_id:item.extra,
-            title:item.value
+            title:item.value,
+            id:item.id
+
           }});
 
           
@@ -417,7 +420,8 @@ alert.present();
 
 // nursingStayAndWoundCare
 
-    } else if(item.extra == 3 || item.extra == 4){
+    // } else if(item.extra == 3 || item.extra == 4){
+    } else if(item.extra == 3){
         //قدم سكري // قياس ضغط وسكر
         let alert = this.alertCtrl.create({
           title: item.value,
@@ -459,7 +463,9 @@ alert.present();
 
                   this.navCtrl.push('nursingStayAndWoundCare',{data:{
                     Service_id:item.extra,
-                    title:item.value
+                    title:item.value,
+                    id:item.id
+
                   }});
 
                   
