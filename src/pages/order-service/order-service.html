@@ -44,8 +44,9 @@
 
 </ion-row>
 
-<ion-row *ngIf="type_id == 5" style="width:100%;margin-right:0px;margin-left:0px; padding-right: 7px;padding-left: 5px;margin-bottom: 3px;">
-  <ion-col style="background-color: #e8f1ed;height:40px;"  >
+<ion-row *ngIf="type_id == 5" style="width:100%;margin-right:0px;margin-left:0px; padding-right: 7px;padding-left: 10px;margin-bottom: 3px;">
+  <ion-col col-2><ion-label>النوع</ion-label></ion-col>
+  <ion-col style="background-color: #e8f1ed;height:40px;">
     <ion-select  placeholder="اختر نوع الممرض" [(ngModel)]="selectedNurseGender"  style="text-align:right;margin-top: -10px;" interface="popover"  class="selector" > 
       <ion-option  value="{{item.value}}" *ngFor="let item of genderList"  (ionSelect)='genderChecked(item.id)'>{{item.value}}</ion-option>
     </ion-select> 
@@ -63,7 +64,7 @@
 </ion-row>
 
     <ion-scroll scrollY="true"  [ngStyle]="{'height': scrollHeight }"  >
-       <ion-card *ngFor="let item of DoctorsArray"  [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" style="height:95px;" (click)="showseviceProfile(item)" >          
+       <ion-card *ngFor="let item of DoctorsArray"  [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" style="height:107px;" (click)="showseviceProfile(item)" >          
           <ion-row style="width: calc(100% - 5px);margin: 2px;" >
               
               <ion-col col-2  col-sm-2 style="padding-top:5px;text-align: center;" >

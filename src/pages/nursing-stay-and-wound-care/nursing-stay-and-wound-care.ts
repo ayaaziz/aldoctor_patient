@@ -219,16 +219,9 @@ export class NursingStayAndWoundCarePage {
       if(! this.noOfHoursPerDay) {
         this.presentToast("الرجاء إدخال عدد الساعات فى اليوم");
         return;
-      } else if(this.noOfHoursPerDay && this.noOfHoursPerDay > 24){
-        this.presentToast("الرجاء إدخال عدد ساعات لا يتجاوز ٢٤ ساعة ");
-        return;
-      
+    
       } else if (! this.noOfDaysPerMonth) {
         this.presentToast("الرجاء إدخال عدد الأيام  فى الشهر ");
-        return;
-      
-      } else if (this.noOfDaysPerMonth && this.noOfDaysPerMonth > 31 ) {
-        this.presentToast("الرجاء إدخال عدد أيام فى الشهر لا يتجاوز ٣١ يوم ");
         return;
       
       } else if (! this.nursingStayperiod) { 
@@ -238,7 +231,24 @@ export class NursingStayAndWoundCarePage {
       } else if(! this.nursestayGender) {
         this.presentToast("الرجاء اختيار النوع");
         return;
+      
+      } else if(this.noOfHoursPerDay &&this.noOfHoursPerDay < 1) {
+        this.presentToast("يجب ألا يقل عدد الساعات في اليوم عن ١");
+        return;
       } 
+      else if(this.noOfHoursPerDay && this.noOfHoursPerDay > 24){
+        this.presentToast("الرجاء إدخال عدد ساعات لا يتجاوز ٢٤ ساعة ");
+        return;
+      
+      } else if(this.noOfDaysPerMonth && this.noOfDaysPerMonth < 1) {
+        this.presentToast("يجب ألا يقل عدد الأيام في الشهر عن ١");
+        return;
+      
+      } else if (this.noOfDaysPerMonth && this.noOfDaysPerMonth > 31 ) {
+        this.presentToast("الرجاء إدخال عدد أيام فى الشهر لا يتجاوز ٣١ يوم ");
+        return;
+      
+      }
 
     var accessToken = localStorage.getItem('user_token');
     this.service.calculateNursingTotalPrice(this.Service_id,this.noOfHoursPerDay,this.noOfDaysPerMonth,0,0,accessToken).subscribe(
@@ -263,14 +273,22 @@ export class NursingStayAndWoundCarePage {
         this.presentToast("الرجاء إدخال عدد الأيام فى الأسبوع");
         return;
       
-      } else if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7) {
-        this.presentToast("الرجاء إدخال عدد أيام لا يتجاوز ٧ أيام");
-        return;
-      
       } else if(! this.woundCareGender) {
         this.presentToast("الرجاء اختيار النوع");
         return;
-      }
+      
+      } else if(this.noOfTimesPerDay &&this.noOfTimesPerDay < 1) {
+        this.presentToast("يجب ألا يقل عدد المرات في اليوم عن ١");
+        return;
+      
+      }  else if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7) {
+        this.presentToast("الرجاء إدخال عدد أيام لا يتجاوز ٧ أيام");
+        return;
+      
+      } else if(this.noOfDaysPerWeek && this.noOfDaysPerWeek < 1) {
+        this.presentToast("يجب ألا يقل عدد الأيام في الأسبوع عن ١");
+        return;
+      } 
     
       var accessToken = localStorage.getItem('user_token');
       this.service.calculateNursingTotalPrice(this.Service_id,0,0,this.noOfTimesPerDay,this.noOfDaysPerWeek,accessToken).subscribe(
@@ -298,16 +316,8 @@ export class NursingStayAndWoundCarePage {
         this.presentToast("الرجاء إدخال عدد الساعات فى اليوم");
         return;
       
-      } else if(this.noOfHoursPerDay && this.noOfHoursPerDay > 24) {
-        this.presentToast("الرجاء إدخال عدد ساعات لا يتجاوز ٢٤ ساعة");
-        return;
-      
       } else if (! this.noOfDaysPerMonth) {
         this.presentToast("الرجاء إدخال عدد الأيام  فى الشهر");
-        return;
-      
-      } else if (this.noOfDaysPerMonth && this.noOfDaysPerMonth > 31 ) {
-        this.presentToast("الرجاء إدخال عدد أيام فى الشهر لا يتجاوز ٣١ يوم");
         return;
       
       } else if (! this.nursingStayperiod) {
@@ -317,6 +327,24 @@ export class NursingStayAndWoundCarePage {
       } else if(! this.nursestayGender) {
         this.presentToast("الرجاء اختيار النوع");
         return;
+      }  
+      
+      else if(this.noOfHoursPerDay &&this.noOfHoursPerDay < 1) {
+        this.presentToast("يجب ألا يقل عدد الساعات في اليوم عن ١");
+        return;
+     
+      } else if(this.noOfHoursPerDay && this.noOfHoursPerDay > 24) {
+        this.presentToast("الرجاء إدخال عدد ساعات لا يتجاوز ٢٤ ساعة");
+        return;
+      
+      } else if(this.noOfDaysPerMonth && this.noOfDaysPerMonth < 1) {
+        this.presentToast("يجب ألا يقل عدد الأيام في الشهر عن ١");
+        return;
+      
+      } else if (this.noOfDaysPerMonth && this.noOfDaysPerMonth > 31 ) {
+        this.presentToast("الرجاء إدخال عدد أيام فى الشهر لا يتجاوز ٣١ يوم");
+        return;
+      
       } 
 
       var accessToken = localStorage.getItem('user_token');
@@ -342,14 +370,23 @@ export class NursingStayAndWoundCarePage {
         this.presentToast("الرجاء إدخال عدد الأيام فى الأسبوع");
         return;
       
+      }  else if(! this.woundCareGender) {
+        this.presentToast("الرجاء اختيار النوع");
+        return;
+      
+      } else if(this.noOfTimesPerDay &&this.noOfTimesPerDay < 1) {
+        this.presentToast("يجب ألا يقل عدد المرات في اليوم عن ١");
+        return;
+      
       } else if(this.noOfDaysPerWeek && this.noOfDaysPerWeek > 7) {
         this.presentToast("الرجاء إدخال عدد أيام لا يتجاوز ٧ أيام");
         return;
       
-      } else if(! this.woundCareGender) {
-        this.presentToast("الرجاء اختيار النوع");
+      } else if(this.noOfDaysPerWeek && this.noOfDaysPerWeek < 1) {
+        this.presentToast("يجب ألا يقل عدد الأيام في الأسبوع عن ١");
         return;
       } 
+     
 
       var accessToken = localStorage.getItem('user_token');
       this.service.saveOrderForNursingServices(this.Service_id,0,0,0,this.woundCareGender,this.noOfTimesPerDay,this.noOfDaysPerWeek,this.priceForWoundCare,this.id,accessToken).subscribe(resp => {

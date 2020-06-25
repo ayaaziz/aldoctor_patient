@@ -319,6 +319,8 @@ this.storage.get("rate_doctor").then(data=>{
     if(this.availableServicesOfSelectedZone) {
       this.homeServicesArr = JSON.parse(this.availableServicesOfSelectedZone.cities_service);
       if(!this.homeServicesArr) this.homeServicesArr = [];
+    } else {
+      this.homeServicesArr = [];
     }
     console.log("homeServicesArr: "+this.homeServicesArr);
 
