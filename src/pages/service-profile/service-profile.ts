@@ -130,6 +130,10 @@ export class ServiceProfilePage {
         //this.medicalprescriptionImage = this.translate.instant("requiredRadiologies");
         this.hideServices = false;
       }
+      //ayaaaaa
+      else if(this.type_id == "5") {
+        this.hideServices = false;
+      }
 
   }
 

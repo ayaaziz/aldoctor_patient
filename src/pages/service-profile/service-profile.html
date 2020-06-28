@@ -77,7 +77,7 @@
     
     </ion-row>
 
-    <ion-item class="form-group" no-lines>
+    <ion-item class="form-group" no-lines *ngIf="type_id != 5">
         <button type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="font-family: 'Cairo Black';color:#fff;background-color: #016a38 ; border-color: #016a38;margin:10px auto;" > 
               <!-- <img src="assets/icon/cam.png" height="25" width="25" style="color:#fff">   -->
             <ion-icon name="camera" style="color:#fff;font-size:20px;vertical-align: middle;"></ion-icon>

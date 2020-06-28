@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams ,ToastController,Platform,AlertController,Events} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,ToastController,Platform,AlertController,Events, PopoverController, App} from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 
 
@@ -48,6 +48,7 @@ export class SearchForPharmacyPage {
   city_id;
 
   cityIdFromCheckZone;
+  popOver;
 
 
   constructor(public service:ProvidedServicesProvider,public storage: Storage,
@@ -56,7 +57,9 @@ export class SearchForPharmacyPage {
     public diagnostic: Diagnostic, public translate: TranslateService,
      private geolocation: Geolocation, public toastCtrl: ToastController,
      public navCtrl: NavController, public navParams: NavParams,
-     public events: Events) {
+     public events: Events,
+     private popup:PopoverController,
+     private app:App) {
 
       this.accessToken = localStorage.getItem('user_token');
 
@@ -93,6 +96,13 @@ export class SearchForPharmacyPage {
         this.btn1 = this.translate.instant("SearchByNearestNurse");
         this.btn2 = this.translate.instant("SearchBySpecificNurse");
       }
+
+
+      this.platform.registerBackButtonAction(() => {
+
+        console.log("back from searchForPharmacy");
+        this.navCtrl.pop();
+      });
   }
 
 
@@ -762,7 +772,24 @@ export class SearchForPharmacyPage {
     }
     
   }else if(this.locFlag == -1){
-    this.presentToast("أنت خارج المنطقة ");
+    // this.presentToast("أنت خارج المنطقة ");
+
+    //ayaaaaa
+    this.popOver = this.popup.create('MapAlertPopupPage');
+    this.popOver.present();
+
+    this.popOver.onDidDismiss((data) => {
+
+      console.log("dataaaaaa "+JSON.stringify(data));
+      if(data && data.goHome == true) {
+        this.navCtrl.pop();
+      } else {
+        this.platform.registerBackButtonAction(() => {
+          console.log("back from searchForPharmacy");
+          this.navCtrl.pop();
+        });
+      }
+    })
   }
    else
   {
@@ -824,7 +851,26 @@ export class SearchForPharmacyPage {
 
     }  
   }else if(this.locFlag == -1){
-    this.presentToast("أنت خارج المنطقة ");
+    
+    // this.presentToast("أنت خارج المنطقة ");
+
+    //ayaaaaa
+    let popOver = this.popup.create('MapAlertPopupPage');
+    popOver.present();
+
+    popOver.onDidDismiss((data) => {
+
+      console.log("dataaaaaa "+JSON.stringify(data));
+      if(data && data.goHome == true) {
+        this.navCtrl.pop();
+      } else {
+        this.platform.registerBackButtonAction(() => {
+          console.log("back from searchForPharmacy");
+          this.navCtrl.pop();
+        });
+      }
+    })
+    
   }
   else
   {

@@ -926,7 +926,7 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3" ||  item.ty
   }
   rateagain(item){
     console.log("item from rate function ",item);
-    if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3")
+    if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3" || item.type_id == "5")
     {
       this.helper.type_id  = item.type_id;
 

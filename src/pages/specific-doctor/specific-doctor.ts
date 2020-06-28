@@ -263,8 +263,6 @@ export class SpecificDoctorPage {
 
   ionViewDidLoad() {
     
-
-    
     console.log('ionViewDidLoad SpecificDoctorPage');
     // this.storage.get("access_token").then(data=>{
     //   this.accessToken = data;

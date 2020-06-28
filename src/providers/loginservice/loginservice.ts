@@ -198,7 +198,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let headers = new HttpHeaders();
 
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/specialities?lang='+lang+"&all=1";
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/specialities?lang='+lang+"&all=1"+"&city_id="+this.helper.city_id;
     console.log("request : ",serviceUrl);
     return this.http.get(serviceUrl,{headers: headers });
 

@@ -1,0 +1,19 @@
+page-map-alert-popup {
+    .fixed-content {
+        background-color: rgba(34, 34, 34,.8) !important;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .link {
+        color: #1265A9;
+        text-decoration: underline;
+    }
+}
+
+.popover-wrapper div.popover-content {
+    left: 50% !important;
+    transform: translateX(-50%) scale(1) !important;
+}

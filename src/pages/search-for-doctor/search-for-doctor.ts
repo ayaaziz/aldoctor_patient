@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController,Platform,AlertController ,Events} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController,Platform,AlertController ,Events, PopoverController} from 'ionic-angular';
 import { SpecificDoctorPage } from '../specific-doctor/specific-doctor';
 import { SpecializationsPage } from '../specializations/specializations';
 import { HelperProvider } from '../../providers/helper/helper';
@@ -54,7 +54,8 @@ export class SearchForDoctorPage {
      private geolocation: Geolocation, public toastCtrl: ToastController, 
      //private backgroundGeolocation: BackgroundGeolocation, 
      public navCtrl: NavController, public navParams: NavParams,
-     public events: Events) {
+     public events: Events,
+     private popup:PopoverController) {
 
       this.accessToken = localStorage.getItem('user_token');
       this.helper.view = "pop";
@@ -67,6 +68,9 @@ export class SearchForDoctorPage {
 
       console.log("helper langDirection",this.helper);
 
+      this.platform.registerBackButtonAction(() => {
+        this.navCtrl.pop();
+      });
         
   }
   
@@ -830,7 +834,23 @@ initMapWithDoctorsLocation(){
     if(this.locFlag == 1)
       this.navCtrl.push('specific-doctor');
     else if(this.locFlag == -1){
-      this.presentToast("أنت خارج المنطقة ");
+      // this.presentToast("أنت خارج المنطقة ");
+      
+      //ayaaaaa
+      let popOver = this.popup.create('MapAlertPopupPage');
+      popOver.present();
+
+      popOver.onDidDismiss((data) => {
+        console.log("dataaaaaa "+JSON.stringify(data));
+        if(data && data.goHome == true) {
+          this.navCtrl.pop();
+        } else {
+          this.platform.registerBackButtonAction(() => {
+            console.log("back from SearchForDoctorPage");
+            this.navCtrl.pop();
+          });
+        }
+      })
     }else
     {
       if(this.toastFlag == true)
@@ -847,7 +867,23 @@ initMapWithDoctorsLocation(){
     if(this.locFlag == 1)
       this.navCtrl.push('specializations-page');
     else if(this.locFlag == -1){
-        this.presentToast("أنت خارج المنطقة ");
+      // this.presentToast("أنت خارج المنطقة ");
+
+      //ayaaaaa
+      let popOver = this.popup.create('MapAlertPopupPage');
+      popOver.present();
+
+      popOver.onDidDismiss((data) => {
+        console.log("dataaaaaa "+JSON.stringify(data));
+        if(data && data.goHome == true) {
+          this.navCtrl.pop();
+        } else {
+          this.platform.registerBackButtonAction(() => {
+            console.log("back from SearchForDoctorPage");
+            this.navCtrl.pop();
+          });
+        }
+      })
     }
     else
     {
