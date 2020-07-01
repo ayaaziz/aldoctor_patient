@@ -1494,6 +1494,8 @@ if (notification.additionalData.OrderID){
    console.log("type_id : ",this.helper.type_id)
    if (this.helper.type_id == 1 )
     price = "سعر الدواء : " + xLe + " جنيه " + xpt + " قرش "
+    else if (this.helper.type_id == 2 )
+    price = "سعر الأشعة : " + xLe + " جنيه " + xpt + " قرش "
    else if (this.helper.type_id == 3 )
     price = "سعر التحاليل : " + xLe + " جنيه " + xpt + " قرش "
 
