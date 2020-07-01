@@ -256,7 +256,6 @@ this.storage.get("rate_doctor").then(data=>{
     //   }
 
     // })
-
   }
 
   ionViewWillEnter() {
@@ -297,7 +296,10 @@ this.storage.get("rate_doctor").then(data=>{
     this.selectedCityId = this.helper.selectedCityId;  
     if(this.selectedCityId && this.selectedUserCity) {
       this.cityChecked(this.selectedCityId);
-    } 
+    } else {
+      //alert to choose city
+      this.presentHomeAlert();
+    }
     console.log("constructor selectedUserCity: "+this.helper.selectedUserCity); 
   }
 
@@ -755,6 +757,18 @@ customerService(){
     modalPage.present();
  
 
+}
+
+presentHomeAlert() {
+  this.alertCtrl.create({
+    message: "من فضلك قم باختيار المدينة لتفعيل الخدمات المتاحة",
+    buttons: [
+      {
+        text: "تم",
+        role: "cancel"
+      }
+    ]
+  }).present();
 }
 
 

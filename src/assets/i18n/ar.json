@@ -132,7 +132,7 @@
       "Country":"المحافظة",
       "selectCity":"الرجاء إدخال المدينة",
       "selectCountry":"الرجاء إدخال المحافظة",
-      "Home":"الرئيسيه",
+      "Home":"الرئيسية",
       "Orders History":"تاريخ الطلبات",
       "order Doctor":"اطلب طبيب",
       "sendOrder":"إرسال الطلب",
@@ -299,5 +299,7 @@
       "enterfrom":"الرجاء إدخال الفترة من",
       "costafterDiscount":"التكلفة بعد الخصم ",
       "calculePrice":"احسب التكلفة",
-      "imgDownloaded":"تم تحميل الصورة"
+      "imgDownloaded":"تم تحميل الصورة",
+      "enterSearchValForNursing":"أدخل نوع الخدمة",
+      "reset":"إعادة حساب التكلفة"
 }

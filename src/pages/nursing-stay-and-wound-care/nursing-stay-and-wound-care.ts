@@ -35,6 +35,7 @@ export class NursingStayAndWoundCarePage {
   isNursingStayPriceCalculated:boolean = false;
   isWoundCarePriceCalculated:boolean = false;
   id;
+
   
 
   constructor(public service:ProvidedServicesProvider, public modalCtrl: ModalController,public toastCtrl: ToastController,public helper: HelperProvider,public navCtrl: NavController, public navParams: NavParams) {
@@ -400,6 +401,26 @@ export class NursingStayAndWoundCarePage {
       })
     }
 
+  }
+
+  //ayaaaaa
+  resetData() {
+
+    //nurse stay
+    this.noOfHoursPerDay = "";
+    this.noOfDaysPerMonth = "";
+    this.nursingStayperiod = "";
+    this.nursestayGender = "";
+    this.estimatedPriceForNursingStay = "";
+
+    //wound care
+    this.noOfTimesPerDay = "";
+    this.noOfDaysPerWeek = "";
+    this.woundCareGender = "";
+    this.priceForWoundCare = "";
+
+    this.isWoundCarePriceCalculated = false;
+    this.isNursingStayPriceCalculated = false;
   }
 
 

@@ -295,11 +295,9 @@
       "enterfrom":"Enter from",
       "costafterDiscount":"Cost After Discount",
       "calculePrice":"Calculate Price",
-      "imgDownloaded":"Image downloaded successfully"
+      "imgDownloaded":"Image downloaded successfully",
+      "enterSearchValForNursing":"Enter Service",
+      "reset":"Reset Data"
 
-
-
-      
-      
 
 }

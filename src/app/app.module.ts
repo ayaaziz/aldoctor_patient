@@ -48,6 +48,8 @@ import { FollowOrderForPlcPage} from '../pages/follow-order-for-plc/follow-order
 //import { SliderPage } from '../pages/slider/slider';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
+import { AndroidPermissions } from '@ionic-native/android-permissions';
+import { FileOpener } from '@ionic-native/file-opener';
 
 
 // export const firebaseConfig = {
@@ -176,6 +178,8 @@ export function createTranslateLoader(http: HttpClient) {
     FileTransfer,
     FileTransferObject,
     File,
+    AndroidPermissions,
+    FileOpener
   ]
 })
 export class AppModule {}

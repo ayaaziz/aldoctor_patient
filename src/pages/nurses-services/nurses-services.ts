@@ -519,7 +519,7 @@ alert.present();
   }
   searchIcon(){
     if( !this.searchValue )
-      this.presentToast(this.translate.instant('enterSearchValForCenters'));
+      this.presentToast(this.translate.instant('enterSearchValForNursing'));
   }
   
   textArabicNumbersReplacment(strText) {

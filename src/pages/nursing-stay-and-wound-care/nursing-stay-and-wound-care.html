@@ -36,19 +36,19 @@
   <div *ngIf="Service_id == 1" >
 
     <!-- nursingStay -->
-<ion-row>
-  <ion-col>
-    <ion-label style="color: #6f6f6f;margin-top: 0px;
-    margin-bottom: 0px;">عدد الساعات فى اليوم</ion-label>
-  </ion-col>
-  <ion-col>       
-      <!-- <ion-input  (input)="noOfHoursPerDayonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;"
-      [(ngModel)]="noOfHoursPerDay" type="tel"></ion-input>  -->
-      <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
-    [(ngModel)]="noOfHoursPerDay" type="tel"></ion-input>
-  </ion-col>
-  
-</ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label style="color: #6f6f6f;margin-top: 0px;
+        margin-bottom: 0px;">عدد الساعات فى اليوم</ion-label>
+      </ion-col>
+      <ion-col>       
+          <!-- <ion-input  (input)="noOfHoursPerDayonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;"
+          [(ngModel)]="noOfHoursPerDay" type="tel"></ion-input>  -->
+          <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
+        [(ngModel)]="noOfHoursPerDay" type="tel" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-input>
+      </ion-col>
+      
+    </ion-row>
 
 
 <ion-row>
@@ -60,32 +60,30 @@
       <!-- <ion-input (input)="noOfDaysPerMonthonInput()" style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;"
         [(ngModel)]="noOfDaysPerMonth" type="tel"></ion-input>  -->
       <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
-    [(ngModel)]="noOfDaysPerMonth" type="tel"></ion-input>
+    [(ngModel)]="noOfDaysPerMonth" type="tel" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-input>
   </ion-col>
   
 </ion-row>
 
 <ion-list radio-group [(ngModel)]="nursingStayperiod" style="margin-bottom: 0px;">
 
-
-
   <ion-item no-lines style="direction: ltr;">
     
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">صباحا</ion-label>
-    <ion-radio value="1" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="1" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     
   </ion-item>
 
   <ion-item no-lines style="direction: ltr;">
     
-    <ion-radio value="2" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="2" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;" >مساءا</ion-label>
   </ion-item>
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="3" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="3" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray; direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">طوال اليوم</ion-label>
   </ion-item>
@@ -104,20 +102,20 @@
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="0" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="0" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">ذكر</ion-label>
   </ion-item>
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="1" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="1" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">أنثى</ion-label>
   </ion-item>
   <ion-item no-lines style="direction: ltr;">
     
-    <ion-radio value="2" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="2" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">أيهما</ion-label>
   </ion-item>
@@ -135,6 +133,7 @@ margin-right: -16px;">
 <!--ayaaaa-->
 <button type="button" *ngIf="!isNursingStayPriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="calculePrice()"> {{"calculePrice" | translate}}</button>  
 <button type="button" *ngIf="isNursingStayPriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
+<button type="button" *ngIf="isNursingStayPriceCalculated" class="btn btn-lg btn-block" style="font-family: 'Cairo Black';margin:0 auto;background-color: #7a7979;color: #fff;width: 70%" (click)="resetData()"> {{"reset" | translate}}</button>  
 
       
 
@@ -154,7 +153,7 @@ margin-right: -16px;">
       <!-- <ion-input  (input)="noOfTimesPerDayonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfTimesPerDay" type="tel"></ion-input> -->
     <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
-    [(ngModel)]="noOfTimesPerDay" type="tel"></ion-input>
+    [(ngModel)]="noOfTimesPerDay" type="tel" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-input>
   </ion-col>
   
 </ion-row>
@@ -169,7 +168,7 @@ margin-right: -16px;">
       <!-- <ion-input  (input)="noOfDaysPerWeekonInput()"  style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
     [(ngModel)]="noOfDaysPerWeek" type="tel"></ion-input> -->
     <ion-input style="border-radius: 2px;border: 1px solid lightgray;background-color:#b2d2c3; width: 40%;" 
-    [(ngModel)]="noOfDaysPerWeek" type="tel"></ion-input>
+    [(ngModel)]="noOfDaysPerWeek" type="tel" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-input>
   </ion-col>
   
 </ion-row>
@@ -185,20 +184,20 @@ margin-right: -16px;">
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="0" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="0" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;" >ذكر</ion-label>
   </ion-item>
 
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="1" style="margin-right: 0px !important;" ></ion-radio>
+    <ion-radio value="1" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;" >أنثى</ion-label>
   </ion-item>
   <ion-item no-lines style="direction: ltr;" >
     
-    <ion-radio value="2" style="margin-right: 0px !important;"></ion-radio>
+    <ion-radio value="2" style="margin-right: 0px !important;" [disabled]="isWoundCarePriceCalculated || isNursingStayPriceCalculated"></ion-radio>
     <ion-label style="color: gray;direction: rtl;margin-top: 0px;
     margin-bottom: 0px;">أيهما</ion-label>
   </ion-item>
@@ -215,6 +214,8 @@ margin-right: -16px;">
 <!--ayaaaaaa-->
 <button type="button" *ngIf="!isWoundCarePriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="calculePrice()"> {{"calculePrice" | translate}}</button>  
 <button type="button" *ngIf="isWoundCarePriceCalculated" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:20px auto;" (click)="sendOrder()"> {{"sendOrder" | translate}}</button>  
+<button type="button" *ngIf="isWoundCarePriceCalculated" class="btn btn-lg btn-block" style="font-family: 'Cairo Black';margin:0 auto;background-color: #7a7979;color: #fff;width: 70%" (click)="resetData()"> {{"reset" | translate}}</button>  
+
       
 
 

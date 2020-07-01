@@ -52,13 +52,10 @@ page-home {
         height: 20px;
     }
     .customIconForLogo{
-        // width: 130px;
-        // width: 115px;
-        //height: 110px;
-        // width: 90px;
-        width: 80px;
-        height: 80px;
-        
+        // width: 80px;
+        // height: 80px;
+        width: 100px;
+        height: 100px;
     }
     // .toolbar-title-md{
     //     padding: 0px;
@@ -279,7 +276,21 @@ page-home {
   opacity: .4;
 }
 
+
+  //ayaaaaaaaaaa
+  ion-label {
+    font-size: 17px !important;
+  }
+
+  .select-md .select-placeholder,
+  .select-ios .select-placeholder {
+    font-size: 17px !important;
+    margin-top: -9px !important;
+  }
+  ////////////////
+
 }
+
 .toastRight{
     text-align: right;
   }

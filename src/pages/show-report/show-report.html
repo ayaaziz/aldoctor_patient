@@ -24,7 +24,7 @@
       <ion-col col-4 *ngFor="let photo of photos; let indx = index">
         <ion-col col-12 style="justify-content: center;display: flex;border: 1px solid #016a38;">
           <!-- <ion-icon name="trash" class="deleteIcon" (click)="removeFile(1,photo.id,indx)" ></ion-icon> -->
-          <ion-icon name="cloud-download" class="deleteIcon" (click)="DownloadFile(photo)"></ion-icon>
+          <ion-icon name="cloud-download" class="deleteIcon" (click)="downloadFile(photo)"></ion-icon>
           <img [src]="photo.path" style="width:90px;height:80px" (click)="fullScreen(indx)" />
         </ion-col>
       </ion-col>
