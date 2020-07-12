@@ -1057,9 +1057,13 @@ if (notification.additionalData.OrderID){
 
           //ayaaaaaaaaaaa
           else if (orderStatus == "20") {
-            // this.events.publish("status2");
-            this.nav.setRoot(TabsPage);
-            this.nav.push('ShowReportPage',{"recievedItem": data.orderId});
+            if(notification.additionalData.foreground) {
+              this.presentReportAlert(notification.title, notification.message,data.orderId);
+              
+            } else {
+              this.nav.setRoot(TabsPage);
+              this.nav.push('ShowReportPage',{"recievedItem": data.orderId});
+            }
           }
           ///////////////
 
@@ -1372,9 +1376,15 @@ if (notification.additionalData.OrderID){
 
       //ayaaaaaaaaaaa
       else if (orderStatus == "20") {
-        // this.events.publish("status2");
-        this.nav.setRoot(TabsPage);
-        this.nav.push('ShowReportPage',{"recievedItem": data.orderId});
+
+        if(notification.additionalData["foreground"]) {
+          this.presentReportAlert(notification.title, notification.message,data.orderId);
+          
+        } else {
+          // this.events.publish("status2");
+          this.nav.setRoot(TabsPage);
+          this.nav.push('ShowReportPage',{"recievedItem": data.orderId});
+        }
       }
       ///////////////
     }
@@ -1509,6 +1519,30 @@ if (notification.additionalData.OrderID){
     });
     alert.present();
   }
+
+  presentReportAlert(title, msg,orderId) {
+     
+     console.log("enter presentdelivaryAlert");
+     let alert = this.alertCtrl.create({
+       title: title,
+       subTitle: msg ,
+      //  message:  price,
+       cssClass: 'foo',
+       buttons: [
+         {
+           text:"مشاهدة التقرير",
+           handler: () => {
+            this.nav.setRoot(TabsPage);
+            this.nav.push('ShowReportPage',{"recievedItem": orderId});
+           }
+         },
+         {
+          text:"تم"
+        }
+       ]
+     });
+     alert.present();
+   }
   // presentCancelConfirm() {
   //   let alert = this.alertCtrl.create({
   //     title: this.translate.instant("confirmCancelOrder"),

@@ -19,13 +19,15 @@
       <ion-label style="color:#016a38;font-weight: bold;font-size: 17px;"  item-start>صور التقرير</ion-label>
     </ion-item>
 
-     <!-- files from db -->
+     <!-- photos from db -->
      <ion-row style="padding: 0 20px;">
       <ion-col col-4 *ngFor="let photo of photos; let indx = index">
         <ion-col col-12 style="justify-content: center;display: flex;border: 1px solid #016a38;">
-          <!-- <ion-icon name="trash" class="deleteIcon" (click)="removeFile(1,photo.id,indx)" ></ion-icon> -->
-          <ion-icon name="cloud-download" class="deleteIcon" (click)="downloadFile(photo)"></ion-icon>
+          <!-- <ion-icon name="cloud-download" class="deleteIcon" (click)="downloadFile(photo)"></ion-icon> -->
           <img [src]="photo.path" style="width:90px;height:80px" (click)="fullScreen(indx)" />
+          <div class="icon-wrapper">
+            <ion-icon name="cloud-download" (click)="downloadFile(photo)"></ion-icon>
+          </div>
         </ion-col>
       </ion-col>
      </ion-row>
@@ -37,9 +39,8 @@
     <ion-row style="padding: 0 20px;">
       <!-- files from db -->
       <ion-col col-12 *ngFor="let file of files; let indx = index" style="justify-content: flex-start;display: flex;">
-        <!-- <ion-icon  name="trash" item-end style="font-size: 20px;color:#016a38; margin: 0 10px;" (click)="removeFile(2,file.id,indx)" ></ion-icon> -->
-        <!-- <ion-label style="color:gray;margin: 0;" item-start>{{file.path}} </ion-label> -->
-        <a [href]="file.path" style="color:gray;margin: 0;" item-start>{{file.fileName}} </a>
+        <!-- <a [href]="file.path" style="color:gray;margin: 0;" item-start>{{file.fileName}} </a> -->
+        <ion-label style="color: #1265A9;text-decoration: underline;margin-right: 0px;margin-top: 0;" (click)="openFile(file)">{{file.fileName}} </ion-label>
       </ion-col>
     </ion-row>
 

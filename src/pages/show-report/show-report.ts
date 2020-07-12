@@ -182,6 +182,55 @@ export class ShowReportPage {
   }
 
 
+  //ayaaaaaaaaa
+  openFile(file) {
+
+    console.log("pdf_file "+file.path);
+
+    let fileExt = file.path.split('.').pop();
+    let mimeType;
+    
+    console.log("urllllll: "+file.path);
+    console.log("fileExt: "+fileExt);
+
+    let path = null;
+
+    if(this.platform.is('ios')) {
+      path = this.file.documentsDirectory;
+    } else {
+      // path = this.file.dataDirectory;
+      path = this.file.externalApplicationStorageDirectory
+    }
+
+    console.log("path***** "+path);
+
+    const fileTransfer = this.transfer.create();
+
+    // fileTransfer.download('https://motivationletter.net/wp-content/uploads/2018/09/Motivation-Letter-For-Master-Degree-Sample-PDF.pdf',path + 'CarFeatures.pdf').then(entry => {
+    fileTransfer.download(file.path?file.path:"",path + file.fileName).then(entry => {
+      
+      let url = entry.toURL();
+
+      console.log("url***** "+url);
+
+      console.log(url);
+
+      if(fileExt == "doc") {
+        mimeType = "msword";
+      } else if(fileExt == "docx") {
+        mimeType = "vnd.openxmlformats-officedocument.wordprocessingml.document";
+      } else {
+        mimeType = fileExt;
+      }
+      
+      this.fileOpener.open(url, 'application/'+mimeType)
+      .then((data) => console.log('File is opened: '+data))
+      .catch(e => console.log('Error opening file', e));
+    });
+  
+  }
+
+
   presentLoading() {
     this.loading = this.loadingCtrl.create({
       content: "",
@@ -204,5 +253,4 @@ export class ShowReportPage {
     });
     toast.present();
   }
-
 }
