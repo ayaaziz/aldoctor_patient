@@ -297,8 +297,7 @@ this.storage.get("rate_doctor").then(data=>{
     if(this.selectedCityId && this.selectedUserCity) {
       this.cityChecked(this.selectedCityId);
     } else {
-      //alert to choose city
-      this.presentHomeAlert();
+      if(!this.helper.isProcessed) this.presentHomeAlert();
     }
     console.log("constructor selectedUserCity: "+this.helper.selectedUserCity); 
   }
@@ -760,6 +759,9 @@ customerService(){
 }
 
 presentHomeAlert() {
+
+  this.helper.isProcessed = true;
+
   this.alertCtrl.create({
     message: "من فضلك قم باختيار المدينة لتفعيل الخدمات المتاحة",
     buttons: [

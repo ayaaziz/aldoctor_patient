@@ -95,6 +95,8 @@ export class HelperProvider {
   public inspectorLat
   public inspectorLong
   public inspectorLocAccuracy
+
+  public isProcessed:boolean = false;
   
   constructor(//private afAuth: AngularFireAuth, private db: AngularFireDatabase,
     public toastCtrl: ToastController, public http: HttpClient,private geolocation: Geolocation,
