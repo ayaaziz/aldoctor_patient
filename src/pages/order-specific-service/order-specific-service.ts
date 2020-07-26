@@ -615,9 +615,9 @@ export class OrderSpecificServicePage {
             
             // this.navCtrl.push('remaining-time-to-accept');
             if(this.photosForApi.length == 0)
-              this.navCtrl.setRoot('remaining-time-for-plc',{data:0,orderId:newOrder.order.id});
+              this.navCtrl.setRoot('remaining-time-for-plc',{data:0,orderId:newOrder.order.id,type_id:this.type_id});
             else 
-              this.navCtrl.setRoot('remaining-time-for-plc',{data:1,orderId:newOrder.order.id});
+              this.navCtrl.setRoot('remaining-time-for-plc',{data:1,orderId:newOrder.order.id,type_id:this.type_id});
 
             }else{
               this.presentToast(this.translate.instant("serverError"));

@@ -5,6 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoginserviceProvider } from '../../providers/loginservice/loginservice';
 import { Storage } from '@ionic/storage';
 import { TabsPage } from '../tabs/tabs';
+import { SocialSharing } from '@ionic-native/social-sharing';
+import { Platform } from 'ionic-angular/platform/platform';
 
 
 @IonicPage({
@@ -40,7 +42,9 @@ export class DoctorEvaluationPage {
 
   constructor(public toastCtrl: ToastController,public service: LoginserviceProvider,public storage: Storage,
     public helper:HelperProvider,public translate: TranslateService,
-    public navCtrl: NavController, public navParams: NavParams) {
+    public navCtrl: NavController, public navParams: NavParams,
+    public socialSharing: SocialSharing,
+    public platform: Platform) {
       this.langDirection = this.helper.lang_direction;
 
       this.helper.view = "pop";
@@ -357,10 +361,57 @@ export class DoctorEvaluationPage {
       }
     );
     }else{
-      this.presentToast("اختر تقييم للخدمه");
+      this.presentToast("اختر تقييم للخدمة");
     }
     
   }
+
+  //ayaaaaaaaa
+  rateDoctorWithInvitation() {
+    if(this.rate){
+      this.ratedisabledbtn = true;
+      this.review += " ";
+      this.review += this.moreReview;
+      console.log("all review ",this.review);
+      console.log("ratesIds",this.ratesIDS,"more review",this.moreReview);
+  
+      this.service.rateDoctor(this.doctorId,this.rate,this.moreReview,this.ratesIDS.join(","),this.userId,this.orderId,this.accessToken).subscribe(
+        resp=>{
+          this.ratedisabledbtn = false;
+          console.log("resp from rate :",resp); 
+          this.helper.orderRated = 1;
+          this.presentToast("لقد أُرسل التقييم بنجاح، شكراً لك.");
+
+          //share 
+          var shareLink;
+          if (this.platform.is('ios')) {
+            shareLink = "https://itunes.apple.com/us/app/aldoctor-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1/id1440723878?ls=1&mt=8";
+          
+          } else {
+            shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
+          }
+
+          this.socialSharing.share("تطبيق الدكتور", null , null , shareLink).then(() => {
+            console.log("success")
+          }).catch(() => {
+            console.log("not available");
+          });
+          /////////
+
+          this.navCtrl.setRoot(TabsPage);
+
+          
+        },err=>{
+          this.ratedisabledbtn = false;
+          console.log("err from rate: ",err);
+          this.presentToast(this.translate.instant("serverError"))
+        }
+      );
+      }else{
+        this.presentToast("اختر تقييم للخدمة");
+      }
+  }
+
   dismiss(){
     // this.navCtrl.pop();
     this.navCtrl.pop();

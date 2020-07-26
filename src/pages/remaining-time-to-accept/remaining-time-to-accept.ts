@@ -243,6 +243,7 @@ export class RemainingTimeToAcceptPage {
         else{
           this.events.publish('enableTabs', true);
           this.navCtrl.setRoot('order-not-accepted');
+          // ,{type_id:this.type_id}
         }
 
       }, err => {

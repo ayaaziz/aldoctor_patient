@@ -14,6 +14,8 @@ import { HelperProvider } from '../../providers/helper/helper';
 })
 export class OrderNotAcceptedPage {
 
+  type_id;
+
   constructor(  public helper:HelperProvider,
     public navCtrl: NavController, public navParams: NavParams) {
     //   document.removeEventListener('pause',()=>{
@@ -23,6 +25,9 @@ export class OrderNotAcceptedPage {
     //   document.removeEventListener('resume',()=>{
     //    console.log("removeEventListener resume")
     //  })
+
+    this.type_id = navParams.get("type_id");
+    console.log("type_id in order not accepted: "+this.type_id);
   }
 
   ionViewDidLoad() {

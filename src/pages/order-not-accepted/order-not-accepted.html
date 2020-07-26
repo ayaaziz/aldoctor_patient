@@ -21,7 +21,9 @@
   <div style="text-align:center;margin-top:50px;margin-bottom:20px;">
     <ion-icon name="warning" style=" font-size:80px;color:#016a38;"></ion-icon>
   </div>
-    <p style="color:grey;font-size:18px;padding:15px;text-align:center;">{{"orderNotAccepted" | translate}}</p>
+    <p *ngIf="type_id == 1" style="color:grey;font-size:18px;padding:15px;text-align:center;">{{"orderNotAccepted" | translate}}</p>
+    <p *ngIf="type_id != 1" style="color:grey;font-size:18px;padding:15px;text-align:center;">{{"noResponse" | translate}}</p>
+
     <ion-item style="text-align:center;" no-lines>
 
         <button type="button" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="ok()"> {{"agree" | translate}}</button>  

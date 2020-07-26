@@ -42,6 +42,7 @@ export class RemaingTimeForPlcPage {
   interval
   timeLeft
   remaining_time
+  type_id;
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public helper:HelperProvider,public events: Events,
@@ -69,6 +70,9 @@ export class RemaingTimeForPlcPage {
      var data =  this.navParams.get('data');
       this.orderId = this.navParams.get('orderId');
       this.helper.idForOrderToCancelItFromBack = this.orderId;
+
+      //ayaaaaa //from order-service & order-specific-service & service-profile pages
+      this.type_id = this.navParams.get('type_id');
       
       console.log("data from remaing time for plc",data , "orderId: ",this.orderId);
      
@@ -251,7 +255,7 @@ export class RemaingTimeForPlcPage {
                   
           }else{
             this.events.publish('enableTabs', true);
-            this.navCtrl.setRoot('order-not-accepted');
+            this.navCtrl.setRoot('order-not-accepted',{type_id:this.type_id});
           }
           // this.helper.removeOrder(this.helper.orderIdForUpdate);
         },err=>{
@@ -303,7 +307,7 @@ export class RemaingTimeForPlcPage {
     this.helper.stillCount = false;
     this.events.publish('enableTabs', true);
 
-    this.navCtrl.setRoot('order-not-accepted');
+    this.navCtrl.setRoot('order-not-accepted',{type_id:this.type_id});
     this.helper.removeNetworkDisconnectionListener();    
 
   });
