@@ -345,6 +345,7 @@ if(this.notificationFlag == false && durVal == (2*60))
     
   }
 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad FollowOrderPage');
     this.helper.view = "follow";
@@ -414,6 +415,120 @@ if(this.notificationFlag == false && durVal == (2*60))
     // },5000);
 
 
+    //ayaaaaaaaaaaaaaaaaaa
+    this.accessToken = localStorage.getItem('user_token');
+
+    const alertEdit = this.alertCtrl.create({
+      title:  'كوبون خصم',
+      inputs: [
+        { 
+          name: 'currentFees',
+          placeholder: "ادخل كود - اختياري",
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+          text: "إلغاء",
+          role: 'cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+
+        {
+          text: "تم",
+          handler: data => {
+            if (String(data.currentFees).trim()) {
+             //alert(this.spec_id)
+              this.service.checKCoupon(this.doctorId,this.accessToken,"",String(data.currentFees).trim(),(data)=>{
+                if(data.success){
+                  if(data.status == -1){
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                  else if(data.status == 2){
+                    this.presentToast("كوبون الخصم مستخدم من قبل")
+                  }
+                  else if(data.status == 1){
+                    let coupon_type = ""
+                    if(data.coupon.type == "percent"){
+                      coupon_type = data.coupon.discount +" % "
+                    }
+                    else{
+                      coupon_type = data.coupon.discount+ " جنيه "
+                    }
+                    let confirm = this.alertCtrl.create({
+                      title: '',
+                      subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
+                      buttons: [
+                        {
+                          text: "إلغاء",
+                          role: 'cancel',
+                          handler: data => {
+                            console.log('Cancel clicked');
+                          }
+                        },
+                        {
+                        text: "تأكيد",
+                        handler: data2 => {
+                          // ***************another api to send copon id**************
+                          
+                          // this.service.saveOrder(this.doctorProfile.id,this.accessToken,1,data.coupon.id).subscribe(
+                          //   resp => {
+                          //     if(JSON.parse(JSON.stringify(resp)).success ){
+                          //     console.log("saveOrder resp: ",resp);
+                          //     var newOrder = JSON.parse(JSON.stringify(resp));
+                                
+                          //     this.helper.orderIdForUpdate = newOrder.order.id;
+                              
+                          //     this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
+                          //     //this.helper.orderStatusChanged(newOrder.order.id);
+                      
+                          //     this.presentToast(this.translate.instant("ordersent"));
+                          //     this.helper.dontSendNotification = false;
+                              
+                          //     // this.navCtrl.pop();
+                          //     this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+                          //     }else{
+                          //       this.presentToast(this.translate.instant("serverError"));
+                          //     }
+                          //   },
+                          //   err=>{
+                          //     console.log("saveOrder error: ",err);
+                          //     this.presentToast(this.translate.instant("serverError"));
+                          //   }
+                          // );
+                        }
+                      }]
+                    });
+                    confirm.present();
+                  }
+                  
+                }
+                else{
+                  if(data.status == -1){
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                  else if(data.status == 2){
+                    this.presentToast("كوبون الخصم مستخدم من قبل")
+                  }
+                  else{
+                    this.presentToast("كوبون الخصم غير صالح")
+                  }
+                
+                }
+               
+              },
+              (data)=>{
+                this.presentToast("خطأ في الأتصال")
+              })
+            }
+          }
+        }
+      ]
+    });   
+    alertEdit.present()
+    //ayaaaaaaaaaaaaaaaaaa
 
 
   }
