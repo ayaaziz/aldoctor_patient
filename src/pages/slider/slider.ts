@@ -21,7 +21,7 @@ export class SliderPage {
   //   pager:true
   // };
 
-  image = "assets/imgs/1.jpg";
+  image = "assets/imgs/1.png";
   slideChanged() {
     let currentIndex = this.slides.getActiveIndex();
     console.log("this.slide",this.slides);
@@ -43,7 +43,7 @@ export class SliderPage {
   ionViewDidLoad() {
     
     console.log('ionViewDidLoad SliderPage');
-    this.image  = "assets/imgs/1.jpg";
+    this.image  = "assets/imgs/1.png";
     this.storage.set("slider",{
       "sliderAppeared":"1"
     }).then(data=>{
@@ -69,7 +69,10 @@ export class SliderPage {
     var num = parseInt(img.split("/")[2].split(".")[0])+1;
     console.log("num",num);
     if(num>=0 && num <=4)
-      this.image = "assets/imgs/"+num+".jpg";
+      // this.image = "assets/imgs/"+num+".jpg";
+      //ayaaaaaaa
+      this.image = "assets/imgs/"+num+".png";
+
     else
       this.navCtrl.setRoot(LoginPage);
     console.log("this.image",this.image);

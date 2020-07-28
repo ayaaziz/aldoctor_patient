@@ -192,10 +192,11 @@ this.accessToken = localStorage.getItem('user_token');
             specializationData[i].spClass ="spUnselceted";
 
             //ayaaaaaaaaaa
-            if(this.checkIfServiceInZone(JSON.parse(specializationData[i].cities_service))) {
-              specializationData[i].isInZone = true;
+            if(specializationData[i].cities_service) {
+              if(this.checkIfServiceInZone(JSON.parse(specializationData[i].cities_service))) {
+                specializationData[i].isInZone = true;
+              }  
             }
-
             this.specializations1.push(specializationData[i]);
           }
     
@@ -204,10 +205,11 @@ this.accessToken = localStorage.getItem('user_token');
             specializationData[j].spClass ="spUnselceted";
 
             //ayaaaaaaaaaa
-            if(this.checkIfServiceInZone(JSON.parse(specializationData[j].cities_service))) {
-              specializationData[j].isInZone = true;
+            if(specializationData[j].cities_service) {
+              if(this.checkIfServiceInZone(JSON.parse(specializationData[j].cities_service))) {
+                specializationData[j].isInZone = true;
+              }
             }
-
             this.specializations2.push(specializationData[j]);
             
           }
