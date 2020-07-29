@@ -52,12 +52,20 @@
                                         <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"conditions" | translate}}</h2>
                                       </ion-row>
                                   </button>
-                                  <button ion-item  (click)="share()" [ngClass]="app_share" >
+                                  <!-- <button ion-item  (click)="share()" [ngClass]="app_share" >
                                         <ion-row style="direction: rtl;margin-right: 0px;">
                                             <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:#016a38"></ion-icon>
                                             <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"share" |translate}}</h2>
                                           </ion-row>
-                                        </button>
+                                        </button> -->
+
+                                        <a ion-item  href="http://onelink.to/78nns3" [ngClass]="app_share">
+                                          <ion-row style="direction: rtl;margin-right: 0px;">
+                                              <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:#016a38"></ion-icon>
+                                              <h2 style="margin-right:10px ; color:gray; font-size:18px">  {{"share" |translate}}</h2>
+                                            </ion-row>
+                                          </a>
+
                                           <button ion-item  (click)="apprate()"  [ngClass]="app_rate" >
                                                 <ion-row style="direction: rtl;margin-right: 0px;">
                                                     <ion-icon ios="ios-star-outline" md="ios-star-outline" style="font-size:26px;color:#016a38;"></ion-icon>
@@ -136,12 +144,20 @@
                                          <h2 style="margin-left:10px ; color:gray; font-size:18px">  {{"conditions" | translate}} </h2>
                                        </ion-row>
                                    </button>
-                                   <button ion-item  (click)="share()">
+                                   <!-- <button ion-item  (click)="share()">
                                          <ion-row style="direction: ltr;margin-left:10px;">
                                              <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:#016a38;"></ion-icon>
                                              <h2 style="margin-left:10px ; color:gray; font-size:18px">  {{"share" |translate}} </h2>
                                            </ion-row>
-                                         </button>
+                                         </button> -->
+                                        
+                                         <a ion-item  href="http://onelink.to/78nns3" [ngClass]="app_share">
+                                          <ion-row style="direction: ltr;margin-left:10px;">
+                                              <ion-icon ios="md-share" md="md-share" style="font-size:26px;color:#016a38;"></ion-icon>
+                                              <h2 style="margin-left:10px ; color:gray; font-size:18px">  {{"share" |translate}} </h2>
+                                            </ion-row>
+                                          </a>
+
                                            <button ion-item  (click)="apprate()">
                                                  <ion-row style="direction: ltr;margin-left:10px;">
                                                      <ion-icon ios="ios-star-outline" md="ios-star-outline" style="font-size:26px;color:#016a38;"></ion-icon>

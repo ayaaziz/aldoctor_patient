@@ -68,7 +68,7 @@ export class SliderPage {
     
     var num = parseInt(img.split("/")[2].split(".")[0])+1;
     console.log("num",num);
-    if(num>=0 && num <=4)
+    if(num>=0 && num <=6)
       // this.image = "assets/imgs/"+num+".jpg";
       //ayaaaaaaa
       this.image = "assets/imgs/"+num+".png";

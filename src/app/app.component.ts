@@ -275,8 +275,10 @@ events.subscribe('user:userLoginSucceeded', () => {
       setTimeout(()=>{
 
       this.pushnotification();
-
     }, 1000);
+
+    
+
       //translate.setDefaultLang('en');
       // translate.use('en');
 
@@ -402,24 +404,24 @@ events.subscribe('user:userLoginSucceeded', () => {
 
     console.log("share app");
  
-    // var shareLink;
-    // if (this.platform.is('ios')) {
+    var shareLink;
+    if (this.platform.is('ios')) {
 
-    //   shareLink = "https://itunes.apple.com/us/app/aldoctor-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1/id1440723878?ls=1&mt=8";
-    // } else {
-    //   shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
-    // }
-    // // "assets/imgs/dlogo.png"
-    // this.socialSharing.share("تطبيق الدكتور", null , null , shareLink).then(() => {
-    //   console.log("success")
-    //   this.menu.close();
+      shareLink = "https://itunes.apple.com/us/app/aldoctor-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1/id1440723878?ls=1&mt=8";
+    } else {
+      shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
+    }
+    // "assets/imgs/dlogo.png"
+    this.socialSharing.share("تطبيق الدكتور", null , null , shareLink).then(() => {
+      console.log("success")
+      this.menu.close();
 
-    // }).catch(() => {
-    //   console.log("not available");
+    }).catch(() => {
+      console.log("not available");
 
-    // });
+    });
 
-    window.open("http://onelink.to/78nns3",'_system', 'location=yes');
+    // window.open("http://onelink.to/78nns3",'_system', 'location=yes');
   }
 
   // cancel()
@@ -754,7 +756,11 @@ else {
 
        }//end of if  !notification.additionalData.OrderID
       else{
-        return
+        //ayaaaaa
+        //general notification
+        this.nav.setRoot(TabsPage);  
+        this.nav.push("NotificationPage"); 
+        return;
       }
 
       }
@@ -1072,9 +1078,11 @@ if (notification.additionalData.OrderID){
         }
       }//end of if  !notification.additionalData.OrderID
       else{
+        //ayaaaaaa
         //general notification
         console.log("general notification");
-
+        this.nav.setRoot(TabsPage);  
+        this.nav.push("NotificationPage"); 
         // alert("general notification");
         // if(notification.additionalData.foreground) {
         //   this.presentReportAlert(notification.title, notification.message,data.orderId);
