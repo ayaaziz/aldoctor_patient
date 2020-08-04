@@ -67,6 +67,7 @@ export class DoctorProfilePage {
     this.services = this.doctorProfile.speciality_services;
     this.serviceId = this.doctorProfile.id;
 
+    
     //ayaaaaaaaaa
     this.slogn = this.doctorProfile.slogn;
     this.slognImage = this.doctorProfile.slogn_image;
