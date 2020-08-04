@@ -26,6 +26,15 @@
     </div>
     <p class="center" style="color:gray;font-size: 16px;padding-top:0px;margin-bottom:0px;">{{name}}</p>
     <p class="center" style="color:gray;font-size: 16px;padding-top:0px;margin-bottom:0px;">{{specialization}}</p>
+
+
+    <!-- ayaaaaaaaaaaaa -->
+    <div *ngIf="slognImage && slogn" style="text-align: center;margin-top: -2px;">
+      <img [src]="slognImage" style="width:15px;height:15px;">
+      <span style="font-size:10px">{{slogn}}</span>
+    </div>
+    <!-- //////////// -->
+
     <div class="center" style="border-bottom: 2px solid #e8f1ed;">
     <rating 
     [(ngModel)]="rate" 

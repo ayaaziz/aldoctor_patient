@@ -47,6 +47,9 @@ export class ServiceProfilePage {
   serviceId;
   hideServices = true;
 
+  slogn;
+  slognImage;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public toastCtrl: ToastController, public alertCtrl: AlertController,
     public storage: Storage, public app:App,
@@ -85,6 +88,11 @@ export class ServiceProfilePage {
     // this.specialization = this.doctorProfile.specialization;
     this.rate = this.doctorProfile.rate;
     this.phone = this.doctorProfile.phone;
+
+     //ayaaaaaaaaa
+     this.slogn = this.doctorProfile.slogn;
+     this.slognImage = this.doctorProfile.slogn_image;
+     /////////////
 
     if(this.doctorProfile.entity.phone)
     {

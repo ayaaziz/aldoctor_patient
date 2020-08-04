@@ -33,7 +33,10 @@ export class DoctorProfilePage {
   location;
   serviceId;
   offlinefororders;
-  spec_id
+  spec_id;
+
+  slogn;
+  slognImage;
 
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, public app:App,
@@ -63,6 +66,11 @@ export class DoctorProfilePage {
     this.location = this.doctorProfile.address;
     this.services = this.doctorProfile.speciality_services;
     this.serviceId = this.doctorProfile.id;
+
+    //ayaaaaaaaaa
+    this.slogn = this.doctorProfile.slogn;
+    this.slognImage = this.doctorProfile.slogn_image;
+    /////////////
     
     if(this.doctorProfile.offline == true )//|| this.doctorProfile.offlineFororders == true
       this.offline = "1";

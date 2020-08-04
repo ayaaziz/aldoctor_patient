@@ -102,6 +102,15 @@
           <h2 style="width:60px;margin-top:0px;font-size:13px;font-weight: bold;">{{item.doctorName}}</h2>
           <img src="assets/icon/doctor.png" style="width:15px;height:15px;">
           <h3 style="font-size:10px">{{item.specialityname}}</h3>
+
+
+          <!-- ayaaaaaaaaaaaa -->
+          <div *ngIf="item.slogn_image && item.slogn" style="margin-top: -8px;">
+            <img [src]="item.slogn_image" style="width:15px;height:15px;">
+            <h3 style="font-size:10px">{{item.slogn}}</h3>
+          </div> 
+          <!-- //////////// -->
+
           <h5 style="font-size:12px;font-weight: bold;">{{"cost"|translate}} : {{item.discount}}{{"pound"|translate}}</h5>
           <rating 
                 [(ngModel)]="item.rate" 

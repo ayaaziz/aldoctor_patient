@@ -439,6 +439,7 @@ this.disableDropDown = true;
           else
             doctorData["results"][i].doctorName = doctorData["results"][i].name;
 
+
           console.log("1");
 
           if (!doctorData["results"][i].rate)
