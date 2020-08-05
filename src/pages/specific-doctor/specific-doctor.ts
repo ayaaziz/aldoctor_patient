@@ -876,146 +876,174 @@ for(var g=0;g<this.doctors.length;g++){
       console.log("doctors id: ",doctorsId);
       this.orderBTn = true;
 
-      const alertEdit = this.alertCtrl.create({
-      title:  'كوبون خصم',
-      inputs: [
-        { 
-          name: 'currentFees',
-          placeholder: "ادخل كود - اختياري",
-          type: 'text'
-        }
-      ],
-      buttons: [
-        {
-          text: "إلغاء",
-          role: 'cancel',
-          handler: data => {
-            this.orderBTn = false
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: "اطلب الآن",
-          handler: data => {
-            if (String(data.currentFees).trim()) {
-              this.service.checKCoupon(doctorsId,this.accessToken,this.Specialization,String(data.currentFees).trim(),(data)=>{
-                if(data.success){
-                  if(data.status == -1){
-                    this.presentToast("كوبون الخصم غير صالح")
-                  }
-                  else if(data.status == 2){
-                    this.presentToast("كوبون الخصم مستخدم من قبل")
-                  }
-                  else if(data.status == 1){
-                    let coupon_type = ""
-                    if(data.coupon.type == "percent"){
-                      coupon_type = data.coupon.discount +" % "
-                    }
-                    else{
-                      coupon_type = data.coupon.discount+ " جنيه "
-                    }
-                    let confirm = this.alertCtrl.create({
-                      title: '',
-                      subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
-                      buttons: [
-                        {
-                          text: "إلغاء",
-                          role: 'cancel',
-                          handler: data => {
-                            this.orderBTn = false
-                            console.log('Cancel clicked');
-                          }
-                        },
-                        {
-                        text: "تأكيد الطلب",
-                        handler: data2 => {
-                           this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length,data.coupon.id).subscribe(
-                             resp => {
-                               if(JSON.parse(JSON.stringify(resp)).success ){
-                               console.log("saveOrder resp: ",resp);
-                               var newOrder = JSON.parse(JSON.stringify(resp));
+    //   const alertEdit = this.alertCtrl.create({
+    //   title:  'كوبون خصم',
+    //   inputs: [
+    //     { 
+    //       name: 'currentFees',
+    //       placeholder: "ادخل كود - اختياري",
+    //       type: 'text'
+    //     }
+    //   ],
+    //   buttons: [
+    //     {
+    //       text: "إلغاء",
+    //       role: 'cancel',
+    //       handler: data => {
+    //         this.orderBTn = false
+    //         console.log('Cancel clicked');
+    //       }
+    //     },
+    //     {
+    //       text: "اطلب الآن",
+    //       handler: data => {
+    //         if (String(data.currentFees).trim()) {
+    //           this.service.checKCoupon(doctorsId,this.accessToken,this.Specialization,String(data.currentFees).trim(),(data)=>{
+    //             if(data.success){
+    //               if(data.status == -1){
+    //                 this.presentToast("كوبون الخصم غير صالح")
+    //               }
+    //               else if(data.status == 2){
+    //                 this.presentToast("كوبون الخصم مستخدم من قبل")
+    //               }
+    //               else if(data.status == 1){
+    //                 let coupon_type = ""
+    //                 if(data.coupon.type == "percent"){
+    //                   coupon_type = data.coupon.discount +" % "
+    //                 }
+    //                 else{
+    //                   coupon_type = data.coupon.discount+ " جنيه "
+    //                 }
+    //                 let confirm = this.alertCtrl.create({
+    //                   title: '',
+    //                   subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
+    //                   buttons: [
+    //                     {
+    //                       text: "إلغاء",
+    //                       role: 'cancel',
+    //                       handler: data => {
+    //                         this.orderBTn = false
+    //                         console.log('Cancel clicked');
+    //                       }
+    //                     },
+    //                     {
+    //                     text: "تأكيد الطلب",
+    //                     handler: data2 => {
+    //                        this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length,data.coupon.id).subscribe(
+    //                          resp => {
+    //                            if(JSON.parse(JSON.stringify(resp)).success ){
+    //                            console.log("saveOrder resp: ",resp);
+    //                            var newOrder = JSON.parse(JSON.stringify(resp));
                               
-                               this.helper.orderIdForUpdate = newOrder.order.id;
+    //                            this.helper.orderIdForUpdate = newOrder.order.id;
                     
-                               //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-                             //this.helper.orderStatusChanged(newOrder.order.id);
+    //                            //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+    //                          //this.helper.orderStatusChanged(newOrder.order.id);
                     
-                               this.presentToast(this.translate.instant("ordersent"));
-                             this.helper.dontSendNotification = false;
+    //                            this.presentToast(this.translate.instant("ordersent"));
+    //                          this.helper.dontSendNotification = false;
                               
-                                this.navCtrl.pop();
-                               this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
-                               }else{
-                                 this.presentToast(this.translate.instant("serverError"));
-                               }
-                         },
-                             err=>{
-                               console.log("saveOrder error: ",err);
-                               this.presentToast(this.translate.instant("serverError"));
-                               this.orderBTn = false;
-                             }
-                           ); 
-                           console.log('btn clicked');
-                        }
-                      }]
-                    });
-                    confirm.present();
-                  }
+    //                             this.navCtrl.pop();
+    //                            this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+    //                            }else{
+    //                              this.presentToast(this.translate.instant("serverError"));
+    //                            }
+    //                      },
+    //                          err=>{
+    //                            console.log("saveOrder error: ",err);
+    //                            this.presentToast(this.translate.instant("serverError"));
+    //                            this.orderBTn = false;
+    //                          }
+    //                        ); 
+    //                        console.log('btn clicked');
+    //                     }
+    //                   }]
+    //                 });
+    //                 confirm.present();
+    //               }
                   
-                }
-                else{
-                  if(data.status == -1){
-                    this.presentToast("كوبون الخصم غير صالح")
-                  }
-                  else if(data.status == 2){
-                    this.presentToast("كوبون الخصم مستخدم من قبل")
-                  }
-                  else{
-                    this.presentToast("كوبون الخصم غير صالح")
-                  }
+    //             }
+    //             else{
+    //               if(data.status == -1){
+    //                 this.presentToast("كوبون الخصم غير صالح")
+    //               }
+    //               else if(data.status == 2){
+    //                 this.presentToast("كوبون الخصم مستخدم من قبل")
+    //               }
+    //               else{
+    //                 this.presentToast("كوبون الخصم غير صالح")
+    //               }
                 
-                }
-              },
-              (data)=>{
-                this.presentToast("خطأ في الأتصال")
-              })
-            }
-            else{
-              this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length,-1).subscribe(
-                resp => {
-                  if(JSON.parse(JSON.stringify(resp)).success ){
-                  console.log("saveOrder resp: ",resp);
-                  var newOrder = JSON.parse(JSON.stringify(resp));
+    //             }
+    //           },
+    //           (data)=>{
+    //             this.presentToast("خطأ في الأتصال")
+    //           })
+    //         }
+    //         else{
+    //           this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length,-1).subscribe(
+    //             resp => {
+    //               if(JSON.parse(JSON.stringify(resp)).success ){
+    //               console.log("saveOrder resp: ",resp);
+    //               var newOrder = JSON.parse(JSON.stringify(resp));
                  
-                  this.helper.orderIdForUpdate = newOrder.order.id;
+    //               this.helper.orderIdForUpdate = newOrder.order.id;
        
-                  //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
-                //this.helper.orderStatusChanged(newOrder.order.id);
+    //               //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+    //             //this.helper.orderStatusChanged(newOrder.order.id);
        
-                  this.presentToast(this.translate.instant("ordersent"));
-                this.helper.dontSendNotification = false;
+    //               this.presentToast(this.translate.instant("ordersent"));
+    //             this.helper.dontSendNotification = false;
                  
-                   this.navCtrl.pop();
-                  this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
-                  }else{
-                    this.presentToast(this.translate.instant("serverError"));
-                  }
-            },
-                err=>{
-                  console.log("saveOrder error: ",err);
-                  this.presentToast(this.translate.instant("serverError"));
-                  this.orderBTn = false;
-                }
-              ); 
+    //                this.navCtrl.pop();
+    //               this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+    //               }else{
+    //                 this.presentToast(this.translate.instant("serverError"));
+    //               }
+    //         },
+    //             err=>{
+    //               console.log("saveOrder error: ",err);
+    //               this.presentToast(this.translate.instant("serverError"));
+    //               this.orderBTn = false;
+    //             }
+    //           ); 
               
-            }
+    //         }
             
-          }
+    //       }
+    //     }
+    //   ]
+    // });
+    // alertEdit.present();
+
+    this.service.saveOrder(doctorsId,this.accessToken,this.choosenDoctors.length,-1).subscribe(
+      resp => {
+        if(JSON.parse(JSON.stringify(resp)).success ){
+        console.log("saveOrder resp: ",resp);
+        var newOrder = JSON.parse(JSON.stringify(resp));
+        
+        this.helper.orderIdForUpdate = newOrder.order.id;
+
+        //this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,this.choosenDoctors.length);
+      //this.helper.orderStatusChanged(newOrder.order.id);
+
+        this.presentToast(this.translate.instant("ordersent"));
+      this.helper.dontSendNotification = false;
+        
+          this.navCtrl.pop();
+        this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+        }else{
+          this.presentToast(this.translate.instant("serverError"));
         }
-      ]
-    });
-    alertEdit.present();
-   
+  },
+      err=>{
+        console.log("saveOrder error: ",err);
+        this.presentToast(this.translate.instant("serverError"));
+        this.orderBTn = false;
+      }
+    ); 
+
+
     }
     
   }

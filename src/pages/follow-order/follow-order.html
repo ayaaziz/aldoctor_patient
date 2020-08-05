@@ -22,6 +22,7 @@
 
 
 <ion-content padding>
+
   <div #map id="map"></div>
 
   <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;">{{"accepted"|translate}} {{doctorName}} </h5>
@@ -114,6 +115,20 @@
   <h5 *ngIf="langDirection == 'rtl'" style="color:grey;text-align: right;margin:0px;margin-bottom: 4px;margin-top:2px">{{"arrivaltime" | translate}} {{newduration}} </h5>
   <h5 *ngIf="langDirection != 'rtl'" style="color:grey;margin:0px;margin-bottom: 4px;margin-top:2px">{{"arrivaltime" | translate}} {{newduration}} </h5>
   
+
+   <!-- ayaaaaaaaaa -->
+   <ion-row style="background-color: #efefef;justify-content: center;margin-bottom: 10px;padding-top: 10px;padding-bottom: 10px;margin-top: 25px;">
+      <ion-col col-12>
+        <p style="padding-right: 30px;font-weight: bold;margin-bottom: 0;direction: rtl;">{{"coupon" | translate}}</p>
+      </ion-col>
+      <ion-col col-7 style="padding-left: 0;align-items: center;display: flex;">
+        <ion-input class="couponInput" type="text" placeholder="أدخل الكود" [(ngModel)]="currentFees" style="background-color: #fff;height: 80%;"></ion-input>
+      </ion-col>
+      <ion-col col-3 style="padding-right: 0;align-items: center;display: flex;">
+        <button class="coponBtn" (click)="useCoupon()">تأكيد</button> 
+      </ion-col>
+    </ion-row>
+  <!-- /////////// -->
 
   <ion-item style="text-align:center;" no-lines>
   <button type="button" [disabled]="disableCancelBtn" class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="cancelOrder()"> {{"cancelOrder" | translate}}</button>  

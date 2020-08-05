@@ -482,6 +482,23 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       FailCallBack("-1")
     })
   }
+
+  //ayaaaaaaaa
+  checKCoupon2(orderId,patientId,docid,access_token,speciality_id,code,SuccessCallBack,FailCallBack){
+    let headers = new HttpHeaders();
+    let parameter = new HttpParams().set('code',code)
+    .set('speciality_id',speciality_id).set('doctor_ids',docid)
+    .set('order_id',orderId).set('patient_id',patientId);
+    
+    headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
+    let serviceUrl = this.helper.serviceUrl +'api/validateCoupon';
+    this.http.post(serviceUrl,parameter,{headers: headers }).subscribe(data=>{
+      SuccessCallBack(data)
+    },
+    err=>{
+      FailCallBack("-1")
+    })
+  }
  
   rateCriteriea(rate,access_token){
     // http://itrootsdemos.com/aldoctor/public/api/get/lkps/rate-criteriea?rate=1&type=rate-criteriea

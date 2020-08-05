@@ -303,5 +303,6 @@
       "enterSearchValForNursing":"أدخل نوع الخدمة",
       "reset":"إعادة حساب التكلفة",
       "noResponse":"شكراً لطلبكم و ستتواصل خدمة العملاء معكم في أسرع وقت",
-      "okWithInvitation":"تم مع دعوة شخص يهمك"
+      "okWithInvitation":"تم مع دعوة شخص يهمك",
+      "coupon":"كوبون خصم"
 }

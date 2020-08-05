@@ -59,6 +59,10 @@ export class FollowOrderPage {
   contNotes
   contDate
 
+  patientId;
+
+  currentFees;
+
   constructor(public storage: Storage,public service: LoginserviceProvider,
      public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
     private geolocation: Geolocation,public helper:HelperProvider,public navCtrl: NavController,
@@ -107,6 +111,11 @@ export class FollowOrderPage {
             var orderDataForPriceParsing = JSON.parse(JSON.stringify(resp)).order;
             if(orderDataForPriceParsing.is_reorder == "0" && orderDataForPriceParsing.reorder_done == "1")
               this.reorderDetected = true;
+
+              //ayaaaaaaaa
+              this.patientId = orderDataForPriceParsing.patient_id;
+              console.log("patientId: "+this.patientId);
+              ////////////
 
               if(orderDataForPriceParsing.PriceAfterDiscount)
               {
@@ -416,122 +425,185 @@ if(this.notificationFlag == false && durVal == (2*60))
 
 
     //ayaaaaaaaaaaaaaaaaaa
-    this.accessToken = localStorage.getItem('user_token');
+    // this.accessToken = localStorage.getItem('user_token');
 
-    const alertEdit = this.alertCtrl.create({
-      title:  'كوبون خصم',
-      inputs: [
-        { 
-          name: 'currentFees',
-          placeholder: "ادخل كود - اختياري",
-          type: 'text'
-        }
-      ],
-      buttons: [
-        {
-          text: "إلغاء",
-          role: 'cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
+    // const alertEdit = this.alertCtrl.create({
+    //   title:  'كوبون خصم',
+    //   inputs: [
+    //     { 
+    //       name: 'currentFees',
+    //       placeholder: "ادخل كود - اختياري",
+    //       type: 'text'
+    //     }
+    //   ],
+    //   buttons: [
+    //     {
+    //       text: "إلغاء",
+    //       role: 'cancel',
+    //       handler: data => {
+    //         console.log('Cancel clicked');
+    //       }
+    //     },
 
-        {
-          text: "تم",
-          handler: data => {
-            if (String(data.currentFees).trim()) {
-             //alert(this.spec_id)
-              this.service.checKCoupon(this.doctorId,this.accessToken,"",String(data.currentFees).trim(),(data)=>{
-                if(data.success){
-                  if(data.status == -1){
-                    this.presentToast("كوبون الخصم غير صالح")
-                  }
-                  else if(data.status == 2){
-                    this.presentToast("كوبون الخصم مستخدم من قبل")
-                  }
-                  else if(data.status == 1){
-                    let coupon_type = ""
-                    if(data.coupon.type == "percent"){
-                      coupon_type = data.coupon.discount +" % "
-                    }
-                    else{
-                      coupon_type = data.coupon.discount+ " جنيه "
-                    }
-                    let confirm = this.alertCtrl.create({
-                      title: '',
-                      subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
-                      buttons: [
-                        {
-                          text: "إلغاء",
-                          role: 'cancel',
-                          handler: data => {
-                            console.log('Cancel clicked');
-                          }
-                        },
-                        {
-                        text: "تأكيد",
-                        handler: data2 => {
-                          // ***************another api to send copon id**************
+    //     {
+    //       text: "تم",
+    //       handler: data => {
+    //         if (String(data.currentFees).trim()) {
+    //          //alert(this.spec_id)
+    //           this.service.checKCoupon2(this.doctorData.orderId,this.patientId,this.doctorId,this.accessToken,"",String(data.currentFees).trim(),(data)=>{
+    //             if(data.success){
+    //               if(data.status == -1){
+    //                 this.presentToast("كوبون الخصم غير صالح")
+    //               }
+    //               else if(data.status == 2){
+    //                 this.presentToast("كوبون الخصم مستخدم من قبل")
+    //               }
+    //               else if(data.status == 1){
+    //                 let coupon_type = ""
+    //                 if(data.coupon.type == "percent"){
+    //                   coupon_type = data.coupon.discount +" % "
+    //                 }
+    //                 else{
+    //                   coupon_type = data.coupon.discount+ " جنيه "
+    //                 }
+    //                 let confirm = this.alertCtrl.create({
+    //                   title: '',
+    //                   subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
+    //                   buttons: [
+    //                     {
+    //                       text: "تم",
+    //                       role: 'cancel'
+    //                     },
+    //                     // {
+    //                     // text: "تأكيد",
+    //                     // handler: data2 => {
+    //                       // ***************another api to send copon id**************
                           
-                          // this.service.saveOrder(this.doctorProfile.id,this.accessToken,1,data.coupon.id).subscribe(
-                          //   resp => {
-                          //     if(JSON.parse(JSON.stringify(resp)).success ){
-                          //     console.log("saveOrder resp: ",resp);
-                          //     var newOrder = JSON.parse(JSON.stringify(resp));
+    //                       // this.service.saveOrder(this.doctorProfile.id,this.accessToken,1,data.coupon.id).subscribe(
+    //                       //   resp => {
+    //                       //     if(JSON.parse(JSON.stringify(resp)).success ){
+    //                       //     console.log("saveOrder resp: ",resp);
+    //                       //     var newOrder = JSON.parse(JSON.stringify(resp));
                                 
-                          //     this.helper.orderIdForUpdate = newOrder.order.id;
+    //                       //     this.helper.orderIdForUpdate = newOrder.order.id;
                               
-                          //     this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
-                          //     //this.helper.orderStatusChanged(newOrder.order.id);
+    //                       //     this.helper.createOrder(newOrder.order.id,newOrder.order.service_profile_id,1);
+    //                       //     //this.helper.orderStatusChanged(newOrder.order.id);
                       
-                          //     this.presentToast(this.translate.instant("ordersent"));
-                          //     this.helper.dontSendNotification = false;
+    //                       //     this.presentToast(this.translate.instant("ordersent"));
+    //                       //     this.helper.dontSendNotification = false;
                               
-                          //     // this.navCtrl.pop();
-                          //     this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
-                          //     }else{
-                          //       this.presentToast(this.translate.instant("serverError"));
-                          //     }
-                          //   },
-                          //   err=>{
-                          //     console.log("saveOrder error: ",err);
-                          //     this.presentToast(this.translate.instant("serverError"));
-                          //   }
-                          // );
-                        }
-                      }]
-                    });
-                    confirm.present();
-                  }
+    //                       //     // this.navCtrl.pop();
+    //                       //     this.navCtrl.setRoot('remaining-time-to-accept',{orderId:newOrder.order.id});
+    //                       //     }else{
+    //                       //       this.presentToast(this.translate.instant("serverError"));
+    //                       //     }
+    //                       //   },
+    //                       //   err=>{
+    //                       //     console.log("saveOrder error: ",err);
+    //                       //     this.presentToast(this.translate.instant("serverError"));
+    //                       //   }
+    //                       // );
+    //                   //   }
+    //                   // }
+    //                 ]
+    //                 });
+    //                 confirm.present();
+    //               }
                   
-                }
-                else{
-                  if(data.status == -1){
-                    this.presentToast("كوبون الخصم غير صالح")
-                  }
-                  else if(data.status == 2){
-                    this.presentToast("كوبون الخصم مستخدم من قبل")
-                  }
-                  else{
-                    this.presentToast("كوبون الخصم غير صالح")
-                  }
+    //             }
+    //             else{
+    //               if(data.status == -1){
+    //                 this.presentToast("كوبون الخصم غير صالح")
+    //               }
+    //               else if(data.status == 2){
+    //                 this.presentToast("كوبون الخصم مستخدم من قبل")
+    //               }
+    //               else{
+    //                 this.presentToast("كوبون الخصم غير صالح")
+    //               }
                 
-                }
+    //             }
                
-              },
-              (data)=>{
-                this.presentToast("خطأ في الأتصال")
-              })
-            }
-          }
-        }
-      ]
-    });   
-    alertEdit.present()
-    //ayaaaaaaaaaaaaaaaaaa
+    //           },
+    //           (data)=>{
+    //             this.presentToast("خطأ في الأتصال")
+    //           })
+    //         }
+    //       }
+    //     }
+    //   ]
+    // });   
+    // alertEdit.present()
+    //////////////////
 
 
   }
+
+
+  //ayaaaaaaaaaa
+  useCoupon() {
+
+    console.log("currentFees: "+this.currentFees);
+
+    if (String(this.currentFees).trim()) {
+      //alert(this.spec_id)
+       this.service.checKCoupon2(this.doctorData.orderId,this.patientId,this.doctorId,this.accessToken,"",String(this.currentFees).trim(),(data)=>{
+         if(data.success){
+           if(data.status == -1){
+             this.presentToast("كوبون الخصم غير صالح");
+             this.currentFees = "";
+           }
+           else if(data.status == 2){
+             this.presentToast("كوبون الخصم مستخدم من قبل");
+             this.currentFees = "";
+           }
+           else if(data.status == 1){
+             let coupon_type = ""
+             if(data.coupon.type == "percent"){
+               coupon_type = data.coupon.discount +" % "
+             }
+             else{
+               coupon_type = data.coupon.discount+ " جنيه "
+             }
+             let confirm = this.alertCtrl.create({
+               title: '',
+               subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
+               buttons: [
+                 {
+                   text: "تم",
+                   handler: () => {
+                    this.currentFees = "";
+                   }
+                 },
+             ]
+             });
+             confirm.present();
+           }
+           
+         }
+         else{
+           if(data.status == -1){
+             this.presentToast("كوبون الخصم غير صالح")
+           }
+           else if(data.status == 2){
+             this.presentToast("كوبون الخصم مستخدم من قبل")
+           }
+           else{
+             this.presentToast("كوبون الخصم غير صالح")
+           }
+           this.currentFees = "";         
+         }
+        
+       },
+       (data)=>{
+         this.presentToast("خطأ في الأتصال")
+       })
+     }
+  }
+  ////////////////////
+
+
   initMap(){
     let latlng = new google.maps.LatLng(this.lat,this.lng);
     var mapOptions={

@@ -69,6 +69,25 @@ page-follow-order {
       // top: 5px;
       top:5%;
     }
+
+
+    .coponBtn {
+      height: 80%;
+      width: 100%;
+      margin: 0;
+      color: #fff;
+      background-color: #016a38 !important;
+
+      &:active,
+      &:hover {
+        background-color: #016a38 !important;
+      }
+    }
+
+    .couponInput > .text-input {
+      text-align: right;
+      margin-top: 7px;
+    }
     
 
 }
