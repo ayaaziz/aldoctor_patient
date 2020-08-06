@@ -758,8 +758,9 @@ else {
       else{
         //ayaaaaa
         //general notification
+        console.log("general notification!!");
         this.nav.setRoot(TabsPage);  
-        this.nav.push("NotificationPage"); 
+        this.nav.push(NotificationPage,{"fromNotification":true}); 
         return;
       }
 
@@ -1078,11 +1079,13 @@ if (notification.additionalData.OrderID){
         }
       }//end of if  !notification.additionalData.OrderID
       else{
-        //ayaaaaaa
-        //general notification
+        
+        //ayaaaaaaaaa
         console.log("general notification");
         this.nav.setRoot(TabsPage);  
-        this.nav.push("NotificationPage"); 
+        this.nav.push(NotificationPage,{"fromNotification":true});    
+        /////////////
+        
         // alert("general notification");
         // if(notification.additionalData.foreground) {
         //   this.presentReportAlert(notification.title, notification.message,data.orderId);

@@ -24,6 +24,8 @@ export class NotificationPage {
   showLoading=true;
   tostClass ;
 
+  fromNotification:boolean = false;
+
 
   // data=[{"txt":"doctor will arrive soon","time":"9:30 am"},
   //       {"txt":"doctor will arrive soon","time":"9:30 am"},
@@ -46,6 +48,11 @@ export class NotificationPage {
         this.tostClass = "toastRight";
       else
         this.tostClass="toastLeft";
+
+
+        //ayaaaaaaaaa
+        this.fromNotification = navParams.get("fromNotification");
+        /////////////
   }
 
   ionViewWillEnter(){
@@ -398,6 +405,10 @@ cancelAlert(msg){
     
   });
   alert.present();
+}
+
+dismiss(){
+  this.navCtrl.pop();
 }
 
 }
