@@ -660,7 +660,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     // http://aldoctor-app.com/aldoctorfinaltest/public/api/get/lkps/medical-consultation?city_id=null
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl+ 'api/get/lkps/medical-consultation?city_id='+id;
+    // let serviceUrl = this.helper.serviceUrl+ 'api/get/lkps/medical-consultation?city_id='+id;
+    let serviceUrl = this.helper.serviceUrl+ 'api/get/lkps/medical-consultation?city_id=null';
     return this.http.get(serviceUrl,{headers: headers });
   }
 
@@ -669,7 +670,8 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     // http://aldoctor-app.com/aldoctorfinaltest/public/api/get/lkps/customer-service?city_id=null
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl+ 'api/get/lkps/customer-service?city_id='+id;
+    // let serviceUrl = this.helper.serviceUrl+ 'api/get/lkps/customer-service?city_id='+id;
+    let serviceUrl = this.helper.serviceUrl+ 'api/get/lkps/customer-service?city_id=null';
     return this.http.get(serviceUrl,{headers: headers });
   }
 

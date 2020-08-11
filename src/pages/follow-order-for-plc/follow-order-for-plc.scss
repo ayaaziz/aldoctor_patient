@@ -14,7 +14,7 @@ page-follow-order-for-plc {
         position: absolute;
         width: 100%;
         height: 100%;
-        box-shadow: 1px 1px 1px 1px lightgrey !important;
+        // box-shadow: 1px 1px 1px 1px lightgrey !important;
         -ms-touch-action: manipulation;
         touch-action: manipulation;
     }
@@ -26,7 +26,7 @@ page-follow-order-for-plc {
         border-left: 0px;
         border-bottom: 1px solid #b2b3b354;
         border-right: 1px solid #b2b3b354;
-        box-shadow: 1px 1px 1px 2px rgba(169, 167, 167, 0.17);
+        // box-shadow: 1px 1px 1px 2px rgba(169, 167, 167, 0.17);
  
 
 }
@@ -170,9 +170,31 @@ select option[selected]{
     
     .fab-close-icon {
       
-        // top: 5px;
-        top:5%;
+      // top: 5px;
+      top:5%;
+    }
+
+
+    //ayaaaaaaaaa
+    .coponBtn {
+      height: 80%;
+      width: 100%;
+      margin: 0;
+      color: #fff;
+      background-color: #016a38 !important;
+
+      &:active,
+      &:hover {
+        background-color: #016a38 !important;
       }
+    }
+
+    .couponInput > .text-input {
+      text-align: right;
+      margin-top: 7px;
+    }
+    ////////////
+    
          
 }
 .toastRight{

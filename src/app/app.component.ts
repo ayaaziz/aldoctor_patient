@@ -1528,7 +1528,7 @@ if (notification.additionalData.OrderID){
     else if (this.helper.type_id == 2 )
     price = "سعر الأشعة : " + xLe + " جنيه " + xpt + " قرش "
    else if (this.helper.type_id == 3 )
-    price = "سعر التحاليل : " + xLe + " جنيه " + xpt + " قرش "
+    price = "سعر التحاليل : " + xLe + " جنيه "+ "و " + xpt + " قرش "
 
     console.log("enter presentdelivaryAlert");
     let alert = this.alertCtrl.create({

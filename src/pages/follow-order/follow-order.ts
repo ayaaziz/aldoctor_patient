@@ -60,7 +60,6 @@ export class FollowOrderPage {
   contDate
 
   patientId;
-
   currentFees;
 
   constructor(public storage: Storage,public service: LoginserviceProvider,

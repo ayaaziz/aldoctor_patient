@@ -64,7 +64,7 @@
 </ion-row>
 
     <ion-scroll scrollY="true"  [ngStyle]="{'height': scrollHeight }"  >
-       <ion-card *ngFor="let item of DoctorsArray"  [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" style="height:107px;" (click)="showseviceProfile(item)" >          
+       <ion-card *ngFor="let item of DoctorsArray"  [ngStyle]="{'opacity': item.offline == true ? '0.5' : '1'}" (click)="showseviceProfile(item)" >          
           <ion-row style="width: calc(100% - 5px);margin: 2px;" >
               
               <ion-col col-2  col-sm-2 style="padding-top:5px;text-align: center;" >
@@ -82,7 +82,7 @@
                 <!-- ayaaaaaaaaaaaa -->
                 <div  *ngIf="item.slogn_image && item.slogn" style="margin-top: -8px;">
                   <img [src]="item.slogn_image" style="width:15px;height:15px;">
-                  <h3 style="font-size:10px">{{item.slogn}}</h3>
+                  <h3 style="font-size:10px;display: inline-block;">{{item.slogn}}</h3>
                 </div> 
                 <!-- //////////// -->
           

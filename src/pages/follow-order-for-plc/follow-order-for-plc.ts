@@ -80,6 +80,10 @@ export class FollowOrderForPlcPage {
   contDate = "";
   contNotes = "";
 
+  patientId;
+  currentFees;
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public storage: Storage,public service: LoginserviceProvider,
     public diagnostic: Diagnostic,public locationAccuracy: LocationAccuracy,
@@ -129,6 +133,12 @@ export class FollowOrderForPlcPage {
         resp=>{
           console.log("orderDetails ",resp);
           var myorder = JSON.parse(JSON.stringify(resp)).order;
+
+
+          //ayaaaaaaaa
+          this.patientId = myorder.patient_id;
+          console.log("patientId for nursing: "+this.patientId);
+          ////////////
        
           if(myorder.status == 13 )
           {
@@ -1158,7 +1168,7 @@ this.accessToken = localStorage.getItem('user_token');
  
 
 ionViewWillEnter(){
-  console.log("will enter from follow order");
+  console.log("will enter from follow order for plc");
   this.helper.view = "follow";
 }
 
@@ -1168,6 +1178,69 @@ medicalConsultant() {
   var modalPage = this.modalCtrl.create('ModalPage',{from:"medicalConsultant"});
   modalPage.present();
 }
+
+
+  //ayaaaaaaaaaa
+  useCoupon() {
+
+    console.log("currentFees: "+this.currentFees);
+
+    if (String(this.currentFees).trim()) {
+      //alert(this.spec_id)
+       this.service.checKCoupon2(this.orderId,this.patientId,this.doctorId,this.accessToken,"",String(this.currentFees).trim(),(data)=>{
+         if(data.success){
+           if(data.status == -1){
+             this.presentToast("كوبون الخصم غير صالح");
+             this.currentFees = "";
+           }
+           else if(data.status == 2){
+             this.presentToast("كوبون الخصم مستخدم من قبل");
+             this.currentFees = "";
+           }
+           else if(data.status == 1){
+             let coupon_type = ""
+             if(data.coupon.type == "percent"){
+               coupon_type = data.coupon.discount +" % "
+             }
+             else{
+               coupon_type = data.coupon.discount+ " جنيه "
+             }
+             let confirm = this.alertCtrl.create({
+               title: '',
+               subTitle: "سيتم خصم "+coupon_type+" من قيمة الكشف",
+               buttons: [
+                 {
+                   text: "تم",
+                   handler: () => {
+                    this.currentFees = "";
+                   }
+                 },
+             ]
+             });
+             confirm.present();
+           }
+           
+         }
+         else{
+           if(data.status == -1){
+             this.presentToast("كوبون الخصم غير صالح")
+           }
+           else if(data.status == 2){
+             this.presentToast("كوبون الخصم مستخدم من قبل")
+           }
+           else{
+             this.presentToast("كوبون الخصم غير صالح")
+           }
+           this.currentFees = "";         
+         }
+        
+       },
+       (data)=>{
+         this.presentToast("خطأ في الأتصال")
+       })
+     }
+  }
+  ////////////////////
 
 
 }
