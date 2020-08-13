@@ -66,11 +66,18 @@ export class ViewRatesPage {
     this.service.getReviews(this.serviceId,this.page,this.accessToken).subscribe(
       resp=>{
         this.showLoading = true;
-        console.log("resp from getReviews : ",resp);
-        var notificatoionResp = JSON.parse(JSON.stringify(resp)).rate;
-        
-        if (notificatoionResp.last_pag)
-          this.maximumPages = notificatoionResp.last_page;
+        console.log("resp from getReviews: ",resp);
+        var notificatoionResp = JSON.parse(JSON.stringify(resp)).rate.data;
+
+        //ayaaaa
+        var lastPage = JSON.parse(JSON.stringify(resp)).rate.last_page;
+        console.log("lastPage: ",lastPage);
+
+        // if (notificatoionResp.last_pag)
+        // this.maximumPages = notificatoionResp.last_page;
+        if (lastPage) this.maximumPages = lastPage;
+
+
 
         for(var i=0;i<notificatoionResp.length;i++){
           console.log("remark ",notificatoionResp[i].remark);
@@ -134,10 +141,18 @@ export class ViewRatesPage {
         if(this.refresher){
           this.data=[];
         }
-        var notificatoionResp = JSON.parse(JSON.stringify(resp)).rate;
+        var notificatoionResp = JSON.parse(JSON.stringify(resp)).rate.data;
        
-        if (notificatoionResp.last_pag)
-          this.maximumPages = notificatoionResp.last_page;
+        //ayaaaa
+        var lastPage = JSON.parse(JSON.stringify(resp)).rate.last_page;
+        console.log("lastPage: ",lastPage);
+      
+        // if (notificatoionResp.last_pag)
+          // this.maximumPages = notificatoionResp.last_page;
+
+        if (lastPage) this.maximumPages = lastPage;
+        ////////////
+
        
         // for(var i=0;i<notificatoionResp.length;i++){
           
