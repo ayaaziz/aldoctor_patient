@@ -30,7 +30,7 @@
 
     <!-- ayaaaaaaaaaaaa -->
     <div *ngIf="slognImage && slogn" style="text-align: center;margin-top: -2px;">
-      <img [src]="slognImage" style="width:15px;height:15px;">
+      <img [src]="slognImage" onerror="this.onerror=null;this.src='assets/imgs/default_slogn.png';" style="width:15px;height:15px;">
       <span style="font-size:10px">{{slogn}}</span>
     </div>
     <!-- //////////// -->
