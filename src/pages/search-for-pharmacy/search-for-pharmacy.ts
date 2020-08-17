@@ -209,12 +209,21 @@ export class SearchForPharmacyPage {
               this.locFlag = 1;  
               this.helper.city_id = this.cityIdFromCheckZone;
               console.log("city_id",this.helper.city_id);
+              console.log("selectedCityId",this.helper.selectedCityId );
+
             
-            } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+            } else if (this.cityIdFromCheckZone != this.helper.selectedCityId) {
               //out of zone
               this.locFlag = -1; 
+              console.log("city_id2",this.helper.city_id);
+              console.log("selectedCityId2",this.helper.selectedCityId );
+              console.log("locFlag2",this.locFlag);
+
             }
-          } 
+          } else {
+            this.locFlag = -1; 
+            console.log("entereeeeed here");
+          }
         },err=>{
           console.log("err from getUserZone",err);
 
@@ -293,10 +302,12 @@ export class SearchForPharmacyPage {
                   this.helper.city_id = this.cityIdFromCheckZone;
                   console.log("city_id",this.helper.city_id);
                 
-                } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+                } else if (this.cityIdFromCheckZone != this.helper.selectedCityId) {
                   //out of zone
                   this.locFlag = -1; 
                 }
+              } else {
+                this.locFlag = -1; 
               } 
             },err=>{
               console.log("err from getUserZone",err);
@@ -411,11 +422,13 @@ export class SearchForPharmacyPage {
                 this.helper.city_id = this.cityIdFromCheckZone;
                 console.log("city_id",this.helper.city_id);
               
-              } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+              } else if (this.cityIdFromCheckZone != this.helper.selectedCityId) {
                 //out of zone
                 this.locFlag = -1; 
               }
-            } 
+            } else {
+              this.locFlag = -1; 
+            }
           },err=>{
             console.log("err from getUserZone",err);
 
@@ -560,10 +573,12 @@ export class SearchForPharmacyPage {
               this.helper.city_id = this.cityIdFromCheckZone;
               console.log("city_id",this.helper.city_id);
             
-            } else if (JSON.parse(JSON.stringify(resp)).success == false || (this.cityIdFromCheckZone != this.helper.selectedCityId)) {
+            } else if (this.cityIdFromCheckZone != this.helper.selectedCityId) {
               //out of zone
               this.locFlag = -1; 
             }
+          } else {
+            this.locFlag = -1; 
           } 
         },err=>{
           console.log("err from getUserZone",err);
@@ -805,6 +820,9 @@ export class SearchForPharmacyPage {
   
   }
   SearchByNearestService(event){
+
+    console.log("this.locFlag: "+this.locFlag);
+
     console.log("event from SearchByNearestPharmacies",event);
     console.log("event from SearchByNearestPharmacies",event.target.innerText);
     console.log("center translate",this.translate.instant("SearchByNearestCenter"))
@@ -850,7 +868,7 @@ export class SearchForPharmacyPage {
       
 
     }  
-  }else if(this.locFlag == -1){
+  } else if(this.locFlag == -1){
     
     // this.presentToast("أنت خارج المنطقة ");
 
