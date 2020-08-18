@@ -105,10 +105,11 @@ export class SignupPage {
       birthdate: ['', ''],
       // birthdate: ['', Validators.required],
       gender: ['', Validators.required],
-      // city:['',Validators.required],
-      // country:['',Validators.required]
-      city:['',''],
-      country:['','']
+
+      city:['',Validators.required],
+      country:['',Validators.required]
+      // city:['',''],
+      // country:['','']
     
                   
     

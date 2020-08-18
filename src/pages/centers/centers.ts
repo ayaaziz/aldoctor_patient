@@ -310,28 +310,30 @@ console.log("sp item search val ",val);
   chooseSp(ev,i,item){
     console.log("i = ",i);
     console.log("item",item);
-    // if(item.status == '0')
-    // {
-    //   console.log("ev from status 0 ",ev);
-    //   item.spClass = "spSelected";
-    //   item.status = '1';
-    //   this.centersId.push(item.id);
+
+    //ayaaaaaaa
+    if(item.status == '0')
+    {
+      console.log("ev from status 0 ",ev);
+      item.spClass = "spSelected";
+      item.status = '1';
+      // this.centersId.push(item.id);
  
-    // }
-    // else if(item.status == '1')
-    // {
-    //   console.log("ev from status 1 ",ev);
-    //   item.status = '0';
-    //   item.spClass = "spUnselceted";
-    //   for(var g=0;g<this.centersId.length;g++)
-    //   {
-    //     console.log("item removed : ",item.id);
-    //     if(this.centersId[g] == item.id)
-    //       this.centersId.splice(g, 1);
-    //   }
-      
-      
-    // }
+    }
+    else if(item.status == '1')
+    {
+      console.log("ev from status 1 ",ev);
+      item.status = '0';
+      item.spClass = "spUnselceted";
+      // for(var g=0;g<this.centersId.length;g++)
+      // {
+      //   console.log("item removed : ",item.id);
+      //   if(this.centersId[g] == item.id)
+      //     this.centersId.splice(g, 1);
+      // }
+    }
+    ///////////////
+
     // // item.spClass = "spSelected";
 
     // console.log("item",item);
