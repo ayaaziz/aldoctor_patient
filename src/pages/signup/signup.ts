@@ -72,6 +72,7 @@ export class SignupPage {
   cityId="";
 
   maxDate ; 
+  cityZonesArray = [];
 
   constructor(private platform: Platform,public alerCtrl: AlertController,
      //private imagePicker: ImagePicker,private base64: Base64,
@@ -149,6 +150,28 @@ y;
         //this.presentToast("err: "+JSON.stringify(error));
       }
     );
+
+
+    // //ayaaaaaaaaaaaa
+    this.loginservice.getCities("").subscribe(
+      resp => {
+        console.log("resp cities: ",resp);
+        this.x=JSON.stringify(resp);
+        //this.presentToast(this.x);
+        this.y =JSON.parse(this.x);
+        for(var i=0;i<this.y.length;i++)
+        { 
+          console.log("regiooooooon: "+this.y[i].region);
+          this.cities.push(this.y[i].region); 
+          this.citiesObjects.push(this.y[i]); 
+        }
+     
+      },
+      error => {
+        console.log(error);
+      }
+    )
+    // ////////////
   }
 
   countryChecked(){

@@ -37,8 +37,8 @@
           padding-left: 5px;margin-bottom: 3px;">
          
             <ion-col style="background-color: #e8f1ed;height:40px;"  >
-              <ion-select  placeholder="اختر المدينة" [(ngModel)]="selectedUserCity"  style="text-align:right;margin-top: -4px;" interface="popover"  class="selector" > 
-                <ion-option  value="{{item.value}}" *ngFor="let item of cityZonesArray"  (ionSelect)='cityChecked(item.id)'>{{item.value}}</ion-option>
+              <ion-select  placeholder="اختر المنطقة" [(ngModel)]="selectedUserCity"  style="text-align:right;margin-top: -4px;" interface="popover"  class="selector" > 
+                <ion-option  value="{{item.region}}" *ngFor="let item of cityZonesArray"  (ionSelect)='cityChecked(item.id)'>{{item.region}}</ion-option>
               </ion-select> 
               <img src="assets/icon/arrow.png" style="margin-top:-34px;width:16px;height:17px;float: left;">  
             </ion-col>

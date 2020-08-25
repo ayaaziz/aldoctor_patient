@@ -115,7 +115,23 @@ page-signup {
     }
 
 
-  
+    //ayaaaa
+    //cities dropdown
+    ion-item:nth-of-type(5)  {
+
+        .input-wrapper {
+            height: 47px !important;
+        }
+
+        .select-text + .select-icon > .select-icon-inner {
+            margin-top: 7px !important;
+        }
+
+
+        .select-placeholder + .select-icon > .select-icon-inner {
+            margin-top: -13px !important;
+        }
+    }
 
     
 }

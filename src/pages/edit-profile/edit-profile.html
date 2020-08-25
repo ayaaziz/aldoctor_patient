@@ -85,34 +85,45 @@ type="text" [dir]="langDirection"></ion-input>
 
 
 
-    <ion-item>
+    <!-- <ion-item>
         <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Country" | translate}} <span style="color:grey;font-size: 16px;"> (اختياري) </span> </ion-label>
         <ion-label floating *ngIf="langDirection != 'rtl'" ><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"Country" | translate}} <span style="color:grey;font-size: 16px;"> (اختياري) </span> </ion-label>
 
         <ion-select [class.invalid]="!patientRegisterForm.controls.country.valid && submitAttempt" formControlName="country" interface="popover"
         [(ngModel)]="country" >
         <ion-option value="{{item.name}}" *ngFor="let item of countries" (ionSelect)='countryChecked()' >{{item.name}}</ion-option>
-        <!-- <ion-option value="alex">{{"Alex" | translate}}</ion-option>  -->
         </ion-select>
         </ion-item>
         <ion-item *ngIf="!patientRegisterForm.controls.country.valid && submitAttempt" no-lines>
         <p> {{"selectCountry" | translate}} </p>
-        </ion-item>
+        </ion-item> -->
     
     
     
-        <ion-item >
+        <!-- <ion-item >
         <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}} <span style="color:grey;font-size: 16px;"> (اختياري) </span> </ion-label>
         <ion-label floating *ngIf="langDirection != 'rtl'" ><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}} <span style="color:grey;font-size: 16px;"> (اختياري) </span> </ion-label>
         <ion-select [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" formControlName="city" interface="popover"
         [(ngModel)]="city">
         <ion-option value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
-        <!-- <ion-option value="city2">{{"any city" | translate}}</ion-option>  -->
         </ion-select>
         </ion-item>
         <ion-item *ngIf="!patientRegisterForm.controls.city.valid && submitAttempt" no-lines>
         <p> {{"selectCity" | translate}} </p>
-        </ion-item>
+        </ion-item> -->
+
+
+            <ion-item  [class.invalid]="!patientRegisterForm.controls.city.valid && submitAttempt" >
+                <ion-label floating *ngIf="langDirection == 'rtl'" style="transform-origin: right top;"><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">المنطقة</ion-label>
+                <ion-label floating *ngIf="langDirection != 'rtl'" ><span style="color:white;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}} </ion-label>
+                <ion-select formControlName="city" interface="popover"
+                [(ngModel)]="city">
+                <ion-option  value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item *ngIf="!patientRegisterForm.controls.city.valid && submitAttempt" no-lines>
+                <p> {{"selectCity" | translate}} </p>
+            </ion-item>
         
             <br>
             <ion-item [class.invalid]="!patientRegisterForm.controls.address.valid && submitAttempt">

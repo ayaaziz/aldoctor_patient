@@ -30,12 +30,17 @@ export class LoginserviceProvider {
     );*/
   }
   getCities(id){
-    return this.http.get(this.helper.serviceUrl+'api/get/lkps/cities?governerate_id='+id);
+    // return this.http.get(this.helper.serviceUrl+'api/get/lkps/cities?governerate_id='+id);
+    
+    return this.http.get(this.helper.serviceUrl+'api/get/lkps/cities?governerate_id='+id+'&patient=1');
+
   }
 
   getAllZones() {
     var lang = this.helper.currentLang;
-    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/cities?lang='+lang;
+    // let serviceUrl = this.helper.serviceUrl +'api/get/lkps/cities?lang='+lang;
+    let serviceUrl = this.helper.serviceUrl +'api/get/lkps/cities?lang='+lang+'&patient=1';
+
     return this.http.get(serviceUrl);
   }
 

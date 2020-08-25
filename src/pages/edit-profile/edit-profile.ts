@@ -86,9 +86,9 @@ export class EditProfilePage {
       // birthdate: ['', Validators.required],
       birthdate: ['', ''],
       //gender: ['', Validators.required],
-      // city:['',Validators.required],
+      city:['',Validators.required],
       // country:['',Validators.required]
-      city:['',''],
+      // city:['',''],
       country:['','']
     
                   
@@ -154,8 +154,8 @@ this.firstname = "";
         //  debugger;
 
         this.country = this.addArr[2];
-        this.city = this.addArr[1];
-        this.cities.push(this.city);
+        // this.city = this.addArr[1];
+        // this.cities.push(this.city);
       //  debugger; 
         console.log("city: ",this.city,"country: ",this.country);
 
@@ -188,6 +188,27 @@ this.firstname = "";
         console.log(error);
       }
     );
+
+
+     // //ayaaaaaaaaaaaa
+     this.loginservice.getCities("").subscribe(
+      resp => {
+        console.log("resp cities: ",resp);
+        this.x=JSON.stringify(resp);
+        //this.presentToast(this.x);
+        this.y =JSON.parse(this.x);
+        for(var i=0;i<this.y.length;i++)
+        { 
+          console.log("regiooooooon: "+this.y[i].region);
+          this.cities.push(this.y[i].region); 
+        }
+     
+      },
+      error => {
+        console.log(error);
+      }
+    )
+    // ////////////
   }
 
   countryChecked(){
