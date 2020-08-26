@@ -14,9 +14,9 @@ export class MapAlertPopupPage {
               private app: App,
               private platform:Platform) {
 
-    this.platform.registerBackButtonAction(() => {
-      this.viewCtrl.dismiss({"goHome":true});
-    });
+    // this.platform.registerBackButtonAction(() => {
+    //   this.viewCtrl.dismiss({"goHome":true});
+    // });
   }
 
   

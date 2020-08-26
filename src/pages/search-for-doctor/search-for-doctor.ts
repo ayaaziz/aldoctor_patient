@@ -68,9 +68,9 @@ export class SearchForDoctorPage {
 
       console.log("helper langDirection",this.helper);
 
-      this.platform.registerBackButtonAction(() => {
-        this.navCtrl.pop();
-      });
+      // this.platform.registerBackButtonAction(() => {
+      //   this.navCtrl.pop();
+      // });
         
   }
   
@@ -853,12 +853,13 @@ initMapWithDoctorsLocation(){
         console.log("dataaaaaa "+JSON.stringify(data));
         if(data && data.goHome == true) {
           this.navCtrl.pop();
-        } else {
-          this.platform.registerBackButtonAction(() => {
-            console.log("back from SearchForDoctorPage");
-            this.navCtrl.pop();
-          });
-        }
+        } 
+        // else {
+        //   this.platform.registerBackButtonAction(() => {
+        //     console.log("back from SearchForDoctorPage");
+        //     this.navCtrl.pop();
+        //   });
+        // }
       })
     }else
     {
@@ -886,12 +887,13 @@ initMapWithDoctorsLocation(){
         console.log("dataaaaaa "+JSON.stringify(data));
         if(data && data.goHome == true) {
           this.navCtrl.pop();
-        } else {
-          this.platform.registerBackButtonAction(() => {
-            console.log("back from SearchForDoctorPage");
-            this.navCtrl.pop();
-          });
-        }
+        } 
+        // else {
+        //   this.platform.registerBackButtonAction(() => {
+        //     console.log("back from SearchForDoctorPage");
+        //     this.navCtrl.pop();
+        //   });
+        // }
       })
     }
     else

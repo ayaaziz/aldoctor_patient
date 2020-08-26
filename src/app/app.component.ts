@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { App, Nav, Platform, NavController, MenuController, AlertController, ActionSheetController, Events, ToastController } from 'ionic-angular';
+import { App, Nav, Platform, NavController, MenuController, AlertController, ActionSheetController, Events, ToastController, IonicApp } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -82,7 +82,8 @@ export class MyApp {
     public actionSheetCtrl: ActionSheetController,
     statusBar: StatusBar, splashScreen: SplashScreen,
     public translate: TranslateService, private market: Market,
-    public app: App, public toastCtrl: ToastController) {
+    public app: App, public toastCtrl: ToastController,
+    public ionicApp:IonicApp) {
 //Register event that fired when user login successfully.
 events.subscribe('user:userLoginSucceeded', () => {
   this.userLoged = true
@@ -318,6 +319,7 @@ events.subscribe('user:userLoginSucceeded', () => {
       this.backBtnFlag = this.helper.backBtnInHelper;
       // && this.backBtnFlag == false
       // && this.backBtnFlag == false
+
       if (this.helper.view == "remaining-time-for-plc") {
         //this.backBtnFlag = true;
         // this.helper.backBtnInHelper = true;
@@ -336,8 +338,19 @@ events.subscribe('user:userLoginSucceeded', () => {
       }
       else if (this.helper.view == "HomePage" || this.helper.view == "LoginPage" || this.helper.view == "NotificationPage" || this.helper.view == "OrderhistoryPage" || this.helper.view == "ProfilePage")
         this.platform.exitApp();
-      else if (this.helper.view == "pop")
+
+      else if (this.helper.view == "pop") { 
         nav.pop();
+
+        //ayaaaaaaaa
+        let activePortal = ionicApp._overlayPortal.getActive();
+        
+        if (activePortal) {
+          activePortal.dismiss();
+        }
+        ////////////
+
+      }
       else if (this.helper.view == "follow") {
         nav.pop();
         nav.parent.select(0);

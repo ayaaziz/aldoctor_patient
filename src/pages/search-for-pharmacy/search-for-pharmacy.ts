@@ -11,6 +11,7 @@ import { ProvidedServicesProvider } from '../../providers/provided-services/prov
 import { HelperProvider } from '../../providers/helper/helper';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/timeout';
+import { HomePage } from '../home/home';
 
 
 @IonicPage({
@@ -98,11 +99,11 @@ export class SearchForPharmacyPage {
       }
 
 
-      this.platform.registerBackButtonAction(() => {
+      // this.platform.registerBackButtonAction(() => {
 
-        console.log("back from searchForPharmacy");
-        this.navCtrl.pop();
-      });
+      //   console.log("back from searchForPharmacy");
+      //   this.navCtrl.pop();
+      // });
   }
 
 
@@ -797,13 +798,17 @@ export class SearchForPharmacyPage {
 
       console.log("dataaaaaa "+JSON.stringify(data));
       if(data && data.goHome == true) {
-        this.navCtrl.pop();
-      } else {
-        this.platform.registerBackButtonAction(() => {
-          console.log("back from searchForPharmacy");
+        // this.navCtrl.setRoot(HomePage);
           this.navCtrl.pop();
-        });
-      }
+
+      } 
+      // else {
+      //   this.platform.registerBackButtonAction(() => {
+      //     console.log("back from searchForPharmacy");
+      //     // this.navCtrl.pop();
+      //   this.navCtrl.setRoot(HomePage);
+      //   });
+      // }
     })
   }
    else
@@ -881,12 +886,17 @@ export class SearchForPharmacyPage {
       console.log("dataaaaaa "+JSON.stringify(data));
       if(data && data.goHome == true) {
         this.navCtrl.pop();
-      } else {
-        this.platform.registerBackButtonAction(() => {
-          console.log("back from searchForPharmacy");
-          this.navCtrl.pop();
-        });
-      }
+        // this.navCtrl.setRoot(HomePage);
+
+      } 
+      // else {
+      //   this.platform.registerBackButtonAction(() => {
+      //     console.log("back from searchForPharmacy");
+      //     // this.navCtrl.pop();
+      //   this.navCtrl.setRoot(HomePage);
+
+      //   });
+      // }
     })
     
   }
