@@ -108,9 +108,9 @@ export class SignupPage {
       gender: ['', Validators.required],
 
       city:['',Validators.required],
-      country:['',Validators.required]
+      // country:['',Validators.required]
       // city:['',''],
-      // country:['','']
+      country:['','']
     
                   
     
