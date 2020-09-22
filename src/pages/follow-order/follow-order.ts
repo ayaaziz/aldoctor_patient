@@ -357,6 +357,7 @@ if(this.notificationFlag == false && durVal == (2*60))
   ionViewDidLoad() {
     console.log('ionViewDidLoad FollowOrderPage');
     this.helper.view = "follow";
+
     if(!navigator.onLine)
       this.presentToast(this.translate.instant("checkNetwork"));
 
@@ -545,7 +546,7 @@ if(this.notificationFlag == false && durVal == (2*60))
 
     console.log("currentFees: "+this.currentFees);
 
-    if (String(this.currentFees).trim()) {
+    if (String(this.currentFees).trim() && String(this.currentFees).trim() != "undefined") {
       //alert(this.spec_id)
        this.service.checKCoupon2(this.doctorData.orderId,this.patientId,this.doctorId,this.accessToken,"",String(this.currentFees).trim(),(data)=>{
          if(data.success){
@@ -583,13 +584,13 @@ if(this.notificationFlag == false && durVal == (2*60))
          }
          else{
            if(data.status == -1){
-             this.presentToast("كوبون الخصم غير صالح")
+             this.presentToast("كوبون الخصم غير صالح");
            }
            else if(data.status == 2){
-             this.presentToast("كوبون الخصم مستخدم من قبل")
+             this.presentToast("كوبون الخصم مستخدم من قبل");
            }
            else{
-             this.presentToast("كوبون الخصم غير صالح")
+             this.presentToast("كوبون الخصم غير صالح");
            }
            this.currentFees = "";         
          }
@@ -598,7 +599,9 @@ if(this.notificationFlag == false && durVal == (2*60))
        (data)=>{
          this.presentToast("خطأ في الأتصال")
        })
-     }
+     } else{
+      this.presentToast("من فضلك أدخل كود الخصم");
+    }
   }
   ////////////////////
 
