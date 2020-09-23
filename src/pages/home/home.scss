@@ -285,10 +285,16 @@ page-home {
   .select-md .select-placeholder,
   .select-ios .select-placeholder {
     font-size: 17px !important;
-    margin-top: -9px !important;
+    margin-top: -7px !important;
   }
+
+
   ////////////////
 
+}
+
+.popover-ios > .popover-wrapper > .popover-content {
+  width: 264px !important;
 }
 
 .toastRight{

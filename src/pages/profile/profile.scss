@@ -37,14 +37,16 @@ page-profile {
         text-align: right;
     }
     .camedit{
-        *border:1px solid green;
+        border:1px solid green;
         border-radius: 50% !important; 
-        padding: 5px;
-        background-color: white; 
-        width: 30px; 
-        height: 30px; 
+        // padding: 5px;
+        background-color: #fff; 
+        width: 35px; 
+        height: 35px; 
         color: #026938;
         border: 2px solid;
+        font-size: 20px;
+        line-height: 32px;
     }
     .center{
         text-align: center;
@@ -52,13 +54,13 @@ page-profile {
     .custompositionright{
         width:40px;
         position: relative;
-        top:-20px;
+        top:-26px;
         right:calc(50% - 50px);
     }
     .custompositionleft{
         width:40px;
         position: relative;
-        top:-20px;
+        top:-26px;
         left:calc(50% + 10px);
     }
     .position{
