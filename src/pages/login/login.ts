@@ -46,6 +46,17 @@ export class LoginPage {
       email: ['', Validators.required]
     });
    
+
+
+    //ayaaaaaa 
+    this.email = localStorage.getItem("userPhone");
+    this.password = localStorage.getItem("userPwd");
+
+
+
+    console.log("displayed userPhone: "+this.email);
+    console.log("displayed userPwd: "+this.password);
+     ////////////////
       
   }
 
@@ -199,6 +210,16 @@ console.log("loginToApp")
         }).then(data=>{
           console.log("set data to storage from login ",data);
           this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
+
+
+
+          //ayaaaaaa 
+          localStorage.setItem("userPhone",this.email);
+          localStorage.setItem("userPwd",this.password);
+
+          console.log("userPhone: "+this.email);
+          console.log("userPwd: "+this.password);
+          ///////////
 
           this.navCtrl.setRoot(TabsPage);
 

@@ -337,6 +337,7 @@ y;
       return this.patient;
   }
 
+
   authSuccessCallback(data) {
    // localStorage.setItem('adftrmee', data.access_token)
     //this.mainService.categoriesService( this.helper.DeviceId, (data) => this.categoriesSuccessCallback(data), (data) => this.categoriesFailureCallback(data));
@@ -466,6 +467,17 @@ y;
                    
   
           // this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
+
+
+          //ayaaaaaa
+          localStorage.setItem("userPhone",jsonUserData.phone);
+          localStorage.setItem("userPwd",this.patient.password);
+
+          console.log("userPhone: "+jsonUserData.phone);
+          console.log("userPwd: "+this.patient.password);
+          ///////////
+
+
         },
         err=>{
           
