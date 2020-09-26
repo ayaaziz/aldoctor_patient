@@ -107,6 +107,13 @@ validPass=false;
             
             console.log("cp resp: ",resp);
             // this.navCtrl.setRoot(LoginPage);
+
+
+          //ayaaaaaa 
+          localStorage.removeItem("userPwd");
+          
+
+
             this.app.getRootNav().setRoot(LoginPage);
             
           },

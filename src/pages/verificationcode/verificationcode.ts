@@ -107,6 +107,7 @@ timer;
         }
       }
     }
+
     if(this.activationForm.valid){
       if(navigator.onLine){
         // this.storage.get("access_token").then(data=>{
@@ -119,6 +120,11 @@ timer;
             if(this.from == 2){
               this.loginservice.UserForgetPassword(this.code,this.phone, (data) => {
                 if(data.success){
+
+                  //ayaaaaaa 
+                  localStorage.removeItem("userPwd");
+              
+
                   this.presentToast("تم إرسال كلمة المرور في رسالة نصية")
                   this.navCtrl.setRoot(LoginPage)
                 }
@@ -146,8 +152,16 @@ timer;
                   console.log("in success true");
                   this.storage.remove("verification_page");
             
-                  if(this.from)
+                  if(this.from) {
+
                     this.presentToast(this.translate.instant("phoneChanged"));
+
+                    //ayaaaaaa 
+                    localStorage.setItem("userPhone",this.phone);
+                    console.log("new userPhone: "+this.phone);
+                    ///////////
+
+                  }
                             
                   this.loginservice.getuserProfile(this.accessToken).subscribe(
                     resp=>{

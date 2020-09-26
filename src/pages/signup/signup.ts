@@ -458,6 +458,16 @@ y;
                   "profile_pic":jsonUserData.profile_pic
                 }).then(data=>{
                   console.log("set data to storage from signup ",data);
+
+
+                  //ayaaaaaa
+                  localStorage.setItem("userPhone",this.patient.phone);
+                  localStorage.setItem("userPwd",this.patient.password);
+
+                  console.log("userPhone: "+this.patient.phone);
+                  console.log("userPwd: "+this.patient.password);
+                  ///////////
+
                   // this.navCtrl.setRoot(TabsPage);
                   this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
                   this.navCtrl.setRoot('verification-code',{data:0});
@@ -467,16 +477,6 @@ y;
                    
   
           // this.events.publish('changeProfilePic',{pic:jsonUserData.profile_pic});
-
-
-          //ayaaaaaa
-          localStorage.setItem("userPhone",jsonUserData.phone);
-          localStorage.setItem("userPwd",this.patient.password);
-
-          console.log("userPhone: "+jsonUserData.phone);
-          console.log("userPwd: "+this.patient.password);
-          ///////////
-
 
         },
         err=>{
