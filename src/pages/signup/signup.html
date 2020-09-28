@@ -205,7 +205,8 @@ type="password" [dir]="langDirection"></ion-input>
         <ion-label floating  *ngIf="langDirection != 'rtl' && !city" > <span style="color:#f00;font-size: 20px;">*</span><img src="assets/icon/city.png" style="margin: 0 2px;" height="25" width="25">{{"City" | translate}} </ion-label>
         <ion-select  formControlName="city" interface="popover"
         [(ngModel)]="city">
-        <ion-option  value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option>
+        <!-- <ion-option  value="{{item}}" *ngFor="let item of cities">{{item}}</ion-option> -->
+        <ion-option  value="{{item.id}}" *ngFor="let item of citiesObjects">{{item.region}}</ion-option>
         </ion-select>
     </ion-item>
     <ion-item *ngIf="!patientRegisterForm.controls.city.valid && submitAttempt" no-lines>

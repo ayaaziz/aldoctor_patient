@@ -153,8 +153,24 @@ export class SearchForPharmacyPage {
 
     //console.log("witting loc " + JSON.stringify(loc))
     if (loc == "-1") {
-      //this.presentToast(this.translate.instant("locFailed"))
-      this.presentToast(this.translate.instant("AccessLocationFailed"));
+      // this.presentToast(this.translate.instant("AccessLocationFailed"));
+      //ayaaaaaa
+      let alert = this.alertCtrl.create({
+        title:"لا يمكن تحديد موقعك",
+        message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+        cssClass:"alertGPS",
+        buttons: [
+          {
+            text: 'تم',
+            handler: () => {
+              console.log('OK clicked');
+              
+            }
+          }
+        ]
+      });
+      alert.present();
+      ////////////
         
       this.toastFlag=true;
       console.log("set toast flag with true: ",this.toastFlag);
@@ -488,8 +504,26 @@ export class SearchForPharmacyPage {
         
       }).catch((error) => {
         console.log('Error getting location', error);
-        // this.initMap();
-        this.presentToast(this.translate.instant("AccessLocationFailed"));
+      
+        // this.presentToast(this.translate.instant("AccessLocationFailed"));
+
+        //ayaaaaaa
+        let alert = this.alertCtrl.create({
+          title:"لا يمكن تحديد موقعك",
+          message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+          cssClass:"alertGPS",
+          buttons: [
+            {
+              text: 'تم',
+              handler: () => {
+                console.log('OK clicked');
+                
+              }
+            }
+          ]
+        });
+        alert.present();
+        ////////////
         
         this.toastFlag=true;
         console.log("set toast flag with true: ",this.toastFlag);
@@ -814,8 +848,28 @@ export class SearchForPharmacyPage {
    else
   {
     console.log("toast flag ",this.toastFlag);
-    if(this.toastFlag == true)
-      this.presentToast(this.translate.instant("chooseLocationB2a"));
+    if(this.toastFlag == true) {
+
+      // this.presentToast(this.translate.instant("chooseLocationB2a"));
+
+      //ayaaaaaa
+      let alert = this.alertCtrl.create({
+        title:"لا يمكن تحديد موقعك",
+        message: this.translate.instant("chooseLocationB2a"),
+        cssClass:"alertGPS",
+        buttons: [
+          {
+            text: 'تم',
+            handler: () => {
+              console.log('OK clicked');
+              
+            }
+          }
+        ]
+      });
+      alert.present();
+      ////////////   
+    }
     else
       this.presentToast(this.translate.instant("chooseYourLocation"));
 
@@ -904,8 +958,28 @@ export class SearchForPharmacyPage {
   {
     console.log("toast flag ",this.toastFlag);
 
-    if(this.toastFlag == true)
-      this.presentToast(this.translate.instant("chooseLocationB2a"));
+    if(this.toastFlag == true) {
+
+      // this.presentToast(this.translate.instant("chooseLocationB2a"));
+
+        //ayaaaaaa
+        let alert = this.alertCtrl.create({
+        title:"لا يمكن تحديد موقعك",
+        message: this.translate.instant("chooseLocationB2a"),
+        cssClass:"alertGPS",
+        buttons: [
+          {
+            text: 'تم',
+            handler: () => {
+              console.log('OK clicked');
+              
+            }
+          }
+        ]
+      });
+      alert.present();
+      ////////////
+    }
     else
       this.presentToast(this.translate.instant("chooseYourLocation"));
       

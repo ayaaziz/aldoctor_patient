@@ -157,13 +157,14 @@ y;
       resp => {
         console.log("resp cities: ",resp);
         this.x=JSON.stringify(resp);
-        //this.presentToast(this.x);
         this.y =JSON.parse(this.x);
-        for(var i=0;i<this.y.length;i++)
-        { 
+
+        for(var i = 0; i < this.y.length; i++) { 
           console.log("regiooooooon: "+this.y[i].region);
           this.cities.push(this.y[i].region); 
           this.citiesObjects.push(this.y[i]); 
+          console.log("citiesObjects: "+JSON.stringify(this.y[i]));
+
         }
      
       },
@@ -283,6 +284,7 @@ y;
 
 }
     else{
+
       if(this.termsStatus == false){
         this.presentToast(this.translate.instant('checkAgreement'))
       }
@@ -310,7 +312,11 @@ y;
       this.patient.address=this.patientRegisterForm.controls.address.value;
       this.patient.password=this.patientRegisterForm.controls.password.value;
       this.patient.birthdate=this.patientRegisterForm.controls.birthdate.value;
-      this.patient.city=this.patientRegisterForm.controls.city.value;
+      // this.patient.city=this.patientRegisterForm.controls.city.value;
+
+      //aya
+      this.patient.city_id=this.patientRegisterForm.controls.city.value;
+
       this.patient.country=this.patientRegisterForm.controls.country.value;
       this.patient.gender=this.patientRegisterForm.controls.gender.value;
       this.patient.terms=this.termsStatus;   
@@ -324,15 +330,33 @@ y;
       console.log("this.citiesObjects",this.citiesObjects);
       console.log("this.city",this.city);
 
-      this.patient.city_id="";
+      // this.patient.city_id="";
 
-      for(var i=0;i<this.citiesObjects.length;i++)
-      {
-        console.log("this.citiesObjects[i].translation.name",this.citiesObjects[i].translation.name);
-        if(this.citiesObjects[i].translation.value == this.city)
-          this.patient.city_id = this.citiesObjects[i].id;
+      // // for(var i=0;i<this.citiesObjects.length;i++)
+      // // {
+      // //   console.log("this.citiesObjects[i].translation.name",this.citiesObjects[i].translation.name);
+      // //   if(this.citiesObjects[i].translation.value == this.city)
+      // //     this.patient.city_id = this.citiesObjects[i].id;
         
-      }
+      // // }
+
+      //ayaaaaaaaa
+      let cityObj = this.citiesObjects.find(el => {
+       return el.id == this.patient.city_id;
+      });
+
+      console.log("cityObj: "+JSON.stringify(cityObj));
+
+      this.patient.city = cityObj.region;
+
+      this.helper.selectedUserCity = this.patient.city;
+      this.helper.selectedCityId = this.patient.city_id;
+      
+      console.log("selectedCityId from signup:",this.patient.city_id);
+      console.log("selectedUserCity from signup: ",this.patient.city);
+    
+     
+      /////////////
 
       return this.patient;
   }

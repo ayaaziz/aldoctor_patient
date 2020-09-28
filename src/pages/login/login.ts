@@ -26,7 +26,11 @@ export class LoginPage {
   password;
   tostClass ;
   access_token;
-  message_id
+  message_id;
+
+  hidePassword = true;
+  pwdType = "password";
+  iconName = "ios-eye-off";
   
   constructor(public alertCtrl:AlertController, public storage: Storage, public toastCtrl: ToastController,public loginservice:LoginserviceProvider, public translate: TranslateService,public helper: HelperProvider,
     public formBuilder: FormBuilder,public navCtrl: NavController, 
@@ -253,6 +257,9 @@ console.log("loginToApp")
        
       }
     );
+
+  
+
     // this.loginservice.getuserProfile(data.accessToken).subscribe(
     //   resp=>{
     //     // this.navCtrl.setRoot(TabsPage);
@@ -416,7 +423,22 @@ console.log("loginToApp")
   
 
   
-}  
+}
+
+
+//ayaaaaaa
+togglePwd() {
+  if(this.hidePassword) {
+    this.hidePassword = false;
+    this.pwdType = "text";
+    this.iconName = "ios-eye";
+  } else {
+    this.hidePassword = true;
+    this.pwdType = "password";
+    this.iconName = "ios-eye-off";        
+  }  
+}
+
 
 
 

@@ -173,8 +173,26 @@ getCurrentLoc(loc) {
 
   //console.log("witting loc " + JSON.stringify(loc))
   if (loc == "-1") {
-    //this.presentToast(this.translate.instant("locFailed"))
-    this.presentToast(this.translate.instant("AccessLocationFailed"));
+
+    // this.presentToast(this.translate.instant("AccessLocationFailed"));
+
+    //ayaaaaaa
+    let alert = this.alertCtrl.create({
+      title:"لا يمكن تحديد موقعك",
+      message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+      cssClass:"alertGPS",
+      buttons: [
+        {
+          text: 'تم',
+          handler: () => {
+            console.log('OK clicked');
+            
+          }
+        }
+      ]
+    });
+    alert.present();
+    ////////////
       
       this.toastFlag = true;
 
@@ -514,7 +532,25 @@ getUserLocation(){
       
     }).catch((error) => {
       console.log('Error getting location', error);
-      this.presentToast(this.translate.instant("AccessLocationFailed"));
+      // this.presentToast(this.translate.instant("AccessLocationFailed"));
+       
+      //ayaaaaaa
+      let alert = this.alertCtrl.create({
+        title:"لا يمكن تحديد موقعك",
+        message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+        cssClass:"alertGPS",
+        buttons: [
+          {
+            text: 'تم',
+            handler: () => {
+              console.log('OK clicked');
+              
+            }
+          }
+        ]
+      });
+      alert.present();
+      ////////////
       
       this.toastFlag = true;
 
@@ -863,8 +899,29 @@ initMapWithDoctorsLocation(){
       })
     }else
     {
-      if(this.toastFlag == true)
-        this.presentToast(this.translate.instant("chooseLocationB2a"));
+      if(this.toastFlag == true) {
+
+        // this.presentToast(this.translate.instant("chooseLocationB2a"));
+
+        //ayaaaaaa
+        let alert = this.alertCtrl.create({
+          title:"لا يمكن تحديد موقعك",
+          message: this.translate.instant("chooseLocationB2a"),
+          cssClass:"alertGPS",
+          buttons: [
+            {
+              text: 'تم',
+              handler: () => {
+                console.log('OK clicked');
+                
+              }
+            }
+          ]
+        });
+        alert.present();
+        ////////////
+      }
+
       else
         this.presentToast(this.translate.instant("chooseYourLocation"));
         
@@ -898,8 +955,28 @@ initMapWithDoctorsLocation(){
     }
     else
     {
-      if(this.toastFlag == true)
-        this.presentToast(this.translate.instant("chooseLocationB2a"));
+      if(this.toastFlag == true) {
+
+        // this.presentToast(this.translate.instant("chooseLocationB2a"));
+
+         //ayaaaaaa
+         let alert = this.alertCtrl.create({
+          title:"لا يمكن تحديد موقعك",
+          message: this.translate.instant("chooseLocationB2a"),
+          cssClass:"alertGPS",
+          buttons: [
+            {
+              text: 'تم',
+              handler: () => {
+                console.log('OK clicked');
+                
+              }
+            }
+          ]
+        });
+        alert.present();
+        ////////////
+      }
       else
         this.presentToast(this.translate.instant("chooseYourLocation"));
     }

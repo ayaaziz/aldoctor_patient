@@ -40,10 +40,17 @@ type="text"></ion-input>
 <br>
  <ion-item style="margin: 0px; box-shadow: 1px 1px 1px 1px lightgrey;" [class.invalid]="!loginForm.controls.password.valid && submitAttempt">
       <ion-label><img src="assets/icon/pass.png" style="margin: 0 2px;" height="15" width="25"></ion-label>
+
+      <!-- ayaaaaaaa -->
+      <button type="button" ion-button clear item-end (click)="togglePwd()">
+        <ion-icon style="font-size: 40px;color: #016a38;" [ios]="iconName" [md]="iconName"></ion-icon>      
+      </button>
+      <!-- ///////// -->
+
       <ion-input *ngIf="langDirection != 'rtl'" disabled="false" placeholder="Password"  [dir]="langDirection"  style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
-      type="password"></ion-input>
+      [type]="pwdType"></ion-input>
       <ion-input  *ngIf="langDirection == 'rtl'" disabled="false" class="right" [dir]="langDirection"  placeholder="كلمة المرور"    style="border-radius: 2px;padding: 0px;" formControlName="password" [(ngModel)]="password"
-      type="password"></ion-input>
+      [type]="pwdType"></ion-input>
    
  </ion-item>
 

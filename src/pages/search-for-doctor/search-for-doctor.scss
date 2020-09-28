@@ -66,3 +66,14 @@ page-search-for-doctor {
 .toastLeft{
     text-align: left;
 }
+
+.alertGPS {
+    text-align: center;
+    color: #f00;
+}
+
+.alert-md .alert-message,
+.alert-ios .alert-message {
+    color: rgba(19, 17, 17, .61) !important;
+    font-size: 19px !important;
+}

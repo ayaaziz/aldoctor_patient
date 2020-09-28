@@ -258,7 +258,11 @@ this.storage.get("rate_doctor").then(data=>{
     // })
   }
 
+  registeredCityId;
+  registeredCity;
   ionViewWillEnter() {
+
+
     //ayaaaaaaaaaaaa
     this.service.getAllZones().subscribe(
       data => {
@@ -272,7 +276,6 @@ this.storage.get("rate_doctor").then(data=>{
       }
     )
 
-    //ayaaaaaaaa
     //filter home using zone
     if(this.helper.homeZoneSServices.length == 0) {
       this.accessToken = localStorage.getItem('user_token');
@@ -290,23 +293,57 @@ this.storage.get("rate_doctor").then(data=>{
           console.log(error);
         });
     }
-   
-    //ayaaaaaaaaaaaa
-    this.selectedUserCity = this.helper.selectedUserCity; 
-    this.selectedCityId = this.helper.selectedCityId;  
-    if(this.selectedCityId && this.selectedUserCity) {
+
+
+    // ayaaaaaa
+
+    console.log("this.helper.selectedCityId: ",this.helper.selectedCityId);
+    console.log("this.helper.selectedUserCity: ",this.helper.selectedUserCity);
+
+    if(this.helper.selectedCityId && this.helper.selectedUserCity) {
+
+      this.selectedUserCity = this.helper.selectedUserCity; 
+      this.selectedCityId = this.helper.selectedCityId; 
+
       this.cityChecked(this.selectedCityId);
+    
     } else {
-      if(!this.helper.isProcessed) this.presentHomeAlert();
+
+      if(this.registeredCityId && this.registeredCity) {
+
+        this.helper.selectedCityId = this.registeredCityId;
+        this.helper.selectedUserCity = this.registeredCity;
+
+        this.selectedUserCity = this.helper.selectedUserCity; 
+        this.selectedCityId = this.helper.selectedCityId; 
+        this.cityChecked(this.selectedCityId);
+
+    
+      } else {
+        // if(!this.helper.isProcessed)
+         this.presentHomeAlert();
+      }
     }
+    ///////////
+    
+   
+ 
+    // this.selectedUserCity = this.helper.selectedUserCity; 
+    // this.selectedCityId = this.helper.selectedCityId;  
+    // if(this.selectedCityId && this.selectedUserCity) {
+    //   this.cityChecked(this.selectedCityId);
+    // } else {
+    //   if(!this.helper.isProcessed) this.presentHomeAlert();
+    // }
     console.log("constructor selectedUserCity: "+this.helper.selectedUserCity); 
+    /////////////
   }
 
   //ayaaaaaaaa
   cityChecked(selectedCityId) {
 
-    console.log("selectedCityId passed to cityChecked : ",selectedCityId)
-    console.log("selectedUserCity : ",this.selectedUserCity)
+    console.log("selectedCityId passed to cityChecked : ",selectedCityId);
+    console.log("selectedUserCity : ",this.selectedUserCity);
   
     this.selectedCityId = selectedCityId;
     this.helper.selectedUserCity = this.selectedUserCity;
