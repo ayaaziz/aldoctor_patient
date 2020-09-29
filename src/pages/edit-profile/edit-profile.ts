@@ -53,12 +53,15 @@ export class EditProfilePage {
 
   maxDate ; 
 
+  citiesObjects = [];
+
 
   constructor(public toastCtrl: ToastController,public events: Events,
     public storage: Storage, public translate: TranslateService,
      public loginservice:LoginserviceProvider, public helper: HelperProvider, public formBuilder: FormBuilder , public navCtrl: NavController, public navParams: NavParams) {
     this.langDirection = this.helper.lang_direction;
     this.translate.use(this.helper.currentLang);
+
      
     this.accessToken = localStorage.getItem('user_token');
     this.helper.view = "pop";
@@ -200,14 +203,19 @@ this.firstname = "";
         for(var i=0;i<this.y.length;i++)
         { 
           console.log("regiooooooon: "+this.y[i].region);
+          // this.cities.push(this.y[i].region); 
           this.cities.push(this.y[i].region); 
+          this.citiesObjects.push(this.y[i]); 
+          console.log("citiesObjects: "+JSON.stringify(this.y[i]));
+
         }
-     
       },
       error => {
         console.log(error);
       }
     )
+    this.city = this.helper.registeredCityId;
+
     // ////////////
   }
 
@@ -256,6 +264,8 @@ this.firstname = "";
     add;
     accessToken;
     userprofileData;
+
+
     editUser(){
       if(! this.patientRegisterForm.valid ){
       this.submitAttempt=true;
@@ -291,13 +301,28 @@ this.firstname = "";
     else{
       // this.name = this.firstname +" "+this.secondname+" "+this.surname;
       this.name = this.firstname ;
-      this.add = this.address +"-"+this.city +"-"+this.country;
-      // this.storage.get("access_token").then(data=>{
-      //   this.accessToken = data;
+      
+
+      //ayaaaaa
+      let city = this.citiesObjects.find(el => {
+        return el.id == this.city;
+      });
+
+      let cityName = city.region;
+
+      if(this.address) {
+        this.add = this.address +"-"+cityName;    
+      } else {
+        this.add = cityName;
+      }
+      ///////
       
       this.accessToken = localStorage.getItem('user_token');
 
-        this.loginservice.editUser(this.name,this.add,this.birthdate,this.email,this.accessToken).subscribe(
+
+
+
+        this.loginservice.editUser(this.name,this.add,this.birthdate,this.email,this.city,this.accessToken).subscribe(
           resp =>{
             console.log("edit resp: ",resp);
             this.presentToast("تم تعديل البيانات");
@@ -316,6 +341,12 @@ this.firstname = "";
                 this.userprofileData.add=this.add;
                 // this.userprofileData.email=this.email;
                 console.log("this.name",this.name,"this.userprofileData.name",this.userprofileData.name);
+
+
+                //ayaaaaaa
+                this.helper.selectedCityId = this.city;
+                this.helper.registeredCityId = this.city;
+                //////
                 
              console.log("user data after edit",this.userprofileData); 
              this.storage.set("user_info",this.userprofileData).then(

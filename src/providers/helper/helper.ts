@@ -16,9 +16,11 @@ export class HelperProvider {
 
   public lang_direction ='rtl';
   public currentLang ='ar';
-  public selectedUserCity;
-  public selectedCityId;
-  public homeZoneSServices = [];
+  // public selectedUserCity;
+  selectedCityId = "";
+  registeredCityId = "";
+   
+  // public homeZoneSServices = [];
   // ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="2136661453100884" --variable APP_NAME="Aldoctor APP"
   
   //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";

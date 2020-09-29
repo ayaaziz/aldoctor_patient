@@ -349,8 +349,7 @@ y;
 
       this.patient.city = cityObj.region;
 
-      this.helper.selectedUserCity = this.patient.city;
-      this.helper.selectedCityId = this.patient.city_id;
+      this.helper.registeredCityId = this.patient.city_id;
       
       console.log("selectedCityId from signup:",this.patient.city_id);
       console.log("selectedUserCity from signup: ",this.patient.city);

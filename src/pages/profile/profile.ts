@@ -36,8 +36,12 @@ xxx;
 
 myRate;
 
+x;
+y;
+
 NODob = true;
 NOAddress = true;
+cities = [];
 
   constructor(//private imagePicker: ImagePicker,
     //private base64: Base64,
@@ -74,12 +78,10 @@ NOAddress = true;
     this.service.getuserProfile(this.accessToken).subscribe(
       resp=>{
         this.myRate = JSON.parse(JSON.stringify(resp)).rate;
-        
       },err=>{
 
       }
     );
-    
 
   }
   newuserData;

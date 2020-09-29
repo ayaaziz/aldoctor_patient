@@ -610,6 +610,11 @@ else {
   }
 
   logout() {
+
+    this.helper.registeredCityId = "";
+    this.helper.selectedCityId = "";
+
+
     if (this.app_logout == "item_unselected") {
       this.app_logout = "item_selected";
       this.app_about = "item_unselected";

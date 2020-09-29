@@ -23,7 +23,7 @@ import { FollowOrderPage } from '../follow-order/follow-order';
 export class HomePage {
   
 
-  selectedUserCity
+  // selectedUserCity
   cityZonesArray = [];
   // cityZonesArray = [{id:1,value:"city1"},{id:2,value:"city2"}]
 
@@ -33,7 +33,7 @@ export class HomePage {
   tostClass;
 xxrate;
 
-//ayaaaaaa
+
 homeZoneSServices = [];
 allServicesIds = [1,2,3,4,5];
 lat = 31.037933; 
@@ -258,95 +258,75 @@ this.storage.get("rate_doctor").then(data=>{
     // })
   }
 
-  registeredCityId;
   registeredCity;
   ionViewWillEnter() {
 
+
+    
+
+    this.accessToken = localStorage.getItem('user_token');
+    this.lat = this.helper.lat;
+    this.lng = this.helper.lon;
 
     //ayaaaaaaaaaaaa
     this.service.getAllZones().subscribe(
       data => {
         console.log("JSON.parse(JSON.stringify(data)): "+JSON.parse(JSON.stringify(data)));
-        console.log("JSON.stringify(data): "+JSON.stringify(data));
-
+        
         this.cityZonesArray = JSON.parse(JSON.stringify(data));
       },
       error => {
         console.log(error);
-      }
-    )
+      });
 
-    //filter home using zone
-    if(this.helper.homeZoneSServices.length == 0) {
-      this.accessToken = localStorage.getItem('user_token');
-      this.lat = this.helper.lat;
-      this.lng = this.helper.lon;
-  
+
+      //ayaaaaaaaaaaaaaaaaa
       this.service.getHomeZoneServices(this.lat,this.lng,this.accessToken).subscribe(
         data => {
+          
           this.homeZoneSServices = JSON.parse(JSON.stringify(data)).HomeZones;
+          this.helper.registeredCityId =  JSON.parse(JSON.stringify(data)).userData.extraInfo.city_id;
+
           console.log("homeZoneSServices: "+JSON.stringify(this.homeZoneSServices));
-  
-          this.helper.homeZoneSServices = this.homeZoneSServices;
-  
+          console.log("registeredCityId: "+this.helper.registeredCityId);
+          console.log("helper selectedCityId: ",this.helper.selectedCityId);
+
+        
+          //if user selected city
+          if(this.helper.selectedCityId) {
+
+            this.selectedCityId = this.helper.selectedCityId; 
+            this.cityChecked(this.selectedCityId);
+          
+            //if user doesn't select city, get city in registeration 
+          } else {
+
+            //if user choosed city in registeration, then make it default
+            if(this.helper.registeredCityId) {
+
+              this.helper.selectedCityId = this.helper.registeredCityId;
+              this.selectedCityId = this.helper.registeredCityId; 
+              this.cityChecked(this.selectedCityId);
+
+              //there is no registered city
+            } else {
+              this.presentHomeAlert();
+            }
+          }
+        
         },error => {
           console.log(error);
         });
-    }
 
-
-    // ayaaaaaa
-
-    console.log("this.helper.selectedCityId: ",this.helper.selectedCityId);
-    console.log("this.helper.selectedUserCity: ",this.helper.selectedUserCity);
-
-    if(this.helper.selectedCityId && this.helper.selectedUserCity) {
-
-      this.selectedUserCity = this.helper.selectedUserCity; 
-      this.selectedCityId = this.helper.selectedCityId; 
-
-      this.cityChecked(this.selectedCityId);
-    
-    } else {
-
-      if(this.registeredCityId && this.registeredCity) {
-
-        this.helper.selectedCityId = this.registeredCityId;
-        this.helper.selectedUserCity = this.registeredCity;
-
-        this.selectedUserCity = this.helper.selectedUserCity; 
-        this.selectedCityId = this.helper.selectedCityId; 
-        this.cityChecked(this.selectedCityId);
-
-    
-      } else {
-        // if(!this.helper.isProcessed)
-         this.presentHomeAlert();
-      }
-    }
-    ///////////
-    
-   
- 
-    // this.selectedUserCity = this.helper.selectedUserCity; 
-    // this.selectedCityId = this.helper.selectedCityId;  
-    // if(this.selectedCityId && this.selectedUserCity) {
-    //   this.cityChecked(this.selectedCityId);
-    // } else {
-    //   if(!this.helper.isProcessed) this.presentHomeAlert();
-    // }
-    console.log("constructor selectedUserCity: "+this.helper.selectedUserCity); 
-    /////////////
+      //////////////
   }
 
   //ayaaaaaaaa
   cityChecked(selectedCityId) {
 
     console.log("selectedCityId passed to cityChecked : ",selectedCityId);
-    console.log("selectedUserCity : ",this.selectedUserCity);
   
     this.selectedCityId = selectedCityId;
-    this.helper.selectedUserCity = this.selectedUserCity;
     this.helper.selectedCityId = this.selectedCityId;
 
   
@@ -361,15 +341,12 @@ this.storage.get("rate_doctor").then(data=>{
       this.homeServicesArr = [];
     }
     console.log("homeServicesArr: "+this.homeServicesArr);
-
-    //get current location and check zone
-    // this.helper.geoLoc(data => this.getCurrentLoc(data)); 
   }
 
   //ayaaaaaaa
   getAvailableServices() {
     console.log("selectedCityId*** "+this.selectedCityId)
-    return this.helper.homeZoneSServices.find(element => {
+    return this.homeZoneSServices.find(element => {
       console.log("eleeeeeeemet: "+JSON.stringify(element));
          return element.id == this.selectedCityId;  
     });
@@ -797,7 +774,7 @@ customerService(){
 
 presentHomeAlert() {
 
-  this.helper.isProcessed = true;
+  // this.helper.isProcessed = true;
 
   this.alertCtrl.create({
     message: "من فضلك قم باختيار المدينة لتفعيل الخدمات المتاحة",

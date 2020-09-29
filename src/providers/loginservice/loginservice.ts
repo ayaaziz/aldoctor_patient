@@ -141,12 +141,14 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
       return this.http.post(serviceUrl,parameter,{headers: headers });
       
     }
-    editUser(name,add,dob,email,access_token){
+    editUser(name,add,dob,email,cityId,access_token){
       let headers = new HttpHeaders();
 
       let parameter = new HttpParams().set('name',name)
       .set('birth_date',dob).set('email',email)
-      .set('address',add);
+      .set('address',add)
+      .set('city_id',cityId);
+      
       //.set('phone',phone)
       headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
       let serviceUrl = this.helper.serviceUrl +'api/edit';
