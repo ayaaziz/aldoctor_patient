@@ -188,6 +188,15 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
               ordersData[j].statusTxt = "قيد التنفيذ";
               ordersData[j].color = "green";
             }
+
+            //ayaaaaaaaa
+            //order accepted from admin
+            else if (ordersData[j].status == "16") { 
+              ordersData[j].name = "طلب خدمة تمريض";
+              ordersData[j].statusTxt="تم قبول الطلب";
+              ordersData[j].color = "grey";
+            }
+            ////////
      
             if(ordersData[j].status == "8" || ordersData[j].status == "5" || ordersData[j].status =="6" || ordersData[j].status == "7")
               this.orderobject.disableRatebtn = false;
@@ -338,9 +347,6 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
               } 
               console.log("id",this.orderobject.orderId,"item.reorder",this.orderobject.reorder); 
               
-              
-
-
 
               this.data.push(this.orderobject);
 
@@ -377,13 +383,6 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
                 this.orderobject.name = "طلب خدمة تمريض";
                 this.orderobject.statusTxt="قيد التنفيذ";
                 this.orderobject.color = "green";
-              }
-              //accepted from admin
-              else if (ordersData[j].status == "16")
-              { 
-                this.orderobject.name = "طلب خدمة تمريض";
-                this.orderobject.statusTxt="تم التنفيذ";
-                this.orderobject.color = "grey";
               }
               //rejected from admin
               else if (ordersData[j].status == "17")

@@ -171,7 +171,7 @@ export class SearchForDoctorPage {
 }
 getCurrentLoc(loc) {
 
-  //console.log("witting loc " + JSON.stringify(loc))
+  console.log("witting loc 7-10-2020" + JSON.stringify(loc))
   if (loc == "-1") {
 
     // this.presentToast(this.translate.instant("AccessLocationFailed"));

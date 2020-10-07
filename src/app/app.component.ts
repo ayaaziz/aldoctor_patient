@@ -418,13 +418,15 @@ events.subscribe('user:userLoginSucceeded', () => {
     console.log("share app");
  
     var shareLink;
-    if (this.platform.is('ios')) {
+    // if (this.platform.is('ios')) {
 
-      shareLink = "https://itunes.apple.com/us/app/aldoctor-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1/id1440723878?ls=1&mt=8";
-    } else {
-      shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
-    }
-    // "assets/imgs/dlogo.png"
+    //   shareLink = "https://itunes.apple.com/us/app/aldoctor-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1/id1440723878?ls=1&mt=8";
+    // } else {
+    //   shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
+    // }
+  
+    shareLink = "http://onelink.to/78nns3";
+
     this.socialSharing.share("تطبيق الدكتور", null , null , shareLink).then(() => {
       console.log("success")
       this.menu.close();
@@ -434,7 +436,6 @@ events.subscribe('user:userLoginSucceeded', () => {
 
     });
 
-    // window.open("http://onelink.to/78nns3",'_system', 'location=yes');
   }
 
   // cancel()

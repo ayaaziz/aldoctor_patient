@@ -380,6 +380,12 @@ requestOpenGPS(success) {
           else if (status == this.diagnostic.permissionStatus.GRANTED_WHEN_IN_USE) {
             this.GPSOpened(success);
           }
+          //ayaaaaaaaa
+          else {
+            console.log("gps is closed");
+            success("-1");
+          }
+          /////////
         });
       }
       else{
