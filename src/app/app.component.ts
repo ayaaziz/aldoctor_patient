@@ -795,7 +795,7 @@ if (notification.additionalData.OrderID){
           //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
           var orderId = notification.additionalData.OrderID;
 
-          console.log("notification from type_id", notification.additionalData.order_status);
+          console.log("notification from status", notification.additionalData.order_status);
           console.log("id of order", notification.additionalData.OrderID, "xorderId", orderId);
           console.log("data", data);
 
@@ -815,7 +815,8 @@ if (notification.additionalData.OrderID){
             this.events.publish('status0ForPLC');
           }
 
-          if (orderStatus == "2") {
+          //ayaaaaa
+          if (orderStatus == "2" || orderStatus == "16") {
             //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
             this.events.publish('status2ForPLC', data);
             console.log("then back to notification status 2 after publish");
@@ -828,7 +829,8 @@ if (notification.additionalData.OrderID){
                   data2:
                   {
                     "orderId": orderId,
-                    "doctorId": notification.additionalData.doctorId
+                    "doctorId": notification.additionalData.doctorId,
+                    "order_status":notification.additionalData.order_status
                   }
                 });
             })
@@ -844,7 +846,6 @@ if (notification.additionalData.OrderID){
             console.log("after set pages home , followorderforplc");
 
           }
-
 
           if (orderStatus == "11") {
             console.log("status 11");
@@ -1152,7 +1153,7 @@ if (notification.additionalData.OrderID){
       //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
       var orderId = notification.additionalData["gcm.notification.OrderID"] ;
 
-      console.log("notification from type_id", notification.additionalData["gcm.notification.order_status"]);
+      console.log("notification from status", notification.additionalData["gcm.notification.order_status"]);
       console.log("id of order", notification.additionalData["gcm.notification.OrderID"], "xorderId", orderId);
       console.log("data", data);
 
@@ -1172,7 +1173,8 @@ if (notification.additionalData.OrderID){
         this.events.publish('status0ForPLC');
       }
 
-      if (orderStatus == "2") {
+      //ayaaaaaa
+      if (orderStatus == "2" || orderStatus == "16") {
         //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
         this.events.publish('status2ForPLC', data);
         console.log("back to notification status 2 after publish");
@@ -1184,14 +1186,14 @@ if (notification.additionalData.OrderID){
             data2:
             {
               "orderId": orderId,
-              "doctorId": notification.additionalData["gcm.notification.doctorId"]
+              "doctorId": notification.additionalData["gcm.notification.doctorId"],
+              "order_status":notification.additionalData["gcm.notification.order_status"]
             }
           });
 
         console.log("after set pages home , followorderforplc");
 
       }
-
 
       if (orderStatus == "11") {
         console.log("status 11");

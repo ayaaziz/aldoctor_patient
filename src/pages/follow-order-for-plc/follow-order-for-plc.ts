@@ -114,9 +114,12 @@ export class FollowOrderForPlcPage {
 
       this.type_id = this.helper.type_id;
 
+      console.log("ayaaaaa type_id: "+this.type_id)
+
       console.log("langdir: ",this.langDirection);
       this.translate.use(this.helper.currentLang);
       this.doctorData = this.navParams.get('data2');
+
       console.log("data from follow order:",this.doctorData);
     
       this.doctorId = this.doctorData.doctorId;
@@ -1219,6 +1222,10 @@ medicalConsultant() {
              });
              confirm.present();
            }
+           else if(data.status == 8){
+            this.presentToast("تم إدخال كوبون خصم لهذا الطلب من قبل");
+            this.currentFees = "";
+          }
            
          }
          else{

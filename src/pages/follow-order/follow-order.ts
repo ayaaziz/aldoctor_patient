@@ -580,6 +580,10 @@ if(this.notificationFlag == false && durVal == (2*60))
              });
              confirm.present();
            }
+           else if(data.status == 8){
+            this.presentToast("تم إدخال كوبون خصم لهذا الطلب من قبل");
+            this.currentFees = "";
+          }
            
          }
          else{

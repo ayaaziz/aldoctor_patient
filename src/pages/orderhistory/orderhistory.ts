@@ -124,6 +124,8 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
           
 
           for(var j=0;j<ordersData.length;j++){
+
+            console.log("ordersData[j].status: "+ordersData[j].status);
             
             console.log("ratings length",ordersData[j].ratings.length);
               for(var r=0; r < ordersData[j].ratings.length; r++)
@@ -192,13 +194,13 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
             //ayaaaaaaaa
             //order accepted from admin
             else if (ordersData[j].status == "16") { 
-              ordersData[j].name = "طلب خدمة تمريض";
+              // ordersData[j].name = "طلب خدمة تمريض";
               ordersData[j].statusTxt="تم قبول الطلب";
               ordersData[j].color = "grey";
             }
             ////////
      
-            if(ordersData[j].status == "8" || ordersData[j].status == "5" || ordersData[j].status =="6" || ordersData[j].status == "7")
+            if(ordersData[j].status == "8" || ordersData[j].status == "5" || ordersData[j].status =="6" || ordersData[j].status == "7" || ordersData[j].status == "16")
               this.orderobject.disableRatebtn = false;
             // if(ordersData[j].reorder == "1")
             //   ordersData[j].color = "green";
@@ -237,7 +239,8 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
               // if(ordersData[j].ratings[0])
               //   this.orderobject.rate = ordersData[j].ratings[0].rate;
               
-              if(ordersData[j].service_id && ordersData[j].service_id == "3" )
+              //ayaaa
+              if(ordersData[j].service_id && (ordersData[j].service_id == "3" || ordersData[j].service_id == "5"))
               {
                 this.orderobject.diabledesign = true;
                 this.orderobject.addressSign = false;
@@ -381,8 +384,8 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
               else if (ordersData[j].status == "15")
               { 
                 this.orderobject.name = "طلب خدمة تمريض";
-                this.orderobject.statusTxt="قيد التنفيذ";
-                this.orderobject.color = "green";
+                this.orderobject.statusTxt="في انتظار موافقة الأدمن";
+                this.orderobject.color = "orange";
               }
               //rejected from admin
               else if (ordersData[j].status == "17")
@@ -876,7 +879,9 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
     */
 
     //item.order_status == "0"||
-if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7" || item.order_status =="13" ||item.order_status =="12")
+
+    //ayaaa
+if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7" || item.order_status =="13" ||item.order_status =="12" || item.order_status =="16")
 {
   // this.navCtrl.setRoot('follow-order',{
   //   data:item

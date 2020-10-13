@@ -44,9 +44,14 @@
   <!-- <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;margin-top:15px;"> {{doctorName}} </h5>
   <h5 style="color:grey;" *ngIf="langDirection != 'rtl'" >{{serviceName}} {{doctorName}} </h5> -->
 
-  <h5  *ngIf="langDirection == 'rtl'" [dir]="langDirection" style="text-align: right;color:grey;">
+  <h5  *ngIf="langDirection == 'rtl' && doctorData.order_status != 16" [dir]="langDirection" style="text-align: right;color:grey;">
     {{serviceTxt}} {{duration}} {{completeServiceTxt}} 
     <span style="color:#026938">{{hint}}</span>
+  </h5>
+
+  <!-- ayaaaa -->
+  <h5  *ngIf="langDirection == 'rtl' && doctorData.order_status == 16" [dir]="langDirection" style="text-align: right;color:grey;">
+    جاهز لاستقبال اتصالاتكم وسيكون المتخصص متواجد في أقرب وقت
   </h5>
  
   <!-- <ion-item class="form-group" no-lines>
@@ -145,7 +150,7 @@
         <!-- /////////// -->
 
            
-            <ion-item style="text-align:center;" no-lines>
+            <ion-item style="text-align:center;" no-lines *ngIf="doctorData.order_status != 16">
                 <button type="button" [disabled]="!disableCancelBtn"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="serviceRate()"> تم تنفيذ الخدمة</button>  
               </ion-item>
 
