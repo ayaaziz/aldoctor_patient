@@ -82,6 +82,7 @@ export class FollowOrderForPlcPage {
 
   patientId;
   currentFees;
+  orderDetails;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -136,6 +137,11 @@ export class FollowOrderForPlcPage {
         resp=>{
           console.log("orderDetails ",resp);
           var myorder = JSON.parse(JSON.stringify(resp)).order;
+
+          // ayaaaaa
+          this.orderDetails = myorder;
+
+          console.log("order details: "+ JSON.stringify(myorder));
 
 
           //ayaaaaaaaa
