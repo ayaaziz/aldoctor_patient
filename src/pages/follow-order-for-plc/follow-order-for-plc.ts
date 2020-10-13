@@ -114,7 +114,7 @@ export class FollowOrderForPlcPage {
 
       this.type_id = this.helper.type_id;
 
-      console.log("ayaaaaa type_id: "+this.type_id)
+      console.log("ayaaaaa type_id: "+this.type_id);
 
       console.log("langdir: ",this.langDirection);
       this.translate.use(this.helper.currentLang);
