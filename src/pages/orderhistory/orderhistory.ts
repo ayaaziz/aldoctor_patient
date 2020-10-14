@@ -194,10 +194,18 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
             //ayaaaaaaaa
             //order accepted from admin
             else if (ordersData[j].status == "16") { 
-              // ordersData[j].name = "طلب خدمة تمريض";
-              ordersData[j].statusTxt="تم قبول الطلب";
-              ordersData[j].color = "grey";
+              // ordersData[j].statusTxt="تم قبول الطلب";
+              ordersData[j].statusTxt= " متابعة " + ordersData[j].entity_service_Name;
+              ordersData[j].color = "green";
             }
+            //canceled by admin
+            else if (ordersData[j].status == "18")
+            { 
+              // this.orderobject.name = "طلب خدمة تمريض";
+              ordersData[j].statusTxt ="ملغي" ;
+              ordersData[j].color = "red";
+              ordersData[j].rated = "1";
+            }  
             ////////
      
             if(ordersData[j].status == "8" || ordersData[j].status == "5" || ordersData[j].status =="6" || ordersData[j].status == "7" || ordersData[j].status == "16")
@@ -393,7 +401,7 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
                 this.orderobject.name = "طلب خدمة تمريض";
                 this.orderobject.statusTxt ="مرفوض" ;
                 this.orderobject.color = "red";
-              }         
+              }        
               //////////////////////
                 
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";
@@ -881,7 +889,7 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
     //item.order_status == "0"||
 
     //ayaaa
-if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7" || item.order_status =="13" ||item.order_status =="12" || item.order_status =="16")
+if(item.order_status == "2" || item.order_status=="8" || item.order_status =="7" || item.order_status =="13" ||item.order_status =="12" || item.order_status =="16" || item.order_status =="18")
 {
   // this.navCtrl.setRoot('follow-order',{
   //   data:item
@@ -928,7 +936,13 @@ if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3" ||  item.ty
     
     
   }
-  rateagain(item){
+  rateagain(item,ev){
+
+    // ayaaaaaaa
+    ev.stopPropagation();
+    ///////
+
+
     console.log("item from rate function ",item);
     if(item.type_id == "1" || item.type_id == "2" || item.type_id == "3" || item.type_id == "5")
     {

@@ -193,14 +193,22 @@ select option[selected]{
       text-align: right;
       margin-top: 7px;
     }
+  
+    td {
+      padding: 8px;
+  
+      &.title {
+          color:#016a38;
+          font-weight: bold;
+          width: 155px;
+         }
+     }
 
-    .service_data {
-      color: #016a38;
-      font-weight: bold;
+    ion-fab {
+        position: fixed !important;
+        bottom: 55px !important;
     }
-    ////////////
-    
-         
+    //////////
 }
 .toastRight{
     text-align: right;

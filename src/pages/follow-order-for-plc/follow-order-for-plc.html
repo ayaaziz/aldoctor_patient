@@ -1,7 +1,7 @@
 <ion-header class="{{langDirection}}">
   <ion-navbar hideBackButton>
    
-          <ion-title >{{"followOrder" | translate}}</ion-title>
+          <ion-title *ngIf="doctorData.order_status != 18">{{"followOrder" | translate}}</ion-title>
       
           <ion-buttons  right>
               <button ion-button>
@@ -44,56 +44,37 @@
   <!-- <h5  *ngIf="langDirection == 'rtl'" style="text-align: right;color:grey;margin-top:15px;"> {{doctorName}} </h5>
   <h5 style="color:grey;" *ngIf="langDirection != 'rtl'" >{{serviceName}} {{doctorName}} </h5> -->
 
-  <h5  *ngIf="langDirection == 'rtl' && doctorData.order_status != 16" [dir]="langDirection" style="text-align: right;color:grey;">
+  <h5  *ngIf="langDirection == 'rtl' && doctorData.order_status != 16 && doctorData.order_status != 18" [dir]="langDirection" style="text-align: right;color:grey;">
     {{serviceTxt}} {{duration}} {{completeServiceTxt}} 
     <span style="color:#026938">{{hint}}</span>
   </h5>
 
   <!-- ayaaaaaaaa -->
-  <ion-row *ngIf="doctorData.order_status == 16" style="font-size: 19px;">
-    <ion-col col-12>
-     <p> طلب: <span class="service_data">{{orderDetails?.id}}#</span> </p>
-    </ion-col>
-    <ion-col col-12>
-      <p> نوع الخدمة: <span class="service_data">{{orderDetails?.entity_service_Name}}</span></p>
-      </ion-col>
-    <ion-col col-12 *ngIf="orderDetails?.MonthDays > 0">
-      <p> عدد الأيام في الشهر: <span class="service_data">{{orderDetails?.MonthDays}}</span></p>
-    </ion-col>
-    <ion-col col-12 *ngIf="orderDetails?.DayHours > 0">
-      <p> عدد الساعات في اليوم: <span class="service_data">{{orderDetails?.DayHours}}</span></p>
-    </ion-col>
-    <ion-col col-12 *ngIf="orderDetails?.DayNumbers > 0">
-      <p> عدد المرات في اليوم: <span class="service_data">{{orderDetails?.DayNumbers}}</span></p>
-    </ion-col>
-    <ion-col col-12 *ngIf="orderDetails?.WeekDays > 0">
-      <p> عدد الأيام في الأسبوع: <span class="service_data">{{orderDetails?.WeekDays}}</span></p>
-    </ion-col>
-    <ion-col col-12 *ngIf="orderDetails?.PreferedTime">
-     <p> وقت الخدمة: 
-        <span class="service_data">
-          <span *ngIf="orderDetails?.PreferedTime == 1">صباحاً</span>
-          <span *ngIf="orderDetails?.PreferedTime == 2">مساءًا</span>
-          <span *ngIf="orderDetails?.PreferedTime == 3">طوال اليوم</span>
-        </span>
-    </p>
-    </ion-col>
-    <ion-col col-12>
-      <p> نوع الممرض المطلوب: 
-        <span class="service_data"> 
-          <span *ngIf="orderDetails?.PreferedGender == 0">ذكر</span>
-          <span *ngIf="orderDetails?.PreferedGender == 1">أنثى</span>
-        </span> 
-      </p>
-    </ion-col>
-    <ion-col col-12>
-      <p> إجمالي سعر الخدمة: <span class="service_data">{{orderDetails?.TotalPrice}}جنيه</span></p>
-    </ion-col>
-    <ion-col col-12>
-      <p>  سعر الزيارة: <span class="service_data">{{orderDetails?.priceByOnce}} جنيه</span></p>
-    </ion-col>
-    
-  </ion-row>
+  <table *ngIf="doctorData.order_status == 16 || doctorData.order_status == 18">
+    <tr><td class="title"> رقم الطلب: </td> <td>{{orderDetails?.id}}</td></tr>
+    <tr *ngIf="order_date"><td class="title">تاريخ الطلب : </td><td> {{orderDetails?.order_date}}</td></tr>
+    <tr><td class="title"> نوع الخدمة: </td> <td>{{orderDetails?.entity_service_Name}}</td></tr>
+ 
+    <tr *ngIf="orderDetails?.MonthDays > 0"><td class="title"> عدد الأيام في الشهر:</td> <td>{{orderDetails?.MonthDays}}</td></tr>
+    <tr *ngIf="orderDetails?.DayHours > 0"><td class="title"> عدد الساعات في اليوم:</td> <td>{{orderDetails?.DayHours}}</td></tr>
+    <tr *ngIf="orderDetails?.DayNumbers > 0"><td class="title"> عدد المرات في اليوم: </td> <td>{{orderDetails?.DayNumbers}}</td></tr>
+    <tr *ngIf="orderDetails?.WeekDays > 0"><td class="title">  عدد الأيام في الأسبوع:  </td> <td>{{orderDetails?.WeekDays}}</td></tr>
+    <tr *ngIf="orderDetails?.PreferedTime">
+      <td class="title"> وقت الخدمة: </td>
+      <td *ngIf="orderDetails?.PreferedTime == 1">صباحاً</td>
+      <td *ngIf="orderDetails?.PreferedTime == 2">مساءًا</td>
+      <td *ngIf="orderDetails?.PreferedTime == 3">طوال اليوم</td>
+    </tr>
+    <tr *ngIf="orderDetails?.PreferedGender">
+      <td class="title"> نوع الممرض المطلوب: </td>
+      <td *ngIf="orderDetails?.PreferedGender == 0">ذكر</td>
+      <td *ngIf="orderDetails?.PreferedGender == 1">أنثى</td>
+    </tr>
+    <tr *ngIf="orderDetails?.TotalPrice"><td class="title">  إجمالي سعر الخدمة:  </td> <td>{{orderDetails?.TotalPrice}} جنيه</td></tr>
+    <tr *ngIf="orderDetails?.priceByOnce"><td class="title"> سعر الزيارة:  </td> <td>{{orderDetails?.priceByOnce}} جنيه</td></tr>
+    <tr *ngIf="orderDetails?.theServiceProfile.phone"><td class="title">  رقم هاتف الممرض:  </td> <td>{{orderDetails?.theServiceProfile.phone}}</td></tr>
+
+  </table>
  
   <!-- <ion-item class="form-group" no-lines>
       <button type="button" (click)="presentActionSheet()" class="btn btn-primaryx btn-lg btn-block" style="color:rgba(27, 26, 26, 0.270588);background-color: rgba(1, 106, 56, 0.2313725) ; border-color: rgba(1, 106, 56, 0.2313725);margin:10px auto;" >  <img src="assets/icon/cam.png" height="25" width="25">   {{medicalprescriptionImage}} <ion-icon name="checkmark-circle" style="color: darkgreen;vertical-align: middle;" *ngIf="imageAdded" ></ion-icon> </button> 
@@ -106,7 +87,7 @@
               {{medicalprescriptionImage}}      
         </button> 
             
-    </ion-item> -->
+    </ion-i tem> -->
 
     <p [hidden]="hideCont" style="color:#016a38;text-align:right;font-size:16px">  الموعد المحدد :<span style="color:grey;"> {{contDate}}</span></p>
     <p [hidden]="hidenote" style="color:#016a38;text-align:right;font-size:16px">  الملاحظات :<span style="color:grey;"> {{contNotes}}</span></p>
@@ -141,58 +122,7 @@
 
 
 
-    <ion-fab left bottom style="left: 85px;">
-            <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';">
-            <!-- {{callService}} -->
-            اتصال
-            </button>
-            <ion-fab-list side="right">        
-                <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
-                    <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
-           
-                    <a button ion-fab  href="tel:+{{phone}}" >
-                        <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
-                </ion-fab-list>
-          </ion-fab>
-
-          <!-- ayaaaaaaaaaaa -->
-          <ion-fab left bottom>
-            <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:9px;width: 65px;
-            height: 65px;" (click)="medicalConsultant()">
-              <span style="height: 61px;
-                font-size: 12px;
-                position: absolute;
-                /* right: 10px; */
-                top: -3px;
-                left: 7px;">استشارة</span>
-              
-              <span style="text-align: center;
-                height: 30px;
-                justify-content: center;
-                font-size: 12px;
-                position: absolute;
-                top: 13px;">طبية</span>     
-            </button>
-          </ion-fab>
-
-          <ion-fab right bottom *ngIf="doctorData.order_status == 16">
-              <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:9px;width: 65px;
-              height: 65px;" (click)="cancelOrder()">
-                <span style="height: 61px;
-                  font-size: 12px;
-                  position: absolute;
-                  top: -3px;
-                  left: 17px;">إلغاء</span>
-                
-                <span style="text-align: center;
-                  height: 30px;
-                  justify-content: center;
-                  font-size: 12px;
-                  position: absolute;
-                  top: 13px;">الطلب</span>     
-              </button>
-            </ion-fab>
-          <!-- /////////////////// -->
+ 
 
           <!-- ayaaaaaaaaa -->
           <!-- <ion-row *ngIf="type_id == 5" style="background-color: #efefef;justify-content: center;margin-bottom: 10px;padding-top: 10px;padding-bottom: 10px;margin-top: 25px;">
@@ -209,12 +139,12 @@
         <!-- /////////// -->
 
            
-            <ion-item style="text-align:center;" no-lines *ngIf="doctorData.order_status != 16">
+            <ion-item style="text-align:center;" no-lines *ngIf="doctorData.order_status != 16 && doctorData.order_status != 18">
                 <button type="button" [disabled]="!disableCancelBtn"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="serviceRate()"> تم تنفيذ الخدمة</button>  
               </ion-item>
 
               
-  <ion-item style="text-align:center;" no-lines *ngIf="doctorData.order_status != 16">
+  <ion-item style="text-align:center;" no-lines *ngIf="doctorData.order_status != 16 && doctorData.order_status != 18">
   <button type="button"  [disabled]="disableCancelBtn"  class="btn btn-primary btn-lg btn-block" style="font-family: 'Cairo Black';margin:10px auto;" (click)="cancelOrder()"> {{"cancelOrder" | translate}}</button>  
 </ion-item>
   
@@ -234,6 +164,59 @@
 <ion-item no-lines>
 
 </ion-item>
+
+<ion-fab left bottom style="left: 85px;">
+  <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';">
+  <!-- {{callService}} -->
+  اتصال
+  </button>
+  <ion-fab-list side="right">        
+      <a button ion-fab  href="https://api.whatsapp.com/send?phone={{phone}}" >
+          <ion-icon   style="color:#026938;" name="logo-whatsapp"></ion-icon></a>
+ 
+          <a button ion-fab  href="tel:+{{phone}}" >
+              <ion-icon   style="color:#026938;" name="call"></ion-icon></a>
+      </ion-fab-list>
+</ion-fab>
+
+<!-- ayaaaaaaaaaaa -->
+<ion-fab left bottom>
+  <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:9px;width: 65px;
+  height: 65px;" (click)="medicalConsultant()">
+    <span style="height: 61px;
+      font-size: 12px;
+      position: absolute;
+      /* right: 10px; */
+      top: -3px;
+      left: 7px;">استشارة</span>
+    
+    <span style="text-align: center;
+      height: 30px;
+      justify-content: center;
+      font-size: 12px;
+      position: absolute;
+      top: 13px;">طبية</span>     
+  </button>
+</ion-fab>
+
+<ion-fab right bottom *ngIf="doctorData.order_status == 16">
+    <button ion-fab style="background-color:#026938;font-family: 'Cairo Black';font-size:9px;width: 65px;
+    height: 65px;" (click)="cancelOrder()">
+      <span style="height: 61px;
+        font-size: 12px;
+        position: absolute;
+        top: -3px;
+        left: 18px;">إلغاء</span>
+      
+      <span style="text-align: center;
+        height: 30px;
+        justify-content: center;
+        font-size: 12px;
+        position: absolute;
+        top: 13px;">الطلب</span>     
+    </button>
+  </ion-fab>
+<!-- /////////////////// -->
 <!-- [disabled]="UpdateorderBTn" -->
 
 </ion-content>

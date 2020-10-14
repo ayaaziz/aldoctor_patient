@@ -639,8 +639,7 @@ private presentToast(text) {
   }
   dismiss(){
     this.navCtrl.pop();
-    this.navCtrl.parent.select(0); 
-    // this.navCtrl.setRoot(TabsPage);
+    // this.navCtrl.parent.select(0); 
   }
   presentActionSheet() { 
     
