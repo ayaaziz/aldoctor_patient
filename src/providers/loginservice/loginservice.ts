@@ -852,5 +852,13 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
     let serviceUrl = this.helper.serviceUrl +'api/user/HomeZone';
     return this.http.post(serviceUrl,parameter,{headers: headers });
   }
+
+
+  //ayaaaaaa
+  getNursingServices(lang, successCallback , failCallback) {
+    this.http.get(this.helper.serviceUrl+'api/get/lkps/specialities-nursing?lang='+lang).subscribe(data => successCallback(data) , err => failCallback(err))
+  }
 }
+
+
 

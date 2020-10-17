@@ -26,7 +26,6 @@ export class OrderSpecificServicePage {
 
   accessToken;
   Specialization="";
-  SpecializationArray=[];
   
   langDirection;
 
@@ -65,6 +64,8 @@ export class OrderSpecificServicePage {
   hidePrice = true;
   searchvalForRefresh = "";
   loadingAlert
+  nurseSurvicesArray = [];
+
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public translate: TranslateService,  public events: Events,
@@ -136,7 +137,7 @@ export class OrderSpecificServicePage {
       }
 
 
-      this.spText=this.translate.instant("chooseSpecialization");
+      this.spText=this.translate.instant("chooseNursingService");
 
       // this.events.subscribe('statusChanged', (data) => {
       //   console.log(" event status changed ",data);
@@ -335,7 +336,39 @@ export class OrderSpecificServicePage {
     //   }
     // );
 
+    // ayaaaaaaaaa
+    this.accessToken = localStorage.getItem('user_token');
+    
+    // this.showLoading=false;
+    this.service.getNursingServices(this.helper.currentLang, 
+      data => { 
+        this.nurseSurvicesArray = data 
+      },
+      error => { 
+        console.log(error);
+      });
+    ///////////////////
+
   }
+
+
+  //ayaaaaaa
+  SpecializationChecked(){
+
+    console.log(this.Specialization);
+    this.center_id = this.Specialization;
+
+
+  //   if(this.searchValue){
+  //     console.log("id: ",id);
+  //     // this.showLoading = false;
+    
+    
+  // }
+}
+
+
+///////////////////
 
   doctorChecked(item , event){
     console.log("doctor checked",item);
@@ -765,10 +798,19 @@ export class OrderSpecificServicePage {
     this.imageFlag = true;
   }
   getItems(ev) {
+
+    
     var searchVal = ev.target.value;
     this.searchvalForRefresh = searchVal;
     var id ;
     console.log("search value ",searchVal);
+
+    //ayaaa
+    if(!this.center_id && this.type_id == 5) {
+      this.presentToast("من فضلك اختر نوع الخدمة");
+      return;
+    }
+    
     if(searchVal)
     {
       console.log("searchVal from if",searchVal);
@@ -788,7 +830,7 @@ export class OrderSpecificServicePage {
 searchFunc(searchVal){
   this.showLoading = false;
   
-  this.srv.searchServiceByName(0,searchVal,this.type_id,this.accessToken).subscribe(
+  this.srv.searchServiceByName(0,searchVal,this.type_id,this.center_id,this.accessToken).subscribe(
     resp=>{
     //this.loadingAlert.dismiss()
       console.log("searchServiceByName resp: ",resp);

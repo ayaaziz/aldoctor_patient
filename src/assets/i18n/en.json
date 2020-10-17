@@ -300,7 +300,9 @@
       "reset":"Reset Data",
       "noResponse":"Thanks for your order, customer service will call you as soon as possible",
       "okWithInvitation":"Rate and invite friend",
-      "coupon":"Promo Code"
+      "coupon":"Promo Code",
+      "requiredService":"Service",
+      "chooseNursingService":"Choose Service"
 
 
 }

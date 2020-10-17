@@ -20,14 +20,18 @@ export class ProvidedServicesProvider {
 
   }
  
-  searchServiceByName(page,searchName,type_id,access_token){
+  
+  searchServiceByName(page,searchName,type_id,centerId,access_token){
     //request
     var lat = this.helper.lat;
     var lon = this.helper.lon;
 
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/x-www-form-urlencoded').set('Authorization', 'Bearer '+access_token);
-    let serviceUrl = this.helper.serviceUrl +'api/nearby?service_id=3&type_id='+type_id+'&name='+searchName+'&lat='+lat+'&lng='+lon+'&city_id='+this.helper.city_id+'&page='+page;
+    // let serviceUrl = this.helper.serviceUrl +'api/nearby?service_id=3&type_id='+type_id+'&name='+searchName+'&lat='+lat+'&lng='+lon+'&city_id='+this.helper.city_id+'&page='+page;
+
+    //ayaaaaaaa
+    let serviceUrl = this.helper.serviceUrl +'api/nearby?service_id=3&type_id='+type_id+'&name='+searchName+'&lat='+lat+'&lng='+lon+'&center_id='+centerId+'&city_id='+this.helper.city_id+'&page='+page;
     return this.http.get(serviceUrl,{headers: headers });
   
   }
