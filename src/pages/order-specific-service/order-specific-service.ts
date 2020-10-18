@@ -340,7 +340,7 @@ export class OrderSpecificServicePage {
     this.accessToken = localStorage.getItem('user_token');
     
     // this.showLoading=false;
-    this.service.getNursingServices(this.helper.currentLang, 
+    this.service.getNursingServices(this.helper.currentLang,0, 
       data => { 
         this.nurseSurvicesArray = data 
       },
@@ -359,12 +359,12 @@ export class OrderSpecificServicePage {
     this.center_id = this.Specialization;
 
 
-  //   if(this.searchValue){
-  //     console.log("id: ",id);
-  //     // this.showLoading = false;
+    if(this.searchValue){
+      this.showLoading = false;
+      this.choosenDoctors = []
+      this.searchFunc(this.searchValue);
     
-    
-  // }
+  }
 }
 
 
