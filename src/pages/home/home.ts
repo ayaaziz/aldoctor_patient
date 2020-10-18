@@ -310,7 +310,10 @@ this.storage.get("rate_doctor").then(data=>{
 
               //there is no registered city
             } else {
-              this.presentHomeAlert();
+              // this.presentHomeAlert();
+              this.selectedCityId = 45; 
+              this.helper.selectedCityId = this.helper.registeredCityId = "45";
+              this.cityChecked(this.selectedCityId);
             }
           }
         

@@ -114,21 +114,27 @@ cities = [];
         else
             this.NODob = false;
             
-        // this.address = data.add;
-        var addArr = data.add.split("-");
-        this.address = addArr[0];
-            console.log("address : ",this.address)
-        if(!this.address)
-        {
+        // var addArr = data.add.split("-");
+        // this.address = addArr[0];
+        //     console.log("address : ",this.address)
+        // if(!this.address)
+        // {
           this.NOAddress = true;
           this.accessToken = localStorage.getItem('user_token');
           this.service.getuserProfile(this.accessToken).subscribe(resp=>{
             console.log("get user profile resp",resp);
-            if(JSON.parse(JSON.stringify(resp)).extraInfo.address_map){
+
+            //ayaaaaa
+            if(JSON.parse(JSON.stringify(resp)).extraInfo.address) {
+              this.address  = JSON.parse(JSON.stringify(resp)).extraInfo.address;
+              this.NOAddress = false;
+            
+            } else if(JSON.parse(JSON.stringify(resp)).extraInfo.address_map){
               this.address  = JSON.parse(JSON.stringify(resp)).extraInfo.address_map;
               this.NOAddress = false;
-            }else{
-              this.address = ""
+            
+            }else {
+              this.address = "";
               this.NOAddress = true;
             }
             
@@ -136,9 +142,9 @@ cities = [];
             console.log("get user profile err",err);
             this.NOAddress = true;
           });
-        } 
-        else
-            this.NOAddress = false;
+        // } 
+        // else
+        //     this.NOAddress = false;
 
         // if(!this.address)
         //     this.NOAddress = true;
@@ -175,7 +181,11 @@ cities = [];
                   this.name = this.newuserData.name;
                   this.dob =this.newuserData.user_info.birth_date;
                   this.phone = this.newuserData.phone + "+";
-                  this.address =this.newuserData.extraInfo.address.split("-")[0];
+                  // this.address =this.newuserData.extraInfo.address.split("-")[0];
+                  //ayaaaaa
+                  this.address = this.newuserData.extraInfo.address_map;
+                  if(!this.address) this.address = this.newuserData.extraInfo.address.split("-")[0];
+
                  this.image = this.newuserData.profile_pic;
 
                 },err=>{
@@ -202,7 +212,7 @@ cities = [];
   }
   editProfile(){
     console.log("edit profile");
-    this.navCtrl.push('edit-profile');
+    this.navCtrl.push('edit-profile',{userAddress:this.address});
 
   }
 

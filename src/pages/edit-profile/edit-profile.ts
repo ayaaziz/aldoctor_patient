@@ -102,6 +102,8 @@ export class EditProfilePage {
     this.maxDate  = new Date().toISOString().split('T')[0];
     console.log("this.maxDate",this.maxDate);
     
+    //ayaaaa
+    this.address = navParams.get("userAddress");
     
   }
 
@@ -147,24 +149,11 @@ this.firstname = "";
         else
           this.birthdate = "";
         
-          this.addArr = data.add.split("-");
-
-        // this.countries.push({name:this.addArr[2]});
-        // this.cities.push({name:this.addArr[1]});
-        
-         console.log("add..",data.add);
-        
-        //  debugger;
-
-        this.country = this.addArr[2];
-        // this.city = this.addArr[1];
-        // this.cities.push(this.city);
-      //  debugger; 
-        console.log("city: ",this.city,"country: ",this.country);
-
-        this.address = this.addArr[0];
-        // this.email = data.email;
-      //  this.countryChecked();
+          // this.addArr = data.add.split("-");        
+          console.log("add..",data.add);
+          // this.country = this.addArr[2];
+          console.log("city: ",this.city,"country: ",this.country);
+        // this.address = this.addArr[0];
       });
   
   });
@@ -310,19 +299,18 @@ this.firstname = "";
 
       let cityName = city.region;
 
-      if(this.address) {
-        this.add = this.address +"-"+cityName;    
-      } else {
-        this.add = cityName;
-      }
+      if(!this.address) {
+        this.address = cityName;    
+      } 
       ///////
+      
       
       this.accessToken = localStorage.getItem('user_token');
 
 
+        // this.loginservice.editUser(this.name,this.add,this.birthdate,this.email,this.city,this.accessToken).subscribe(
 
-
-        this.loginservice.editUser(this.name,this.add,this.birthdate,this.email,this.city,this.accessToken).subscribe(
+          this.loginservice.editUser(this.name,this.address,this.birthdate,this.email,this.city,this.accessToken).subscribe(        
           resp =>{
             console.log("edit resp: ",resp);
             this.presentToast("تم تعديل البيانات");
