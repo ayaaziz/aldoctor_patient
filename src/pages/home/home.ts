@@ -271,7 +271,7 @@ this.storage.get("rate_doctor").then(data=>{
     //ayaaaaaaaaaaaa
     this.service.getAllZones().subscribe(
       data => {
-        console.log("JSON.parse(JSON.stringify(data)): "+JSON.parse(JSON.stringify(data)));
+        console.log("JSON.parse(JSON.stringify(data)): "+JSON.stringify(JSON.parse(JSON.stringify(data))));
         
         this.cityZonesArray = JSON.parse(JSON.stringify(data));
       },
