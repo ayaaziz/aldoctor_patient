@@ -22,7 +22,8 @@ export class HelperProvider {
    
   // public homeZoneSServices = [];
   // ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="2136661453100884" --variable APP_NAME="Aldoctor APP"
-  
+  // ionic cordova plugin add cordova-plugin-facebook4 --variable APP_ID="410227209992614" --variable APP_NAME="Aldoctor APP"
+
   //public serviceUrl: string = "http://itrootsdemos.com/aldoctor/public/";
   
   //production
