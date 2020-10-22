@@ -815,8 +815,7 @@ if (notification.additionalData.OrderID){
             this.events.publish('status0ForPLC');
           }
 
-          //ayaaaaa
-          if (orderStatus == "2" || orderStatus == "16") {
+          if (orderStatus == "2") {
             //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
             this.events.publish('status2ForPLC', data);
             console.log("then back to notification status 2 after publish");
@@ -845,6 +844,30 @@ if (notification.additionalData.OrderID){
 
             console.log("after set pages home , followorderforplc");
 
+          }
+
+          //ayaaaaa
+          if (orderStatus == "16") {
+            this.events.publish('status2ForPLC', data);
+     
+            console.log("data to follow order", "orderId", orderId, "doctorId", notification.additionalData.doctorId);
+
+            if(!notification.additionalData.foreground) {
+              this.nav.setRoot(TabsPage).then(x=>{
+                console.log("then tabs")
+                this.nav.push(FollowOrderForPlcPage,
+                  {
+                    data2:
+                    {
+                      "orderId": orderId,
+                      "doctorId": notification.additionalData.doctorId,
+                      "order_status":notification.additionalData.order_status
+                    }
+                  });
+              })
+            } else {
+              this.presentOrderAssigningAlert(notification.title, notification.message,orderId,notification.additionalData.doctorId,notification.additionalData.order_status);
+            }
           }
 
           if (orderStatus == "11") {
@@ -1173,8 +1196,8 @@ if (notification.additionalData.OrderID){
         this.events.publish('status0ForPLC');
       }
 
-      //ayaaaaaa
-      if (orderStatus == "2" || orderStatus == "16") {
+    
+      if (orderStatus == "2") {
         //this.alert("from status 2 : type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
         this.events.publish('status2ForPLC', data);
         console.log("back to notification status 2 after publish");
@@ -1193,6 +1216,27 @@ if (notification.additionalData.OrderID){
 
         console.log("after set pages home , followorderforplc");
 
+      }
+
+      //ayaaaaaa
+      if (orderStatus == "16") {
+        this.events.publish('status2ForPLC', data);
+        console.log("data to follow order", "orderId", orderId, "doctorId", notification.additionalData["gcm.notification.doctorId"]);
+
+        if(!notification.additionalData["foreground"]) {
+          this.nav.setRoot(TabsPage);
+          this.nav.push(FollowOrderForPlcPage,
+            {
+              data2:
+              {
+                "orderId": orderId,
+                "doctorId": notification.additionalData["gcm.notification.doctorId"],
+                "order_status":notification.additionalData["gcm.notification.order_status"]
+              }
+            });
+        } else {
+          this.presentOrderAssigningAlert(notification["title"], notification["message"],orderId,notification.additionalData["gcm.notification.doctorId"],notification.additionalData["gcm.notification.order_status"]);
+        }
       }
 
       if (orderStatus == "11") {
@@ -1914,7 +1958,39 @@ if (notification.additionalData.OrderID){
     alert.present();
   }
 
-
+   // ayaaaaaa
+   presentOrderAssigningAlert(title, msg,orderId,doctorId,orderStatus) {
+     
+    console.log("enter presentdelivaryAlert");
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: msg,
+      cssClass: 'foo',
+      buttons: [
+        {
+          text:"متابعة الطلب",
+          handler: () => {
+            this.nav.setRoot(TabsPage).then(x=>{
+              console.log("then tabs")
+              this.nav.push(FollowOrderForPlcPage,
+                {
+                  data2:
+                  {
+                    "orderId": orderId,
+                    "doctorId": doctorId,
+                    "order_status":orderStatus
+                  }
+                });
+            })
+          }
+        },
+        {
+         text:"تم"
+       }
+      ]
+    });
+    alert.present();
+  }
 
 }
 

@@ -401,7 +401,14 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
                 this.orderobject.name = "طلب خدمة تمريض";
                 this.orderobject.statusTxt ="مرفوض" ;
                 this.orderobject.color = "red";
-              }        
+              } 
+              //canceled by admin
+              else if (ordersData[j].status == "18")
+              { 
+                this.orderobject.name = "طلب خدمة تمريض";
+                this.orderobject.statusTxt ="ملغي" ;
+                this.orderobject.color = "red";
+              }         
               //////////////////////
                 
               this.orderobject.profile_pic = "assets/imgs/default-avatar.png";

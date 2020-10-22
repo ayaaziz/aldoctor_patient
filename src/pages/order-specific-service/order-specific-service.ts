@@ -1002,6 +1002,14 @@ console.log("doctorData[results][i].timefordelivery2: ",doctorData["result"][i].
     this.searchvalForRefresh = searchVal;
     var id ;
     console.log("search value ",searchVal);
+
+
+    //ayaaa
+    if(!this.center_id && this.type_id == 5) {
+      this.presentToast("من فضلك اختر نوع الخدمة");
+      return;
+    }
+
     if(searchVal)
     {
      console.log("searchVal from if",searchVal);
