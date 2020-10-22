@@ -36,7 +36,7 @@ export class OrderhistoryPage {
 "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
 "diabledesign":false,"addressSign":true,"type_id":"","diabledRate":false,
 "contorder":"","remark":"","contDate":"","disableRatebtn":true,
-reorderDate:"",reorderPrice:"",hasfiles:0};
+reorderDate:"",reorderPrice:"",hasfiles:0,serviceTitle:""};
 
   tostClass ;
   refresher;
@@ -194,9 +194,11 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
             //ayaaaaaaaa
             //order accepted from admin
             else if (ordersData[j].status == "16") { 
-              // ordersData[j].statusTxt="تم قبول الطلب";
-              ordersData[j].statusTxt= " متابعة " + ordersData[j].entity_service_Name;
+              // ordersData[j].statusTxt= " متابعة " + ordersData[j].entity_service_Name;
+              ordersData[j].statusTxt= "متابعة";
               ordersData[j].color = "green";
+
+              this.orderobject.serviceTitle = ordersData[j].entity_service_Name;
             }
             //canceled by admin
             else if (ordersData[j].status == "18")
@@ -366,7 +368,7 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
                   "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
                   "diabledesign":false,"addressSign":true,"type_id":"","diabledRate" :false,
                   "contorder":"","remark":"","contDate":"","disableRatebtn":true,
-                  reorderDate:"",reorderPrice:"",hasfiles:0};
+                  reorderDate:"",reorderPrice:"",hasfiles:0,serviceTitle:""};
           
                     
             }
@@ -420,7 +422,7 @@ reorderDate:"",reorderPrice:"",hasfiles:0};
               "custom_date":"","date_id":"","statusTxt":"","orderDate":"","reorderBtn":false,
               "diabledesign":false ,"addressSign":true,"type_id":"","diabledRate":false,
               "contorder":"","remark":"","contDate":"","disableRatebtn":true,
-              reorderDate:"",reorderPrice:"",hasfiles:0};
+              reorderDate:"",reorderPrice:"",hasfiles:0,serviceTitle:""};
       
            
             }

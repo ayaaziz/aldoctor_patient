@@ -91,10 +91,15 @@
         <ion-col  col-10 col-sm-10>
           <!-- <ion-item style="padding-left:0px"> -->
               <!-- overflow-x: hidden; -->
-            <h2 style="margin-top:0px;">{{item.name}}</h2>
+            <h2 style="margin-top:9px;">{{item.name}}</h2>
             <img src="assets/icon/doctor.png"  [hidden]="item.diabledesign" style="width:15px;height:15px;" >
             <!-- <img src="assets/icon/location.png"  [hidden]="item.addressSign" style="width:15px;height:15px;" > -->
             <h3 style="font-size:12px;width:100px">{{item.specialization}}</h3>
+
+              <!-- ayaaaaaa -->
+              <ion-row *ngIf="item.serviceTitle">
+                <h3 style="font-size: 12px;color: green;font-weight: bold;margin: 9px 0;">{{item.serviceTitle}}</h3>  
+              </ion-row>
         
             <rating [hidden]="item.diabledRate"
                   [(ngModel)]="item.rate" 
@@ -106,9 +111,11 @@
                   nullable="false" 
                   ></rating>
                   
-                 
-
+       
         <h3 style="padding: 0px 5px;margin-top:0px;font-size:12px;">{{item.orderDate}}</h3>  
+
+       
+
                   
         <!-- //////// -->
         
