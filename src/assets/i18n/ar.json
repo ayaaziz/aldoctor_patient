@@ -306,5 +306,7 @@
       "okWithInvitation":"تم مع دعوة شخص يهمك",
       "coupon":"كوبون خصم",
       "requiredService":"نوع الخدمة",
-      "chooseNursingService":"اختر الخدمة"
+      "chooseNursingService":"اختر الخدمة",
+      "developedBy":"تم التطوير بواسطة",
+      "itroots":"شركة الجذور لتكنولوجيا المعلومات"
 }

@@ -856,7 +856,7 @@ userLogin(email,password,access_token,SuccessCallback,FailureCallback) {
 
   //ayaaaaaa
   getNursingServices(lang,allSpNursing, successCallback , failCallback) {
-    this.http.get(this.helper.serviceUrl+'api/get/lkps/specialities-nursing?lang='+lang+'&all_sp_nursing='+allSpNursing).subscribe(data => successCallback(data) , err => failCallback(err))
+    this.http.get(this.helper.serviceUrl+'api/get/lkps/specialities-nursing?lang='+lang+'&all_sp_nursing='+allSpNursing+'&city_id='+this.helper.city_id).subscribe(data => successCallback(data) , err => failCallback(err))
   }
 }
 

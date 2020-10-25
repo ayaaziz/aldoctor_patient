@@ -302,7 +302,7 @@
       "okWithInvitation":"Rate and invite friend",
       "coupon":"Promo Code",
       "requiredService":"Service",
-      "chooseNursingService":"Choose Service"
-
-
+      "chooseNursingService":"Choose Service",
+      "developedBy":"Developed By",
+      "itroots":"ITRoots"
 }
