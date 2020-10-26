@@ -1464,12 +1464,12 @@ if (notification.additionalData.OrderID){
       else if (orderStatus == "20") {
 
         if(notification.additionalData["foreground"]) {
-          this.presentReportAlert(notification.title, notification.message,data.orderId);
+          this.presentReportAlert(notification["title"], notification["message"],notification.additionalData["gcm.notification.OrderID"]);
           
         } else {
           // this.events.publish("status2");
           this.nav.setRoot(TabsPage);
-          this.nav.push('ShowReportPage',{"recievedItem": data.orderId});
+          this.nav.push('ShowReportPage',{"recievedItem": notification.additionalData["gcm.notification.OrderID"]});
         }
       }
       ///////////////

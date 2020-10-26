@@ -200,6 +200,13 @@ reorderDate:"",reorderPrice:"",hasfiles:0,serviceTitle:""};
 
               this.orderobject.serviceTitle = ordersData[j].entity_service_Name;
             }
+            //rejected from admin
+            else if (ordersData[j].status == "17")
+            { 
+              this.orderobject.name = "طلب خدمة تمريض";
+              ordersData[j].statusTxt ="مرفوض" ;
+              ordersData[j].color = "red";
+            } 
             //canceled by admin
             else if (ordersData[j].status == "18")
             { 

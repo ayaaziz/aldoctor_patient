@@ -301,8 +301,10 @@ export class DoctorProfilePage {
       
        
            
-            if(pfunds.order_count == 0)
+            if(pfunds.order_count == 0) {
               this.completeOrders();
+              this.offline = "1";
+            }
             else if(pfunds.order_count>0 && pfunds.order_count<3)
               this.fundAlert(pfunds.forfeit_patient,this.doctorProfile.discount);
           else if(pfunds.order_count >= 3)          
