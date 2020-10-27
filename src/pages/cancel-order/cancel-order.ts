@@ -128,6 +128,11 @@ export class CancelOrderPage {
     console.log("user reasons",this.userReasons.join());
     console.log("desc: ",this.desc);
     console.log("order id from cancle: ",this.orderId);
+
+    //ayaaaa
+    this.CancelBtn = true;
+    ////
+
     if (navigator.onLine) {
       this.service.cancelorder(this.orderId,this.userReasons.join(),this.desc,this.accessToken).timeout(10000).subscribe(
         resp => {

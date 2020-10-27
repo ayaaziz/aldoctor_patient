@@ -66,8 +66,12 @@ timer;
       // }
 
     this.activationForm = formBuilder.group({
-      // code: ['', Validators.required]
-      code: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{5}")])]
+
+      // code: ['', Validators.compose([Validators.required,Validators.pattern("[0-9]{5}")])]
+
+      //ayaaaa
+      code: ['', Validators.pattern("[0-9]{5}")]
+
     });
     
     console.log("activation code lang dir :",this.langDirection);
@@ -117,6 +121,14 @@ timer;
      //   console.log("code after replacement: ",this.code);
           if(this.from)
           {
+
+            //ayaaa
+            if(!this.code) {
+              this.codeErrMsg = this.translate.instant("enterCode");
+              return;
+            }
+            /////
+
             if(this.from == 2){
               this.loginservice.UserForgetPassword(this.code,this.phone, (data) => {
                 if(data.success){
@@ -205,12 +217,58 @@ timer;
               }
             );
             }
-          }else
-          this.loginservice.activateUser(this.code,this.accessToken,(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data));
-        
-        // })
+          }else {
+            // this.loginservice.activateUser(this.code,this.accessToken,(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data));
 
-       // this.loginservice.activateUser(this.code,"",(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data))
+
+
+            //#region newcode 27-10-2020
+
+            this.loginservice.getuserProfile(this.accessToken).subscribe(
+              resp => {
+                var newuserData = JSON.parse(JSON.stringify(resp));
+
+                //user activared
+                if(newuserData.mob_verified == "1") {
+
+                  this.storage.remove("verification_page");
+
+                  this.storage.set("user_info",{
+                    "id":newuserData.id,
+                    "name":newuserData.name,
+                    "email":newuserData.email,
+                    "phone":newuserData.phone,
+                    "dob":newuserData.user_info.birth_date,
+                    "add":newuserData.extraInfo.address,
+                    "profile_pic":newuserData.profile_pic
+                  }).then((data)=>{
+                    this.events.publish("user:userLoginSucceeded")
+                    this.events.publish('changeProfilePic',{pic:newuserData.profile_pic});
+                    this.navCtrl.setRoot(TabsPage);
+                
+                  },(error)=>{
+                  });
+                      
+                } else {
+
+                  if(!this.code)
+                  {
+                    this.codeErrMsg = this.translate.instant("enterCode");
+                  
+                  } else {
+                    this.loginservice.activateUser(this.code,this.accessToken,(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data));                   
+                  }
+
+                }
+                
+              },err => {
+                console.log("errorrrr");
+              }
+            );
+
+            //#endregion
+          }
+        
       }
       else{
         this.presentToast(this.translate.instant("checkNetwork"))
@@ -238,6 +296,9 @@ timer;
       this.loginservice.getuserProfile(this.accessToken).subscribe(
         resp=>{
           var newuserData = JSON.parse(JSON.stringify(resp));
+
+          console.log("ayaaaa newuserData: "+ JSON.stringify(resp));
+
           this.storage.set("user_info",{
             "id":newuserData.id,
             "name":newuserData.name,
@@ -248,6 +309,11 @@ timer;
             "profile_pic":newuserData.profile_pic
           }).then((data)=>{
             this.events.publish("user:userLoginSucceeded")
+
+            //ayaaaaa
+            this.events.publish('changeProfilePic',{pic:newuserData.profile_pic});
+            /////////
+
              this.navCtrl.setRoot(TabsPage);
             // this.navCtrl.push('slider');
             // this.storage.get("slider").catch(err=>{

@@ -116,6 +116,11 @@ reasonChecked(item , event){
   
   }
   cancelOrder(){
+
+    //ayaaa
+    this.CancelBtn = true;
+    ////    
+
     console.log("user reasons",this.userReasons.join());
     console.log("desc: ",this.desc);
     console.log("order id from cancle: ",this.orderId);
