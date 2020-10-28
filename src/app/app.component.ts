@@ -73,6 +73,8 @@ export class MyApp {
 
   userLoged;
 
+  accessToken;
+
   // private appRate: AppRate,
   constructor(public events: Events, public service: LoginserviceProvider,
     private alertCtrl: AlertController, private push: Push,
@@ -183,7 +185,35 @@ events.subscribe('user:userLoginSucceeded', () => {
     storage.get("verification_page").then((val) => {
       if (val) {
         console.log(" verification_page from storage", val);
-        this.rootPage = 'verification-code';
+        // this.rootPage = 'verification-code';
+
+
+
+        //ayaaaa
+        //#region 27-10-2020
+        this.accessToken = localStorage.getItem('user_token');
+
+          this.service.getuserProfile(this.accessToken).subscribe(
+              resp => {
+                var newuserData = JSON.parse(JSON.stringify(resp));
+
+                //user activared
+                if(newuserData.status == "1") {
+
+                  this.storage.remove("verification_page");
+
+                  this.rootPage = LoginPage;
+                     
+                } else {
+                  this.rootPage = 'verification-code';
+                }
+                
+              },err => {
+                console.log("errorrrr");
+              }
+            );
+
+        //#endregion
 
       } else {
 
@@ -1697,6 +1727,13 @@ if (notification.additionalData.OrderID){
                   this.presentToast("لقد تم إلغاء الطلب");
                 else if (myOrderStatus == "13")
                   this.presentToast("لقد تم تأكيد الموعد");
+
+                //ayaaaa
+                else if (myOrderStatus == "7" || myOrderStatus == "8")
+                  this.presentToast("عفواً .. لقد تم بدء الخدمة بالفعل");
+                else if (myOrderStatus == "5" || myOrderStatus == "6")
+                  this.presentToast("عفواً .. لقد تم تنفيذ الخدمة بالفعل");
+                /////
                 else {
                   this.service.updateOrderStatusToCancel(order_id, token).subscribe(
                     resp => {
@@ -1751,6 +1788,14 @@ if (notification.additionalData.OrderID){
                   this.presentToast("لقد تم إلغاء الطلب");
                 else if (myOrderStatus == "13")
                   this.presentToast("لقد تم تأكيد الموعد");
+               
+                //ayaaaa
+                else if (myOrderStatus == "7" || myOrderStatus == "8")
+                this.presentToast("عفواً .. لقد تم بدء الخدمة بالفعل");
+                else if (myOrderStatus == "5" || myOrderStatus == "6")
+                this.presentToast("عفواً .. لقد تم تنفيذ الخدمة بالفعل");
+                /////
+
                 else {
                   this.service.updateOrderStatusToAgreeTime(order_id, token).subscribe(
                     resp => {

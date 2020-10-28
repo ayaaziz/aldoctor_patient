@@ -180,9 +180,10 @@ button:focus{
 }
 
 
-.foo .alert-message {
+.alert-md.foo .alert-message,
+.alert-ios.foo .alert-message {
     // white-space: pre;
-    color: red;
+    color: #f00 !important;
     font-size: 18px !important;
     font-weight: bold;
   }

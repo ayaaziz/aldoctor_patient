@@ -71,7 +71,7 @@
               <ion-input *ngIf="langDirection != 'rtl'" placeholder="Enter code"  [dir]="langDirection"  style="border-radius: 2px;padding: 0px;" formControlName="code" [(ngModel)]="code"
           type="text" [dir]="langDirection" (input)="changeTxt()" ></ion-input>
           </ion-item>
-          <ion-item *ngIf="!activationForm.controls.code.valid && submitAttempt || !this.code" no-lines>
+          <ion-item *ngIf="(!activationForm.controls.code.valid || txtFlag) && submitAttempt" no-lines>
           <!-- <p> {{"enterCode" | translate}} </p> -->
           <p> {{codeErrMsg }}</p>
           </ion-item>

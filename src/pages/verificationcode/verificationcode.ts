@@ -35,6 +35,8 @@ timer;
 
   disableBtn = false
 
+  txtFlag:boolean = false;
+
 
   constructor(public storage: Storage,public translate: TranslateService, public events: Events,
     public loginservice:LoginserviceProvider,
@@ -124,10 +126,13 @@ timer;
 
             //ayaaa
             if(!this.code) {
+              this.txtFlag = true;
               this.codeErrMsg = this.translate.instant("enterCode");
               return;
             }
             /////
+
+            this.txtFlag = false;
 
             if(this.from == 2){
               this.loginservice.UserForgetPassword(this.code,this.phone, (data) => {
@@ -232,6 +237,7 @@ timer;
                 if(newuserData.mob_verified == "1") {
 
                   this.storage.remove("verification_page");
+                  this.txtFlag = false;
 
                   this.storage.set("user_info",{
                     "id":newuserData.id,
@@ -253,9 +259,11 @@ timer;
 
                   if(!this.code)
                   {
+                    this.txtFlag = true;
                     this.codeErrMsg = this.translate.instant("enterCode");
                   
                   } else {
+                    this.txtFlag = false;
                     this.loginservice.activateUser(this.code,this.accessToken,(data)=>this.activationSuccessCallback(data),(data)=>this.failureSuccessCallback(data));                   
                   }
 
