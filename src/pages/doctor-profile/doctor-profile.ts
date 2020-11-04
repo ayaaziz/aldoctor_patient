@@ -104,7 +104,7 @@ export class DoctorProfilePage {
 
   completeOrders(){
 
-
+    this.offline = "1";
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
     // this.storage.get("access_token").then(data=>{

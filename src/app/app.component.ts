@@ -735,13 +735,15 @@ else {
     pushObject.on('notification').subscribe((notification: any) => {
       console.log("notification " + JSON.stringify(notification))
 
-      console.log("notification.additionalData.OrderID: "+notification.additionalData.OrderID);
+      // console.log("notification.additionalData.OrderID: "+notification.additionalData.OrderID);
 
       this.translate.use('ar');
 
       if (this.platform.is('ios')) {
         console.log("ios notification", notification);
+
         if (notification.additionalData["gcm.notification.OrderID"]){
+
         // if (notification.additionalData.foreground == true) {
         //   console.log("foreground ios notification", notification);
 
@@ -1202,6 +1204,8 @@ if (notification.additionalData.OrderID){
 
     console.log("notification from ios", notification);
 
+    var orderStatus = notification.additionalData["gcm.notification.order_status"];
+
     if (notification.additionalData["gcm.notification.type_id"] == "1" || notification.additionalData["gcm.notification.type_id"]  == "2" || notification.additionalData["gcm.notification.type_id"]  == "3" || notification.additionalData["gcm.notification.type_id"] == "5") {
       //this.alert("type_id: "+notification.additionalData.type_id+"status: "+notification.additionalData.type_id);
       var orderId = notification.additionalData["gcm.notification.OrderID"] ;
@@ -1212,7 +1216,7 @@ if (notification.additionalData.OrderID){
 
       this.helper.type_id = notification.additionalData["gcm.notification.type_id"];
 
-      var orderStatus = notification.additionalData["gcm.notification.order_status"];
+      // var orderStatus = notification.additionalData["gcm.notification.order_status"];
 
 
       var data = {
@@ -1369,10 +1373,26 @@ if (notification.additionalData.OrderID){
         });
         //}
       }
+
+       //ayaaaaaaaaaaa
+       else if (orderStatus == "20") {
+
+        // alert("notification.additionalData['foreground']: "+ notification.additionalData["foreground"]);
+        // alert("notification.additionalData['gcm.notification.OrderID']: "+ notification.additionalData["gcm.notification.OrderID"]);
+
+        if(!notification.additionalData["foreground"]) {
+          this.nav.setRoot(TabsPage);
+          this.nav.push('ShowReportPage',{"recievedItem": notification.additionalData["gcm.notification.OrderID"]});
+             
+        } else {
+          this.presentReportAlert(notification["title"], notification["message"],notification.additionalData["gcm.notification.OrderID"]);      
+        }
+      }
+      ///////////////
     }
     else {
       this.helper.notification = notification;
-      var orderStatus = notification.additionalData["gcm.notification.order_status"];
+      // var orderStatus = notification.additionalData["gcm.notification.order_status"];
       var data = {
         doctorId: notification.additionalData["gcm.notification.doctorId"],
         orderId: notification.additionalData["gcm.notification.OrderID"]
@@ -1489,23 +1509,22 @@ if (notification.additionalData.OrderID){
 
       }
 
-
       //ayaaaaaaaaaaa
       else if (orderStatus == "20") {
 
-        if(notification.additionalData["foreground"]) {
-          this.presentReportAlert(notification["title"], notification["message"],notification.additionalData["gcm.notification.OrderID"]);
-          
-        } else {
-          // this.events.publish("status2");
+        // alert("notification.additionalData['foreground']: "+ notification.additionalData["foreground"]);
+        // alert("notification.additionalData['gcm.notification.OrderID']: "+ notification.additionalData["gcm.notification.OrderID"]);
+
+        if(!notification.additionalData["foreground"]) {
           this.nav.setRoot(TabsPage);
           this.nav.push('ShowReportPage',{"recievedItem": notification.additionalData["gcm.notification.OrderID"]});
+                    
+        } else {
+          this.presentReportAlert(notification["title"], notification["message"],notification.additionalData["gcm.notification.OrderID"]);       
         }
       }
       ///////////////
     }
-  
-
 
   }
   initializeApp() {
