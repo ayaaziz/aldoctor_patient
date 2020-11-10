@@ -810,8 +810,11 @@ else {
         //ayaaaaa
         //general notification
         console.log("general notification!!");
-        this.nav.setRoot(TabsPage);  
-        this.nav.push(NotificationPage,{"fromNotification":true}); 
+        // this.nav.setRoot(TabsPage).then(() => {
+        //   this.nav.push(NotificationPage,{"fromNotification":true}); 
+        // })  
+        this.nav.setRoot(TabsPage, { tabIndex: 3 });
+       
         return;
       }
 
@@ -1157,8 +1160,10 @@ if (notification.additionalData.OrderID){
         
         //ayaaaaaaaaa
         console.log("general notification");
-        this.nav.setRoot(TabsPage);  
-        this.nav.push(NotificationPage,{"fromNotification":true});    
+        // this.nav.setRoot(TabsPage).then(() => {
+        //   this.nav.push(NotificationPage,{"fromNotification":true});  
+        // })  
+        this.nav.setRoot(TabsPage, { tabIndex: 3 });
         /////////////
         
         // alert("general notification");

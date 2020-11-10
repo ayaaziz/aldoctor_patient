@@ -6,7 +6,7 @@ import { HomePage } from '../home/home';
 import { NotificationPage } from '../notification/notification';
 import { ProfilePage } from '../profile/profile';
 import { OrderhistoryPage } from '../orderhistory/orderhistory';
-import { Events } from 'ionic-angular';
+import { Events, NavParams } from 'ionic-angular';
 
 
 @Component({
@@ -24,7 +24,7 @@ export class TabsPage {
   enableTab = true;
   enablehomeTab = true;
 
-  constructor(public events: Events) {
+  constructor(public events: Events,public params: NavParams) {
     this.events.subscribe('lengthdata', (count) => {
       
       this.favCount = count;
@@ -42,6 +42,12 @@ export class TabsPage {
       this.enableTab = enabel;
       this.enablehomeTab = enabel;
     });
+
+
+    let tabIndex = this.params.get('tabIndex');
+    if (tabIndex) {
+      this.tabindex = tabIndex;
+    }
 
   }
   

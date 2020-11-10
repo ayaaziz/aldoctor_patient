@@ -217,6 +217,9 @@ export class NursingStayAndWoundCarePage {
     //nursing stay
     if (this.Service_id == 1) {
 
+      this.noOfHoursPerDay = this.textArabicNumbersReplacment(this.noOfHoursPerDay);
+      this.noOfDaysPerMonth = this.textArabicNumbersReplacment(this.noOfDaysPerMonth);
+
       if(! this.noOfHoursPerDay) {
         this.presentToast("الرجاء إدخال عدد الساعات فى اليوم");
         return;
@@ -266,6 +269,10 @@ export class NursingStayAndWoundCarePage {
     } 
     //wound care
     else if (this.Service_id == 2 || this.Service_id == 3 || this.Service_id == 4) {
+
+      this.noOfTimesPerDay = this.textArabicNumbersReplacment(this.noOfTimesPerDay);
+      this.noOfDaysPerWeek = this.textArabicNumbersReplacment(this.noOfDaysPerWeek);
+
       if(! this.noOfTimesPerDay) {
         this.presentToast("الرجاء إدخال عدد المرات فى اليوم");
         return;
@@ -433,7 +440,26 @@ export class NursingStayAndWoundCarePage {
   }
 
 
+  textArabicNumbersReplacment(strText) {
 
+    console.log("strText",strText);
+    var strTextFiltered = strText;
+  
+    strTextFiltered = strTextFiltered.replace(/[\٩]/g, '9');
+    strTextFiltered = strTextFiltered.replace(/[\٨]/g, '8');
+    strTextFiltered = strTextFiltered.replace(/[\٧]/g, '7');
+    strTextFiltered = strTextFiltered.replace(/[\٦]/g, '6');
+    strTextFiltered = strTextFiltered.replace(/[\٥]/g, '5');
+    strTextFiltered = strTextFiltered.replace(/[\٤]/g, '4');
+    strTextFiltered = strTextFiltered.replace(/[\٣]/g, '3');
+    strTextFiltered = strTextFiltered.replace(/[\٢]/g, '2');
+    strTextFiltered = strTextFiltered.replace(/[\١]/g, '1');
+    strTextFiltered = strTextFiltered.replace(/[\٠]/g, '0');
+    //
+    console.log("strtxt after replacement",strTextFiltered);
+    return strTextFiltered;
+    //
+  }
 
   
 }

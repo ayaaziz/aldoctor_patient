@@ -38,6 +38,8 @@ export class DoctorProfilePage {
   slogn;
   slognImage;
 
+  isOrderDisabled:boolean = false;
+
   constructor( public toastCtrl: ToastController, 
     public storage: Storage, public app:App,
     public service:LoginserviceProvider,public alertCtrl: AlertController,
@@ -96,7 +98,9 @@ export class DoctorProfilePage {
       this.presentToast(this.translate.instant("doctoroffline"));
     }
     else{
-     this.checkfund();
+      this.offline == "1";
+      this.isOrderDisabled = true;
+      this.checkfund();
      // this.completeOrders();
      }
   }
@@ -105,6 +109,7 @@ export class DoctorProfilePage {
   completeOrders(){
 
     this.offline = "1";
+    this.isOrderDisabled = true;
 
     console.log("orderId from doctorProfile: ",this.doctorProfile.id);
     // this.storage.get("access_token").then(data=>{
