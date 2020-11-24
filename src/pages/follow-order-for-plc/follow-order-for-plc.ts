@@ -222,7 +222,7 @@ export class FollowOrderForPlcPage {
       // else
       //   this.disableCancelBtn = false;
   
-      if(this.doctorData.order_status && this.doctorData.order_status == "8")
+      if(this.doctorData.order_status && (this.doctorData.order_status == "8" || this.doctorData.order_status == "7"))
         this.disableCancelBtn = true;
       else
         this.disableCancelBtn = false;
