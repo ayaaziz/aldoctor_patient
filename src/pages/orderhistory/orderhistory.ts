@@ -163,13 +163,14 @@ reorderDate:"",reorderPrice:"",hasfiles:0,serviceTitle:""};
             // if(ordersData[j].rated == "0")
             //   ordersData[j].color = "yellow";
 
-            if(ordersData[j].status == "4") //ordersData[j].status == "0" ||
+            if(ordersData[j].status == "4" || ordersData[j].status == "11") //ordersData[j].status == "0" ||
             {
               ordersData[j].statusTxt = "ملغي" ;
               ordersData[j].color = "red";
               ordersData[j].rated = "1";
             }
-            else if (ordersData[j].status == "10" || ordersData[j].status == "11")
+            // else if (ordersData[j].status == "10" || ordersData[j].status == "11")
+            else if (ordersData[j].status == "10")
             {
               ordersData[j].statusTxt ="مرفوض" ;
               ordersData[j].color = "red";
