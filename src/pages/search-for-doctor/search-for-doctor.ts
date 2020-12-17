@@ -179,7 +179,7 @@ getCurrentLoc(loc) {
     //ayaaaaaa
     let alert = this.alertCtrl.create({
       title:"لا يمكن تحديد موقعك",
-      message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+      message: 'للإستمرار، الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
       cssClass:"alertGPS",
       buttons: [
         {
@@ -537,7 +537,7 @@ getUserLocation(){
       //ayaaaaaa
       let alert = this.alertCtrl.create({
         title:"لا يمكن تحديد موقعك",
-        message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+        message: 'للإستمرار، الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
         cssClass:"alertGPS",
         buttons: [
           {
@@ -906,7 +906,7 @@ initMapWithDoctorsLocation(){
         //ayaaaaaa
         let alert = this.alertCtrl.create({
           title:"لا يمكن تحديد موقعك",
-          message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+          message: 'للإستمرار، الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
           cssClass:"alertGPS",
           buttons: [
             {
@@ -962,7 +962,7 @@ initMapWithDoctorsLocation(){
          //ayaaaaaa
          let alert = this.alertCtrl.create({
           title:"لا يمكن تحديد موقعك",
-          message: 'للإستمرار الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
+          message: 'للإستمرار، الرجاء تفعيل ال GPS حتى يمكن تحديد موقعك، أو قم بتحديد موقعك على الخريطة بنفسك',
           cssClass:"alertGPS",
           buttons: [
             {

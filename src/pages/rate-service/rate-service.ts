@@ -332,14 +332,16 @@ export class RateServicePage {
                
            //share 
            var shareLink;
-           if (this.platform.is('ios')) {
-             shareLink = "https://itunes.apple.com/us/app/aldoctor-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1/id1440723878?ls=1&mt=8";
+          //  if (this.platform.is('ios')) {
+          //    shareLink = "https://itunes.apple.com/us/app/aldoctor-%D8%A7%D9%84%D8%AF%D9%83%D8%AA%D9%88%D8%B1/id1440723878?ls=1&mt=8";
            
-           } else {
-             shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
-           }
+          //  } else {
+          //    shareLink = "https://play.google.com/store/apps/details?id=net.ITRoots.Patient";
+          //  }
+
+          shareLink = "http://onelink.to/78nns3";
  
-           this.socialSharing.share("تطبيق الدكتور", null , null , shareLink).then(() => {
+           this.socialSharing.share("بدعوك تنزل تطبيق الدكتور عشان صحتك وصحة أسرتك", null , null , shareLink).then(() => {
              console.log("success")
            }).catch(() => {
              console.log("not available");

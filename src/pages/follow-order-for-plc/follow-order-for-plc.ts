@@ -126,7 +126,7 @@ export class FollowOrderForPlcPage {
       this.doctorId = this.doctorData.doctorId;
       this.orderId = this.doctorData.orderId;
 
-      if(this.doctorData.order_status && this.doctorData.order_status == "8")
+      if(this.doctorData.order_status && (this.doctorData.order_status == "8" || this.doctorData.order_status == "7"))
       {
         console.log("order status from navParams",this.doctorData.order_status);
         this.disableCancelBtn = true;
@@ -934,7 +934,9 @@ private presentToast(text) {
           this.helper.removeNetworkDisconnectionListener();
           this.storage.remove("orderImages");      
         }
-        if(this.refreshOrderStatus == "8" && this.status8alertdiabled == false)
+
+        //ayaa
+        if((this.refreshOrderStatus == "8" || this.refreshOrderStatus == "7") && this.status8alertdiabled == false)
         {
           //بدء التوصيل
           this.status8alertdiabled = true;

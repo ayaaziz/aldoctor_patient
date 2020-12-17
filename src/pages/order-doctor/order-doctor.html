@@ -104,13 +104,6 @@
           <h3 style="font-size:10px">{{item.specialityname}}</h3>
 
 
-          <!-- ayaaaaaaaaaaaa -->
-          <div *ngIf="item.slogn_image && item.slogn" style="margin-top: -8px;">
-            <img [src]="item.slogn_image" style="width:15px;height:15px;">
-            <h3 style="font-size:10px">{{item.slogn}}</h3>
-          </div> 
-          <!-- //////////// -->
-
           <h5 style="font-size:12px;font-weight: bold;">{{"cost"|translate}} : {{item.discount}}{{"pound"|translate}}</h5>
           <rating 
                 [(ngModel)]="item.rate" 
@@ -121,6 +114,14 @@
                 starIconName="star" 
                 nullable="false" 
                 ></rating>
+
+          <!-- ayaaaaaaaaaaaa -->
+          <div *ngIf="item.slogn_image && item.slogn" style="margin-top: -8px;">
+            <img [src]="item.slogn_image" style="width:15px;height:15px;">
+            <h3 style="font-size:10px;font-weight: bold;">{{item.slogn}}</h3>
+          </div> 
+          <!-- //////////// -->
+
         </ion-item>
       </ion-col>
       <!-- fixed class="customItem4" width:30%; padding-left: 25px;padding-top: 15px;-->

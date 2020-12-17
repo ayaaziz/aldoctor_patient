@@ -28,14 +28,7 @@
     <p class="center" style="color:gray;font-size: 16px;padding-top:0px;margin-bottom:0px;">{{specialization}}</p>
 
 
-    <!-- ayaaaaaaaaaaaa -->
-    <div *ngIf="slognImage && slogn" style="text-align: center;margin-top: -2px;">
-      <img [src]="slognImage" onerror="this.onerror=null;this.src='assets/imgs/default_slogn.png';" style="width:15px;height:15px;">
-      <span style="font-size:10px">{{slogn}}</span>
-    </div>
-    <!-- //////////// -->
-
-    <div class="center" style="border-bottom: 2px solid #e8f1ed;">
+    <div class="center">
     <rating 
     [(ngModel)]="rate" 
     readOnly="true" 
@@ -46,6 +39,13 @@
     nullable="false" 
     ></rating>
   </div>
+
+     <!-- ayaaaaaaaaaaaa -->
+     <div *ngIf="slognImage && slogn" style="text-align: center;margin-top: -5px;padding-bottom: 14px;border-bottom: 2px solid #e8f1ed;">
+      <img [src]="slognImage" onerror="this.onerror=null;this.src='assets/imgs/default_slogn.png';" style="width:15px;height:15px;">
+      <span style="font-size:14px;font-weight: bold;">{{slogn}}</span>
+    </div>
+    <!-- //////////// -->
 
 
   <!-- <ion-item no-lines >
@@ -62,9 +62,26 @@
 </div> -->
 
 <div style="text-align: right;padding-right: 8px;padding-top:10px">
-<img src="assets/icon/member.png" class="customIcon"> 
-<p style="color:gray;display: inline;"> {{bio}} </p>
+  <img src="assets/icon/member.png" class="customIcon"> 
+  <p style="color:gray;display: inline;"> {{bio}} </p>
 </div>
+
+<!-- 17-12-2020 -->
+
+<!-- <ion-row style="text-align: right;padding-right: 8px;padding-top:10px">
+  <ion-col col-1>
+    <img src="assets/icon/member.png" class="customIcon"> 
+  </ion-col>
+
+  <ion-col>
+    <textarea style="text-align: right;padding-top:10px;color:gray;width: 100%;border: none;">
+      {{bio}}
+    </textarea>
+  </ion-col>
+
+</ion-row> -->
+
+<!-- 17-12-2020 -->
 
 <div style="text-align: right;padding-right: 8px;padding-top:10px">
   <img src="assets/icon/location.png" class="customIcon"> 
